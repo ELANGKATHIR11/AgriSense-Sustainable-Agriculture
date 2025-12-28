@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState, Suspense } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api, type TankStatus, type AlertItem, type WeatherCacheRow, type ValveEvent, type RainwaterSummary, type RainwaterEntry, type DashboardSummary, type LiveSensorData, type DeviceStatus, type ArduinoStatus } from "../lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Skeleton } from "../components/ui/skeleton";
 import { AgriSenseLogo, AgriSenseIcon } from "../components/AgriSenseLogo";
 import { motion, AnimatePresence } from "framer-motion";
-import FarmScene from "../components/3d/FarmScene";
 import { 
   Droplets, 
   Thermometer, 
@@ -215,32 +214,82 @@ export default function Dashboard() {
       transition={{ duration: 0.6 }}
       className="space-y-8 p-4 md:p-6 lg:p-8 bg-gradient-to-br from-green-50 via-white to-emerald-50 min-h-screen"
     >
-      {/* 3D Farm Visualization */}
+      {/* 3D Farm Visualization - Static Image */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.2 }}
         className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-sky-100 to-green-100 shadow-2xl h-96 mb-8"
       >
-        <Suspense fallback={
-          <div className="flex items-center justify-center h-full bg-gradient-to-br from-sky-100 to-green-100">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
-              <p className="text-green-700 font-medium">Loading 3D Farm Scene...</p>
+        <div className="w-full h-full relative">
+          {/* Static 3D Farm Illustration */}
+          <img 
+            src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2070&auto=format&fit=crop" 
+            alt="Smart Farm with IoT Sensors, Water Tanks, and Drones"
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Overlay with Farm Elements */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20">
+            {/* Status Indicators */}
+            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg">
+              <h3 className="font-bold text-green-900 mb-3 text-lg flex items-center gap-2">
+                <span className="text-2xl">🌾</span>
+                <span>AgriSense Farm</span>
+              </h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse" />
+                    <span className="font-medium">💧 Water Tanks:</span>
+                  </div>
+                  <span className="font-bold text-blue-600">2 Active</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+                    <span className="font-medium">🚁 Drones:</span>
+                  </div>
+                  <span className="font-bold text-cyan-600">3 Patrolling</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-3 h-3 rounded-full ${valveEvents[0]?.action === "start" ? 'bg-teal-500 animate-pulse' : 'bg-gray-400'}`} />
+                    <span className="font-medium">💦 Irrigation:</span>
+                  </div>
+                  <span className={`font-bold ${valveEvents[0]?.action === "start" ? 'text-teal-600' : 'text-gray-500'}`}>
+                    {valveEvents[0]?.action === "start" ? 'Active' : 'Standby'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Sensor Data Display */}
+            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg">
+              <h4 className="font-bold text-gray-800 mb-2 text-sm">📊 Live Sensors</h4>
+              <div className="space-y-1 text-xs">
+                <div className="flex justify-between gap-3">
+                  <span className="text-gray-600">Temperature:</span>
+                  <span className="font-bold text-orange-600">{getCurrentArduinoTemperature() || liveSensorData?.air_temperature || 25}°C</span>
+                </div>
+                <div className="flex justify-between gap-3">
+                  <span className="text-gray-600">Humidity:</span>
+                  <span className="font-bold text-blue-600">{liveSensorData?.humidity || 65}%</span>
+                </div>
+                <div className="flex justify-between gap-3">
+                  <span className="text-gray-600">Soil Moisture:</span>
+                  <span className="font-bold text-teal-600">{liveSensorData?.soil_moisture_percentage || soilMoisture || 45}%</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Farm Features Label */}
+            <div className="absolute bottom-4 left-4 bg-emerald-900/80 backdrop-blur-md px-6 py-3 rounded-xl shadow-lg">
+              <p className="text-white text-lg font-bold">🚜 Smart IoT-Enabled Farm Field</p>
+              <p className="text-emerald-100 text-sm">Water Tanks • Drone Fleet • IoT Sensors</p>
             </div>
           </div>
-        }>
-          <FarmScene 
-            sensorData={{
-              temperature: getCurrentArduinoTemperature() || liveSensorData?.air_temperature || 25,
-              humidity: liveSensorData?.humidity || 65,
-              soilMoisture: liveSensorData?.soil_moisture_percentage || soilMoisture || 45,
-              lightIntensity: liveSensorData?.light_intensity_percentage || 80
-            }}
-            irrigationActive={valveEvents[0]?.action === "start" && (valveEvents[0]?.status === "sent" || valveEvents[0]?.status === "queued")}
-            className="w-full h-full"
-          />
-        </Suspense>
+        </div>
       </motion.div>
 
       {/* Modern AgriSense Header */}

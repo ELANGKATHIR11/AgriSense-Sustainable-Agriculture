@@ -3364,6 +3364,8 @@ ROOT = os.path.dirname(__file__)
 FRONTEND_DIST_NESTED = os.path.join(ROOT, "..", "frontend", "farm-fortune-frontend-main", "dist")
 FRONTEND_DIST = os.path.join(ROOT, "..", "frontend", "dist")
 FRONTEND_LEGACY = os.path.join(ROOT, "..", "frontend")
+# Docker/Hugging Face Spaces: Frontend built into backend/static/ui
+FRONTEND_STATIC_UI = os.path.join(ROOT, "static", "ui")
 frontend_root: Optional[str] = None
 
 
@@ -3385,7 +3387,12 @@ class StaticFilesWithCache(StaticFiles):
         return response
 
 
-if os.path.isdir(FRONTEND_DIST_NESTED):
+# Priority: Docker static/ui > nested dist > dist > legacy
+if os.path.isdir(FRONTEND_STATIC_UI):
+    frontend_root = FRONTEND_STATIC_UI
+    app.mount("/ui", StaticFilesWithCache(directory=FRONTEND_STATIC_UI, html=True), name="frontend")
+    logger.info(f"✅ Serving frontend from Docker static path: {FRONTEND_STATIC_UI}")
+elif os.path.isdir(FRONTEND_DIST_NESTED):
     frontend_root = FRONTEND_DIST_NESTED
     app.mount(
         "/ui",

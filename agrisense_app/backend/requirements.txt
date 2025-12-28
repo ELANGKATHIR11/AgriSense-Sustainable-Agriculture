@@ -22,8 +22,14 @@ torch==2.5.1
 torchvision==0.20.1
 sentence-transformers>=3.3.1
 
+# ===== Deep Learning (TensorFlow) - Python 3.12 Compatible =====
+# TensorFlow 2.18+ has NO distutils dependency (Python 3.12 compatible)
+tensorflow>=2.18.0,<2.19.0
+keras>=3.8.0
+
 # ===== Computer Vision =====
-opencv-python>=4.10.0.84
+# Use headless version for Docker (no GUI dependencies)
+opencv-python-headless>=4.10.0.84
 Pillow>=11.1.0
 
 # ===== NLP & Retrieval =====
@@ -38,6 +44,15 @@ paho-mqtt>=2.1.0
 
 # ===== Database (SQLite) =====
 sqlalchemy>=2.0.36
+
+# ===== Database - MongoDB (Production) =====
+pymongo>=4.10.1
+motor>=3.7.0  # Async MongoDB driver for FastAPI
+
+# ===== Background Tasks - Celery =====
+celery[redis]>=5.4.0
+redis>=5.2.1
+flower>=2.0.1  # Optional: Celery monitoring UI
 
 # ===== Authentication & Security =====
 # SECURITY: Using PyJWT instead of python-jose to avoid ecdsa CVE-2024-23342
