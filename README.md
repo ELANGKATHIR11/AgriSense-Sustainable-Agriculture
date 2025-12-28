@@ -47,6 +47,8 @@ AgriSense is a comprehensive smart agriculture platform that combines cutting-ed
 
 ## 🚀 Quick Start
 
+### Local Development
+
 Run the complete application with a single command:
 
 ```powershell
@@ -57,6 +59,29 @@ Run the complete application with a single command:
 - **Main Application**: http://localhost:8004/ui
 - **API Documentation**: http://localhost:8004/docs
 - **Admin Panel**: http://localhost:8004/ui/admin
+
+### 🌐 Deploy to Hugging Face Spaces (FREE - 16GB RAM)
+
+**Complete deployment in 30-45 minutes with zero cost:**
+
+```bash
+# 1. One-command automated setup
+bash deploy_to_huggingface.sh agrisense-app your-username
+
+# 2. Add secrets in Space settings (MONGO_URI, REDIS_URL, AGRISENSE_ADMIN_TOKEN)
+# 3. Push and wait for build (~10-15 minutes)
+# 4. Access at: https://huggingface.co/spaces/your-username/agrisense-app
+```
+
+**What's Included (100% FREE):**
+- 16GB RAM compute (Hugging Face Spaces)
+- MongoDB Atlas M0 sandbox (512MB)
+- Upstash Redis free tier (10K commands/day)
+- Multi-stage Docker container
+- FastAPI + Celery orchestration
+- Frontend static serve
+
+📖 **See** [HF_DEPLOYMENT_GUIDE.md](HF_DEPLOYMENT_GUIDE.md) for complete setup instructions.
 
 ## 📱 Application Features
 
