@@ -121,3 +121,19 @@ Thumbs.db
 .env.local
 .env.*.local
 *.db-journal
+
+# Additional local/large items
+# local virtualenvs
+venv_*/
+venv*/
+.venv_py312_npu/
+.venv-py312/
+# venvs under AI_Models
+AI_Models/**/venv/
+
+# Generated size reports
+.file_sizes.json
+.sizes_summary.json
+
+# Large model directories (keep artifacts out of repo)
+ml_models/
