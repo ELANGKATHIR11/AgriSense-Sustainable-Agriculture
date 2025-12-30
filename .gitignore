@@ -137,3 +137,11 @@ AI_Models/**/venv/
 
 # Large model directories (keep artifacts out of repo)
 ml_models/
+
+# Additional ignores added 2025-12-30
+.mypy_cache/
+backup_ml_models.zip
+.pytest_cache/
+__pycache__/
+dist/
+build/
