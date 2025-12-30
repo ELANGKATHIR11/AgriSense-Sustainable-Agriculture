@@ -20,6 +20,13 @@ try:
     CV_AVAILABLE = True
 except ImportError:
     CV_AVAILABLE = False
+    # Define placeholders to avoid NameError when modules are missing.
+    cv2 = None
+    np = None
+    Image = None
+    torch = None
+    transforms = None
+    models = None
     logging.warning("CV dependencies not available. Disease detection will use rule-based analysis.")
 
 from .crop_database import get_crop_info, get_diseases_for_crop, Disease
@@ -73,13 +80,24 @@ class DiseaseDetector:
             self._initialize_model(model_path)
         
         # Color ranges for disease symptom detection (HSV)
-        self.symptom_colors = {
-            "yellow_spots": {"lower": np.array([20, 40, 40]), "upper": np.array([40, 255, 255])},
-            "brown_spots": {"lower": np.array([10, 30, 20]), "upper": np.array([25, 200, 100])},
-            "white_patches": {"lower": np.array([0, 0, 180]), "upper": np.array([180, 30, 255])},
-            "black_spots": {"lower": np.array([0, 0, 0]), "upper": np.array([180, 255, 50])},
-            "rust_colored": {"lower": np.array([0, 100, 100]), "upper": np.array([15, 255, 255])},
-        }
+        # Use numpy arrays when available, otherwise use plain lists so module import
+        # and instantiation won't fail when CV dependencies are missing.
+        if np is not None:
+            self.symptom_colors = {
+                "yellow_spots": {"lower": np.array([20, 40, 40]), "upper": np.array([40, 255, 255])},
+                "brown_spots": {"lower": np.array([10, 30, 20]), "upper": np.array([25, 200, 100])},
+                "white_patches": {"lower": np.array([0, 0, 180]), "upper": np.array([180, 30, 255])},
+                "black_spots": {"lower": np.array([0, 0, 0]), "upper": np.array([180, 255, 50])},
+                "rust_colored": {"lower": np.array([0, 100, 100]), "upper": np.array([15, 255, 255])},
+            }
+        else:
+            self.symptom_colors = {
+                "yellow_spots": {"lower": [20, 40, 40], "upper": [40, 255, 255]},
+                "brown_spots": {"lower": [10, 30, 20], "upper": [25, 200, 100]},
+                "white_patches": {"lower": [0, 0, 180], "upper": [180, 30, 255]},
+                "black_spots": {"lower": [0, 0, 0], "upper": [180, 255, 50]},
+                "rust_colored": {"lower": [0, 100, 100], "upper": [15, 255, 255]},
+            }
     
     def _initialize_model(self, model_path: Optional[str]):
         """Initialize ML model for disease detection"""

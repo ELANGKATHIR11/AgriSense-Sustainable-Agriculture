@@ -79,15 +79,29 @@ def benchmark_openvino(model_folder: Path, device: str = "NPU", n_runs: int = 20
         compiled = core.compile_model(str(model_path), device)
     except Exception as e:
         print("Failed to compile model on device:", e)
-        return
+        # Fallback: try compiling on CPU to at least measure OpenVINO CPU throughput
+        try:
+            print("Attempting CPU fallback for model...")
+            compiled = core.compile_model(str(model_path), "CPU")
+            device = "CPU"
+            print("✅ Compiled on CPU as fallback")
+        except Exception as e2:
+            print("CPU fallback also failed:", e2)
+            return
 
     input_ports = compiled.inputs
     # build sample input based on shapes
-    shape = list(input_ports[0].shape)
-    # replace dynamic dims with batch_size
-    for i, s in enumerate(shape):
-        if s is None or s == 0:
-            shape[i] = batch_size
+    try:
+        shape = list(input_ports[0].shape)
+        # replace dynamic dims with batch_size
+        for i, s in enumerate(shape):
+            if s is None or s == 0:
+                shape[i] = batch_size
+    except Exception:
+        # Some compiled models expose dynamic/partial shapes that raise when
+        # accessed; fallback to a reasonable default (batch_size, n_features).
+        print("Warning: model input shape is dynamic; using fallback shape")
+        shape = [batch_size, 7]
     X = np.random.rand(*shape).astype(np.float32)
 
     # warmup

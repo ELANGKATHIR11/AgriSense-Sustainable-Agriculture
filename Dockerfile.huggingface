@@ -3,17 +3,17 @@
 # Target: 16GB RAM Free Tier with Docker SDK
 
 # ============================================================================
-# Stage 1: Frontend Build (Node.js 18)
+# Stage 1: Frontend Build (Node.js 20)
 # ============================================================================
-FROM node:18-slim AS frontend-builder
+FROM node:20-slim AS frontend-builder
 
 WORKDIR /frontend
 
 # Copy frontend package files
 COPY agrisense_app/frontend/farm-fortune-frontend-main/package*.json ./
 
-# Install dependencies with exact versions for reproducibility
-RUN npm ci --only=production
+# Install all dependencies including dev (vite, TypeScript, etc needed for build)
+RUN npm install --legacy-peer-deps
 
 # Copy frontend source code
 COPY agrisense_app/frontend/farm-fortune-frontend-main/ ./
