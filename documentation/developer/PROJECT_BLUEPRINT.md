@@ -1,5 +1,15 @@
 # AgriSense Project Blueprint — Production-Ready Full-Stack Smart Agriculture System
 
+## Recent Updates (2025-12-30)
+
+- Cleaned local caches and removed large local artifacts to reduce repository size: deleted `__pycache__`, `.pytest_cache`, `.mypy_cache`, `build/`, and `dist/` from the repo root.
+- Local model store `ml_models/` was archived to `backup_ml_models.zip` and moved outside the repository at `D:\backup_ml_models.zip` to avoid exceeding remote file size limits.
+- Added `PROJECT_ORGANIZATION.md` (high-level repo layout and quick-start) and `scripts/setup_repo.ps1` (Windows setup script) to improve onboarding.
+- Updated `.gitignore` to exclude virtual environments, caches, build outputs and large model files; already removed large model artifacts from the Git index in branch `feature/npu-export-bench` and pushed to `origin`.
+- Created `PROJECT_BLUEPRINT_UPDATED.md` content earlier; primary canonical blueprint remains `documentation/developer/PROJECT_BLUEPRINT.md` (this file).
+- Recommended next steps: migrate persistent large artifacts to Git LFS or external cloud storage, and consider a history-rewrite plan (BFG/git-filter-repo) if you want to purge large files from past commits.
+
+
 ## 🎉 PRODUCTION STATUS (Dec 2025) - A+ Grade System with Zero Errors + Complete Deployment Stack
 
 **✅ COMPLETE PRODUCTION ECOSYSTEM** - AgriSense has achieved **ENTERPRISE-GRADE** status with comprehensive deployment, testing, and monitoring infrastructure:
