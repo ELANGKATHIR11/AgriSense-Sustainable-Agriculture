@@ -1,0 +1,194 @@
+# =============================================================================
+# Multi-Stage Optimized Dockerfile for AgriSense
+# Part of Production Optimization Blueprint
+# 
+# Build stages:
+#   1. builder - Compile Python dependencies
+#   2. ml-builder - Optional ML dependencies (controlled by build arg)
+#   3. runtime - Final optimized image
+#
+# Build options:
+#   docker build -f Dockerfile.production -t agrisense:production .
+#   docker build -f Dockerfile.production --build-arg INSTALL_ML=true -t agrisense:production-ml .
+# =============================================================================
+
+# =============================================================================
+# Stage 1: Base Builder
+# =============================================================================
+FROM python:3.12.10-slim AS builder
+
+# Build arguments
+ARG INSTALL_ML=false
+ARG ENABLE_GPU=false
+
+# Install system dependencies needed for building
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    gcc \
+    g++ \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Upgrade pip
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# Copy requirements
+WORKDIR /build
+COPY agrisense_app/backend/requirements.txt .
+
+# Install core dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# =============================================================================
+# Stage 2: ML Dependencies (Optional)
+# =============================================================================
+FROM builder AS ml-builder
+
+WORKDIR /build
+
+# Copy ML requirements (if they exist)
+COPY agrisense_app/backend/requirements-ml.txt ./requirements-ml.txt* 2>/dev/null || true
+COPY agrisense_app/backend/requirements-ai.txt ./requirements-ai.txt* 2>/dev/null || true
+
+# Install ML dependencies if requested
+RUN if [ "$INSTALL_ML" = "true" ] && [ -f requirements-ml.txt ]; then \
+        pip install --no-cache-dir -r requirements-ml.txt; \
+    fi
+
+RUN if [ "$INSTALL_ML" = "true" ] && [ -f requirements-ai.txt ]; then \
+        pip install --no-cache-dir -r requirements-ai.txt; \
+    fi
+
+# Install ONNX Runtime (GPU or CPU)
+RUN if [ "$INSTALL_ML" = "true" ]; then \
+        if [ "$ENABLE_GPU" = "true" ]; then \
+            pip install --no-cache-dir onnxruntime-gpu; \
+        else \
+            pip install --no-cache-dir onnxruntime; \
+        fi; \
+    fi
+
+# =============================================================================
+# Stage 3: Frontend Builder (Optional)
+# =============================================================================
+FROM node:18-alpine AS frontend-builder
+
+WORKDIR /frontend
+
+# Copy frontend files
+COPY agrisense_app/frontend/farm-fortune-frontend-main/package*.json ./
+RUN npm ci --only=production
+
+COPY agrisense_app/frontend/farm-fortune-frontend-main .
+
+# Build frontend
+RUN npm run build
+
+# =============================================================================
+# Stage 4: Final Runtime Image
+# =============================================================================
+FROM python:3.12.10-slim AS runtime
+
+# Runtime arguments
+ARG INSTALL_ML=false
+ARG APP_USER=agrisense
+ARG APP_UID=1000
+ARG APP_GID=1000
+
+# Labels
+LABEL maintainer="AgriSense Team"
+LABEL description="AgriSense IoT Agricultural Management System - Production Optimized"
+LABEL version="0.3.0"
+
+# Install only runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    libgomp1 \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create non-root user
+RUN groupadd -g ${APP_GID} ${APP_USER} && \
+    useradd -m -u ${APP_UID} -g ${APP_GID} -s /bin/bash ${APP_USER}
+
+# Copy virtual environment from builder
+COPY --from=ml-builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Set working directory
+WORKDIR /app
+
+# Copy application code
+COPY --chown=${APP_USER}:${APP_USER} agrisense_app/backend ./agrisense_app/backend
+COPY --chown=${APP_USER}:${APP_USER} agrisense_app/__init__.py ./agrisense_app/
+
+# Copy ML models (exclude checkpoints and datasets)
+COPY --chown=${APP_USER}:${APP_USER} agrisense_app/backend/ml_models ./agrisense_app/backend/ml_models
+
+# Copy optimized ONNX models if available
+COPY --chown=${APP_USER}:${APP_USER} agrisense_app/backend/ml_models/optimized ./agrisense_app/backend/ml_models/optimized/ 2>/dev/null || :
+
+# Copy frontend build
+COPY --from=frontend-builder --chown=${APP_USER}:${APP_USER} /frontend/dist ./agrisense_app/frontend/dist
+
+# Copy configuration files
+COPY --chown=${APP_USER}:${APP_USER} .env* ./
+COPY --chown=${APP_USER}:${APP_USER} config ./config
+
+# Create necessary directories
+RUN mkdir -p logs data cache && \
+    chown -R ${APP_USER}:${APP_USER} logs data cache
+
+# Switch to non-root user
+USER ${APP_USER}
+
+# Environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app \
+    PORT=8004 \
+    HOST=0.0.0.0 \
+    WORKERS=4 \
+    LOG_LEVEL=info \
+    CACHE_ENABLED=true \
+    AGRISENSE_DISABLE_ML=${INSTALL_ML}
+
+# Expose port
+EXPOSE 8004
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8004/health')" || exit 1
+
+# Default command
+CMD ["uvicorn", "agrisense_app.backend.main:app", "--host", "0.0.0.0", "--port", "8004", "--workers", "4"]
+
+# =============================================================================
+# Build Instructions:
+# 
+# 1. Lightweight build (no ML):
+#    docker build -f Dockerfile.production -t agrisense:prod .
+#    Final image size: ~400-500 MB
+#
+# 2. Full ML build (CPU):
+#    docker build -f Dockerfile.production --build-arg INSTALL_ML=true -t agrisense:prod-ml .
+#    Final image size: ~2-3 GB
+#
+# 3. Full ML build (GPU):
+#    docker build -f Dockerfile.production --build-arg INSTALL_ML=true --build-arg ENABLE_GPU=true -t agrisense:prod-ml-gpu .
+#    Final image size: ~4-5 GB
+#
+# 4. Run container:
+#    docker run -d -p 8004:8004 \
+#      -e JWT_SECRET_KEY=your-secret-key \
+#      -e REDIS_HOST=redis \
+#      -v $(pwd)/data:/app/data \
+#      --name agrisense agrisense:prod
+#
+# =============================================================================

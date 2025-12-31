@@ -118,6 +118,20 @@ bash deploy_to_huggingface.sh agrisense-app your-username
 | **Disease Management** | Plant health monitoring | AI-powered disease detection |
 | **Weed Management** | Weed identification & control | Computer vision classification |
 | **Live Monitoring** | Real-time sensor data | IoT dashboard, alerts, trends |
+ 
+---
+
+## ⚙️ Runtime system libraries (for ML / OpenCV)
+
+If you plan to run the ML/CV-enabled image or use OpenCV locally, the runtime environment needs a few OS-level graphics libraries so OpenCV and related packages can load `libGL.so.1`. The optimized Dockerfile includes these, but for local troubleshooting or CI runners install the following on Debian/Ubuntu hosts:
+
+```bash
+sudo apt-get update && sudo apt-get install -y \
+  libgl1-mesa-glx libgl1-mesa-dri libglib2.0-0 libsm6 libxrender1 libxext6
+```
+
+If you see errors mentioning `libGL.so.1` at runtime, installing the packages above in the image or host will typically resolve the issue.
+
 
 ### Smart Features
 

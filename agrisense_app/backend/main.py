@@ -399,6 +399,113 @@ logger = logging.getLogger("agrisense")
 if not logger.handlers:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
+# Optional optimization modules (safe imports)
+try:
+    from agrisense_app.backend.core.auth_manager import (
+        auth_router,
+        create_default_admin,
+        get_current_user,
+        require_admin,
+    )
+    from agrisense_app.backend.core.observability import (
+        setup_structured_logging,
+        RequestLoggingMiddleware,
+        ContextLogger,
+        get_metrics,
+    )
+    from agrisense_app.backend.core.cache_manager import initialize_cache, get_cache
+    from agrisense_app.backend.core.security_validator import (
+        SecurityValidationMiddleware,
+        rate_limit_ml,
+        rate_limit_sensor,
+        validate_sensor_reading,
+    )
+    from agrisense_app.backend.core.graceful_degradation import (
+        ml_fallback_manager,
+        rule_based_irrigation_recommendation,
+        health_registry,
+    )
+    # AI routers (if present)
+    try:
+        from agrisense_app.backend.ai.smart_recommendations import recommendation_router
+    except Exception:
+        recommendation_router = None
+    try:
+        from agrisense_app.backend.ai.explainable_ai import explain_router
+    except Exception:
+        explain_router = None
+    OPTIONAL_OPTIMIZATIONS_AVAILABLE = True
+    logger.info("Optional optimization modules loaded")
+except Exception as _opt_exc:
+    OPTIONAL_OPTIMIZATIONS_AVAILABLE = False
+    logger.info("Optional optimization modules not available: %s", _opt_exc)
+
+# Configure structured logging and middleware if available
+if OPTIONAL_OPTIMIZATIONS_AVAILABLE:
+    try:
+        setup_structured_logging(level=os.getenv("LOG_LEVEL", "INFO"), enable_sampling=True)
+    except Exception:
+        pass
+
+    # Add request logging and security middlewares (guarded)
+    try:
+        app.add_middleware(RequestLoggingMiddleware)
+    except Exception:
+        pass
+
+    try:
+        app.add_middleware(SecurityValidationMiddleware)
+    except Exception:
+        pass
+
+# Ensure basic CORS and gzip remain configured
+try:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[os.getenv("CORS_ORIGINS", "*")],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+except Exception:
+    pass
+
+try:
+    app.add_middleware(GZipMiddleware, minimum_size=500)
+except Exception:
+    pass
+
+# Mount optional routers
+if OPTIONAL_OPTIMIZATIONS_AVAILABLE:
+    try:
+        if auth_router is not None:
+            app.include_router(auth_router, prefix="/auth")
+    except Exception:
+        pass
+
+    try:
+        if recommendation_router is not None:
+            app.include_router(recommendation_router, prefix="/ai/recommendations")
+    except Exception:
+        pass
+
+    try:
+        if explain_router is not None:
+            app.include_router(explain_router, prefix="/ai/explain")
+    except Exception:
+        pass
+
+    # Metrics endpoint (Prometheus-compatible wrapper if available)
+    try:
+        @app.get("/metrics")
+        async def metrics_endpoint():
+            metrics = get_metrics()
+            try:
+                return metrics.get_stats()
+            except Exception:
+                return {"status": "metrics_unavailable"}
+    except Exception:
+        pass
 # In-process counters for a lightweight /metrics endpoint
 _metrics_lock = threading.Lock()
 _metrics: Dict[str, Any] = {
@@ -623,18 +730,20 @@ except ImportError as e:
     pass
 
 # Include VLM (Vision Language Model) API router for disease & weed management
+# Import errors in VLM should never crash the whole app — catch all exceptions
 try:
     if __package__:
         from .routes.vlm_routes import router as vlm_router
     else:
         from routes.vlm_routes import router as vlm_router  # type: ignore
-    
+
     app.include_router(vlm_router)
     logger.info("✅ VLM API router included successfully - Disease & Weed Management available at /api/vlm")
-except ImportError as e:
-    logger.warning(f"⚠️ VLM API not available: {e}")
+except Exception as e:
+    # Log full exception but continue in degraded mode so health endpoints remain available
+    logger.exception("⚠️ VLM API failed to initialize; continuing without VLM: %s", e)
     # VLM API optional - continue without it
-    pass
+    vlm_router = None  # type: ignore
 
 # Optionally mount Flask-based storage server under /storage via WSGI
 try:

@@ -16,16 +16,10 @@ pandas>=2.2.3
 # ===== Machine Learning Core =====
 scikit-learn>=1.6.1
 joblib>=1.4.2
-
-# ===== Deep Learning (PyTorch) =====
-torch==2.5.1
-torchvision==0.20.1
-sentence-transformers>=3.3.1
-
-# ===== Deep Learning (TensorFlow) - Python 3.12 Compatible =====
-# TensorFlow 2.18+ has NO distutils dependency (Python 3.12 compatible)
-tensorflow>=2.18.0,<2.19.0
-keras>=3.8.0
+# NOTE: Heavy deep-learning packages (torch, tensorflow, transformers, etc.)
+# have been moved to `requirements-ml.txt` to avoid conflicts during
+# lightweight Docker builds. Install them only when needed or build the
+# ML-enabled image with: `docker build --build-arg INSTALL_ML=true -f Dockerfile.optimized -t agrisense:optimized-ml .`
 
 # ===== Computer Vision =====
 # Use headless version for Docker (no GUI dependencies)

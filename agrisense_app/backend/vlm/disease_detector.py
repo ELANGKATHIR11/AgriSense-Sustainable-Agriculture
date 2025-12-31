@@ -3,6 +3,8 @@ Disease Detection Engine using Computer Vision
 Analyzes plant images to identify diseases and provides treatment recommendations
 """
 
+from __future__ import annotations
+
 import os
 import io
 import logging

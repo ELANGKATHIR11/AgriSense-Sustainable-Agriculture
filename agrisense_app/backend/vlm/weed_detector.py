@@ -3,6 +3,8 @@ Weed Detection and Management Engine
 Identifies weeds and provides control recommendations
 """
 
+from __future__ import annotations
+
 import logging
 from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass, asdict
