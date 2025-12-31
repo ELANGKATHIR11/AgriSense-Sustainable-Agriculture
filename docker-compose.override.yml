@@ -1,0 +1,6 @@
+services:
+  backend:
+    volumes:
+      - ./agrisense_app/backend/ml_models:/app/agrisense_app/backend/ml_models:ro
+      - ./agrisense_app/backend/requirements-optional.txt:/app/requirements-optional.txt:ro
+    command: /bin/sh -c "if [ -f /app/requirements-optional.txt ]; then pip install --no-cache-dir -r /app/requirements-optional.txt || true; fi; python /app/scripts/fetch_models.py --dest /app/agrisense_app/backend/ml_models || true; uvicorn agrisense_app.backend.main:app --host 0.0.0.0 --port 8004 --workers 2"

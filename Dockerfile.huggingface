@@ -1,0 +1,103 @@
+# AgriSense - Hugging Face Spaces Deployment
+# Multi-stage build: Frontend (React) + Backend (FastAPI + Celery)
+# Target: 16GB RAM Free Tier with Docker SDK
+
+# ============================================================================
+# Stage 1: Frontend Build (Node.js 20)
+# ============================================================================
+FROM node:20-slim AS frontend-builder
+
+WORKDIR /frontend
+
+# Copy frontend package files
+COPY agrisense_app/frontend/farm-fortune-frontend-main/package*.json ./
+
+# Install all dependencies including dev (vite, TypeScript, etc needed for build)
+RUN npm install --legacy-peer-deps
+
+# Copy frontend source code
+COPY agrisense_app/frontend/farm-fortune-frontend-main/ ./
+
+# Build production assets (outputs to dist/ with /ui/ base path)
+RUN npm run build
+
+# ============================================================================
+# Stage 2: Backend Dependencies (Python 3.12)
+# ============================================================================
+FROM python:3.12-slim AS backend-builder
+
+# Install system dependencies for ML libraries and compilation
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc g++ \
+    libpq-dev \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+# Copy and install Python dependencies
+COPY agrisense_app/backend/requirements.txt ./
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir -r requirements.txt
+
+# ============================================================================
+# Stage 3: Production Runtime
+# ============================================================================
+FROM python:3.12-slim
+
+# Install runtime dependencies only (minimal footprint)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    procps \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user with UID 1000 (Hugging Face security requirement)
+RUN groupadd -r agrisense -g 1000 && \
+    useradd -r -u 1000 -g agrisense -m -d /home/agrisense agrisense
+
+WORKDIR /home/agrisense/app
+
+# Copy Python packages from builder stage
+COPY --from=backend-builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+COPY --from=backend-builder /usr/local/bin /usr/local/bin
+
+# Copy backend code with proper ownership
+COPY --chown=agrisense:agrisense agrisense_app/backend/ ./backend/
+
+# Copy ML models (if they exist in the build context)
+COPY --chown=agrisense:agrisense ml_models* ./
+
+# Copy frontend build artifacts to backend static directory
+# This will be served by FastAPI at /ui
+RUN mkdir -p ./backend/static/ui
+COPY --from=frontend-builder --chown=agrisense:agrisense /frontend/dist/ ./backend/static/ui/
+
+# Copy startup script
+COPY --chown=agrisense:agrisense start.sh ./
+RUN chmod +x start.sh
+
+# Create necessary directories with proper permissions
+RUN mkdir -p logs data celery_logs temp && \
+    chown -R agrisense:agrisense logs data celery_logs temp
+
+# Switch to non-root user
+USER agrisense
+
+# Environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH="/home/agrisense/.local/bin:$PATH" \
+    AGRISENSE_ENV=production \
+    PORT=7860
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
+    CMD curl -f http://localhost:7860/health || exit 1
+
+# Expose Hugging Face Spaces required port
+EXPOSE 7860
+
+# Start services (Celery + Uvicorn)
+CMD ["./start.sh"]

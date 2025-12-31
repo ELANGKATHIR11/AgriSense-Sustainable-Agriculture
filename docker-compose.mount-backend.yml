@@ -1,0 +1,5 @@
+version: '3.8'
+services:
+  backend:
+    volumes:
+      - ./aiml_backend_from_docker/app:/app:rw

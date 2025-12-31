@@ -1,0 +1,1151 @@
+intent,utterance
+fertilizer_advice,"Fertilizer recommendation for Castor given N=75, P=45, K=60"
+irrigation_advice,How often should I irrigate Gram?
+fertilizer_advice,When to apply phosphorus for Groundnut?
+fertilizer_advice,When to apply phosphorus for Sweet_Potato?
+pest_disease_help,Symptoms of common diseases in Brinjal
+pest_disease_help,How to treat fungal infection in Cumin?
+irrigation_advice,How much water does Fennel need per week?
+irrigation_advice,How often should I irrigate Tur_Arhar?
+pest_disease_help,Symptoms of common diseases in Sweet_Potato
+planting_schedule,Planting and harvesting months for Wheat
+pest_disease_help,Best pesticide practice for Tomato
+planting_schedule,Planting and harvesting months for Coriander
+fertilizer_advice,"Fertilizer recommendation for Cassava given N=60, P=30, K=90"
+irrigation_advice,How much water does Cotton need per week?
+recommend_crop,Which crop suits my soil with pH 7.5 and rainfall 250mm?
+pest_disease_help,Symptoms of common diseases in Barley
+planting_schedule,Optimal planting time for Coffee
+pest_disease_help,My Green_Peas leaves are yellow — what could be wrong?
+pest_disease_help,My Oats leaves are yellow — what could be wrong?
+pest_disease_help,How to manage pests in Niger fields?
+planting_schedule,Planting and harvesting months for Barley
+fertilizer_advice,When to apply phosphorus for Sesamum?
+irrigation_advice,Water requirement for Cumin with rainfall 250mm
+irrigation_advice,How often should I irrigate Coriander?
+irrigation_advice,How often should I irrigate Arecanut?
+pest_disease_help,Best pesticide practice for Rice
+recommend_crop,Best crop for temperature 27C and humidity 65%
+fertilizer_advice,When to apply phosphorus for Turmeric?
+recommend_crop,Which crop suits my soil with pH 6.2 and rainfall 600mm?
+planting_schedule,When does Okra mature after planting?
+recommend_crop,Best crop for temperature 30C and humidity 90%
+irrigation_advice,Irrigation schedule for Wheat in Rabi season
+irrigation_advice,How often should I irrigate Jute?
+irrigation_advice,Best irrigation practice for Rice
+fertilizer_advice,"Fertilizer recommendation for Cauliflower given N=150, P=90, K=120"
+recommend_crop,Suggest a crop for low nitrogen soils (N=45 kg/ha)
+fertilizer_advice,Suggest fertilizer amounts for Oats
+fertilizer_advice,Suggest fertilizer amounts for Cabbage
+fertilizer_advice,"Fertilizer recommendation for Tea given N=225, P=60, K=150"
+fertilizer_advice,"Fertilizer recommendation for Tobacco given N=115, P=60, K=115"
+planting_schedule,Optimal planting time for Cabbage
+planting_schedule,Optimal planting time for Ginger
+irrigation_advice,Best irrigation practice for Linseed
+recommend_crop,Suggest a crop for low nitrogen soils (N=75 kg/ha)
+irrigation_advice,Water requirement for Coriander with rainfall 300mm
+planting_schedule,When should I plant Jute in my region?
+fertilizer_advice,Suggest fertilizer amounts for Tur_Arhar
+recommend_crop,Which crop suits my soil with pH 6.8 and rainfall 400mm?
+recommend_crop,Best crop for temperature 24C and humidity 70%
+irrigation_advice,How much water does Maize need per week?
+irrigation_advice,How much water does Cotton need per week?
+irrigation_advice,Water requirement for Linseed with rainfall 250mm
+recommend_crop,Which crop suits my soil with pH 6.5 and rainfall 500mm?
+fertilizer_advice,When to apply phosphorus for Gram?
+fertilizer_advice,How much nitrogen should I apply for Linseed?
+irrigation_advice,How much water does Ragi need per week?
+recommend_crop,Best crop for temperature 24C and humidity 70%
+irrigation_advice,How often should I irrigate Coriander?
+recommend_crop,Best crop for temperature 18C and humidity 60%
+pest_disease_help,Best pesticide practice for Niger
+irrigation_advice,Best irrigation practice for Ginger
+fertilizer_advice,When to apply phosphorus for Brinjal?
+recommend_crop,Best crop for temperature 25C and humidity 70%
+recommend_crop,What crop should I grow if my soil pH is 6.8 and rainfall 400mm?
+planting_schedule,When should I plant Tobacco in my region?
+irrigation_advice,Best irrigation practice for Tomato
+recommend_crop,Best crop for temperature 25C and humidity 70%
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 600mm?
+irrigation_advice,Best irrigation practice for Okra
+pest_disease_help,My Potato leaves are yellow — what could be wrong?
+fertilizer_advice,"Fertilizer recommendation for Tur_Arhar given N=35, P=60, K=40"
+irrigation_advice,How often should I irrigate Maize?
+planting_schedule,When should I plant Coffee in my region?
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 500mm?
+recommend_crop,Suggest a crop for low nitrogen soils (N=60 kg/ha)
+planting_schedule,Optimal planting time for Safflower
+irrigation_advice,Best irrigation practice for Gram
+planting_schedule,When does Onion mature after planting?
+pest_disease_help,Best pesticide practice for Sweet_Potato
+recommend_crop,Recommend a crop for pH 7.5 and temperature 30C
+pest_disease_help,How to manage pests in Oats fields?
+pest_disease_help,Best pesticide practice for Sugarcane
+planting_schedule,Optimal planting time for Cumin
+fertilizer_advice,Suggest fertilizer amounts for Tea
+fertilizer_advice,How much nitrogen should I apply for Potato?
+recommend_crop,Suggest a crop for low nitrogen soils (N=45 kg/ha)
+fertilizer_advice,What fertilizer schedule is best for Tomato?
+recommend_crop,Recommend a crop for pH 7.0 and temperature 25C
+planting_schedule,When does Gram mature after planting?
+pest_disease_help,My Rapeseed_Mustard leaves are yellow — what could be wrong?
+fertilizer_advice,When to apply phosphorus for Coconut?
+irrigation_advice,How often should I irrigate Rapeseed_Mustard?
+pest_disease_help,Best pesticide practice for Coffee
+pest_disease_help,Symptoms of common diseases in Cassava
+fertilizer_advice,How much nitrogen should I apply for Jute?
+planting_schedule,When does Tur_Arhar mature after planting?
+recommend_crop,Best crop for temperature 20C and humidity 80%
+fertilizer_advice,Suggest fertilizer amounts for Sugarcane
+planting_schedule,When should I plant Tomato in my region?
+recommend_crop,Best crop for temperature 18C and humidity 65%
+recommend_crop,Best crop for temperature 20C and humidity 80%
+recommend_crop,Which crop suits my soil with pH 5.8 and rainfall 1000mm?
+pest_disease_help,My Cotton leaves are yellow — what could be wrong?
+irrigation_advice,How much water does Green_Peas need per week?
+planting_schedule,When should I plant Sweet_Potato in my region?
+planting_schedule,Planting and harvesting months for Turmeric
+planting_schedule,When does Brinjal mature after planting?
+fertilizer_advice,When to apply phosphorus for Arecanut?
+pest_disease_help,Best pesticide practice for Sesamum
+irrigation_advice,Irrigation schedule for Cardamom in Year Round season
+pest_disease_help,How to treat fungal infection in Gram?
+fertilizer_advice,How much nitrogen should I apply for Sweet_Potato?
+recommend_crop,Suggest a crop for low nitrogen soils (N=75 kg/ha)
+fertilizer_advice,How much nitrogen should I apply for Rice?
+irrigation_advice,How often should I irrigate Groundnut?
+planting_schedule,Optimal planting time for Ragi
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 250mm?
+pest_disease_help,How to manage pests in Bajra fields?
+pest_disease_help,How to treat fungal infection in Cardamom?
+recommend_crop,Which crop suits my soil with pH 6.5 and rainfall 400mm?
+irrigation_advice,How much water does Tomato need per week?
+pest_disease_help,Symptoms of common diseases in Arecanut
+pest_disease_help,How to manage pests in Potato fields?
+irrigation_advice,How much water does Tomato need per week?
+irrigation_advice,How much water does Cotton need per week?
+irrigation_advice,Irrigation schedule for Jowar in Kharif season
+planting_schedule,Planting and harvesting months for Maize
+recommend_crop,Recommend a crop for pH 7.2 and temperature 18C
+pest_disease_help,How to manage pests in Tobacco fields?
+pest_disease_help,Symptoms of common diseases in Coffee
+pest_disease_help,How to manage pests in Jute fields?
+planting_schedule,Planting and harvesting months for Tea
+planting_schedule,Optimal planting time for Fenugreek
+irrigation_advice,How much water does Potato need per week?
+fertilizer_advice,When to apply phosphorus for Black_Pepper?
+fertilizer_advice,What fertilizer schedule is best for Green_Peas?
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 400mm?
+planting_schedule,What is the planting month for Groundnut?
+irrigation_advice,Best irrigation practice for Cauliflower
+fertilizer_advice,How much nitrogen should I apply for Sesamum?
+irrigation_advice,Best irrigation practice for Jwar
+fertilizer_advice,Suggest fertilizer amounts for Maize
+planting_schedule,What is the planting month for Ragi?
+planting_schedule,When does Barley mature after planting?
+pest_disease_help,Symptoms of common diseases in Maize
+planting_schedule,Planting and harvesting months for Cassava
+planting_schedule,Optimal planting time for Okra
+recommend_crop,Recommend a crop for pH 6.0 and temperature 25C
+planting_schedule,Planting and harvesting months for Bajra
+irrigation_advice,Best irrigation practice for Ginger
+planting_schedule,When should I plant Cauliflower in my region?
+recommend_crop,Which crop suits my soil with pH 6.0 and rainfall 500mm?
+fertilizer_advice,How much nitrogen should I apply for Sugarcane?
+planting_schedule,What is the planting month for Bajra?
+recommend_crop,Suggest a crop for low nitrogen soils (N=90 kg/ha)
+fertilizer_advice,How much nitrogen should I apply for Rice?
+planting_schedule,Optimal planting time for Tea
+fertilizer_advice,How much nitrogen should I apply for Cassava?
+pest_disease_help,Best pesticide practice for Cassava
+fertilizer_advice,Suggest fertilizer amounts for Fenugreek
+pest_disease_help,How to manage pests in Jwar fields?
+pest_disease_help,My Coconut leaves are yellow — what could be wrong?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 350mm?
+irrigation_advice,How much water does Wheat need per week?
+recommend_crop,Best crop for temperature 24C and humidity 70%
+irrigation_advice,How often should I irrigate Sugarcane?
+recommend_crop,Best crop for temperature 25C and humidity 65%
+recommend_crop,Suggest a crop for low nitrogen soils (N=30 kg/ha)
+pest_disease_help,Symptoms of common diseases in Okra
+pest_disease_help,How to treat fungal infection in Wheat?
+irrigation_advice,Best irrigation practice for Coffee
+recommend_crop,Which crop suits my soil with pH 6.0 and rainfall 1500mm?
+irrigation_advice,How much water does Groundnut need per week?
+pest_disease_help,My Jute leaves are yellow — what could be wrong?
+irrigation_advice,How much water does Groundnut need per week?
+planting_schedule,When does Safflower mature after planting?
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 350mm?
+recommend_crop,Which crop suits my soil with pH 6.5 and rainfall 250mm?
+planting_schedule,When should I plant Turmeric in my region?
+pest_disease_help,Best pesticide practice for Arecanut
+pest_disease_help,How to treat fungal infection in Ginger?
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 350mm?
+fertilizer_advice,Suggest fertilizer amounts for Cabbage
+pest_disease_help,Best pesticide practice for Cassava
+fertilizer_advice,"Fertilizer recommendation for Sugarcane given N=200, P=60, K=80"
+pest_disease_help,How to manage pests in Onion fields?
+irrigation_advice,Water requirement for Barley with rainfall 350mm
+fertilizer_advice,What fertilizer schedule is best for Castor?
+recommend_crop,What crop should I grow if my soil pH is 6.2 and rainfall 1000mm?
+irrigation_advice,How often should I irrigate Linseed?
+planting_schedule,Optimal planting time for Onion
+irrigation_advice,How often should I irrigate Brinjal?
+planting_schedule,Optimal planting time for Jwar
+planting_schedule,Planting and harvesting months for Maize
+irrigation_advice,How much water does Coconut need per week?
+recommend_crop,Which crop suits my soil with pH 6.8 and rainfall 500mm?
+pest_disease_help,How to manage pests in Jwar fields?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 300mm?
+pest_disease_help,How to treat fungal infection in Castor?
+planting_schedule,Planting and harvesting months for Coriander
+fertilizer_advice,Suggest fertilizer amounts for Maize
+irrigation_advice,How often should I irrigate Coffee?
+planting_schedule,When should I plant Wheat in my region?
+recommend_crop,What crop should I grow if my soil pH is 6.2 and rainfall 1000mm?
+pest_disease_help,My Ginger leaves are yellow — what could be wrong?
+irrigation_advice,Water requirement for Cauliflower with rainfall 350mm
+irrigation_advice,Water requirement for Rapeseed_Mustard with rainfall 300mm
+fertilizer_advice,"Fertilizer recommendation for Oats given N=80, P=35, K=30"
+pest_disease_help,Symptoms of common diseases in Cauliflower
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 350mm?
+recommend_crop,What crop should I grow if my soil pH is 7.5 and rainfall 300mm?
+fertilizer_advice,When to apply phosphorus for Cumin?
+irrigation_advice,How much water does Castor need per week?
+pest_disease_help,Best pesticide practice for Black_Pepper
+pest_disease_help,How to manage pests in Tur_Arhar fields?
+planting_schedule,When should I plant Brinjal in my region?
+recommend_crop,Best crop for temperature 28C and humidity 80%
+recommend_crop,Suggest a crop for low nitrogen soils (N=125 kg/ha)
+pest_disease_help,My Cassava leaves are yellow — what could be wrong?
+recommend_crop,Suggest a crop for low nitrogen soils (N=150 kg/ha)
+planting_schedule,What is the planting month for Brinjal?
+fertilizer_advice,"Fertilizer recommendation for Black_Pepper given N=150, P=45, K=120"
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 350mm?
+pest_disease_help,Best pesticide practice for Barley
+pest_disease_help,My Coffee leaves are yellow — what could be wrong?
+pest_disease_help,How to manage pests in Jwar fields?
+fertilizer_advice,How much nitrogen should I apply for Jwar?
+planting_schedule,Optimal planting time for Turmeric
+fertilizer_advice,Suggest fertilizer amounts for Gram
+recommend_crop,Suggest a crop for low nitrogen soils (N=80 kg/ha)
+recommend_crop,Best crop for temperature 30C and humidity 80%
+fertilizer_advice,Suggest fertilizer amounts for Jwar
+pest_disease_help,How to treat fungal infection in Niger?
+planting_schedule,Optimal planting time for Niger
+fertilizer_advice,How much nitrogen should I apply for Cotton?
+pest_disease_help,How to treat fungal infection in Jute?
+irrigation_advice,How much water does Castor need per week?
+planting_schedule,Optimal planting time for Fenugreek
+pest_disease_help,How to treat fungal infection in Potato?
+fertilizer_advice,When to apply phosphorus for Cumin?
+pest_disease_help,Symptoms of common diseases in Coconut
+fertilizer_advice,Suggest fertilizer amounts for Fenugreek
+irrigation_advice,Water requirement for Ragi with rainfall 500mm
+fertilizer_advice,Suggest fertilizer amounts for Tur_Arhar
+planting_schedule,When does Groundnut mature after planting?
+recommend_crop,Suggest a crop for low nitrogen soils (N=60 kg/ha)
+fertilizer_advice,What fertilizer schedule is best for Jwar?
+fertilizer_advice,How much nitrogen should I apply for Ginger?
+planting_schedule,Planting and harvesting months for Cardamom
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 500mm?
+planting_schedule,Optimal planting time for Safflower
+recommend_crop,Which crop suits my soil with pH 5.5 and rainfall 1200mm?
+pest_disease_help,How to treat fungal infection in Gram?
+irrigation_advice,Best irrigation practice for Turmeric
+recommend_crop,What crop should I grow if my soil pH is 6.8 and rainfall 1000mm?
+planting_schedule,When does Jwar mature after planting?
+pest_disease_help,Symptoms of common diseases in Tea
+irrigation_advice,Best irrigation practice for Coconut
+irrigation_advice,Best irrigation practice for Onion
+irrigation_advice,Best irrigation practice for Rapeseed_Mustard
+fertilizer_advice,How much nitrogen should I apply for Sweet_Potato?
+planting_schedule,When should I plant Fennel in my region?
+fertilizer_advice,How much nitrogen should I apply for Carrot?
+planting_schedule,Optimal planting time for Onion
+recommend_crop,Recommend a crop for pH 6.5 and temperature 28C
+planting_schedule,Optimal planting time for Onion
+recommend_crop,Recommend a crop for pH 6.5 and temperature 20C
+irrigation_advice,How much water does Potato need per week?
+recommend_crop,What crop should I grow if my soil pH is 6.2 and rainfall 1100mm?
+irrigation_advice,Irrigation schedule for Ginger in Kharif season
+planting_schedule,Optimal planting time for Linseed
+irrigation_advice,Water requirement for Turmeric with rainfall 1000mm
+planting_schedule,When does Cardamom mature after planting?
+planting_schedule,When should I plant Castor in my region?
+planting_schedule,What is the planting month for Jute?
+irrigation_advice,Best irrigation practice for Castor
+planting_schedule,When should I plant Rapeseed_Mustard in my region?
+recommend_crop,Suggest a crop for low nitrogen soils (N=115 kg/ha)
+pest_disease_help,Symptoms of common diseases in Brinjal
+fertilizer_advice,Suggest fertilizer amounts for Onion
+pest_disease_help,How to treat fungal infection in Castor?
+pest_disease_help,Best pesticide practice for Tobacco
+planting_schedule,Optimal planting time for Cotton
+pest_disease_help,How to manage pests in Ragi fields?
+pest_disease_help,Best pesticide practice for Sesamum
+irrigation_advice,Water requirement for Tobacco with rainfall 400mm
+pest_disease_help,How to manage pests in Cumin fields?
+pest_disease_help,Symptoms of common diseases in Wheat
+pest_disease_help,How to manage pests in Ragi fields?
+pest_disease_help,Symptoms of common diseases in Fennel
+planting_schedule,When does Oats mature after planting?
+pest_disease_help,Best pesticide practice for Jowar
+irrigation_advice,How much water does Tur_Arhar need per week?
+pest_disease_help,Symptoms of common diseases in Maize
+pest_disease_help,Best pesticide practice for Potato
+pest_disease_help,Symptoms of common diseases in Black_Pepper
+recommend_crop,Recommend a crop for pH 7.0 and temperature 27C
+fertilizer_advice,"Fertilizer recommendation for Green_Peas given N=60, P=75, K=60"
+irrigation_advice,Best irrigation practice for Cauliflower
+pest_disease_help,How to treat fungal infection in Brinjal?
+irrigation_advice,Best irrigation practice for Cotton
+pest_disease_help,Best pesticide practice for Bajra
+planting_schedule,What is the planting month for Arecanut?
+recommend_crop,Recommend a crop for pH 7.0 and temperature 18C
+fertilizer_advice,"Fertilizer recommendation for Tur_Arhar given N=35, P=60, K=40"
+irrigation_advice,How much water does Sunflower need per week?
+recommend_crop,Best crop for temperature 30C and humidity 60%
+irrigation_advice,How often should I irrigate Rice?
+fertilizer_advice,What fertilizer schedule is best for Cauliflower?
+planting_schedule,When does Cabbage mature after planting?
+planting_schedule,Optimal planting time for Linseed
+planting_schedule,What is the planting month for Fennel?
+irrigation_advice,Best irrigation practice for Wheat
+fertilizer_advice,How much nitrogen should I apply for Maize?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 300mm?
+planting_schedule,Planting and harvesting months for Fennel
+planting_schedule,Planting and harvesting months for Groundnut
+irrigation_advice,Irrigation schedule for Cotton in Kharif season
+planting_schedule,When should I plant Brinjal in my region?
+planting_schedule,When does Jwar mature after planting?
+fertilizer_advice,When to apply phosphorus for Sunflower?
+recommend_crop,Suggest a crop for low nitrogen soils (N=150 kg/ha)
+pest_disease_help,My Carrot leaves are yellow — what could be wrong?
+planting_schedule,When should I plant Wheat in my region?
+recommend_crop,Which crop suits my soil with pH 6.8 and rainfall 400mm?
+planting_schedule,When does Carrot mature after planting?
+planting_schedule,When should I plant Rice in my region?
+planting_schedule,What is the planting month for Sunflower?
+irrigation_advice,Best irrigation practice for Sweet_Potato
+pest_disease_help,How to treat fungal infection in Cotton?
+fertilizer_advice,"Fertilizer recommendation for Turmeric given N=90, P=40, K=120"
+fertilizer_advice,What fertilizer schedule is best for Onion?
+fertilizer_advice,What fertilizer schedule is best for Black_Pepper?
+irrigation_advice,Irrigation schedule for Ragi in Kharif season
+fertilizer_advice,"Fertilizer recommendation for Jwar given N=100, P=40, K=40"
+fertilizer_advice,How much nitrogen should I apply for Rice?
+planting_schedule,When does Oats mature after planting?
+fertilizer_advice,When to apply phosphorus for Jowar?
+pest_disease_help,Best pesticide practice for Jowar
+irrigation_advice,Water requirement for Tea with rainfall 1200mm
+irrigation_advice,How often should I irrigate Rice?
+planting_schedule,When should I plant Rice in my region?
+fertilizer_advice,When to apply phosphorus for Wheat?
+planting_schedule,Optimal planting time for Cabbage
+irrigation_advice,Irrigation schedule for Rice in Kharif season
+irrigation_advice,Best irrigation practice for Jwar
+planting_schedule,When should I plant Green_Peas in my region?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 600mm?
+fertilizer_advice,"Fertilizer recommendation for Safflower given N=80, P=45, K=45"
+fertilizer_advice,When to apply phosphorus for Tea?
+fertilizer_advice,Suggest fertilizer amounts for Cardamom
+fertilizer_advice,"Fertilizer recommendation for Sunflower given N=80, P=60, K=60"
+fertilizer_advice,"Fertilizer recommendation for Fennel given N=90, P=45, K=60"
+recommend_crop,Best crop for temperature 18C and humidity 60%
+planting_schedule,When does Cauliflower mature after planting?
+irrigation_advice,Irrigation schedule for Wheat in Rabi season
+planting_schedule,Optimal planting time for Safflower
+irrigation_advice,Water requirement for Onion with rainfall 350mm
+irrigation_advice,Irrigation schedule for Ginger in Kharif season
+recommend_crop,Suggest a crop for low nitrogen soils (N=45 kg/ha)
+fertilizer_advice,What fertilizer schedule is best for Cassava?
+recommend_crop,What crop should I grow if my soil pH is 7.0 and rainfall 250mm?
+irrigation_advice,Water requirement for Cabbage with rainfall 400mm
+fertilizer_advice,When to apply phosphorus for Linseed?
+planting_schedule,Optimal planting time for Sesamum
+recommend_crop,Suggest a crop for low nitrogen soils (N=150 kg/ha)
+irrigation_advice,Irrigation schedule for Cauliflower in Rabi season
+fertilizer_advice,"Fertilizer recommendation for Coriander given N=60, P=30, K=60"
+pest_disease_help,Best pesticide practice for Arecanut
+irrigation_advice,Irrigation schedule for Coconut in Year Round season
+fertilizer_advice,"Fertilizer recommendation for Okra given N=100, P=60, K=90"
+planting_schedule,What is the planting month for Tomato?
+irrigation_advice,Irrigation schedule for Sunflower in Rabi season
+fertilizer_advice,"Fertilizer recommendation for Cardamom given N=120, P=40, K=90"
+irrigation_advice,Best irrigation practice for Tomato
+planting_schedule,What is the planting month for Jowar?
+planting_schedule,When should I plant Carrot in my region?
+planting_schedule,When should I plant Tobacco in my region?
+planting_schedule,Optimal planting time for Tur_Arhar
+recommend_crop,Best crop for temperature 30C and humidity 60%
+pest_disease_help,How to manage pests in Tomato fields?
+recommend_crop,What crop should I grow if my soil pH is 6.8 and rainfall 1000mm?
+pest_disease_help,Best pesticide practice for Coriander
+irrigation_advice,Irrigation schedule for Jowar in Kharif season
+fertilizer_advice,How much nitrogen should I apply for Cardamom?
+fertilizer_advice,"Fertilizer recommendation for Fennel given N=90, P=45, K=60"
+recommend_crop,Suggest a crop for low nitrogen soils (N=100 kg/ha)
+pest_disease_help,My Tobacco leaves are yellow — what could be wrong?
+planting_schedule,When should I plant Ginger in my region?
+planting_schedule,When should I plant Potato in my region?
+pest_disease_help,Symptoms of common diseases in Green_Peas
+pest_disease_help,How to manage pests in Sugarcane fields?
+fertilizer_advice,What fertilizer schedule is best for Rice?
+pest_disease_help,Symptoms of common diseases in Sunflower
+irrigation_advice,Best irrigation practice for Sesamum
+fertilizer_advice,"Fertilizer recommendation for Jute given N=60, P=25, K=30"
+recommend_crop,What crop should I grow if my soil pH is 6.0 and rainfall 1000mm?
+fertilizer_advice,What fertilizer schedule is best for Fennel?
+fertilizer_advice,When to apply phosphorus for Green_Peas?
+planting_schedule,What is the planting month for Oats?
+planting_schedule,What is the planting month for Tur_Arhar?
+recommend_crop,What crop should I grow if my soil pH is 6.8 and rainfall 300mm?
+recommend_crop,Which crop suits my soil with pH 6.2 and rainfall 600mm?
+recommend_crop,Suggest a crop for low nitrogen soils (N=100 kg/ha)
+pest_disease_help,My Sunflower leaves are yellow — what could be wrong?
+fertilizer_advice,When to apply phosphorus for Linseed?
+irrigation_advice,Best irrigation practice for Bajra
+pest_disease_help,Best pesticide practice for Cabbage
+fertilizer_advice,Suggest fertilizer amounts for Cardamom
+pest_disease_help,Symptoms of common diseases in Cardamom
+fertilizer_advice,When to apply phosphorus for Black_Pepper?
+fertilizer_advice,What fertilizer schedule is best for Gram?
+planting_schedule,Optimal planting time for Black_Pepper
+fertilizer_advice,When to apply phosphorus for Onion?
+planting_schedule,Optimal planting time for Maize
+pest_disease_help,Best pesticide practice for Cardamom
+pest_disease_help,My Fennel leaves are yellow — what could be wrong?
+pest_disease_help,My Cauliflower leaves are yellow — what could be wrong?
+pest_disease_help,How to manage pests in Rice fields?
+recommend_crop,Suggest a crop for low nitrogen soils (N=45 kg/ha)
+recommend_crop,Suggest a crop for low nitrogen soils (N=225 kg/ha)
+recommend_crop,What crop should I grow if my soil pH is 6.8 and rainfall 400mm?
+pest_disease_help,How to manage pests in Coriander fields?
+fertilizer_advice,Suggest fertilizer amounts for Cardamom
+planting_schedule,Optimal planting time for Tobacco
+pest_disease_help,Best pesticide practice for Linseed
+pest_disease_help,Best pesticide practice for Cotton
+fertilizer_advice,How much nitrogen should I apply for Sunflower?
+recommend_crop,Recommend a crop for pH 7.0 and temperature 27C
+recommend_crop,Best crop for temperature 20C and humidity 75%
+irrigation_advice,How often should I irrigate Niger?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 250mm?
+planting_schedule,Planting and harvesting months for Cardamom
+irrigation_advice,How much water does Cassava need per week?
+irrigation_advice,How often should I irrigate Cardamom?
+recommend_crop,Which crop suits my soil with pH 7.2 and rainfall 300mm?
+irrigation_advice,Irrigation schedule for Tobacco in Rabi season
+pest_disease_help,How to treat fungal infection in Tur_Arhar?
+fertilizer_advice,When to apply phosphorus for Rapeseed_Mustard?
+pest_disease_help,Symptoms of common diseases in Tea
+irrigation_advice,Water requirement for Tomato with rainfall 500mm
+pest_disease_help,Symptoms of common diseases in Niger
+pest_disease_help,Best pesticide practice for Cauliflower
+fertilizer_advice,Suggest fertilizer amounts for Jwar
+planting_schedule,When should I plant Tomato in my region?
+fertilizer_advice,When to apply phosphorus for Sugarcane?
+recommend_crop,Suggest a crop for low nitrogen soils (N=200 kg/ha)
+recommend_crop,Suggest a crop for low nitrogen soils (N=30 kg/ha)
+pest_disease_help,Symptoms of common diseases in Cassava
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 500mm?
+recommend_crop,Which crop suits my soil with pH 6.0 and rainfall 400mm?
+planting_schedule,Optimal planting time for Linseed
+irrigation_advice,How much water does Onion need per week?
+irrigation_advice,Irrigation schedule for Brinjal in Year Round season
+irrigation_advice,Irrigation schedule for Jute in Kharif season
+planting_schedule,Planting and harvesting months for Black_Pepper
+fertilizer_advice,"Fertilizer recommendation for Rapeseed_Mustard given N=80, P=40, K=35"
+planting_schedule,Planting and harvesting months for Groundnut
+pest_disease_help,How to manage pests in Fenugreek fields?
+recommend_crop,Recommend a crop for pH 6.5 and temperature 28C
+fertilizer_advice,"Fertilizer recommendation for Tomato given N=160, P=90, K=180"
+planting_schedule,Optimal planting time for Bajra
+irrigation_advice,How often should I irrigate Carrot?
+irrigation_advice,Water requirement for Groundnut with rainfall 500mm
+pest_disease_help,Symptoms of common diseases in Coffee
+pest_disease_help,How to treat fungal infection in Arecanut?
+planting_schedule,Planting and harvesting months for Tur_Arhar
+planting_schedule,Optimal planting time for Gram
+planting_schedule,When does Niger mature after planting?
+irrigation_advice,Irrigation schedule for Maize in Kharif season
+fertilizer_advice,"Fertilizer recommendation for Coconut given N=150, P=45, K=210"
+recommend_crop,Best crop for temperature 25C and humidity 65%
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 350mm?
+irrigation_advice,Best irrigation practice for Fennel
+fertilizer_advice,"Fertilizer recommendation for Tomato given N=160, P=90, K=180"
+planting_schedule,When does Potato mature after planting?
+fertilizer_advice,How much nitrogen should I apply for Cassava?
+irrigation_advice,How often should I irrigate Cardamom?
+pest_disease_help,How to manage pests in Coconut fields?
+planting_schedule,When should I plant Rapeseed_Mustard in my region?
+pest_disease_help,My Sunflower leaves are yellow — what could be wrong?
+planting_schedule,What is the planting month for Gram?
+recommend_crop,Which crop suits my soil with pH 6.5 and rainfall 500mm?
+planting_schedule,When does Barley mature after planting?
+pest_disease_help,How to manage pests in Linseed fields?
+fertilizer_advice,What fertilizer schedule is best for Coffee?
+recommend_crop,Best crop for temperature 24C and humidity 70%
+planting_schedule,When does Okra mature after planting?
+fertilizer_advice,"Fertilizer recommendation for Cumin given N=45, P=30, K=45"
+recommend_crop,Recommend a crop for pH 6.5 and temperature 28C
+irrigation_advice,How often should I irrigate Cabbage?
+recommend_crop,Best crop for temperature 20C and humidity 70%
+pest_disease_help,How to treat fungal infection in Potato?
+pest_disease_help,Best pesticide practice for Carrot
+pest_disease_help,Best pesticide practice for Cardamom
+planting_schedule,Planting and harvesting months for Bajra
+planting_schedule,When does Fenugreek mature after planting?
+recommend_crop,Suggest a crop for low nitrogen soils (N=200 kg/ha)
+pest_disease_help,Symptoms of common diseases in Tur_Arhar
+planting_schedule,When should I plant Black_Pepper in my region?
+recommend_crop,What crop should I grow if my soil pH is 7.0 and rainfall 400mm?
+fertilizer_advice,How much nitrogen should I apply for Coriander?
+fertilizer_advice,When to apply phosphorus for Coconut?
+recommend_crop,Best crop for temperature 24C and humidity 70%
+irrigation_advice,How much water does Cumin need per week?
+recommend_crop,Recommend a crop for pH 6.2 and temperature 25C
+pest_disease_help,Best pesticide practice for Coconut
+fertilizer_advice,What fertilizer schedule is best for Carrot?
+fertilizer_advice,What fertilizer schedule is best for Sweet_Potato?
+planting_schedule,Planting and harvesting months for Onion
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 250mm?
+recommend_crop,What crop should I grow if my soil pH is 7.0 and rainfall 600mm?
+irrigation_advice,Irrigation schedule for Niger in Kharif season
+pest_disease_help,My Green_Peas leaves are yellow — what could be wrong?
+fertilizer_advice,When to apply phosphorus for Okra?
+pest_disease_help,How to manage pests in Cotton fields?
+irrigation_advice,How often should I irrigate Barley?
+recommend_crop,Suggest a crop for low nitrogen soils (N=100 kg/ha)
+planting_schedule,Planting and harvesting months for Cassava
+fertilizer_advice,Suggest fertilizer amounts for Coriander
+irrigation_advice,Irrigation schedule for Potato in Rabi season
+irrigation_advice,Best irrigation practice for Fenugreek
+irrigation_advice,Irrigation schedule for Fennel in Rabi season
+planting_schedule,Optimal planting time for Brinjal
+irrigation_advice,Best irrigation practice for Oats
+irrigation_advice,Best irrigation practice for Safflower
+recommend_crop,Recommend a crop for pH 6.8 and temperature 18C
+planting_schedule,Optimal planting time for Sugarcane
+planting_schedule,Planting and harvesting months for Castor
+fertilizer_advice,"Fertilizer recommendation for Niger given N=45, P=30, K=35"
+fertilizer_advice,When to apply phosphorus for Arecanut?
+fertilizer_advice,What fertilizer schedule is best for Ragi?
+pest_disease_help,My Green_Peas leaves are yellow — what could be wrong?
+pest_disease_help,Best pesticide practice for Niger
+fertilizer_advice,"Fertilizer recommendation for Barley given N=100, P=40, K=35"
+fertilizer_advice,How much nitrogen should I apply for Ginger?
+pest_disease_help,Symptoms of common diseases in Sugarcane
+planting_schedule,What is the planting month for Barley?
+pest_disease_help,Best pesticide practice for Cabbage
+irrigation_advice,Best irrigation practice for Cabbage
+recommend_crop,Best crop for temperature 28C and humidity 80%
+irrigation_advice,How often should I irrigate Maize?
+irrigation_advice,How often should I irrigate Jowar?
+planting_schedule,Optimal planting time for Cumin
+irrigation_advice,How often should I irrigate Rice?
+planting_schedule,Planting and harvesting months for Cassava
+pest_disease_help,My Tomato leaves are yellow — what could be wrong?
+recommend_crop,Best crop for temperature 28C and humidity 90%
+irrigation_advice,Best irrigation practice for Arecanut
+planting_schedule,When should I plant Cabbage in my region?
+recommend_crop,Which crop suits my soil with pH 7.2 and rainfall 300mm?
+planting_schedule,Planting and harvesting months for Tea
+recommend_crop,Recommend a crop for pH 7.0 and temperature 27C
+recommend_crop,Recommend a crop for pH 6.5 and temperature 28C
+irrigation_advice,How much water does Black_Pepper need per week?
+fertilizer_advice,When to apply phosphorus for Niger?
+pest_disease_help,Symptoms of common diseases in Rapeseed_Mustard
+irrigation_advice,Best irrigation practice for Coriander
+irrigation_advice,How much water does Oats need per week?
+pest_disease_help,Best pesticide practice for Barley
+recommend_crop,What crop should I grow if my soil pH is 6.0 and rainfall 500mm?
+pest_disease_help,How to treat fungal infection in Sweet_Potato?
+irrigation_advice,Water requirement for Barley with rainfall 350mm
+fertilizer_advice,"Fertilizer recommendation for Onion given N=125, P=60, K=120"
+planting_schedule,Planting and harvesting months for Coffee
+planting_schedule,When does Linseed mature after planting?
+irrigation_advice,Best irrigation practice for Oats
+recommend_crop,Recommend a crop for pH 7.0 and temperature 18C
+fertilizer_advice,When to apply phosphorus for Turmeric?
+irrigation_advice,Irrigation schedule for Coriander in Rabi season
+irrigation_advice,How often should I irrigate Ginger?
+planting_schedule,Planting and harvesting months for Cumin
+pest_disease_help,Symptoms of common diseases in Linseed
+pest_disease_help,How to manage pests in Wheat fields?
+irrigation_advice,Irrigation schedule for Fenugreek in Rabi season
+planting_schedule,When should I plant Sesamum in my region?
+fertilizer_advice,What fertilizer schedule is best for Jute?
+pest_disease_help,How to treat fungal infection in Cotton?
+irrigation_advice,Best irrigation practice for Sugarcane
+fertilizer_advice,How much nitrogen should I apply for Coffee?
+planting_schedule,When should I plant Barley in my region?
+fertilizer_advice,When to apply phosphorus for Fenugreek?
+recommend_crop,Suggest a crop for low nitrogen soils (N=60 kg/ha)
+pest_disease_help,How to treat fungal infection in Ragi?
+pest_disease_help,Best pesticide practice for Sesamum
+fertilizer_advice,What fertilizer schedule is best for Bajra?
+irrigation_advice,Best irrigation practice for Linseed
+pest_disease_help,How to treat fungal infection in Jwar?
+fertilizer_advice,What fertilizer schedule is best for Tomato?
+pest_disease_help,My Jowar leaves are yellow — what could be wrong?
+pest_disease_help,How to treat fungal infection in Ragi?
+irrigation_advice,How much water does Sesamum need per week?
+irrigation_advice,Irrigation schedule for Cardamom in Year Round season
+pest_disease_help,How to manage pests in Tea fields?
+recommend_crop,Best crop for temperature 24C and humidity 70%
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 250mm?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 350mm?
+recommend_crop,Best crop for temperature 20C and humidity 90%
+pest_disease_help,How to treat fungal infection in Rice?
+pest_disease_help,Best pesticide practice for Ginger
+planting_schedule,Planting and harvesting months for Coriander
+recommend_crop,Recommend a crop for pH 6.5 and temperature 26C
+irrigation_advice,How often should I irrigate Bajra?
+fertilizer_advice,What fertilizer schedule is best for Barley?
+fertilizer_advice,"Fertilizer recommendation for Cumin given N=45, P=30, K=45"
+recommend_crop,Recommend a crop for pH 6.0 and temperature 25C
+fertilizer_advice,How much nitrogen should I apply for Safflower?
+fertilizer_advice,"Fertilizer recommendation for Jowar given N=100, P=40, K=40"
+planting_schedule,Optimal planting time for Tobacco
+pest_disease_help,How to manage pests in Onion fields?
+irrigation_advice,How much water does Sweet_Potato need per week?
+fertilizer_advice,What fertilizer schedule is best for Rapeseed_Mustard?
+recommend_crop,Which crop suits my soil with pH 7.5 and rainfall 300mm?
+irrigation_advice,How much water does Sunflower need per week?
+planting_schedule,When does Carrot mature after planting?
+pest_disease_help,Best pesticide practice for Castor
+planting_schedule,When does Rice mature after planting?
+irrigation_advice,How often should I irrigate Carrot?
+recommend_crop,Recommend a crop for pH 6.0 and temperature 25C
+planting_schedule,When should I plant Coriander in my region?
+irrigation_advice,How much water does Coffee need per week?
+irrigation_advice,Best irrigation practice for Cardamom
+recommend_crop,Recommend a crop for pH 6.5 and temperature 20C
+recommend_crop,Suggest a crop for low nitrogen soils (N=60 kg/ha)
+pest_disease_help,Symptoms of common diseases in Brinjal
+irrigation_advice,How often should I irrigate Coconut?
+recommend_crop,What crop should I grow if my soil pH is 7.5 and rainfall 250mm?
+planting_schedule,Optimal planting time for Potato
+fertilizer_advice,"Fertilizer recommendation for Sunflower given N=80, P=60, K=60"
+fertilizer_advice,How much nitrogen should I apply for Cauliflower?
+recommend_crop,Which crop suits my soil with pH 6.8 and rainfall 1200mm?
+recommend_crop,What crop should I grow if my soil pH is 5.5 and rainfall 1200mm?
+irrigation_advice,Water requirement for Rapeseed_Mustard with rainfall 300mm
+irrigation_advice,Irrigation schedule for Okra in Kharif season
+irrigation_advice,How much water does Ragi need per week?
+pest_disease_help,Symptoms of common diseases in Fenugreek
+planting_schedule,Optimal planting time for Maize
+fertilizer_advice,What fertilizer schedule is best for Linseed?
+fertilizer_advice,"Fertilizer recommendation for Safflower given N=80, P=45, K=45"
+recommend_crop,Recommend a crop for pH 6.2 and temperature 27C
+planting_schedule,Optimal planting time for Sweet_Potato
+pest_disease_help,How to treat fungal infection in Sunflower?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 600mm?
+fertilizer_advice,What fertilizer schedule is best for Groundnut?
+irrigation_advice,How much water does Tur_Arhar need per week?
+recommend_crop,Which crop suits my soil with pH 6.0 and rainfall 500mm?
+fertilizer_advice,How much nitrogen should I apply for Turmeric?
+fertilizer_advice,What fertilizer schedule is best for Sunflower?
+planting_schedule,When does Niger mature after planting?
+pest_disease_help,Symptoms of common diseases in Maize
+planting_schedule,When does Coconut mature after planting?
+fertilizer_advice,"Fertilizer recommendation for Castor given N=75, P=45, K=60"
+fertilizer_advice,When to apply phosphorus for Maize?
+irrigation_advice,How much water does Potato need per week?
+planting_schedule,When should I plant Sugarcane in my region?
+planting_schedule,What is the planting month for Groundnut?
+irrigation_advice,Water requirement for Brinjal with rainfall 500mm
+planting_schedule,When does Sugarcane mature after planting?
+pest_disease_help,Symptoms of common diseases in Fennel
+pest_disease_help,Best pesticide practice for Coriander
+recommend_crop,Recommend a crop for pH 7.0 and temperature 22C
+irrigation_advice,Irrigation schedule for Cassava in Year Round season
+irrigation_advice,How much water does Tea need per week?
+pest_disease_help,My Tobacco leaves are yellow — what could be wrong?
+pest_disease_help,How to manage pests in Wheat fields?
+planting_schedule,Optimal planting time for Jowar
+planting_schedule,Planting and harvesting months for Jwar
+recommend_crop,What crop should I grow if my soil pH is 6.0 and rainfall 1200mm?
+fertilizer_advice,When to apply phosphorus for Niger?
+recommend_crop,Suggest a crop for low nitrogen soils (N=35 kg/ha)
+fertilizer_advice,When to apply phosphorus for Tea?
+pest_disease_help,How to treat fungal infection in Castor?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 300mm?
+pest_disease_help,How to manage pests in Groundnut fields?
+irrigation_advice,Water requirement for Coffee with rainfall 1200mm
+recommend_crop,Suggest a crop for low nitrogen soils (N=90 kg/ha)
+planting_schedule,Planting and harvesting months for Turmeric
+recommend_crop,Recommend a crop for pH 6.8 and temperature 30C
+pest_disease_help,My Jute leaves are yellow — what could be wrong?
+planting_schedule,Optimal planting time for Tur_Arhar
+irrigation_advice,Best irrigation practice for Safflower
+recommend_crop,Best crop for temperature 27C and humidity 65%
+recommend_crop,Recommend a crop for pH 6.8 and temperature 28C
+planting_schedule,When does Ginger mature after planting?
+planting_schedule,What is the planting month for Sunflower?
+planting_schedule,Planting and harvesting months for Coffee
+pest_disease_help,Symptoms of common diseases in Okra
+irrigation_advice,Water requirement for Sugarcane with rainfall 1200mm
+fertilizer_advice,What fertilizer schedule is best for Brinjal?
+recommend_crop,Recommend a crop for pH 6.5 and temperature 20C
+pest_disease_help,Best pesticide practice for Linseed
+irrigation_advice,Irrigation schedule for Tea in Year Round season
+planting_schedule,When should I plant Tea in my region?
+recommend_crop,Which crop suits my soil with pH 6.5 and rainfall 350mm?
+recommend_crop,Suggest a crop for low nitrogen soils (N=30 kg/ha)
+planting_schedule,Planting and harvesting months for Tomato
+fertilizer_advice,When to apply phosphorus for Bajra?
+pest_disease_help,How to treat fungal infection in Onion?
+planting_schedule,What is the planting month for Rapeseed_Mustard?
+pest_disease_help,How to treat fungal infection in Fennel?
+recommend_crop,Best crop for temperature 30C and humidity 70%
+pest_disease_help,Best pesticide practice for Jwar
+pest_disease_help,Best pesticide practice for Cumin
+irrigation_advice,Irrigation schedule for Ragi in Kharif season
+fertilizer_advice,"Fertilizer recommendation for Rice given N=100, P=35, K=35"
+irrigation_advice,Best irrigation practice for Castor
+pest_disease_help,My Bajra leaves are yellow — what could be wrong?
+pest_disease_help,My Rice leaves are yellow — what could be wrong?
+irrigation_advice,Irrigation schedule for Gram in Rabi season
+irrigation_advice,Water requirement for Niger with rainfall 600mm
+pest_disease_help,My Fennel leaves are yellow — what could be wrong?
+pest_disease_help,Symptoms of common diseases in Oats
+irrigation_advice,Best irrigation practice for Sunflower
+planting_schedule,When should I plant Okra in my region?
+recommend_crop,Recommend a crop for pH 5.8 and temperature 20C
+fertilizer_advice,Suggest fertilizer amounts for Carrot
+pest_disease_help,Symptoms of common diseases in Turmeric
+planting_schedule,When does Castor mature after planting?
+recommend_crop,What crop should I grow if my soil pH is 7.0 and rainfall 300mm?
+irrigation_advice,Best irrigation practice for Castor
+planting_schedule,Planting and harvesting months for Castor
+fertilizer_advice,How much nitrogen should I apply for Groundnut?
+irrigation_advice,Water requirement for Sugarcane with rainfall 1200mm
+pest_disease_help,Best pesticide practice for Tomato
+irrigation_advice,Water requirement for Brinjal with rainfall 500mm
+irrigation_advice,Best irrigation practice for Jwar
+irrigation_advice,Best irrigation practice for Sunflower
+recommend_crop,What crop should I grow if my soil pH is 5.5 and rainfall 1200mm?
+fertilizer_advice,"Fertilizer recommendation for Ragi given N=60, P=30, K=30"
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 350mm?
+fertilizer_advice,When to apply phosphorus for Coffee?
+recommend_crop,Suggest a crop for low nitrogen soils (N=45 kg/ha)
+fertilizer_advice,Suggest fertilizer amounts for Jute
+fertilizer_advice,When to apply phosphorus for Wheat?
+planting_schedule,Planting and harvesting months for Turmeric
+fertilizer_advice,Suggest fertilizer amounts for Oats
+fertilizer_advice,When to apply phosphorus for Arecanut?
+planting_schedule,When should I plant Sesamum in my region?
+recommend_crop,Which crop suits my soil with pH 7.5 and rainfall 300mm?
+planting_schedule,What is the planting month for Green_Peas?
+recommend_crop,Best crop for temperature 20C and humidity 65%
+pest_disease_help,Best pesticide practice for Groundnut
+fertilizer_advice,"Fertilizer recommendation for Fennel given N=90, P=45, K=60"
+pest_disease_help,How to manage pests in Black_Pepper fields?
+irrigation_advice,Water requirement for Rapeseed_Mustard with rainfall 300mm
+pest_disease_help,Best pesticide practice for Oats
+fertilizer_advice,When to apply phosphorus for Black_Pepper?
+recommend_crop,Suggest a crop for low nitrogen soils (N=225 kg/ha)
+fertilizer_advice,"Fertilizer recommendation for Sesamum given N=45, P=30, K=35"
+irrigation_advice,Best irrigation practice for Gram
+planting_schedule,When does Carrot mature after planting?
+recommend_crop,Best crop for temperature 20C and humidity 80%
+pest_disease_help,Best pesticide practice for Barley
+planting_schedule,Planting and harvesting months for Safflower
+fertilizer_advice,When to apply phosphorus for Ragi?
+irrigation_advice,Irrigation schedule for Bajra in Kharif season
+pest_disease_help,How to manage pests in Tea fields?
+pest_disease_help,How to manage pests in Barley fields?
+recommend_crop,What crop should I grow if my soil pH is 7.5 and rainfall 300mm?
+planting_schedule,When does Coconut mature after planting?
+irrigation_advice,Water requirement for Coconut with rainfall 1200mm
+planting_schedule,When should I plant Okra in my region?
+fertilizer_advice,Suggest fertilizer amounts for Brinjal
+pest_disease_help,Symptoms of common diseases in Bajra
+fertilizer_advice,How much nitrogen should I apply for Brinjal?
+planting_schedule,Optimal planting time for Jowar
+pest_disease_help,How to treat fungal infection in Rice?
+fertilizer_advice,How much nitrogen should I apply for Niger?
+irrigation_advice,Water requirement for Gram with rainfall 300mm
+planting_schedule,Optimal planting time for Maize
+irrigation_advice,How much water does Sweet_Potato need per week?
+fertilizer_advice,How much nitrogen should I apply for Brinjal?
+fertilizer_advice,What fertilizer schedule is best for Castor?
+fertilizer_advice,What fertilizer schedule is best for Oats?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 250mm?
+pest_disease_help,Symptoms of common diseases in Cauliflower
+irrigation_advice,Irrigation schedule for Cassava in Year Round season
+pest_disease_help,Best pesticide practice for Ginger
+pest_disease_help,How to manage pests in Sesamum fields?
+recommend_crop,Suggest a crop for low nitrogen soils (N=60 kg/ha)
+irrigation_advice,Best irrigation practice for Black_Pepper
+recommend_crop,Recommend a crop for pH 6.0 and temperature 20C
+pest_disease_help,Symptoms of common diseases in Gram
+irrigation_advice,How much water does Niger need per week?
+irrigation_advice,Water requirement for Cumin with rainfall 250mm
+recommend_crop,Best crop for temperature 20C and humidity 60%
+fertilizer_advice,Suggest fertilizer amounts for Cauliflower
+pest_disease_help,How to treat fungal infection in Tur_Arhar?
+planting_schedule,When does Cardamom mature after planting?
+planting_schedule,Optimal planting time for Jute
+recommend_crop,What crop should I grow if my soil pH is 7.0 and rainfall 350mm?
+recommend_crop,Best crop for temperature 27C and humidity 90%
+fertilizer_advice,Suggest fertilizer amounts for Jute
+recommend_crop,What crop should I grow if my soil pH is 7.0 and rainfall 300mm?
+fertilizer_advice,How much nitrogen should I apply for Wheat?
+planting_schedule,When does Black_Pepper mature after planting?
+planting_schedule,What is the planting month for Rice?
+fertilizer_advice,What fertilizer schedule is best for Fennel?
+recommend_crop,Suggest a crop for low nitrogen soils (N=90 kg/ha)
+planting_schedule,When does Tobacco mature after planting?
+planting_schedule,When should I plant Black_Pepper in my region?
+irrigation_advice,Water requirement for Green_Peas with rainfall 300mm
+planting_schedule,When should I plant Cassava in my region?
+pest_disease_help,How to treat fungal infection in Fenugreek?
+pest_disease_help,My Fenugreek leaves are yellow — what could be wrong?
+irrigation_advice,Best irrigation practice for Safflower
+pest_disease_help,Symptoms of common diseases in Wheat
+recommend_crop,Best crop for temperature 20C and humidity 75%
+irrigation_advice,Best irrigation practice for Onion
+planting_schedule,Optimal planting time for Sweet_Potato
+pest_disease_help,My Carrot leaves are yellow — what could be wrong?
+pest_disease_help,Symptoms of common diseases in Okra
+planting_schedule,When should I plant Ragi in my region?
+fertilizer_advice,Suggest fertilizer amounts for Arecanut
+pest_disease_help,Best pesticide practice for Gram
+recommend_crop,Recommend a crop for pH 6.5 and temperature 24C
+planting_schedule,What is the planting month for Rapeseed_Mustard?
+irrigation_advice,Water requirement for Barley with rainfall 350mm
+irrigation_advice,Best irrigation practice for Fenugreek
+fertilizer_advice,"Fertilizer recommendation for Coffee given N=150, P=45, K=225"
+pest_disease_help,Best pesticide practice for Cardamom
+fertilizer_advice,"Fertilizer recommendation for Tea given N=225, P=60, K=150"
+planting_schedule,What is the planting month for Arecanut?
+pest_disease_help,My Bajra leaves are yellow — what could be wrong?
+recommend_crop,Recommend a crop for pH 6.0 and temperature 20C
+pest_disease_help,Symptoms of common diseases in Jute
+pest_disease_help,Best pesticide practice for Turmeric
+fertilizer_advice,How much nitrogen should I apply for Tobacco?
+pest_disease_help,Best pesticide practice for Okra
+fertilizer_advice,How much nitrogen should I apply for Ginger?
+irrigation_advice,Water requirement for Sesamum with rainfall 400mm
+irrigation_advice,Best irrigation practice for Fennel
+irrigation_advice,Irrigation schedule for Tobacco in Rabi season
+fertilizer_advice,What fertilizer schedule is best for Jowar?
+irrigation_advice,How much water does Brinjal need per week?
+fertilizer_advice,What fertilizer schedule is best for Linseed?
+fertilizer_advice,When to apply phosphorus for Carrot?
+fertilizer_advice,"Fertilizer recommendation for Sesamum given N=45, P=30, K=35"
+irrigation_advice,Irrigation schedule for Jute in Kharif season
+planting_schedule,What is the planting month for Jowar?
+fertilizer_advice,What fertilizer schedule is best for Bajra?
+pest_disease_help,My Cauliflower leaves are yellow — what could be wrong?
+irrigation_advice,How often should I irrigate Fennel?
+irrigation_advice,How often should I irrigate Arecanut?
+irrigation_advice,Water requirement for Tobacco with rainfall 400mm
+planting_schedule,When does Sweet_Potato mature after planting?
+planting_schedule,What is the planting month for Potato?
+fertilizer_advice,What fertilizer schedule is best for Fenugreek?
+planting_schedule,When does Cumin mature after planting?
+planting_schedule,When does Jute mature after planting?
+fertilizer_advice,How much nitrogen should I apply for Ginger?
+fertilizer_advice,Suggest fertilizer amounts for Cabbage
+planting_schedule,When should I plant Cardamom in my region?
+fertilizer_advice,"Fertilizer recommendation for Coriander given N=60, P=30, K=60"
+planting_schedule,What is the planting month for Oats?
+planting_schedule,When does Arecanut mature after planting?
+irrigation_advice,How often should I irrigate Fenugreek?
+planting_schedule,When does Cauliflower mature after planting?
+irrigation_advice,Irrigation schedule for Oats in Rabi season
+irrigation_advice,How much water does Bajra need per week?
+planting_schedule,Planting and harvesting months for Cotton
+fertilizer_advice,When to apply phosphorus for Tobacco?
+irrigation_advice,How much water does Arecanut need per week?
+pest_disease_help,Symptoms of common diseases in Safflower
+recommend_crop,Recommend a crop for pH 6.0 and temperature 25C
+planting_schedule,Planting and harvesting months for Ragi
+recommend_crop,Recommend a crop for pH 6.5 and temperature 20C
+fertilizer_advice,What fertilizer schedule is best for Gram?
+planting_schedule,When does Coconut mature after planting?
+pest_disease_help,How to treat fungal infection in Turmeric?
+fertilizer_advice,Suggest fertilizer amounts for Turmeric
+irrigation_advice,How much water does Cassava need per week?
+recommend_crop,Suggest a crop for low nitrogen soils (N=150 kg/ha)
+fertilizer_advice,What fertilizer schedule is best for Potato?
+planting_schedule,Planting and harvesting months for Sesamum
+fertilizer_advice,When to apply phosphorus for Sesamum?
+fertilizer_advice,What fertilizer schedule is best for Cabbage?
+recommend_crop,Recommend a crop for pH 6.8 and temperature 28C
+recommend_crop,Best crop for temperature 27C and humidity 90%
+fertilizer_advice,Suggest fertilizer amounts for Castor
+planting_schedule,Optimal planting time for Fennel
+planting_schedule,When should I plant Green_Peas in my region?
+irrigation_advice,Best irrigation practice for Fenugreek
+pest_disease_help,My Sunflower leaves are yellow — what could be wrong?
+pest_disease_help,My Coconut leaves are yellow — what could be wrong?
+irrigation_advice,Water requirement for Safflower with rainfall 300mm
+recommend_crop,Which crop suits my soil with pH 6.8 and rainfall 1000mm?
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 500mm?
+recommend_crop,Suggest a crop for low nitrogen soils (N=100 kg/ha)
+planting_schedule,When does Cassava mature after planting?
+irrigation_advice,Water requirement for Green_Peas with rainfall 300mm
+irrigation_advice,Irrigation schedule for Niger in Kharif season
+planting_schedule,Optimal planting time for Cotton
+fertilizer_advice,Suggest fertilizer amounts for Rapeseed_Mustard
+planting_schedule,When should I plant Arecanut in my region?
+irrigation_advice,How often should I irrigate Wheat?
+planting_schedule,What is the planting month for Oats?
+fertilizer_advice,When to apply phosphorus for Jowar?
+recommend_crop,Which crop suits my soil with pH 6.5 and rainfall 250mm?
+recommend_crop,Recommend a crop for pH 7.0 and temperature 30C
+fertilizer_advice,When to apply phosphorus for Wheat?
+planting_schedule,Planting and harvesting months for Sweet_Potato
+fertilizer_advice,How much nitrogen should I apply for Groundnut?
+recommend_crop,Recommend a crop for pH 7.2 and temperature 18C
+pest_disease_help,Best pesticide practice for Carrot
+pest_disease_help,How to manage pests in Safflower fields?
+pest_disease_help,How to treat fungal infection in Onion?
+pest_disease_help,How to manage pests in Coffee fields?
+recommend_crop,What crop should I grow if my soil pH is 6.2 and rainfall 1500mm?
+fertilizer_advice,When to apply phosphorus for Bajra?
+pest_disease_help,Best pesticide practice for Okra
+pest_disease_help,My Sugarcane leaves are yellow — what could be wrong?
+pest_disease_help,How to treat fungal infection in Safflower?
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 400mm?
+recommend_crop,Suggest a crop for low nitrogen soils (N=45 kg/ha)
+recommend_crop,Suggest a crop for low nitrogen soils (N=225 kg/ha)
+recommend_crop,Best crop for temperature 25C and humidity 90%
+planting_schedule,Optimal planting time for Cauliflower
+planting_schedule,Optimal planting time for Fenugreek
+pest_disease_help,Best pesticide practice for Sesamum
+fertilizer_advice,When to apply phosphorus for Cotton?
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 300mm?
+recommend_crop,Suggest a crop for low nitrogen soils (N=45 kg/ha)
+pest_disease_help,How to treat fungal infection in Tur_Arhar?
+irrigation_advice,How often should I irrigate Onion?
+recommend_crop,Suggest a crop for low nitrogen soils (N=60 kg/ha)
+planting_schedule,When does Tomato mature after planting?
+recommend_crop,Which crop suits my soil with pH 6.0 and rainfall 400mm?
+planting_schedule,Planting and harvesting months for Fennel
+planting_schedule,Optimal planting time for Tea
+recommend_crop,Which crop suits my soil with pH 6.8 and rainfall 300mm?
+planting_schedule,When should I plant Wheat in my region?
+pest_disease_help,How to manage pests in Maize fields?
+recommend_crop,Suggest a crop for low nitrogen soils (N=125 kg/ha)
+recommend_crop,What crop should I grow if my soil pH is 6.2 and rainfall 1000mm?
+pest_disease_help,My Rapeseed_Mustard leaves are yellow — what could be wrong?
+irrigation_advice,Best irrigation practice for Safflower
+recommend_crop,Suggest a crop for low nitrogen soils (N=80 kg/ha)
+fertilizer_advice,Suggest fertilizer amounts for Groundnut
+recommend_crop,Recommend a crop for pH 6.8 and temperature 20C
+fertilizer_advice,"Fertilizer recommendation for Potato given N=150, P=75, K=150"
+recommend_crop,Suggest a crop for low nitrogen soils (N=150 kg/ha)
+recommend_crop,Best crop for temperature 18C and humidity 75%
+pest_disease_help,My Coriander leaves are yellow — what could be wrong?
+irrigation_advice,How much water does Barley need per week?
+irrigation_advice,How often should I irrigate Black_Pepper?
+fertilizer_advice,When to apply phosphorus for Potato?
+irrigation_advice,How often should I irrigate Tur_Arhar?
+planting_schedule,Optimal planting time for Cumin
+irrigation_advice,How often should I irrigate Okra?
+recommend_crop,Recommend a crop for pH 6.5 and temperature 28C
+irrigation_advice,Best irrigation practice for Oats
+fertilizer_advice,"Fertilizer recommendation for Safflower given N=80, P=45, K=45"
+pest_disease_help,How to manage pests in Groundnut fields?
+pest_disease_help,My Black_Pepper leaves are yellow — what could be wrong?
+fertilizer_advice,Suggest fertilizer amounts for Green_Peas
+fertilizer_advice,What fertilizer schedule is best for Ginger?
+pest_disease_help,Best pesticide practice for Brinjal
+pest_disease_help,My Cabbage leaves are yellow — what could be wrong?
+irrigation_advice,Irrigation schedule for Jwar in Kharif season
+recommend_crop,Suggest a crop for low nitrogen soils (N=100 kg/ha)
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 400mm?
+fertilizer_advice,What fertilizer schedule is best for Niger?
+fertilizer_advice,What fertilizer schedule is best for Coriander?
+recommend_crop,Recommend a crop for pH 6.2 and temperature 30C
+fertilizer_advice,What fertilizer schedule is best for Coconut?
+fertilizer_advice,"Fertilizer recommendation for Tobacco given N=115, P=60, K=115"
+recommend_crop,Best crop for temperature 30C and humidity 60%
+fertilizer_advice,Suggest fertilizer amounts for Sweet_Potato
+irrigation_advice,Best irrigation practice for Green_Peas
+recommend_crop,Suggest a crop for low nitrogen soils (N=60 kg/ha)
+fertilizer_advice,How much nitrogen should I apply for Wheat?
+planting_schedule,When should I plant Coconut in my region?
+planting_schedule,When does Sunflower mature after planting?
+planting_schedule,When should I plant Ginger in my region?
+planting_schedule,What is the planting month for Ginger?
+pest_disease_help,How to treat fungal infection in Ginger?
+irrigation_advice,Best irrigation practice for Jute
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 600mm?
+irrigation_advice,How often should I irrigate Coffee?
+irrigation_advice,How often should I irrigate Black_Pepper?
+planting_schedule,When should I plant Cotton in my region?
+pest_disease_help,Symptoms of common diseases in Gram
+irrigation_advice,How much water does Jowar need per week?
+irrigation_advice,How often should I irrigate Maize?
+pest_disease_help,Best pesticide practice for Jowar
+irrigation_advice,Best irrigation practice for Turmeric
+fertilizer_advice,How much nitrogen should I apply for Green_Peas?
+pest_disease_help,Symptoms of common diseases in Sugarcane
+planting_schedule,Planting and harvesting months for Rice
+pest_disease_help,Best pesticide practice for Black_Pepper
+planting_schedule,When does Cotton mature after planting?
+planting_schedule,Planting and harvesting months for Wheat
+fertilizer_advice,What fertilizer schedule is best for Okra?
+pest_disease_help,Best pesticide practice for Sweet_Potato
+pest_disease_help,How to treat fungal infection in Tea?
+irrigation_advice,How much water does Carrot need per week?
+irrigation_advice,Irrigation schedule for Turmeric in Kharif season
+irrigation_advice,Irrigation schedule for Sesamum in Kharif season
+planting_schedule,When does Sesamum mature after planting?
+planting_schedule,When should I plant Sugarcane in my region?
+fertilizer_advice,Suggest fertilizer amounts for Cotton
+pest_disease_help,Best pesticide practice for Sweet_Potato
+fertilizer_advice,Suggest fertilizer amounts for Okra
+fertilizer_advice,"Fertilizer recommendation for Cassava given N=60, P=30, K=90"
+recommend_crop,Which crop suits my soil with pH 7.0 and rainfall 400mm?
+planting_schedule,When does Niger mature after planting?
+recommend_crop,Recommend a crop for pH 7.5 and temperature 30C
+irrigation_advice,Irrigation schedule for Cauliflower in Rabi season
+fertilizer_advice,What fertilizer schedule is best for Ragi?
+fertilizer_advice,"Fertilizer recommendation for Onion given N=125, P=60, K=120"
+fertilizer_advice,When to apply phosphorus for Jowar?
+recommend_crop,Best crop for temperature 28C and humidity 70%
+planting_schedule,Planting and harvesting months for Niger
+pest_disease_help,How to treat fungal infection in Groundnut?
+planting_schedule,When should I plant Green_Peas in my region?
+irrigation_advice,Water requirement for Groundnut with rainfall 500mm
+pest_disease_help,How to manage pests in Rapeseed_Mustard fields?
+irrigation_advice,Irrigation schedule for Jowar in Kharif season
+pest_disease_help,Symptoms of common diseases in Fenugreek
+pest_disease_help,My Safflower leaves are yellow — what could be wrong?
+fertilizer_advice,What fertilizer schedule is best for Okra?
+pest_disease_help,Best pesticide practice for Green_Peas
+pest_disease_help,Symptoms of common diseases in Linseed
+irrigation_advice,How much water does Tobacco need per week?
+fertilizer_advice,"Fertilizer recommendation for Carrot given N=100, P=60, K=90"
+pest_disease_help,Best pesticide practice for Carrot
+fertilizer_advice,When to apply phosphorus for Cumin?
+pest_disease_help,Best pesticide practice for Turmeric
+pest_disease_help,Best pesticide practice for Rapeseed_Mustard
+planting_schedule,When does Green_Peas mature after planting?
+recommend_crop,Best crop for temperature 25C and humidity 70%
+fertilizer_advice,"Fertilizer recommendation for Coconut given N=150, P=45, K=210"
+irrigation_advice,Water requirement for Okra with rainfall 400mm
+irrigation_advice,How often should I irrigate Turmeric?
+fertilizer_advice,Suggest fertilizer amounts for Oats
+recommend_crop,Recommend a crop for pH 6.8 and temperature 24C
+recommend_crop,Suggest a crop for low nitrogen soils (N=45 kg/ha)
+pest_disease_help,Symptoms of common diseases in Tobacco
+fertilizer_advice,How much nitrogen should I apply for Safflower?
+recommend_crop,Best crop for temperature 28C and humidity 90%
+recommend_crop,What crop should I grow if my soil pH is 5.8 and rainfall 1000mm?
+recommend_crop,Suggest a crop for low nitrogen soils (N=160 kg/ha)
+irrigation_advice,How much water does Cabbage need per week?
+fertilizer_advice,Suggest fertilizer amounts for Bajra
+planting_schedule,Optimal planting time for Sunflower
+recommend_crop,Suggest a crop for low nitrogen soils (N=225 kg/ha)
+planting_schedule,When should I plant Jowar in my region?
+irrigation_advice,How often should I irrigate Cabbage?
+pest_disease_help,Best pesticide practice for Onion
+planting_schedule,What is the planting month for Bajra?
+planting_schedule,When does Sunflower mature after planting?
+irrigation_advice,Irrigation schedule for Jwar in Kharif season
+planting_schedule,When should I plant Potato in my region?
+planting_schedule,When should I plant Coffee in my region?
+planting_schedule,When does Coriander mature after planting?
+fertilizer_advice,"Fertilizer recommendation for Arecanut given N=225, P=60, K=300"
+recommend_crop,Best crop for temperature 26C and humidity 70%
+pest_disease_help,Best pesticide practice for Jowar
+planting_schedule,Optimal planting time for Castor
+pest_disease_help,My Ragi leaves are yellow — what could be wrong?
+pest_disease_help,My Arecanut leaves are yellow — what could be wrong?
+recommend_crop,Suggest a crop for low nitrogen soils (N=125 kg/ha)
+recommend_crop,Best crop for temperature 30C and humidity 60%
+fertilizer_advice,When to apply phosphorus for Barley?
+recommend_crop,What crop should I grow if my soil pH is 7.5 and rainfall 300mm?
+planting_schedule,What is the planting month for Linseed?
+irrigation_advice,Best irrigation practice for Linseed
+recommend_crop,Recommend a crop for pH 7.0 and temperature 18C
+irrigation_advice,How much water does Cumin need per week?
+recommend_crop,Suggest a crop for low nitrogen soils (N=100 kg/ha)
+planting_schedule,When does Arecanut mature after planting?
+pest_disease_help,Symptoms of common diseases in Coriander
+planting_schedule,When should I plant Jute in my region?
+pest_disease_help,Best pesticide practice for Castor
+planting_schedule,When should I plant Rapeseed_Mustard in my region?
+pest_disease_help,Best pesticide practice for Maize
+pest_disease_help,Best pesticide practice for Cumin
+irrigation_advice,Irrigation schedule for Tur_Arhar in Kharif season
+irrigation_advice,Irrigation schedule for Potato in Rabi season
+fertilizer_advice,What fertilizer schedule is best for Barley?
+planting_schedule,Planting and harvesting months for Jwar
+irrigation_advice,How much water does Tea need per week?
+planting_schedule,Planting and harvesting months for Cabbage
+recommend_crop,Recommend a crop for pH 6.5 and temperature 15C
+pest_disease_help,Best pesticide practice for Cabbage
+irrigation_advice,Best irrigation practice for Sesamum
+fertilizer_advice,"Fertilizer recommendation for Coffee given N=150, P=45, K=225"
+planting_schedule,When does Cauliflower mature after planting?
+planting_schedule,What is the planting month for Carrot?
+irrigation_advice,Irrigation schedule for Carrot in Rabi season
+planting_schedule,When does Sugarcane mature after planting?
+fertilizer_advice,What fertilizer schedule is best for Tobacco?
+fertilizer_advice,Suggest fertilizer amounts for Fenugreek
+recommend_crop,Which crop suits my soil with pH 6.8 and rainfall 300mm?
+irrigation_advice,How much water does Sweet_Potato need per week?
+recommend_crop,Suggest a crop for low nitrogen soils (N=150 kg/ha)
+recommend_crop,Which crop suits my soil with pH 7.5 and rainfall 250mm?
+pest_disease_help,My Cabbage leaves are yellow — what could be wrong?
+recommend_crop,Suggest a crop for low nitrogen soils (N=150 kg/ha)
+fertilizer_advice,Suggest fertilizer amounts for Maize
+pest_disease_help,How to treat fungal infection in Tomato?
+irrigation_advice,Best irrigation practice for Cassava
+fertilizer_advice,What fertilizer schedule is best for Tomato?
+recommend_crop,Recommend a crop for pH 6.2 and temperature 28C
+recommend_crop,Recommend a crop for pH 7.0 and temperature 25C
+fertilizer_advice,Suggest fertilizer amounts for Rapeseed_Mustard
+fertilizer_advice,When to apply phosphorus for Cauliflower?
+pest_disease_help,Symptoms of common diseases in Groundnut
+fertilizer_advice,How much nitrogen should I apply for Cabbage?
+planting_schedule,What is the planting month for Coconut?
+recommend_crop,Suggest a crop for low nitrogen soils (N=80 kg/ha)
+recommend_crop,Which crop suits my soil with pH 6.5 and rainfall 350mm?
+irrigation_advice,How much water does Carrot need per week?
+pest_disease_help,My Oats leaves are yellow — what could be wrong?
+pest_disease_help,Best pesticide practice for Safflower
+irrigation_advice,Irrigation schedule for Arecanut in Year Round season
+recommend_crop,Recommend a crop for pH 6.8 and temperature 24C
+recommend_crop,What crop should I grow if my soil pH is 7.0 and rainfall 500mm?
+fertilizer_advice,How much nitrogen should I apply for Sugarcane?
+planting_schedule,Planting and harvesting months for Fenugreek
+fertilizer_advice,What fertilizer schedule is best for Cotton?
+recommend_crop,What crop should I grow if my soil pH is 6.5 and rainfall 500mm?
+recommend_crop,What crop should I grow if my soil pH is 7.0 and rainfall 300mm?
+fertilizer_advice,Suggest fertilizer amounts for Cotton
+irrigation_advice,How often should I irrigate Okra?
+recommend_crop,Which crop suits my soil with pH 6.5 and rainfall 300mm?
+planting_schedule,Optimal planting time for Ragi
+pest_disease_help,Best pesticide practice for Turmeric
+irrigation_advice,Irrigation schedule for Black_Pepper in Year Round season
+irrigation_advice,Irrigation schedule for Bajra in Kharif season
+irrigation_advice,Water requirement for Sweet_Potato with rainfall 500mm
+recommend_crop,Best crop for temperature 25C and humidity 60%
+fertilizer_advice,When to apply phosphorus for Ragi?
+planting_schedule,Planting and harvesting months for Gram
+recommend_crop,Recommend a crop for pH 5.8 and temperature 20C
+recommend_crop,Which crop suits my soil with pH 6.0 and rainfall 1000mm?
+irrigation_advice,How much water does Cumin need per week?
+pest_disease_help,How to treat fungal infection in Cumin?
+planting_schedule,When should I plant Gram in my region?
+fertilizer_advice,What fertilizer schedule is best for Gram?
+recommend_crop,What crop should I grow if my soil pH is 6.2 and rainfall 600mm?
+irrigation_advice,How often should I irrigate Sugarcane?
+fertilizer_advice,Suggest fertilizer amounts for Barley
+irrigation_advice,Water requirement for Jute with rainfall 1100mm
+recommend_crop,Best crop for temperature 25C and humidity 70%
+fertilizer_advice,Suggest fertilizer amounts for Tur_Arhar
+irrigation_advice,How often should I irrigate Green_Peas?
+fertilizer_advice,"Fertilizer recommendation for Potato given N=150, P=75, K=150"
+irrigation_advice,How often should I irrigate Tea?

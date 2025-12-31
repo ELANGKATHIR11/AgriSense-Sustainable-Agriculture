@@ -1,0 +1,106 @@
+# ===================================================================
+# AgriSense Backend - Optimized Multi-Stage Production Dockerfile
+# Size Reduction: ~70% smaller than standard Python images
+# Security: Non-root user, minimal attack surface
+# ===================================================================
+
+# ===== STAGE 1: Builder - Install dependencies =====
+FROM python:3.12-slim as builder
+
+# Set build arguments
+ARG ENABLE_ML=true
+ARG ENABLE_OPENCV=false
+
+WORKDIR /app
+
+# Install build dependencies (removed after build)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    libpq-dev \
+    libssl-dev \
+    # Common OpenCV/system libs needed by CV packages during build
+    libgl1 \
+    libgl1-mesa-dri \
+    libglib2.0-0 \
+    libsm6 \
+    libxrender1 \
+    libxext6 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY agrisense_app/backend/requirements.txt .
+COPY agrisense_app/backend/requirements-ml.txt .
+
+# Create virtual environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Upgrade pip and install wheel
+RUN pip install --no-cache-dir --upgrade pip wheel setuptools
+
+# Install core dependencies
+    # Install core dependencies (non-ML)
+    RUN pip install --no-cache-dir -r requirements.txt
+
+    # Optionally install heavy ML dependencies when building with --build-arg INSTALL_ML=true
+    ARG INSTALL_ML=false
+    RUN if [ "$INSTALL_ML" = "true" ]; then \
+        pip install --no-cache-dir -r requirements-ml.txt; \
+    else \
+        echo "Skipping ML dependencies (use --build-arg INSTALL_ML=true to include)"; \
+    fi
+
+# ===== STAGE 2: Runtime - Minimal production image =====
+FROM python:3.12-slim
+
+# Set environment variables for Python optimization
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONOPTIMIZE=2 \
+    PATH="/opt/venv/bin:$PATH" \
+    AGRISENSE_ENV=production
+
+# Install only runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    curl \
+    ca-certificates \
+    # Add runtime OpenCV/system libs so OpenCV can load at runtime
+    libgl1 \
+    libgl1-mesa-dri \
+    libglib2.0-0 \
+    libsm6 \
+    libxrender1 \
+    libxext6 \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create non-root user for security
+RUN groupadd -r agrisense && useradd -r -g agrisense agrisense
+
+# Set working directory
+WORKDIR /app
+
+# Copy virtual environment from builder
+COPY --from=builder /opt/venv /opt/venv
+
+# Copy application code (excludes .dockerignore items)
+COPY --chown=agrisense:agrisense agrisense_app/ ./agrisense_app/
+
+# Create necessary directories
+RUN mkdir -p /app/data /app/logs /app/models && \
+    chown -R agrisense:agrisense /app
+
+# Switch to non-root user
+USER agrisense
+
+# Expose port
+EXPOSE 8004
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8004/health || exit 1
+
+# Default command
+CMD ["uvicorn", "agrisense_app.backend.main:app", "--host", "0.0.0.0", "--port", "8004", "--workers", "2"]

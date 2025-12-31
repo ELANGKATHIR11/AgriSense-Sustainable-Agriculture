@@ -1,0 +1,28 @@
+# ===== Intel NPU Optimization Stack =====
+# For Intel Core Ultra 9 275HX with NPU support
+# Generated: December 30, 2025
+
+# Intel OpenVINO Toolkit (Latest for NPU support)
+openvino>=2024.5.0
+openvino-dev>=2024.5.0
+
+# Intel Extension for PyTorch (IPEX) - NPU acceleration
+intel-extension-for-pytorch>=2.5.10
+
+# Intel Neural Compressor - Model quantization for NPU
+neural-compressor>=3.1
+
+# ONNX Runtime with OpenVINO Execution Provider
+onnxruntime-openvino>=1.19.0
+onnx>=1.17.0
+
+# Intel oneDAL - Accelerated scikit-learn
+scikit-learn-intelex>=2024.7.0
+
+# Performance monitoring
+psutil>=6.1.0
+py-cpuinfo>=9.0.0
+
+# Visualization for benchmarks
+matplotlib>=3.9.3
+seaborn>=0.13.2

@@ -1,0 +1,41 @@
+{
+  "cpu_compute": {
+    "matrix_1000": {
+      "time": 0.013998031616210938,
+      "gflops": 142.87723123041286
+    },
+    "matrix_5000": {
+      "time": 1.2627108097076416,
+      "gflops": 197.98674255262225
+    },
+    "matrix_10000": {
+      "time": 8.608177185058594,
+      "gflops": 232.33722505984716
+    }
+  },
+  "sklearn_rf": {
+    "train_time": 0.12751317024230957,
+    "accuracy": 0.78548,
+    "intel_accelerated": true
+  },
+  "pytorch_inference": {
+    "duration": 0.0675044059753418,
+    "throughput": 474043.13152076403,
+    "latency": 0.0675044059753418,
+    "ipex_optimized": false
+  },
+  "openvino_inference": {
+    "CPU": {
+      "throughput": 37037.105063313495,
+      "latency": 0.026999950408935547
+    },
+    "GPU": {
+      "throughput": 13332.561961403855,
+      "latency": 0.07500433921813965
+    },
+    "NPU": {
+      "throughput": 3309.3009549252856,
+      "latency": 0.30217862129211426
+    }
+  }
+}
