@@ -315,8 +315,8 @@ class MetricsCollector:
         self.histograms[metric_key].append(value)
         
         # Keep only recent values
-        if len(self.histograms[metric]) > max_size:
-            self.histograms[metric] = self.histograms[metric][-max_size:]
+        if len(self.histograms[metric_key]) > max_size:
+            self.histograms[metric_key] = self.histograms[metric_key][-max_size:]
     
     def get_stats(self) -> Dict[str, Any]:
         """Get all metrics as dictionary"""
@@ -347,10 +347,18 @@ class MetricsCollector:
         histogram_stats = {}
         for name, values in self.histograms.items():
             if values:
+                # Ensure histogram key is a string (handle _Metric objects)
+                try:
+                    hist_name = getattr(name, "value", name)
+                except Exception:
+                    hist_name = name
+
+                hist_name = str(hist_name)
+
                 sorted_values = sorted(values)
                 n = len(sorted_values)
-                
-                histogram_stats[name] = {
+
+                histogram_stats[hist_name] = {
                     "count": n,
                     "min": sorted_values[0],
                     "max": sorted_values[-1],
@@ -366,15 +374,17 @@ class MetricsCollector:
         # so code expecting flat metric keys can find them easily.
         try:
             for name, count in coerced_counters.items():
-                if name not in stats:
-                    stats[name] = count
+                stats_key = str(name)
+                if stats_key not in stats:
+                    stats[stats_key] = count
         except Exception:
             pass
 
         try:
             for name, value in coerced_gauges.items():
-                if name not in stats:
-                    stats[name] = value
+                stats_key = str(name)
+                if stats_key not in stats:
+                    stats[stats_key] = value
         except Exception:
             pass
 
