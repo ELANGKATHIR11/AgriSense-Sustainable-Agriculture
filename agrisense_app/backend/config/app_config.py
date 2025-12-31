@@ -11,7 +11,7 @@ DISABLE_ML = os.getenv("AGRISENSE_DISABLE_ML", "0").lower() in ("1", "true", "ye
 
 # ===== Database Configuration =====
 DB_TYPE = os.getenv("AGRISENSE_DB", "sqlite").lower()
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./sensors.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://agrisense:agrisense@localhost:5432/agrisense_db")
 AGRISENSE_DB_PATH = os.getenv("AGRISENSE_DB_PATH")
 AGRISENSE_DATA_DIR = os.getenv("AGRISENSE_DATA_DIR")
 
