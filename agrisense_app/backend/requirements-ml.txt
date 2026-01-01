@@ -2,7 +2,7 @@
 # Install these only when you plan to run ML features locally or on a GPU-enabled runner.
 # Pin numpy to a TensorFlow-compatible 1.26.x release for Python 3.12
 numpy==1.26.4
-tensorflow==2.16.1
+tensorflow-cpu==2.20.0
 torch>=2.0.0
 torchvision>=0.15.0
 sentence-transformers>=2.2.0
