@@ -1,0 +1,17 @@
+FROM tensorflow/tensorflow:2.20.0-gpu
+
+WORKDIR /app
+
+# Install system deps and pip packages
+COPY agrisense_app/backend/requirements-ml.txt /tmp/requirements-ml.txt
+RUN python -m pip install --upgrade pip setuptools wheel \
+    && python -m pip install -r /tmp/requirements-ml.txt
+
+# Copy repository
+COPY . /app
+
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app/agrisense_app/backend
+
+ENTRYPOINT ["/bin/bash", "-c"]
