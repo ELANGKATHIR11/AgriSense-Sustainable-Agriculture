@@ -516,6 +516,18 @@ try:
 except Exception:
     pass
 
+# Include ML Predictions router (Water Optimization & Yield Prediction)
+try:
+    if __package__:
+        from .routes.ml_predictions import router as ml_predictions_router
+    else:
+        from routes.ml_predictions import router as ml_predictions_router  # type: ignore
+    
+    app.include_router(ml_predictions_router, prefix="/ml")
+    logger.info("✅ ML Predictions router included (Water Optimization & Yield Prediction)")
+except Exception as _ml_exc:
+    logger.warning("Could not include ML predictions routes: %s", _ml_exc)
+
     # Metrics endpoint (Prometheus-compatible wrapper if available)
     try:
         @app.get("/metrics")

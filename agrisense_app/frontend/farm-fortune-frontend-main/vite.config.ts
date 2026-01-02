@@ -11,13 +11,13 @@ export default defineConfig((ctx: { mode: string }) => ({
     port: 3000,
     strictPort: false, // Auto-increment port if 3000 is busy
     proxy: {
-      // Proxy API calls in dev to FastAPI backend on 8004
+      // Proxy API calls in dev to FastAPI backend on 8000
       "/api": {
-        target: process.env.VITE_API_URL || "http://127.0.0.1:8004",
+        target: process.env.VITE_API_URL || "http://127.0.0.1:8000",
         changeOrigin: true,
         secure: false,
         ws: true, // WebSocket support
-        rewrite: (path) => path.replace(/^\/api/, ''), // Strip /api prefix before forwarding to backend
+        // Don't strip /api prefix - backend expects it
         configure: (proxy, _options) => {
           proxy.on('error', (err, _req, _res) => {
             console.log('Proxy error:', err);
@@ -29,7 +29,7 @@ export default defineConfig((ctx: { mode: string }) => ({
       },
       // Health check endpoint
       "/health": {
-        target: process.env.VITE_API_URL || "http://127.0.0.1:8004",
+        target: process.env.VITE_API_URL || "http://127.0.0.1:8000",
         changeOrigin: true,
         secure: false,
       },

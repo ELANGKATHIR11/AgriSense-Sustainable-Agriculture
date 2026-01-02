@@ -1,6 +1,23 @@
 # AgriSense Project Blueprint — Production-Ready Full-Stack Smart Agriculture System
 
-## Recent Updates (2025-12-30)
+## Recent Updates (2026-01-02)
+
+### 🆕 January 2026 Updates - Frontend Consolidation & ML Integration
+
+**MAJOR UI CONSOLIDATION (Jan 2, 2026):**
+- **ML Pages Integrated into Recommend Page**: Water Optimization and Yield Prediction ML features consolidated into unified tabbed interface
+- **Removed Standalone Pages**: Deleted `WaterOptimization.tsx` and `YieldPrediction.tsx` (functionality moved to Recommend)
+- **Updated Navigation**: Removed "Water AI" and "Yield AI" navigation links for cleaner sidebar
+- **Updated Routing**: Removed `/water-optimization` and `/yield-prediction` routes from App.tsx
+- **Enhanced Recommend Page**: Now ~1,235 lines with full ML integration via Tabs component
+- **ML Models Retrained**: Water Optimization (R²=0.82) and Yield Prediction (R²=0.98) models compatible with Python 3.12.10, scikit-learn 1.8.0, numpy 1.26.4
+
+**Python Environment:**
+- Created `venv312` virtual environment with Python 3.12.10
+- Installed 90+ backend dependencies from requirements.txt
+- All ML models compatible with latest numpy/scikit-learn versions
+
+### Previous Updates (2025-12-30)
 
 - Cleaned local caches and removed large local artifacts to reduce repository size: deleted `__pycache__`, `.pytest_cache`, `.mypy_cache`, `build/`, and `dist/` from the repo root.
 - Local model store `ml_models/` was archived to `backup_ml_models.zip` and moved outside the repository at `D:\backup_ml_models.zip` to avoid exceeding remote file size limits.
