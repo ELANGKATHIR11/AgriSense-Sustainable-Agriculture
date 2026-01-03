@@ -1,0 +1,359 @@
+{
+  "test_summary": {
+    "timestamp": "2025-10-17T21:47:05.137240",
+    "total_tests": 80,
+    "successful_tests": 0,
+    "failed_tests": 80,
+    "crops_tested": 10,
+    "diseases_tested": 8
+  },
+  "crop_results": {
+    "Rice": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637A820>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E466374C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630E580>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46433A90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463ABE80>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3610>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46425400>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46433BE0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    },
+    "Wheat": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463322E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E466373D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3F70>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637A970>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46637430>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46455160>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630EBE0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B31F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    },
+    "Maize": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3670>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4624DE50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630ED00>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B37F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3BE0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E466376A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637A580>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E462380D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    },
+    "Cotton": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E466371F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630EA30>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46407FD0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3AF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46425400>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3910>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B39D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630EDF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    },
+    "Tomato": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E462F4EB0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46637430>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E44C1BD60>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E466373D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630E2E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4640ED30>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3340>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637A370>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    },
+    "Potato": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3760>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3970>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46433D30>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630E3A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E462381C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46637880>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463EC940>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630EF10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    },
+    "Sugarcane": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46425FD0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637A1F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B34C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4642BBE0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4645DE80>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4646EDF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630EE80>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637AC40>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    },
+    "Groundnut": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46637F10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46238640>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637A6A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630E820>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E464076A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E466372E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3340>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46407940>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    },
+    "Sunflower": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630E250>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637A6A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E466372E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E462381C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E462381C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46637E80>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637AF70>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630EDF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    },
+    "Gram": {
+      "bacterial_spot": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4642BBE0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "early_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B35B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "late_blight": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E46425940>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "powdery_mildew": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4630E640>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "rust_diseases": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E4637A1F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "fusarium_wilt": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463ECA90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "mosaic_virus": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E466378B0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      },
+      "nutrient_deficiency": {
+        "status": "error",
+        "error": "HTTPConnectionPool(host='127.0.0.1', port=8004): Max retries exceeded with url: /disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000018E463B3E80>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+      }
+    }
+  },
+  "disease_coverage": {},
+  "model_performance": {
+    "success_rate_percent": 0.0,
+    "total_diseases_detected": 0,
+    "most_detected_disease": "none",
+    "average_confidence": "Not calculated in this test"
+  }
+}

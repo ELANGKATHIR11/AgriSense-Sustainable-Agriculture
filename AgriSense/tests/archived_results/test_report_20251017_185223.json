@@ -1,0 +1,89 @@
+{
+  "tests": [
+    {
+      "name": "Health Check",
+      "success": false,
+      "message": "Health check error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FBB5850>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 1.0,
+      "weighted_score": 0.0
+    },
+    {
+      "name": "Smart Irrigation",
+      "success": false,
+      "message": "Error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /recommend (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FBDA4F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 1.5,
+      "weighted_score": 0.0
+    },
+    {
+      "name": "Crop Recommendation",
+      "success": false,
+      "message": "Error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /suggest_crop (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FBDAF70>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 1.5,
+      "weighted_score": 0.0
+    },
+    {
+      "name": "Disease Detection",
+      "success": false,
+      "message": "Error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /api/disease/detect (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FC893A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 1.5,
+      "weighted_score": 0.0
+    },
+    {
+      "name": "Weed Management",
+      "success": false,
+      "message": "Error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /api/weed/analyze (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FC89400>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 1.5,
+      "weighted_score": 0.0
+    },
+    {
+      "name": "Chatbot",
+      "success": false,
+      "message": "Error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /chatbot/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FC94880>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 1.0,
+      "weighted_score": 0.0
+    },
+    {
+      "name": "Data Persistence",
+      "success": false,
+      "message": "Error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /api/edge/ingest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FC9E1F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 0.5,
+      "weighted_score": 0.0
+    },
+    {
+      "name": "Multi-Language",
+      "success": false,
+      "message": "Error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /chatbot/ask (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FC9EC10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 0.5,
+      "weighted_score": 0.0
+    },
+    {
+      "name": "Performance",
+      "success": false,
+      "message": "Error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FCAB610>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 0.5,
+      "weighted_score": 0.0
+    },
+    {
+      "name": "Error Handling",
+      "success": false,
+      "message": "Error: HTTPConnectionPool(host='localhost', port=8004): Max retries exceeded with url: /api/v1/irrigation/recommend (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F48FC9E340>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+      "score": 0.0,
+      "weight": 0.5,
+      "weighted_score": 0.0
+    }
+  ],
+  "scores": {},
+  "total_score": 0.0,
+  "max_score": 10.0,
+  "start_time": "2025-10-17T18:51:42.258012",
+  "end_time": "2025-10-17T18:52:23.512559"
+}

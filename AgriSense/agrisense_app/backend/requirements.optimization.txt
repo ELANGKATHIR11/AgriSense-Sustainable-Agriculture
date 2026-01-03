@@ -1,0 +1,87 @@
+# AgriSense Production Optimization - Requirements
+# Install with: pip install -r requirements.optimization.txt
+
+# ===== CORE OPTIMIZATION DEPENDENCIES =====
+
+# Configuration management
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+
+# Async Redis cache
+redis[asyncio]>=5.0.0
+hiredis>=2.2.0  # Fast C parser for Redis
+
+# Authentication & Security
+python-jose[cryptography]>=3.3.0  # JWT
+passlib[bcrypt]>=1.7.4  # Password hashing
+python-multipart>=0.0.6  # OAuth2 form data
+
+# Monitoring & Observability
+psutil>=5.9.0  # System metrics
+prometheus-client>=0.19.0  # Prometheus metrics
+
+# Structured Logging (already in main requirements)
+# python-json-logger>=2.0.0
+
+# ===== EXPLAINABLE AI (OPTIONAL) =====
+
+# SHAP - SHapley Additive exPlanations
+shap>=0.44.0
+
+# LIME - Local Interpretable Model-agnostic Explanations
+lime>=0.2.0
+
+# ===== ALERTS & NOTIFICATIONS =====
+
+# SMS & WhatsApp via Twilio
+twilio>=8.10.0
+
+# Email (can use standard library smtplib)
+# Or use SendGrid:
+# sendgrid>=6.11.0
+
+# ===== ML OPTIMIZATION (OPTIONAL) =====
+
+# ONNX Runtime for optimized inference
+onnxruntime>=1.16.0
+# onnxruntime-gpu>=1.16.0  # GPU version
+
+# Model conversion
+# tf2onnx>=1.15.0  # TensorFlow to ONNX
+# skl2onnx>=1.16.0  # Scikit-learn to ONNX
+
+# TensorFlow Lite (for edge devices)
+# tflite-runtime>=2.14.0
+
+# Model quantization
+# tensorflow-model-optimization>=0.7.5
+
+# ===== CELERY FOR ASYNC ML TASKS (OPTIONAL) =====
+
+celery[redis]>=5.3.0
+flower>=2.0.1  # Celery monitoring
+
+# ===== DEVELOPMENT & TESTING =====
+
+# pytest>=7.4.0  # Already in requirements-dev.txt
+# pytest-asyncio>=0.21.0
+# httpx>=0.25.0  # Async HTTP client for testing
+
+# Load testing
+locust>=2.17.0
+
+# ===== ADDITIONAL UTILITIES =====
+
+# Retry logic with exponential backoff
+tenacity>=8.2.0
+
+# Rate limiting (already in main requirements)
+# slowapi>=0.1.9
+
+# ===== NOTES =====
+
+# For production, also consider:
+# - Application Performance Monitoring (APM): newrelic, datadog, etc.
+# - Error tracking: sentry-sdk>=1.39.0
+# - Distributed tracing: opentelemetry-api, opentelemetry-sdk
+# - API documentation: flasgger or ReDoc (FastAPI has built-in Swagger)
