@@ -1,0 +1,24 @@
+{
+  "metrics": {
+    "accuracy": 0.7572727272727273,
+    "precision_macro": 0.7559170031988305,
+    "recall_macro": 0.7572727272727273,
+    "f1_macro": 0.7559357669500041,
+    "cv_accuracy_mean": 0.7525284090909091,
+    "cv_accuracy_std": 0.0029199238994385406,
+    "n_classes": 22,
+    "n_samples": 44000,
+    "n_features": 7,
+    "feature_importance": {
+      "N": 0.17778809970727993,
+      "P": 0.13745546633398303,
+      "K": 0.21083197053265865,
+      "temperature": 0.1437234213385168,
+      "humidity": 0.10067422436586909,
+      "ph": 0.0764717714826076,
+      "rainfall": 0.153055046239085
+    }
+  },
+  "timestamp": "2026-01-05T18:45:00.090960",
+  "model_type": "random_forest"
+}

@@ -1,0 +1,175 @@
+# =============================================================================
+# AgriSense ML Requirements - Modernized Stack v2.0
+# =============================================================================
+# 
+# Installation Groups:
+#   - FULL:     pip install -r requirements-ml.txt
+#   - TRAINING: pip install -r requirements-ml.txt --extra-index-url https://pypi.org/simple
+#   - INFERENCE: pip install -r requirements-ml-inference.txt (lightweight)
+#
+# Last Updated: January 5, 2026
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# CORE DEPENDENCIES (All Environments)
+# -----------------------------------------------------------------------------
+numpy>=1.24.0,<2.0.0
+pandas>=2.0.0
+scipy>=1.11.0
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+PyYAML>=6.0.1
+tqdm>=4.66.0
+
+# -----------------------------------------------------------------------------
+# GROUP A: TABULAR MODELS (Crop/Yield/Water/Fertilizer)
+# -----------------------------------------------------------------------------
+# Primary: CatBoost with DART mode
+catboost>=1.2.2                          # Native categorical handling, DART
+lightgbm>=4.1.0                          # Backup/ensemble option
+xgboost>=2.0.0                           # Baseline comparison
+
+# TensorFlow Decision Forests (Edge export)
+tensorflow>=2.15.0,<2.17.0               # TF-DF compatible range
+tensorflow-decision-forests>=1.8.0       # Quantizable decision trees
+tensorflow-model-optimization>=0.8.0     # QAT, pruning, clustering
+
+# Data Augmentation
+imbalanced-learn>=0.11.0                 # SMOTE-NC for categorical+numeric
+# Mixup implemented in custom code (numpy-based)
+
+# -----------------------------------------------------------------------------
+# GROUP B: VISION MODELS (Disease/Weed Detection)
+# -----------------------------------------------------------------------------
+# PyTorch ecosystem (ConvNeXt V2)
+torch>=2.1.0
+torchvision>=0.16.0
+timm>=0.9.12                             # ConvNeXt V2 Nano weights
+albumentations>=1.3.1                    # Copy-Paste augmentation
+
+# Ultralytics YOLOv8
+ultralytics>=8.1.0                       # YOLOv8-Seg with Mosaic/Copy-Paste
+
+# Image processing
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# Dataset utilities
+pycocotools>=2.0.7                       # COCO format (segmentation masks)
+roboflow>=1.1.0                          # Dataset management (optional)
+
+# -----------------------------------------------------------------------------
+# GROUP C: EDGE/NPU MODELS (ESP32-S3 Targets)
+# -----------------------------------------------------------------------------
+# TFLite conversion & optimization
+# (tensorflow already installed above)
+flatbuffers>=23.5.26                     # TFLite schema
+tflite-support>=0.4.4                    # Metadata handling
+
+# ONNX export (cross-platform)
+onnx>=1.15.0
+onnxruntime>=1.16.0                      # CPU inference
+onnx-simplifier>=0.4.35                  # Graph optimization
+tf2onnx>=1.16.0                          # TF -> ONNX conversion
+
+# Edge simulation
+# Note: TFLite Micro runs on device; use interpreter for desktop testing
+
+# -----------------------------------------------------------------------------
+# GROUP D: NLP & RAG (Chatbot)
+# -----------------------------------------------------------------------------
+# Embeddings: BGE-M3 (multilingual)
+sentence-transformers>=2.2.0             # SBERT + BGE-M3 support
+transformers>=4.36.0                     # DistilBERT, tokenizers
+tokenizers>=0.15.0                       # Fast tokenization
+
+# RAG Components
+faiss-cpu>=1.7.4                         # Vector similarity search
+# faiss-gpu>=1.7.4                       # Uncomment for GPU servers
+chromadb>=0.4.20                         # Alternative vector DB
+
+# Language support
+langdetect>=1.0.9                        # Auto language detection
+indic-nlp-library>=0.92                  # Hindi/Tamil preprocessing
+
+# -----------------------------------------------------------------------------
+# API & SERVING
+# -----------------------------------------------------------------------------
+fastapi>=0.109.0
+uvicorn[standard]>=0.25.0
+python-multipart>=0.0.6
+httpx>=0.26.0
+
+# Caching & optimization
+redis>=5.0.0                             # Prediction caching
+cachetools>=5.3.2                        # In-memory LRU cache
+
+# -----------------------------------------------------------------------------
+# EXPERIMENT TRACKING & MLOps
+# -----------------------------------------------------------------------------
+mlflow>=2.9.0                            # Experiment tracking
+wandb>=0.16.0                            # Alternative: Weights & Biases
+optuna>=3.5.0                            # Hyperparameter optimization
+
+# Model versioning
+dvc>=3.38.0                              # Data version control
+
+# -----------------------------------------------------------------------------
+# EVALUATION & TESTING
+# -----------------------------------------------------------------------------
+scikit-learn>=1.3.0                      # Metrics, baselines
+matplotlib>=3.8.0
+seaborn>=0.13.0
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
+
+# Model interpretability
+shap>=0.44.0                             # Feature importance
+lime>=0.2.0.1                            # Local explanations
+
+# -----------------------------------------------------------------------------
+# DEVELOPMENT TOOLS
+# -----------------------------------------------------------------------------
+black>=23.12.0
+isort>=5.13.0
+mypy>=1.8.0
+ruff>=0.1.9
+
+# Jupyter (training notebooks)
+jupyter>=1.0.0
+ipykernel>=6.28.0
+ipywidgets>=8.1.0
+
+# -----------------------------------------------------------------------------
+# OPTIONAL: HARDWARE ACCELERATION
+# -----------------------------------------------------------------------------
+# Uncomment based on your hardware:
+
+# NVIDIA GPU (CUDA 12.x)
+# torch>=2.1.0+cu121
+# onnxruntime-gpu>=1.16.0
+
+# Intel NPU / OpenVINO
+# openvino>=2023.3.0
+# nncf>=2.7.0
+
+# Apple Silicon (MPS)
+# torch>=2.1.0  # MPS enabled by default on macOS
+
+# -----------------------------------------------------------------------------
+# PLATFORM-SPECIFIC NOTES
+# -----------------------------------------------------------------------------
+# 
+# ESP32-S3 Deployment:
+#   - Models are exported as .tflite (int8 quantized)
+#   - Use ESP-IDF with TFLite Micro component
+#   - Max model size: ~500KB for comfortable RAM usage
+#
+# Azure Deployment:
+#   - Use onnxruntime for CPU inference
+#   - Enable Redis for prediction caching
+#   - Set CUDA_VISIBLE_DEVICES="" for CPU-only containers
+#
+# Local Development:
+#   - Install full requirements with: pip install -r requirements-ml.txt
+#   - For M1/M2 Mac: Install tensorflow-macos and tensorflow-metal

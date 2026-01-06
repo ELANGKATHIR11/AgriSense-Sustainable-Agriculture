@@ -1,0 +1,209 @@
+# ====================
+# Environment & Secrets (CRITICAL)
+# ====================
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+.env.test
+
+# API Keys (should never be committed)
+**/config/secrets.json
+**/config/credentials.json
+**/.credentials
+**/.secrets
+
+# ====================
+# IDE & Editor
+# ====================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ====================
+# Python
+# ====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+*.pot
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+.env
+.virtualenv
+
+# ====================
+# Node.js / Frontend
+# ====================
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+.next/
+out/
+.nuxt/
+.cache/
+.vuepress/dist/
+
+# ====================
+# Database
+# ====================
+*.db
+*.sqlite
+*.sqlite3
+*.dbf
+*.db-journal
+*.db-shm
+*.db-wal
+
+# ====================
+# ML Models (Large Files)
+# ====================
+# Keep models in separate storage, not in git
+*.h5
+*.pkl
+*.joblib
+*.model
+*.onnx
+*.pt
+*.pth
+model_files/
+models/trained/
+*.keras
+*.tar.gz
+
+# ====================
+# Logs
+# ====================
+logs/
+*.log
+npm-debug.log*
+lerna-debug.log*
+
+# ====================
+# Docker
+# ====================
+docker-compose.override.yml
+Dockerfile.local
+
+# ====================
+# OS
+# ====================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ====================
+# Temporary Files
+# ====================
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*~
+.~*
+
+# ====================
+# Build Artifacts
+# ====================
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ====================
+# Test Coverage
+# ====================
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ====================
+# IDE Generated Files
+# ====================
+.classpath
+.project
+.pydevproject
+.settings/
+*.jks
+*.keystore
+
+# ====================
+# NEVER COMMIT THESE
+# ====================
+# Private keys
+*.pem
+*.key
+*.pub
+!public.pem
+
+# API responses with sensitive data
+api_responses.json
+test_results.json
+
+# Database dumps with real data
+*.sql
+!schema.sql
+!migrations.sql
+
+# ====================
+# Frontend Build Outputs
+# ====================
+.next/
+.nuxt/
+out/
+build/
+.cache/
+dist/

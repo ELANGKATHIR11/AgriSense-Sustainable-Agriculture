@@ -1,0 +1,50 @@
+{
+  "crop_recommendation": {
+    "accuracy": 0.0,
+    "f1_score": 0.0,
+    "classes": 76
+  },
+  "crop_type_classification": {
+    "accuracy": 0.55,
+    "f1_score": 0.5419047619047619,
+    "classes": 10
+  },
+  "season_classification": {
+    "accuracy": 0.75,
+    "f1_score": 0.7727272727272727,
+    "classes": 5,
+    "class_names": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "growth_duration": {
+    "rmse": 0.17184107801337417,
+    "r2_score": 0.7527517208215685,
+    "target_range": [
+      0.12103746397694523,
+      1.0
+    ]
+  },
+  "water_requirement": {
+    "rmse": 0.17440216886405915,
+    "r2_score": 0.3583639248905619,
+    "target_range": [
+      0.03999999999999998,
+      1.0
+    ]
+  },
+  "intent_classifier": {
+    "accuracy": 0.42857142857142855,
+    "intents": [
+      "weather",
+      "disease",
+      "soil",
+      "crop_recommendation",
+      "pricing"
+    ]
+  }
+}

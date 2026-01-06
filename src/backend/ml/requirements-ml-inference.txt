@@ -1,0 +1,62 @@
+# =============================================================================
+# AgriSense ML - INFERENCE ONLY (Lightweight Production)
+# =============================================================================
+# 
+# Purpose: Minimal dependencies for FastAPI inference server
+# Size: ~500MB vs ~4GB for full training stack
+#
+# Install: pip install -r requirements-ml-inference.txt
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# CORE (Minimal)
+# -----------------------------------------------------------------------------
+numpy>=1.24.0,<2.0.0
+pandas>=2.0.0
+pydantic>=2.0.0
+PyYAML>=6.0.1
+
+# -----------------------------------------------------------------------------
+# INFERENCE ENGINES
+# -----------------------------------------------------------------------------
+# CatBoost (native loader - no training deps)
+catboost>=1.2.2
+
+# ONNX Runtime (CPU - covers ConvNeXt, YOLOv8, DistilBERT)
+onnxruntime>=1.16.0
+
+# TFLite Runtime (lighter than full TensorFlow)
+tflite-runtime>=2.14.0                   # ~10MB vs 500MB TensorFlow
+
+# -----------------------------------------------------------------------------
+# NLP INFERENCE
+# -----------------------------------------------------------------------------
+# Tokenizers only (no full transformers)
+tokenizers>=0.15.0
+sentence-transformers>=2.2.0             # For BGE-M3 embeddings
+
+# Vector search
+faiss-cpu>=1.7.4
+
+# -----------------------------------------------------------------------------
+# VISION INFERENCE
+# -----------------------------------------------------------------------------
+opencv-python-headless>=4.8.0            # Headless = no GUI deps
+Pillow>=10.0.0
+
+# -----------------------------------------------------------------------------
+# API
+# -----------------------------------------------------------------------------
+fastapi>=0.109.0
+uvicorn[standard]>=0.25.0
+python-multipart>=0.0.6
+
+# Caching
+cachetools>=5.3.2
+redis>=5.0.0
+
+# -----------------------------------------------------------------------------
+# MONITORING
+# -----------------------------------------------------------------------------
+prometheus-client>=0.19.0
+structlog>=24.1.0

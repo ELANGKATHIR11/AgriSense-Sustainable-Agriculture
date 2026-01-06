@@ -1,0 +1,955 @@
+{
+  "intents": {
+    "crop_recommendation": {
+      "patterns": [
+        "What crop should I grow?",
+        "Which crop is suitable for my land?",
+        "Suggest a crop for {soil_type} soil",
+        "Best crop for {state} region",
+        "What to plant in {season} season?",
+        "Crop recommendation for pH {ph}",
+        "Which crop needs {rainfall}mm rainfall?",
+        "मेरी मिट्टी के लिए कौन सी फसल अच्छी है?",
+        "என் நிலத்திற்கு எந்த பயிர் சிறந்தது?"
+      ],
+      "responses": [
+        "Based on your soil conditions, I recommend {crop}.",
+        "For {soil_type} soil with {temperature}°C temperature, {crop} would be ideal.",
+        "Considering your {state} location, {crop} is a good choice."
+      ]
+    },
+    "disease_detection": {
+      "patterns": [
+        "My {crop} leaves have spots",
+        "Is this a disease on my plant?",
+        "What disease affects {crop}?",
+        "How to identify leaf blight?",
+        "My plant leaves are turning yellow",
+        "पत्तियों पर धब्बे क्या हैं?",
+        "இலைகளில் புள்ளிகள் என்ன?"
+      ],
+      "responses": [
+        "This appears to be {disease}. Treatment involves {treatment}.",
+        "Based on the symptoms, your {crop} may have {disease}."
+      ]
+    },
+    "yield_prediction": {
+      "patterns": [
+        "How much yield can I expect?",
+        "Predict my harvest",
+        "Expected {crop} production",
+        "What will be my crop output?",
+        "फसल की उपज कितनी होगी?",
+        "விளைச்சல் எவ்வளவு இருக்கும்?"
+      ],
+      "responses": [
+        "Based on current conditions, expected yield is {yield} tonnes/hectare.",
+        "With optimal management, you can expect {yield} t/ha of {crop}."
+      ]
+    },
+    "weather_query": {
+      "patterns": [
+        "What is the weather forecast?",
+        "Will it rain tomorrow?",
+        "Temperature prediction for farming",
+        "Best time to sow {crop}?",
+        "मौसम का पूर्वानुमान क्या है?"
+      ],
+      "responses": [
+        "The forecast shows {weather_condition} with {temperature}°C.",
+        "Expected rainfall: {rainfall}mm. Good conditions for {activity}."
+      ]
+    },
+    "pest_management": {
+      "patterns": [
+        "How to control pests in {crop}?",
+        "Organic pest control methods",
+        "Insects attacking my plants",
+        "Natural pesticide alternatives",
+        "कीट नियंत्रण कैसे करें?"
+      ],
+      "responses": [
+        "For {pest} in {crop}, use {treatment}.",
+        "Organic options include neem oil, pyrethrin, or companion planting."
+      ]
+    },
+    "fertilizer_advice": {
+      "patterns": [
+        "How much fertilizer for {crop}?",
+        "NPK ratio recommendation",
+        "Organic vs chemical fertilizer",
+        "When to apply fertilizer?",
+        "खाद कितनी देनी चाहिए?"
+      ],
+      "responses": [
+        "For {crop}, apply N:{n}, P:{p}, K:{k} kg/ha.",
+        "Based on soil test, apply {fertilizer_amount}kg/ha."
+      ]
+    },
+    "market_price": {
+      "patterns": [
+        "Current {crop} price",
+        "When to sell my produce?",
+        "Market rate for {crop}",
+        "MSP for {crop} this year",
+        "मंडी में भाव क्या है?"
+      ],
+      "responses": [
+        "Current {crop} price is ₹{price}/quintal at {market}.",
+        "MSP for {crop} is ₹{msp}/quintal this season."
+      ]
+    }
+  },
+  "training_data": [
+    {
+      "text": "What crop should I grow?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What crop should I grow?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What crop should I grow?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What crop should I grow?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What crop should I grow?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop is suitable for my land?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop is suitable for my land?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop is suitable for my land?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop is suitable for my land?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop is suitable for my land?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Suggest a crop for Clayey soil",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Suggest a crop for Alluvial soil",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Suggest a crop for Sandy Loam soil",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Suggest a crop for Loamy soil",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Suggest a crop for Red Soil soil",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Best crop for Tamil Nadu region",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Best crop for Bihar region",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Best crop for Karnataka region",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Best crop for Uttarakhand region",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Best crop for Madhya Pradesh region",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What to plant in Kharif season?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What to plant in Rabi season?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What to plant in Rabi season?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What to plant in Kharif season?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What to plant in Kharif season?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Crop recommendation for pH 6.0",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Crop recommendation for pH 6.9",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Crop recommendation for pH 6.0",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Crop recommendation for pH 7.4",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Crop recommendation for pH 6.7",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop needs 1272mm rainfall?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop needs 551mm rainfall?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop needs 307mm rainfall?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop needs 590mm rainfall?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop needs 450mm rainfall?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "मेरी मिट्टी के लिए कौन सी फसल अच्छी है?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "मेरी मिट्टी के लिए कौन सी फसल अच्छी है?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "मेरी मिट्टी के लिए कौन सी फसल अच्छी है?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "मेरी मिट्टी के लिए कौन सी फसल अच्छी है?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "मेरी मिट्टी के लिए कौन सी फसल अच्छी है?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "என் நிலத்திற்கு எந்த பயிர் சிறந்தது?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "என் நிலத்திற்கு எந்த பயிர் சிறந்தது?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "என் நிலத்திற்கு எந்த பயிர் சிறந்தது?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "என் நிலத்திற்கு எந்த பயிர் சிறந்தது?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "என் நிலத்திற்கு எந்த பயிர் சிறந்தது?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "My Rice leaves have spots",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "My Maize leaves have spots",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "My Chickpea leaves have spots",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "My Kidneybeans leaves have spots",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "My Pigeonpeas leaves have spots",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "Is this a disease on my plant?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "Is this a disease on my plant?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "Is this a disease on my plant?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "Is this a disease on my plant?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "Is this a disease on my plant?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "What disease affects Rice?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "What disease affects Maize?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "What disease affects Chickpea?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "What disease affects Kidneybeans?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "What disease affects Pigeonpeas?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "How to identify leaf blight?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "How to identify leaf blight?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "How to identify leaf blight?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "How to identify leaf blight?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "How to identify leaf blight?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "My plant leaves are turning yellow",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "My plant leaves are turning yellow",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "My plant leaves are turning yellow",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "My plant leaves are turning yellow",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "My plant leaves are turning yellow",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "पत्तियों पर धब्बे क्या हैं?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "पत्तियों पर धब्बे क्या हैं?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "पत्तियों पर धब्बे क्या हैं?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "पत्तियों पर धब्बे क्या हैं?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "पत्तियों पर धब्बे क्या हैं?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "இலைகளில் புள்ளிகள் என்ன?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "இலைகளில் புள்ளிகள் என்ன?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "இலைகளில் புள்ளிகள் என்ன?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "இலைகளில் புள்ளிகள் என்ன?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "இலைகளில் புள்ளிகள் என்ன?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "How much yield can I expect?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "How much yield can I expect?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "How much yield can I expect?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "How much yield can I expect?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "How much yield can I expect?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Predict my harvest",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Predict my harvest",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Predict my harvest",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Predict my harvest",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Predict my harvest",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Expected Rice production",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Expected Maize production",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Expected Chickpea production",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Expected Kidneybeans production",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "Expected Pigeonpeas production",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "What will be my crop output?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "What will be my crop output?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "What will be my crop output?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "What will be my crop output?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "What will be my crop output?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "फसल की उपज कितनी होगी?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "फसल की उपज कितनी होगी?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "फसल की उपज कितनी होगी?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "फसल की उपज कितनी होगी?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "फसल की उपज कितनी होगी?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "விளைச்சல் எவ்வளவு இருக்கும்?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "விளைச்சல் எவ்வளவு இருக்கும்?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "விளைச்சல் எவ்வளவு இருக்கும்?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "விளைச்சல் எவ்வளவு இருக்கும்?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "விளைச்சல் எவ்வளவு இருக்கும்?",
+      "intent": "yield_prediction"
+    },
+    {
+      "text": "What is the weather forecast?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "What is the weather forecast?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "What is the weather forecast?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "What is the weather forecast?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "What is the weather forecast?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Will it rain tomorrow?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Will it rain tomorrow?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Will it rain tomorrow?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Will it rain tomorrow?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Will it rain tomorrow?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Temperature prediction for farming",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Temperature prediction for farming",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Temperature prediction for farming",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Temperature prediction for farming",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Temperature prediction for farming",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Best time to sow Rice?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Best time to sow Maize?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Best time to sow Chickpea?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Best time to sow Kidneybeans?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "Best time to sow Pigeonpeas?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "मौसम का पूर्वानुमान क्या है?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "मौसम का पूर्वानुमान क्या है?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "मौसम का पूर्वानुमान क्या है?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "मौसम का पूर्वानुमान क्या है?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "मौसम का पूर्वानुमान क्या है?",
+      "intent": "weather_query"
+    },
+    {
+      "text": "How to control pests in Rice?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "How to control pests in Maize?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "How to control pests in Chickpea?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "How to control pests in Kidneybeans?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "How to control pests in Pigeonpeas?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Organic pest control methods",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Organic pest control methods",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Organic pest control methods",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Organic pest control methods",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Organic pest control methods",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Insects attacking my plants",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Insects attacking my plants",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Insects attacking my plants",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Insects attacking my plants",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Insects attacking my plants",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Natural pesticide alternatives",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Natural pesticide alternatives",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Natural pesticide alternatives",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Natural pesticide alternatives",
+      "intent": "pest_management"
+    },
+    {
+      "text": "Natural pesticide alternatives",
+      "intent": "pest_management"
+    },
+    {
+      "text": "कीट नियंत्रण कैसे करें?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "कीट नियंत्रण कैसे करें?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "कीट नियंत्रण कैसे करें?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "कीट नियंत्रण कैसे करें?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "कीट नियंत्रण कैसे करें?",
+      "intent": "pest_management"
+    },
+    {
+      "text": "How much fertilizer for Rice?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "How much fertilizer for Maize?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "How much fertilizer for Chickpea?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "How much fertilizer for Kidneybeans?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "How much fertilizer for Pigeonpeas?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "NPK ratio recommendation",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "NPK ratio recommendation",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "NPK ratio recommendation",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "NPK ratio recommendation",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "NPK ratio recommendation",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "Organic vs chemical fertilizer",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "Organic vs chemical fertilizer",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "Organic vs chemical fertilizer",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "Organic vs chemical fertilizer",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "Organic vs chemical fertilizer",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "When to apply fertilizer?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "When to apply fertilizer?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "When to apply fertilizer?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "When to apply fertilizer?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "When to apply fertilizer?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "खाद कितनी देनी चाहिए?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "खाद कितनी देनी चाहिए?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "खाद कितनी देनी चाहिए?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "खाद कितनी देनी चाहिए?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "खाद कितनी देनी चाहिए?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "Current Rice price",
+      "intent": "market_price"
+    },
+    {
+      "text": "Current Maize price",
+      "intent": "market_price"
+    },
+    {
+      "text": "Current Chickpea price",
+      "intent": "market_price"
+    },
+    {
+      "text": "Current Kidneybeans price",
+      "intent": "market_price"
+    },
+    {
+      "text": "Current Pigeonpeas price",
+      "intent": "market_price"
+    },
+    {
+      "text": "When to sell my produce?",
+      "intent": "market_price"
+    },
+    {
+      "text": "When to sell my produce?",
+      "intent": "market_price"
+    },
+    {
+      "text": "When to sell my produce?",
+      "intent": "market_price"
+    },
+    {
+      "text": "When to sell my produce?",
+      "intent": "market_price"
+    },
+    {
+      "text": "When to sell my produce?",
+      "intent": "market_price"
+    },
+    {
+      "text": "Market rate for Rice",
+      "intent": "market_price"
+    },
+    {
+      "text": "Market rate for Maize",
+      "intent": "market_price"
+    },
+    {
+      "text": "Market rate for Chickpea",
+      "intent": "market_price"
+    },
+    {
+      "text": "Market rate for Kidneybeans",
+      "intent": "market_price"
+    },
+    {
+      "text": "Market rate for Pigeonpeas",
+      "intent": "market_price"
+    },
+    {
+      "text": "MSP for Rice this year",
+      "intent": "market_price"
+    },
+    {
+      "text": "MSP for Maize this year",
+      "intent": "market_price"
+    },
+    {
+      "text": "MSP for Chickpea this year",
+      "intent": "market_price"
+    },
+    {
+      "text": "MSP for Kidneybeans this year",
+      "intent": "market_price"
+    },
+    {
+      "text": "MSP for Pigeonpeas this year",
+      "intent": "market_price"
+    },
+    {
+      "text": "मंडी में भाव क्या है?",
+      "intent": "market_price"
+    },
+    {
+      "text": "मंडी में भाव क्या है?",
+      "intent": "market_price"
+    },
+    {
+      "text": "मंडी में भाव क्या है?",
+      "intent": "market_price"
+    },
+    {
+      "text": "मंडी में भाव क्या है?",
+      "intent": "market_price"
+    },
+    {
+      "text": "मंडी में भाव क्या है?",
+      "intent": "market_price"
+    }
+  ],
+  "metadata": {
+    "num_intents": 7,
+    "num_samples": 210,
+    "languages": [
+      "English",
+      "Hindi",
+      "Tamil"
+    ],
+    "generated_at": "2026-01-05T18:42:09.727231"
+  }
+}

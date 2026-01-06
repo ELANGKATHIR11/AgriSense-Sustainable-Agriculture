@@ -1,0 +1,86 @@
+{
+  "version": "2.0",
+  "updated_at": "2026-01-05T00:00:00Z",
+  "description": "AgriSense ML Model Registry - Tracks all trained models",
+  "models": {
+    "crop_recommendation_v1_legacy": {
+      "model_id": "crop_recommendation_v1_legacy",
+      "name": "Crop Recommendation (Legacy)",
+      "version": "1.0.0",
+      "group": "legacy",
+      "format": "pkl",
+      "status": "deprecated",
+      "accuracy": 0.87,
+      "model_path": "legacy/crop_recommendation_model.pkl",
+      "description": "Original RandomForest model - deprecated"
+    },
+    "crop_recommendation_v2_catboost": {
+      "model_id": "crop_recommendation_v2_catboost",
+      "name": "Crop Recommendation CatBoost",
+      "version": "2.0.0",
+      "group": "group_a",
+      "format": "cbm",
+      "status": "staged",
+      "accuracy": null,
+      "model_path": "group_a_tabular/catboost/crop_recommendation_v2.cbm",
+      "description": "CatBoost classifier with DART mode - pending training"
+    },
+    "crop_recommendation_edge_tfdf": {
+      "model_id": "crop_recommendation_edge_tfdf",
+      "name": "Crop Recommendation Edge (TF-DF)",
+      "version": "2.0.0",
+      "group": "group_c",
+      "format": "tflite",
+      "status": "staged",
+      "accuracy": null,
+      "model_path": "group_a_tabular/tfdf/crop_recommendation_edge.tflite",
+      "deployment_target": "esp32_s3",
+      "description": "TensorFlow Decision Forests for edge - pending training"
+    },
+    "disease_detector_v2_convnext": {
+      "model_id": "disease_detector_v2_convnext",
+      "name": "Disease Detector ConvNeXt V2",
+      "version": "2.0.0",
+      "group": "group_b",
+      "format": "onnx",
+      "status": "staged",
+      "accuracy": null,
+      "model_path": "group_b_vision/convnext/disease_detector_v2.onnx",
+      "description": "ConvNeXt V2 Nano for PlantVillage - pending training"
+    },
+    "weed_segmentation_v2_yolov8": {
+      "model_id": "weed_segmentation_v2_yolov8",
+      "name": "Weed Segmentation YOLOv8",
+      "version": "2.0.0",
+      "group": "group_b",
+      "format": "onnx",
+      "status": "staged",
+      "accuracy": null,
+      "model_path": "group_b_vision/yolov8/weed_segmentation_v2.onnx",
+      "description": "YOLOv8-Seg for weed instance segmentation - pending training"
+    },
+    "crop_cnn1d_edge": {
+      "model_id": "crop_cnn1d_edge",
+      "name": "Crop 1D-CNN Edge",
+      "version": "2.0.0",
+      "group": "group_c",
+      "format": "tflite",
+      "status": "staged",
+      "accuracy": null,
+      "model_path": "group_c_edge/crop_cnn1d_int8.tflite",
+      "deployment_target": "esp32_s3",
+      "description": "1D-CNN with QAT for ESP32-S3 - pending training"
+    },
+    "intent_classifier_distilbert": {
+      "model_id": "intent_classifier_distilbert",
+      "name": "Intent Classifier DistilBERT",
+      "version": "2.0.0",
+      "group": "group_d",
+      "format": "onnx",
+      "status": "staged",
+      "accuracy": null,
+      "model_path": "group_d_nlp/distilbert_intent/model.onnx",
+      "description": "DistilBERT for multilingual intent - pending training"
+    }
+  }
+}

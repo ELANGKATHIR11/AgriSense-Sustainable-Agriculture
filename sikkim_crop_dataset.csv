@@ -1,0 +1,24 @@
+Crop,Crop_Category,Growing_Season,pH_Min,pH_Max,Temperature_Min_C,Temperature_Max_C,Growth_Duration_days,Water_Requirement_mm
+Cardamom,Spice,Summer,5.0,6.5,15,27,180,600
+Large Cardamom,Spice,Summer,5.0,6.5,15,27,240,700
+Turmeric,Spice,Summer,5.5,7.5,20,30,240,500
+Ginger,Spice,Summer,5.5,7.5,22,30,240,500
+Black Pepper,Spice,Summer,5.0,7.0,15,30,180,600
+Tea,Plantation,Year-round,4.5,6.0,18,25,365,2000
+Coffee,Plantation,Summer,6.0,6.5,20,22,180,1500
+Mandarin Orange,Plantation,Winter,6.0,7.0,15,25,240,800
+Apple,Plantation,Winter,5.5,7.0,10,20,180,600
+Strawberry,Fruit,Spring,6.0,7.0,10,25,90,400
+Raspberry,Fruit,Summer,5.5,7.0,10,25,120,400
+Passion Fruit,Fruit,Summer,5.5,7.0,18,25,240,500
+Papaya,Fruit,Summer,6.0,7.0,21,27,120,400
+Guava,Fruit,Summer,6.0,7.5,21,30,180,400
+Maize,Cereal,Summer,6.0,7.5,10,27,90,600
+Buck Wheat,Cereal,Winter,5.0,7.0,10,25,90,300
+Broccoli,Vegetable,Winter,6.0,7.5,15,20,70,350
+Cabbage,Vegetable,Winter,6.0,7.5,15,25,120,350
+Cauliflower,Vegetable,Winter,6.0,7.5,15,25,100,350
+Beans,Vegetable,Summer,6.0,7.0,15,27,60,300
+Peas,Vegetable,Winter,6.0,7.5,10,20,60,250
+Tomato,Vegetable,Summer,6.0,6.8,20,27,70,400
+Cucumber,Vegetable,Summer,6.0,7.0,21,32,60,400

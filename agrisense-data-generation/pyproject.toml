@@ -1,0 +1,18 @@
+[tool]
+name = "agrisense-data-generation"
+version = "0.1.0"
+description = "A project for generating synthetic agricultural datasets and augmenting vision data."
+authors = ["Your Name <your.email@example.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+numpy = "^1.23"
+pandas = "^1.5"
+opencv-python = "^4.6"
+Pillow = "^9.2"
+pyyaml = "^6.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,94 @@
+{
+  "training_date": "2026-01-05T21:22:24.308534",
+  "models": [
+    "crop_recommendation_rf",
+    "crop_recommendation_gb",
+    "crop_recommendation_ensemble",
+    "yield_prediction",
+    "water_optimization",
+    "fertilizer_model",
+    "disease_detection",
+    "weed_detection",
+    "intent_classifier",
+    "crop_type_classification",
+    "season_classification",
+    "growth_duration",
+    "water_requirement",
+    "pest_pressure",
+    "soil_health",
+    "irrigation_scheduling",
+    "crop_health_index"
+  ],
+  "metrics": {
+    "crop_recommendation_rf": {
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "oob_score": 1.0,
+      "n_classes": 96,
+      "training_time_seconds": 0.959896
+    },
+    "crop_recommendation_gb": {
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "training_time_seconds": 16.886828
+    },
+    "crop_recommendation_ensemble": {
+      "accuracy": 1.0,
+      "training_time_seconds": 18.998628
+    },
+    "yield_prediction": {
+      "r2_score": 0.9468762168149087,
+      "rmse": 2.195407131298019,
+      "best_params": {
+        "subsample": 0.9,
+        "n_estimators": 300,
+        "max_depth": 5,
+        "learning_rate": 0.1
+      },
+      "training_time_seconds": 7.630846
+    },
+    "water_optimization": {
+      "r2_score": 0.8911830978888102
+    },
+    "fertilizer_model": {
+      "r2_score": 0.9610358387249359
+    },
+    "disease_detection": {
+      "accuracy": 0.9075
+    },
+    "weed_detection": {
+      "accuracy": 1.0
+    },
+    "intent_classifier": {
+      "accuracy": 1.0
+    },
+    "crop_type_classification": {
+      "status": "trained"
+    },
+    "season_classification": {
+      "status": "trained"
+    },
+    "growth_duration": {
+      "status": "trained"
+    },
+    "water_requirement": {
+      "status": "trained"
+    },
+    "pest_pressure": {
+      "status": "trained"
+    },
+    "soil_health": {
+      "status": "trained"
+    },
+    "irrigation_scheduling": {
+      "status": "trained"
+    },
+    "crop_health_index": {
+      "status": "trained"
+    }
+  },
+  "system_info": {
+    "cpu_cores": 15,
+    "python_version": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]"
+  }
+}

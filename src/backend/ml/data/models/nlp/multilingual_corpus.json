@@ -1,0 +1,155 @@
+{
+  "qa_pairs": [
+    {
+      "question": "What is the best fertilizer for rice?",
+      "answer": "For rice, use NPK 20:10:10 at 100 kg/ha during transplanting.",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "question": "How to control rice blast disease?",
+      "answer": "Use Tricyclazole 75% WP at 0.6g/L as foliar spray. Maintain field drainage.",
+      "intent": "disease_detection"
+    },
+    {
+      "question": "Best time to sow wheat in Punjab?",
+      "answer": "Optimal sowing time for wheat in Punjab is November 10-25.",
+      "intent": "crop_recommendation"
+    },
+    {
+      "question": "धान के लिए सबसे अच्छा उर्वरक कौन सा है?",
+      "answer": "धान के लिए NPK 20:10:10 का प्रयोग 100 किग्रा/हेक्टेयर की दर से रोपाई के समय करें।",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "question": "धान का झुलसा रोग कैसे नियंत्रित करें?",
+      "answer": "ट्राइसाइक्लाजोल 75% WP का 0.6 ग्राम/लीटर पानी में घोलकर छिड़काव करें।",
+      "intent": "disease_detection"
+    },
+    {
+      "question": "गेहूं की बुवाई का सबसे अच्छा समय क्या है?",
+      "answer": "पंजाब में गेहूं बोने का सबसे अच्छा समय 10-25 नवंबर है।",
+      "intent": "crop_recommendation"
+    },
+    {
+      "question": "நெல்லுக்கு சிறந்த உரம் எது?",
+      "answer": "நெல்லுக்கு NPK 20:10:10 ஐ 100 கிலோ/ஹெக்டேர் விகிதத்தில் நடவு செய்யும்போது பயன்படுத்தவும்.",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "question": "நெல் கருகல் நோயை எப்படி கட்டுப்படுத்துவது?",
+      "answer": "ட்ரைசைக்ளாசோல் 75% WP ஐ 0.6 கிராம்/லிட்டர் என்ற விகிதத்தில் தெளிக்கவும்.",
+      "intent": "disease_detection"
+    }
+  ],
+  "intents": {
+    "crop_recommendation": {
+      "patterns": [
+        "What crop should I grow?",
+        "Which crop is best for my soil?",
+        "Suggest crops for my region",
+        "कौन सी फसल उगाऊं?",
+        "मेरी मिट्टी के लिए कौन सी फसल अच्छी है?",
+        "எந்த பயிர் வளர்க்க வேண்டும்?"
+      ],
+      "responses": [
+        "Based on your conditions, I recommend {crop}.",
+        "आपकी स्थिति के आधार पर, मैं {crop} की सिफारिश करता हूं।"
+      ]
+    },
+    "fertilizer_advice": {
+      "patterns": [
+        "How much fertilizer to use?",
+        "NPK ratio for crops",
+        "उर्वरक कितना देना चाहिए?",
+        "உரம் எவ்வளவு பயன்படுத்த வேண்டும்?"
+      ],
+      "responses": [
+        "For {crop}, use {fertilizer} at {rate} kg/ha.",
+        "{crop} के लिए {fertilizer} {rate} किग्रा/हेक्टेयर डालें।"
+      ]
+    },
+    "disease_detection": {
+      "patterns": [
+        "My plant has disease",
+        "Leaves are turning yellow",
+        "How to treat leaf spots?",
+        "पौधे में बीमारी है",
+        "இலைகள் மஞ்சளாகின்றன"
+      ],
+      "responses": [
+        "This appears to be {disease}. Treatment: {treatment}",
+        "यह {disease} लगता है। उपचार: {treatment}"
+      ]
+    }
+  },
+  "training_data": [
+    {
+      "text": "What crop should I grow?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop is best for my soil?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Suggest crops for my region",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "कौन सी फसल उगाऊं?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "मेरी मिट्टी के लिए कौन सी फसल अच्छी है?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "எந்த பயிர் வளர்க்க வேண்டும்?",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "How much fertilizer to use?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "NPK ratio for crops",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "उर्वरक कितना देना चाहिए?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "உரம் எவ்வளவு பயன்படுத்த வேண்டும்?",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "My plant has disease",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "Leaves are turning yellow",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "How to treat leaf spots?",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "पौधे में बीमारी है",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "இலைகள் மஞ்சளாகின்றன",
+      "intent": "disease_detection"
+    }
+  ],
+  "metadata": {
+    "languages": [
+      "en",
+      "hi",
+      "ta"
+    ],
+    "created": "2026-01-05T18:46:49.141093"
+  }
+}

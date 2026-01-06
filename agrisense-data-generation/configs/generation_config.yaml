@@ -1,0 +1,44 @@
+generation_config:
+  synthetic_data:
+    crops:
+      - name: "Wheat"
+        growth_stages:
+          - "Germination"
+          - "Vegetative"
+          - "Flowering"
+          - "Maturity"
+        yield_per_hectare: 3000
+      - name: "Corn"
+        growth_stages:
+          - "Germination"
+          - "Vegetative"
+          - "Silking"
+          - "Maturity"
+        yield_per_hectare: 8000
+    weather:
+      temperature_range: 
+        min: 10
+        max: 35
+      humidity_range:
+        min: 30
+        max: 90
+      precipitation_range:
+        min: 0
+        max: 200
+    soil:
+      types:
+        - "Loamy"
+        - "Clay"
+        - "Sandy"
+      pH_range:
+        min: 5.5
+        max: 7.5
+  augmentation:
+    image_augmentation:
+      rotation_range: 30
+      width_shift_range: 0.1
+      height_shift_range: 0.1
+      shear_range: 0.2
+      zoom_range: 0.2
+      horizontal_flip: true
+      fill_mode: "nearest"

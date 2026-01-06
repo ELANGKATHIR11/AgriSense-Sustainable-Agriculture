@@ -1,0 +1,28 @@
+{
+  "feature_names": [
+    "min_temp_C",
+    "max_temp_C",
+    "min_pH",
+    "max_pH",
+    "rainfall_min_mm",
+    "rainfall_max_mm",
+    "moisture_min_percent",
+    "moisture_max_percent",
+    "N_kg_per_ha",
+    "P_kg_per_ha",
+    "K_kg_per_ha",
+    "SOC_percent",
+    "growth_duration_days",
+    "temp_range",
+    "optimal_temp",
+    "avg_rainfall",
+    "crop_type_encoded",
+    "season_encoded",
+    "soil_type_encoded"
+  ],
+  "target_name": "water_req_mm_day",
+  "n_train_samples": 76,
+  "n_test_samples": 20,
+  "n_features": 19,
+  "task_type": "regression"
+}

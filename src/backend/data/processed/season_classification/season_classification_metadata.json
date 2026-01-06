@@ -1,0 +1,36 @@
+{
+  "feature_names": [
+    "min_temp_C",
+    "max_temp_C",
+    "min_pH",
+    "max_pH",
+    "water_req_mm_day",
+    "rainfall_min_mm",
+    "rainfall_max_mm",
+    "moisture_min_percent",
+    "moisture_max_percent",
+    "N_kg_per_ha",
+    "P_kg_per_ha",
+    "K_kg_per_ha",
+    "SOC_percent",
+    "growth_duration_days",
+    "temp_range",
+    "optimal_temp",
+    "pH_range",
+    "avg_rainfall",
+    "npk_total",
+    "crop_type_encoded"
+  ],
+  "target_name": "season",
+  "n_train_samples": 76,
+  "n_test_samples": 20,
+  "n_features": 20,
+  "n_classes": 5,
+  "class_names": [
+    "Kharif",
+    "Kharif_Rabi",
+    "Perennial",
+    "Rabi",
+    "Zaid"
+  ]
+}

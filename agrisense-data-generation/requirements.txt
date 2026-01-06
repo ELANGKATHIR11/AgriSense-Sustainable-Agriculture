@@ -1,0 +1,12 @@
+numpy
+pandas
+opencv-python
+scikit-image
+pyyaml
+tensorflow
+torch
+torchvision
+albumentations
+matplotlib
+pytest
+pytest-asyncio

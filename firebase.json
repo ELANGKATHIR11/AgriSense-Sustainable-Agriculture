@@ -1,0 +1,73 @@
+{
+  "hosting": {
+    "public": "src/frontend/dist",
+    "ignore": ["firebase.json", ".firebaserc", "*.rules*"],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "destination": "http://localhost:8004/api"
+      },
+      {
+        "source": "!/assets/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/icons/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/**.webmanifest",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/**.json",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/**.svg",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/**.png",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/**.jpg",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/**.js",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/**.css",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/sw.js",
+        "destination": "/index.html"
+      },
+      {
+        "source": "!/robots.txt",
+        "destination": "/index.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/assets/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      }
+    ]
+  }
+}

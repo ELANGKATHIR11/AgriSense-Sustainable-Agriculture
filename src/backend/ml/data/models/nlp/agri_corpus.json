@@ -1,0 +1,246 @@
+{
+  "qa_pairs": [
+    {
+      "question": "What is the best fertilizer for rice?",
+      "answer": "For rice, use NPK 20:10:10 at 100 kg/ha during transplanting. Apply urea in split doses.",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "question": "How to control rice blast disease?",
+      "answer": "Use Tricyclazole 75% WP at 0.6g/L as foliar spray. Maintain field drainage and avoid excess nitrogen.",
+      "intent": "disease_detection"
+    },
+    {
+      "question": "Best time to sow wheat in Punjab?",
+      "answer": "Optimal sowing time for wheat in Punjab is November 10-25 for timely sown varieties.",
+      "intent": "crop_recommendation"
+    },
+    {
+      "question": "How much water does rice need?",
+      "answer": "Rice requires 1200-1500mm water during the growing season. Maintain 5cm standing water during tillering.",
+      "intent": "irrigation_advice"
+    },
+    {
+      "question": "What causes yellowing of rice leaves?",
+      "answer": "Yellowing can be caused by nitrogen deficiency, iron chlorosis, or bacterial leaf blight. Check nutrient levels first.",
+      "intent": "disease_detection"
+    },
+    {
+      "question": "Dhaan ke liye sabse achha urvarak kaunsa hai?",
+      "answer": "Dhaan ke liye NPK 20:10:10 ka prayog 100 kg/hectare ki dar se ropai ke samay karein.",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "question": "Gehu ki buwai ka sabse achha samay kya hai?",
+      "answer": "Punjab mein gehu bone ka sabse achha samay 10-25 November hai.",
+      "intent": "crop_recommendation"
+    },
+    {
+      "question": "Nellukku sirandha uram ethu?",
+      "answer": "Nellukku NPK 20:10:10 ai 100 kilo/hectare vidhaththil nadavu seyyumpoḻuthu payanpadutthavum.",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "question": "How to identify late blight in potato?",
+      "answer": "Late blight shows water-soaked lesions on leaves that turn brown. White fungal growth appears under leaves in humid conditions.",
+      "intent": "disease_detection"
+    },
+    {
+      "question": "Best fertilizer for tomato?",
+      "answer": "Apply NPK 60:80:60 kg/ha as basal dose. Top dress with 30kg nitrogen at flowering and fruiting stages.",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "question": "How to control aphids in mustard?",
+      "answer": "Spray Dimethoate 30EC at 1ml/L or use neem oil 5ml/L. Encourage natural predators like ladybugs.",
+      "intent": "pest_control"
+    },
+    {
+      "question": "When to harvest wheat?",
+      "answer": "Harvest wheat when grains are hard, moisture content is 14-15%, and stalks turn golden yellow.",
+      "intent": "harvest_advice"
+    },
+    {
+      "question": "Soil pH for cotton cultivation?",
+      "answer": "Cotton grows best in soil pH 6.0-7.5. Apply lime if pH is below 6.0 or gypsum if above 8.0.",
+      "intent": "soil_advice"
+    }
+  ],
+  "intents": {
+    "crop_recommendation": {
+      "patterns": [
+        "What crop should I grow",
+        "Which crop is best for my soil",
+        "Suggest crops for my region",
+        "Best crop for summer",
+        "What to plant in monsoon",
+        "Kaun si fasal ugaaun"
+      ],
+      "responses": [
+        "Based on your soil and climate conditions, I recommend considering the regional crop calendar.",
+        "The best crop depends on soil type, water availability, and market conditions."
+      ]
+    },
+    "fertilizer_advice": {
+      "patterns": [
+        "How much fertilizer to use",
+        "NPK ratio for crops",
+        "When to apply urea",
+        "Fertilizer schedule",
+        "Urvarak kitna dena chahiye"
+      ],
+      "responses": [
+        "Fertilizer recommendations depend on soil test results and crop requirements.",
+        "Always conduct a soil test before applying fertilizers."
+      ]
+    },
+    "disease_detection": {
+      "patterns": [
+        "My plant has disease",
+        "Leaves are turning yellow",
+        "How to treat leaf spots",
+        "Brown spots on leaves",
+        "Plant wilting problem"
+      ],
+      "responses": [
+        "Please describe the symptoms in detail or share a photo for accurate diagnosis.",
+        "Common diseases can be prevented with proper spacing and fungicide application."
+      ]
+    },
+    "pest_control": {
+      "patterns": [
+        "How to control pests",
+        "Insects eating my crops",
+        "Caterpillar damage",
+        "Aphid infestation",
+        "Pest management"
+      ],
+      "responses": [
+        "Integrated pest management combining cultural, biological and chemical methods works best.",
+        "Identify the pest first before applying any pesticide."
+      ]
+    },
+    "irrigation_advice": {
+      "patterns": [
+        "How much water needed",
+        "Irrigation schedule",
+        "When to water crops",
+        "Drip irrigation setup"
+      ],
+      "responses": [
+        "Water requirements vary by crop stage and weather conditions.",
+        "Morning irrigation is generally more effective."
+      ]
+    }
+  },
+  "training_data": [
+    {
+      "text": "What crop should I grow",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Which crop is best for my soil",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Suggest crops for my region",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Best crop for summer",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "What to plant in monsoon",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "Kaun si fasal ugaaun",
+      "intent": "crop_recommendation"
+    },
+    {
+      "text": "How much fertilizer to use",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "NPK ratio for crops",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "When to apply urea",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "Fertilizer schedule",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "Urvarak kitna dena chahiye",
+      "intent": "fertilizer_advice"
+    },
+    {
+      "text": "My plant has disease",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "Leaves are turning yellow",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "How to treat leaf spots",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "Brown spots on leaves",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "Plant wilting problem",
+      "intent": "disease_detection"
+    },
+    {
+      "text": "How to control pests",
+      "intent": "pest_control"
+    },
+    {
+      "text": "Insects eating my crops",
+      "intent": "pest_control"
+    },
+    {
+      "text": "Caterpillar damage",
+      "intent": "pest_control"
+    },
+    {
+      "text": "Aphid infestation",
+      "intent": "pest_control"
+    },
+    {
+      "text": "Pest management",
+      "intent": "pest_control"
+    },
+    {
+      "text": "How much water needed",
+      "intent": "irrigation_advice"
+    },
+    {
+      "text": "Irrigation schedule",
+      "intent": "irrigation_advice"
+    },
+    {
+      "text": "When to water crops",
+      "intent": "irrigation_advice"
+    },
+    {
+      "text": "Drip irrigation setup",
+      "intent": "irrigation_advice"
+    }
+  ],
+  "metadata": {
+    "languages": [
+      "en",
+      "hi",
+      "ta"
+    ],
+    "created": "2026-01-05T18:48:36.075282"
+  }
+}

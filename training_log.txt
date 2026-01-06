@@ -1,0 +1,105 @@
+2026-01-05 21:18:10,166 - INFO - 🖥️ Using 15 CPU cores for training (High Performance Mode)
+2026-01-05 21:18:10,167 - INFO - 
+============================================================
+2026-01-05 21:18:10,167 - INFO - 🌾 Training CROP_RECOMMENDATION_RF (Random Forest)
+2026-01-05 21:18:10,167 - INFO - ============================================================
+2026-01-05 21:18:10,170 - INFO - Training with 4000 samples, 19 features
+2026-01-05 21:18:11,127 - INFO - ✅ Training complete in 1.0s
+2026-01-05 21:18:11,127 - INFO -    Test Accuracy: 1.0000
+2026-01-05 21:18:11,127 - INFO -    F1-Score: 1.0000
+2026-01-05 21:18:11,128 - INFO -    OOB Score: 1.0000
+2026-01-05 21:18:11,128 - INFO - 
+============================================================
+2026-01-05 21:18:11,128 - INFO - 🌾 Training CROP_RECOMMENDATION_GB (Gradient Boosting)
+2026-01-05 21:18:11,128 - INFO - ============================================================
+2026-01-05 21:18:11,130 - INFO - Training with 2400 samples...
+2026-01-05 21:18:28,015 - INFO - ✅ Training complete in 16.9s
+2026-01-05 21:18:28,015 - INFO -    Test Accuracy: 1.0000
+2026-01-05 21:18:28,016 - INFO -    F1-Score: 1.0000
+2026-01-05 21:18:28,016 - INFO - 
+============================================================
+2026-01-05 21:18:28,016 - INFO - 🌾 Training CROP_RECOMMENDATION_ENSEMBLE (Voting Ensemble)
+2026-01-05 21:18:28,016 - INFO - ============================================================
+2026-01-05 21:18:28,018 - INFO - Training Ensemble with 3 estimators...
+2026-01-05 21:18:47,015 - INFO - ✅ Training complete in 19.0s
+2026-01-05 21:18:47,015 - INFO -    Ensemble Accuracy: 1.0000
+2026-01-05 21:18:47,015 - INFO - 
+============================================================
+2026-01-05 21:18:47,016 - INFO - 🌽 Training YIELD_PREDICTION (Regression)
+2026-01-05 21:18:47,016 - INFO - ============================================================
+2026-01-05 21:18:47,017 - INFO - Tuning hyperparameters...
+2026-01-05 21:18:54,647 - INFO - ✅ Training complete in 7.6s
+2026-01-05 21:18:54,647 - INFO -    Best Params: {'subsample': 0.9, 'n_estimators': 300, 'max_depth': 5, 'learning_rate': 0.1}
+2026-01-05 21:18:54,647 - INFO -    R2 Score: 0.9469
+2026-01-05 21:18:54,647 - INFO -    RMSE: 2.1954
+2026-01-05 21:18:54,647 - INFO - 
+============================================================
+2026-01-05 21:18:54,648 - INFO - 💧 Training WATER_OPTIMIZATION
+2026-01-05 21:18:54,648 - INFO - ============================================================
+2026-01-05 21:18:54,839 - INFO - ✅ R2 Score: 0.8912
+2026-01-05 21:18:54,839 - INFO - 
+============================================================
+2026-01-05 21:18:54,839 - INFO - 🧪 Training FERTILIZER_MODEL
+2026-01-05 21:18:54,839 - INFO - ============================================================
+2026-01-05 21:18:54,965 - INFO - ✅ R2 Score: 0.9610
+2026-01-05 21:18:54,965 - INFO - 
+============================================================
+2026-01-05 21:18:54,965 - INFO - 🦠 Training DISEASE_DETECTION
+2026-01-05 21:18:54,965 - INFO - ============================================================
+2026-01-05 21:22:19,878 - INFO - ✅ Accuracy: 0.9075
+2026-01-05 21:22:19,882 - INFO - 
+============================================================
+2026-01-05 21:22:19,882 - INFO - 🌿 Training WEED_DETECTION
+2026-01-05 21:22:19,882 - INFO - ============================================================
+2026-01-05 21:22:20,129 - INFO - ✅ Accuracy: 1.0000
+2026-01-05 21:22:20,131 - INFO - 
+============================================================
+2026-01-05 21:22:20,131 - INFO - 💬 Training INTENT_CLASSIFIER
+2026-01-05 21:22:20,131 - INFO - ============================================================
+2026-01-05 21:22:20,138 - INFO - ✅ Accuracy: 1.0000
+2026-01-05 21:22:20,138 - INFO - 
+============================================================
+2026-01-05 21:22:20,138 - INFO - 🔧 Training Auxiliary Models
+2026-01-05 21:22:20,138 - INFO - ============================================================
+2026-01-05 21:22:20,139 - INFO - Training crop_type_classification...
+2026-01-05 21:22:20,251 - INFO - ✅ crop_type_classification trained
+2026-01-05 21:22:20,251 - INFO - Training season_classification...
+2026-01-05 21:22:20,354 - INFO - ✅ season_classification trained
+2026-01-05 21:22:20,354 - INFO - Training growth_duration...
+2026-01-05 21:22:20,433 - INFO - ✅ growth_duration trained
+2026-01-05 21:22:20,433 - INFO - Training water_requirement...
+2026-01-05 21:22:20,513 - INFO - ✅ water_requirement trained
+2026-01-05 21:22:20,513 - INFO - Training pest_pressure...
+2026-01-05 21:22:20,591 - INFO - ✅ pest_pressure trained
+2026-01-05 21:22:20,591 - INFO - Training soil_health...
+2026-01-05 21:22:20,681 - INFO - ✅ soil_health trained
+2026-01-05 21:22:20,681 - INFO - Training irrigation_scheduling...
+2026-01-05 21:22:20,772 - INFO - ✅ irrigation_scheduling trained
+2026-01-05 21:22:20,773 - INFO - Training crop_health_index...
+2026-01-05 21:22:20,855 - INFO - ✅ crop_health_index trained
+2026-01-05 21:22:20,856 - INFO - 
+============================================================
+2026-01-05 21:22:20,856 - INFO - 💾 Saving Models to F:\AGRISENSEFULL-STACK\AGRISENSEFULL-STACK\src\backend\ml\models
+2026-01-05 21:22:20,856 - INFO - ============================================================
+2026-01-05 21:22:21,002 - INFO - Saved crop_recommendation_rf
+2026-01-05 21:22:21,787 - INFO - Saved crop_recommendation_gb
+2026-01-05 21:22:23,774 - INFO - Saved crop_recommendation_ensemble
+2026-01-05 21:22:23,784 - INFO - Saved yield_prediction
+2026-01-05 21:22:23,910 - INFO - Saved water_optimization
+2026-01-05 21:22:24,031 - INFO - Saved fertilizer_model
+2026-01-05 21:22:24,033 - INFO - Saved disease_detection
+2026-01-05 21:22:24,068 - INFO - Saved weed_detection
+2026-01-05 21:22:24,069 - INFO - Saved intent_classifier
+2026-01-05 21:22:24,092 - INFO - Saved crop_type_classification
+2026-01-05 21:22:24,114 - INFO - Saved season_classification
+2026-01-05 21:22:24,146 - INFO - Saved growth_duration
+2026-01-05 21:22:24,196 - INFO - Saved water_requirement
+2026-01-05 21:22:24,228 - INFO - Saved pest_pressure
+2026-01-05 21:22:24,253 - INFO - Saved soil_health
+2026-01-05 21:22:24,275 - INFO - Saved irrigation_scheduling
+2026-01-05 21:22:24,308 - INFO - Saved crop_health_index
+2026-01-05 21:22:24,309 - INFO - ✅ Manifest saved
+2026-01-05 21:22:24,309 - INFO - 
+============================================================
+2026-01-05 21:22:24,309 - INFO - 🎉 ALL MODELS TRAINED SUCCESSFULLY
+2026-01-05 21:22:24,309 - INFO - ============================================================

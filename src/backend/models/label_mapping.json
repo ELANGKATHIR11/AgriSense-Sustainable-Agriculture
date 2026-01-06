@@ -1,0 +1,38 @@
+{
+  "crop_labels": [
+    "Rice",
+    "Wheat",
+    "Corn",
+    "Cotton",
+    "Sugarcane",
+    "Potato",
+    "Tomato",
+    "Lentil"
+  ],
+  "disease_labels": [
+    "Early Blight",
+    "Leaf Spot",
+    "Powdery Mildew",
+    "Rust",
+    "Mosaic Virus"
+  ],
+  "weed_labels": [
+    "Dandelion",
+    "Crabgrass",
+    "Lambsquarters",
+    "Pigweed",
+    "Chickweed"
+  ],
+  "intent_labels": [
+    "crop_recommendation",
+    "disease_query",
+    "weed_management",
+    "irrigation",
+    "fertilizer",
+    "weather",
+    "pest_control",
+    "general",
+    "greeting",
+    "farewell"
+  ]
+}
