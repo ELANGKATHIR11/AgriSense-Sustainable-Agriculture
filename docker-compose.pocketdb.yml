@@ -1,0 +1,192 @@
+version: "3.9"
+
+# Docker Compose for AgriSense with PocketDB
+# Run with: docker-compose -f docker-compose.pocketdb.yml up
+
+services:
+  # ============= PocketDB =============
+  pocketdb:
+    image: ghcr.io/pocketbase/pocketbase:latest
+    container_name: agrisense-pocketdb
+    ports:
+      - "8090:8090"
+    volumes:
+      - pocketdb_data:/pb_data
+    environment:
+      # Enable CORS for frontend access
+      POCKETBASE_PB_ALLOW_CORS: "true"
+    networks:
+      - agrisense
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    labels:
+      - "com.agrisense.service=database"
+      - "com.agrisense.version=2024.01"
+
+
+  # ============= AgriSense Backend (Python/FastAPI) =============
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        INSTALL_ML: "true"
+    container_name: agrisense-backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Database Configuration
+      AGRISENSE_DB_BACKEND: pocketdb
+      POCKETDB_URL: http://pocketdb:8090
+      POCKETDB_DATA_DIR: /app/pb_data
+      POCKETDB_ADMIN_EMAIL: admin@agrisense.local
+      POCKETDB_ADMIN_PASSWORD: AgriSense@2024!
+      
+      # FastAPI Configuration
+      FASTAPI_ENV: production
+      LOG_LEVEL: INFO
+      WORKERS: 4
+      
+      # ML Configuration (optional)
+      AGRISENSE_DISABLE_ML: "0"
+      
+      # Feature Flags
+      AGRISENSE_DB_AUTO_INIT: "1"
+      AGRISENSE_DB_MIGRATIONS: "1"
+    
+    depends_on:
+      pocketdb:
+        condition: service_healthy
+    
+    volumes:
+      - ./src:/app/src
+      - agrisense_data:/app/pb_data
+      - agrisense_logs:/app/logs
+    
+    networks:
+      - agrisense
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    labels:
+      - "com.agrisense.service=backend"
+      - "com.agrisense.version=2024.01"
+
+
+  # ============= Optional: Frontend (React/Vite) =============
+  frontend:
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile
+    container_name: agrisense-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8000
+      VITE_POCKETDB_URL: http://localhost:8090
+    depends_on:
+      - backend
+    networks:
+      - agrisense
+    restart: unless-stopped
+    labels:
+      - "com.agrisense.service=frontend"
+      - "com.agrisense.version=2024.01"
+
+
+  # ============= Optional: Redis Cache =============
+  redis:
+    image: redis:7-alpine
+    container_name: agrisense-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - agrisense
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    labels:
+      - "com.agrisense.service=cache"
+
+
+  # ============= Optional: MongoDB (for comparison/fallback) =============
+  # Uncomment if you want MongoDB available for migration testing
+  # mongodb:
+  #   image: mongo:7
+  #   container_name: agrisense-mongodb
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_DATABASE: agrisense
+  #   volumes:
+  #     - mongodb_data:/data/db
+  #   networks:
+  #     - agrisense
+  #   restart: unless-stopped
+
+
+  # ============= Optional: PocketDB Admin UI =============
+  # PocketDB includes built-in admin UI at http://localhost:8090/_/
+  # No separate service needed!
+
+
+volumes:
+  pocketdb_data:
+    driver: local
+  agrisense_data:
+    driver: local
+  agrisense_logs:
+    driver: local
+  redis_data:
+    driver: local
+  # mongodb_data:
+  #   driver: local
+
+
+networks:
+  agrisense:
+    driver: bridge
+
+
+# ============= Usage Instructions =============
+
+# Start all services:
+#   docker-compose -f docker-compose.pocketdb.yml up -d
+#
+# View logs:
+#   docker-compose -f docker-compose.pocketdb.yml logs -f backend
+#
+# Access PocketDB Admin:
+#   http://localhost:8090/_/
+#
+# Access API docs:
+#   http://localhost:8000/docs
+#
+# Access frontend:
+#   http://localhost:5173
+#
+# Stop services:
+#   docker-compose -f docker-compose.pocketdb.yml down
+#
+# Remove volumes and data:
+#   docker-compose -f docker-compose.pocketdb.yml down -v
+#
+# Rebuild images:
+#   docker-compose -f docker-compose.pocketdb.yml up -d --build
