@@ -1,0 +1,13 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "AgriSense - Placeholder Dashboard",
+    "panels": [],
+    "tags": ["agrisense", "placeholder"]
+  },
+  "meta": {
+    "type": "db",
+    "canSave": true,
+    "slug": "agrisense-placeholder-dashboard"
+  }
+}
