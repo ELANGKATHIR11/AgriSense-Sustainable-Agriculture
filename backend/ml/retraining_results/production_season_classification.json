@@ -1,0 +1,6 @@
+{
+  "model": "Season Classification",
+  "test_accuracy": 0.9325,
+  "test_f1_score": 0.932588807319666,
+  "timestamp": "2026-01-27T21:28:05.287022"
+}

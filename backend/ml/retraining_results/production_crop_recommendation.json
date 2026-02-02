@@ -1,0 +1,16 @@
+{
+  "model": "Crop Recommendation",
+  "dataset_size": 3600,
+  "n_classes": 24,
+  "test_accuracy": 0.9625,
+  "test_f1_score": 0.9620682233918375,
+  "cv_mean": 0.9527777777777778,
+  "cv_std": 0.014248808700474432,
+  "best_params": {
+    "max_depth": null,
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "n_estimators": 300
+  },
+  "timestamp": "2026-01-27T21:28:00.345499"
+}

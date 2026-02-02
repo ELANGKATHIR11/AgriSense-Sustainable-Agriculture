@@ -1,0 +1,23 @@
+{
+  "name": "agrisense-fullstack",
+  "version": "1.0.0",
+  "description": "AgriSense Full-Stack Application",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "cd backend && npm run dev:full",
+    "dev:backend": "cd backend && npm run dev:backend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "start:production": "cd backend && npm run start:production"
+  },
+  "keywords": [
+    "agriculture",
+    "ml",
+    "fullstack",
+    "sustainability"
+  ],
+  "author": "AgriSense Team",
+  "license": "MIT"
+}

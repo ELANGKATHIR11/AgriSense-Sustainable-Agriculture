@@ -1,0 +1,59 @@
+# AgriSense Backend Dependencies
+# Core FastAPI and Web Framework
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.6
+python-multipart==0.0.20
+# Flask (used by backend/ml/ml_service.py)
+Flask==2.3.3
+Flask-Cors==3.0.10
+
+# Database
+sqlalchemy==2.0.36
+pymongo==4.10.1
+redis==5.2.1
+
+# Background Tasks
+celery==5.4.0
+
+# Data Processing
+numpy==2.2.3
+pandas==2.2.3
+pyyaml==6.0.2
+
+# System Monitoring
+psutil==7.0.0
+
+# HTTP Client
+httpx==0.28.1
+requests==2.32.3
+
+# Machine Learning (Core - Lightweight)
+scikit-learn==1.6.1
+joblib==1.4.2
+xgboost==1.7.6
+lightgbm==3.3.5
+
+
+# Image Processing (Core)
+pillow==11.1.0
+
+# Optional ML Dependencies (Heavy - Install separately if needed)
+# tensorflow==2.18.0
+# torch==2.5.1
+# torchvision==0.20.1
+# transformers==4.47.1
+# sentence-transformers==3.3.1
+# opencv-python==4.10.0
+
+# Development
+pytest==8.3.4
+pytest-cov==6.0.0
+black==24.10.0
+flake8==7.1.1
+
+# Environment
+python-dotenv==1.0.1
+
+# Logging
+colorlog==6.9.0

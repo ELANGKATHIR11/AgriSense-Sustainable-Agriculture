@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-01-31T13:33:14.415420",
+  "results": {
+    "yield_prediction": {
+      "r2": 0.9822393825282113,
+      "rmse": 15954.651914929891,
+      "samples": 7080
+    },
+    "water_requirement": {
+      "r2": 0.557529259956852,
+      "samples": 7080
+    },
+    "crop_type_classification": {
+      "accuracy": 0.42768361581920905,
+      "f1": 0.3902750751944493,
+      "samples": 7080
+    },
+    "season_classification": {
+      "accuracy": 0.8926553672316384,
+      "f1": 0.8907126550347818,
+      "samples": 7080
+    }
+  }
+}

@@ -11,7 +11,7 @@ Usage:
 - Adjust `SERIAL_PORT` and `BACKEND_URL` in `arduino_bridge.py` and run:
 
 ```powershell
-python AGRISENSE_IoT\\arduino_nano_firmware\\arduino_bridge.py
+python AGRISENSE_IoT\arduino_nano_firmware\arduino_bridge.py
 ```
 
 Replace with compiled Arduino firmware and a proper serial protocol in production.

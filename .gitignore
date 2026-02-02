@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+Build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Env
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project Specific
+# Large model files >100MB
+*.pth
+*.tflite
+*.onnx
+*.pkl
+*.bin
+
+# Experimental Data
+# backend/ml/experimental/
+# backend/datasets/raw_external/
+# (Commented out to ensure valuable assets are saved to git)
+
+
+# Models directories (Large artifacts)
+backend/ml/models/
+backend/ml/models_custom/
+backend/ai_service/models/
+# Keep experimental code but ignore large data if any
+# backend/ml/experimental/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large Datasets
+vlm datasets/
+vlm datasets2/
+backend/ml/datasets/
+

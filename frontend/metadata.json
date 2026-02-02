@@ -1,0 +1,7 @@
+{
+  "name": "AgriSense",
+  "description": "Smart Agriculture IoT Platform with ML-powered insights for farmers.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

@@ -1,0 +1,113 @@
+# AgriSense Crop Database Configuration
+# Comprehensive crop parameters for Indian agriculture
+
+crops:
+  Rice:
+    kc_initial: 1.05
+    kc_mid: 1.20
+    kc_late: 0.75
+    n_requirement: 120
+    p_requirement: 60
+    k_requirement: 40
+    optimal_ph: 5.5
+    optimal_temp: 25
+    water_requirement_mm: 1200
+    
+  Wheat:
+    kc_initial: 0.70
+    kc_mid: 1.15
+    kc_late: 0.40
+    n_requirement: 150
+    p_requirement: 60
+    k_requirement: 40
+    optimal_ph: 6.5
+    optimal_temp: 20
+    water_requirement_mm: 450
+    
+  Maize:
+    kc_initial: 0.70
+    kc_mid: 1.20
+    kc_late: 0.60
+    n_requirement: 150
+    p_requirement: 75
+    k_requirement: 75
+    optimal_ph: 6.0
+    optimal_temp: 25
+    water_requirement_mm: 500
+    
+  Cotton:
+    kc_initial: 0.45
+    kc_mid: 1.15
+    kc_late: 0.70
+    n_requirement: 120
+    p_requirement: 50
+    k_requirement: 50
+    optimal_ph: 7.0
+    optimal_temp: 27
+    water_requirement_mm: 700
+    
+  Sugarcane:
+    kc_initial: 0.40
+    kc_mid: 1.25
+    kc_late: 0.75
+    n_requirement: 200
+    p_requirement: 80
+    k_requirement: 100
+    optimal_ph: 6.5
+    optimal_temp: 28
+    water_requirement_mm: 1500
+    
+  Chickpea:
+    kc_initial: 0.40
+    kc_mid: 1.05
+    kc_late: 0.35
+    n_requirement: 40
+    p_requirement: 60
+    k_requirement: 30
+    optimal_ph: 7.0
+    optimal_temp: 20
+    water_requirement_mm: 300
+    
+  Potato:
+    kc_initial: 0.50
+    kc_mid: 1.15
+    kc_late: 0.75
+    n_requirement: 150
+    p_requirement: 80
+    k_requirement: 120
+    optimal_ph: 5.5
+    optimal_temp: 18
+    water_requirement_mm: 500
+    
+  Tomato:
+    kc_initial: 0.60
+    kc_mid: 1.15
+    kc_late: 0.80
+    n_requirement: 140
+    p_requirement: 60
+    k_requirement: 150
+    optimal_ph: 6.5
+    optimal_temp: 24
+    water_requirement_mm: 600
+    
+  Onion:
+    kc_initial: 0.70
+    kc_mid: 1.05
+    kc_late: 0.85
+    n_requirement: 100
+    p_requirement: 50
+    k_requirement: 100
+    optimal_ph: 6.5
+    optimal_temp: 22
+    water_requirement_mm: 350
+
+  Soybean:
+    kc_initial: 0.40
+    kc_mid: 1.15
+    kc_late: 0.50
+    n_requirement: 60
+    p_requirement: 80
+    k_requirement: 60
+    optimal_ph: 6.5
+    optimal_temp: 25
+    water_requirement_mm: 450

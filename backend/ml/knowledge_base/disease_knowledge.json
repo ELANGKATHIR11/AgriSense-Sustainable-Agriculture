@@ -1,0 +1,2561 @@
+{
+  "Leaf Spot": {
+    "description": "Fungal disease causing circular or irregular spots on leaves",
+    "symptoms": [
+      "Circular brown/black spots on leaves",
+      "Yellowing around spots",
+      "Leaf drop in severe cases"
+    ],
+    "causes": [
+      "Fungal pathogens (Cercospora, Alternaria)",
+      "High humidity",
+      "Poor air circulation",
+      "Overhead irrigation"
+    ],
+    "affected_crops": [
+      "Rice",
+      "Wheat",
+      "Maize",
+      "Tomato",
+      "Potato",
+      "Cotton",
+      "Soybean",
+      "Groundnut",
+      "Almond",
+      "Arecanut",
+      "Arhar",
+      "Bajra",
+      "Barley",
+      "Barnyard_Millet",
+      "Beetroot",
+      "Bitter_Gourd",
+      "Black_Pepper",
+      "Bottle_Gourd",
+      "Buckwheat",
+      "Cabbage",
+      "Cardamom",
+      "Carrot",
+      "Cashew",
+      "Castor",
+      "Cauliflower",
+      "Chickpea",
+      "Cluster_Bean",
+      "Coconut",
+      "Coriander",
+      "Cumin",
+      "Custard_Apple",
+      "Dragon_Fruit",
+      "Fenugreek",
+      "Field_Pea",
+      "Foxtail_Millet",
+      "French_Bean",
+      "Garlic",
+      "Ginger",
+      "Green_Pea",
+      "Guava",
+      "Horse_Gram",
+      "Jackfruit",
+      "Jowar",
+      "Jute",
+      "Kidney_Bean",
+      "Kodo_Millet",
+      "Lentil",
+      "Lettuce",
+      "Linseed",
+      "Litchi",
+      "Little_Millet",
+      "Masoor",
+      "Moong",
+      "Moth_Bean",
+      "Muskmelon",
+      "Mustard",
+      "Niger",
+      "Oats",
+      "Okra",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Pearl_Millet",
+      "Pigeon_Pea",
+      "Pineapple",
+      "Pomegranate",
+      "Proso_Millet",
+      "Pumpkin",
+      "Radish",
+      "Ragi",
+      "Ridge_Gourd",
+      "Rubber",
+      "Safflower",
+      "Sapota",
+      "Sesame",
+      "Sorghum",
+      "Spinach",
+      "Strawberry",
+      "Sugarcane",
+      "Sunflower",
+      "Sweet_Potato",
+      "Tobacco",
+      "Turmeric",
+      "Turnip",
+      "Urad",
+      "Walnut",
+      "Watermelon"
+    ],
+    "chemical_treatment": [
+      "Mancozeb 2g/L water, spray every 7-10 days",
+      "Copper oxychloride 2kg/ha",
+      "Chlorothalonil 1.5g/L water"
+    ],
+    "organic_treatment": [
+      "Neem oil spray (5ml/L water)",
+      "Baking soda solution (1 tsp/L water)",
+      "Garlic extract spray",
+      "Remove and destroy affected leaves"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Maintain proper plant spacing",
+      "Avoid overhead irrigation",
+      "Practice crop rotation",
+      "Remove crop debris after harvest"
+    ]
+  },
+  "Powdery Mildew": {
+    "description": "Fungal disease appearing as white powdery growth on leaves and stems",
+    "symptoms": [
+      "White powdery coating on leaves",
+      "Leaf curling and distortion",
+      "Premature leaf drop"
+    ],
+    "causes": [
+      "Fungal pathogens (Erysiphe, Podosphaera)",
+      "High humidity",
+      "Moderate temperatures",
+      "Poor air circulation"
+    ],
+    "affected_crops": [
+      "Wheat",
+      "Barley",
+      "Cucumber",
+      "Pumpkin",
+      "Grapes",
+      "Apple",
+      "Pea",
+      "Mustard",
+      "Mango"
+    ],
+    "chemical_treatment": [
+      "Sulfur-based fungicides (2g/L water)",
+      "Tebuconazole 0.5ml/L water",
+      "Propiconazole 1ml/L water"
+    ],
+    "organic_treatment": [
+      "Milk spray (1:9 ratio with water)",
+      "Baking soda solution (1 tsp/L water)",
+      "Neem oil spray",
+      "Potassium bicarbonate spray"
+    ],
+    "prevention": [
+      "Plant resistant varieties",
+      "Ensure good air circulation",
+      "Avoid dense planting",
+      "Water at base, not on leaves",
+      "Apply preventive fungicides in high-risk periods"
+    ]
+  },
+  "Rust": {
+    "description": "Fungal disease causing rust-colored pustules on leaves and stems",
+    "symptoms": [
+      "Rust-colored pustules on leaves",
+      "Yellowing and premature leaf drop",
+      "Reduced yield"
+    ],
+    "causes": [
+      "Rust fungi (Puccinia spp.)",
+      "High humidity",
+      "Moderate temperatures",
+      "Susceptible varieties"
+    ],
+    "affected_crops": [
+      "Wheat",
+      "Barley",
+      "Oats",
+      "Soybean",
+      "Groundnut",
+      "Sunflower",
+      "Coffee",
+      "Maize",
+      "Sugarcane"
+    ],
+    "chemical_treatment": [
+      "Propiconazole 1ml/L water",
+      "Tebuconazole 0.5ml/L water",
+      "Azoxystrobin 0.5ml/L water"
+    ],
+    "organic_treatment": [
+      "Sulfur dust application",
+      "Copper-based fungicides",
+      "Remove and destroy infected plant parts"
+    ],
+    "prevention": [
+      "Use rust-resistant varieties",
+      "Practice crop rotation",
+      "Destroy volunteer plants",
+      "Apply preventive fungicides",
+      "Avoid late planting"
+    ]
+  },
+  "Blight": {
+    "description": "Rapid wilting and death of plant tissues",
+    "symptoms": [
+      "Water-soaked lesions",
+      "Rapid tissue death",
+      "Wilting",
+      "Dark spots on leaves"
+    ],
+    "causes": [
+      "Bacterial or fungal pathogens",
+      "High humidity",
+      "Warm temperatures",
+      "Wet conditions"
+    ],
+    "affected_crops": [
+      "Tomato",
+      "Potato",
+      "Rice",
+      "Pepper",
+      "Cucumber"
+    ],
+    "chemical_treatment": [
+      "Mancozeb 2g/L water for early blight",
+      "Metalaxyl + Mancozeb for late blight",
+      "Copper-based fungicides",
+      "Apply every 7-10 days"
+    ],
+    "organic_treatment": [
+      "Copper-based organic fungicides",
+      "Remove and destroy affected parts",
+      "Improve air circulation",
+      "Avoid overhead watering"
+    ],
+    "prevention": [
+      "Use blight-resistant varieties",
+      "Practice crop rotation",
+      "Ensure proper drainage",
+      "Avoid working in wet fields",
+      "Remove infected plant debris"
+    ]
+  },
+  "Wilt": {
+    "description": "Plant wilting due to vascular system blockage",
+    "symptoms": [
+      "Wilting of leaves",
+      "Yellowing",
+      "Stem discoloration",
+      "Plant death"
+    ],
+    "causes": [
+      "Fungal pathogens (Fusarium, Verticillium)",
+      "Bacterial pathogens",
+      "Nematodes",
+      "Water stress"
+    ],
+    "affected_crops": [
+      "Tomato",
+      "Cotton",
+      "Banana",
+      "Chilli",
+      "Brinjal",
+      "Okra",
+      "Cucumber",
+      "Almond",
+      "Arecanut",
+      "Arhar",
+      "Bajra",
+      "Barley",
+      "Barnyard_Millet",
+      "Beetroot",
+      "Bitter_Gourd",
+      "Black_Pepper",
+      "Bottle_Gourd",
+      "Buckwheat",
+      "Cabbage",
+      "Cardamom",
+      "Carrot",
+      "Cashew",
+      "Castor",
+      "Cauliflower",
+      "Chickpea",
+      "Cluster_Bean",
+      "Coconut",
+      "Coriander",
+      "Cumin",
+      "Custard_Apple",
+      "Dragon_Fruit",
+      "Fenugreek",
+      "Field_Pea",
+      "Foxtail_Millet",
+      "French_Bean",
+      "Garlic",
+      "Ginger",
+      "Green_Pea",
+      "Guava",
+      "Horse_Gram",
+      "Jackfruit",
+      "Jowar",
+      "Jute",
+      "Kidney_Bean",
+      "Kodo_Millet",
+      "Lentil",
+      "Lettuce",
+      "Linseed",
+      "Litchi",
+      "Little_Millet",
+      "Masoor",
+      "Moong",
+      "Moth_Bean",
+      "Muskmelon",
+      "Mustard",
+      "Niger",
+      "Oats",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Pearl_Millet",
+      "Pigeon_Pea",
+      "Pineapple",
+      "Pomegranate",
+      "Proso_Millet",
+      "Pumpkin",
+      "Radish",
+      "Ragi",
+      "Ridge_Gourd",
+      "Rubber",
+      "Safflower",
+      "Sapota",
+      "Sesame",
+      "Sorghum",
+      "Spinach",
+      "Strawberry",
+      "Sunflower",
+      "Sweet_Potato",
+      "Tobacco",
+      "Turmeric",
+      "Turnip",
+      "Urad",
+      "Walnut",
+      "Watermelon"
+    ],
+    "chemical_treatment": [
+      "Carbendazim drenching for fungal wilt",
+      "Streptomycin for bacterial wilt",
+      "Apply at early stages"
+    ],
+    "organic_treatment": [
+      "Trichoderma application",
+      "Neem cake application",
+      "Crop rotation with non-host crops",
+      "Soil solarization"
+    ],
+    "prevention": [
+      "Use wilt-resistant varieties",
+      "Practice long crop rotation",
+      "Improve soil drainage",
+      "Avoid waterlogging",
+      "Use disease-free seeds/seedlings"
+    ]
+  },
+  "Root Rot": {
+    "description": "Decay of root system leading to plant decline",
+    "symptoms": [
+      "Yellowing leaves",
+      "Stunted growth",
+      "Root discoloration",
+      "Plant wilting"
+    ],
+    "causes": [
+      "Fungal pathogens (Rhizoctonia, Pythium)",
+      "Waterlogging",
+      "Poor drainage",
+      "Overwatering"
+    ],
+    "affected_crops": [
+      "Rice",
+      "Wheat",
+      "Soybean",
+      "Cotton",
+      "Chilli",
+      "Tomato",
+      "Pepper",
+      "Almond",
+      "Arecanut",
+      "Arhar",
+      "Bajra",
+      "Barley",
+      "Barnyard_Millet",
+      "Beetroot",
+      "Bitter_Gourd",
+      "Black_Pepper",
+      "Bottle_Gourd",
+      "Buckwheat",
+      "Cabbage",
+      "Cardamom",
+      "Carrot",
+      "Cashew",
+      "Castor",
+      "Cauliflower",
+      "Chickpea",
+      "Cluster_Bean",
+      "Coconut",
+      "Coffee",
+      "Coriander",
+      "Cumin",
+      "Custard_Apple",
+      "Dragon_Fruit",
+      "Fenugreek",
+      "Field_Pea",
+      "Foxtail_Millet",
+      "French_Bean",
+      "Garlic",
+      "Ginger",
+      "Green_Pea",
+      "Guava",
+      "Horse_Gram",
+      "Jackfruit",
+      "Jowar",
+      "Jute",
+      "Kidney_Bean",
+      "Kodo_Millet",
+      "Lentil",
+      "Lettuce",
+      "Linseed",
+      "Litchi",
+      "Little_Millet",
+      "Masoor",
+      "Moong",
+      "Moth_Bean",
+      "Muskmelon",
+      "Mustard",
+      "Niger",
+      "Oats",
+      "Okra",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Pearl_Millet",
+      "Pigeon_Pea",
+      "Pineapple",
+      "Pomegranate",
+      "Proso_Millet",
+      "Pumpkin",
+      "Radish",
+      "Ragi",
+      "Ridge_Gourd",
+      "Rubber",
+      "Safflower",
+      "Sapota",
+      "Sesame",
+      "Sorghum",
+      "Spinach",
+      "Strawberry",
+      "Sunflower",
+      "Sweet_Potato",
+      "Tobacco",
+      "Turmeric",
+      "Turnip",
+      "Urad",
+      "Walnut",
+      "Watermelon"
+    ],
+    "chemical_treatment": [
+      "Metalaxyl seed treatment",
+      "Carbendazim drenching",
+      "Thiophanate-methyl application"
+    ],
+    "organic_treatment": [
+      "Trichoderma application",
+      "Improve drainage",
+      "Reduce watering",
+      "Apply organic matter"
+    ],
+    "prevention": [
+      "Ensure proper drainage",
+      "Avoid waterlogging",
+      "Use raised beds",
+      "Practice crop rotation",
+      "Use disease-free seeds"
+    ]
+  },
+  "Mosaic Virus": {
+    "description": "Viral disease causing mottled leaf patterns",
+    "symptoms": [
+      "Mottled/mosaic patterns on leaves",
+      "Leaf distortion",
+      "Stunted growth",
+      "Reduced yield"
+    ],
+    "causes": [
+      "Viral pathogens",
+      "Aphid transmission",
+      "Whitefly transmission",
+      "Mechanical transmission"
+    ],
+    "affected_crops": [
+      "Tomato",
+      "Cucumber",
+      "Pumpkin",
+      "Tobacco",
+      "Potato",
+      "Pepper",
+      "Beans",
+      "Banana",
+      "Soybean"
+    ],
+    "chemical_treatment": [
+      "No direct chemical cure for viruses",
+      "Control insect vectors with insecticides",
+      "Imidacloprid for aphids",
+      "Acetamiprid for whiteflies"
+    ],
+    "organic_treatment": [
+      "Remove and destroy infected plants",
+      "Control insect vectors",
+      "Use reflective mulches",
+      "Plant barrier crops"
+    ],
+    "prevention": [
+      "Use virus-free seeds/seedlings",
+      "Control insect vectors",
+      "Remove infected plants immediately",
+      "Practice crop rotation",
+      "Use resistant varieties",
+      "Avoid working in infected fields"
+    ]
+  },
+  "Downy Mildew": {
+    "description": "Fungal disease with downy growth on leaf undersides",
+    "symptoms": [
+      "Yellow spots on upper leaf surface",
+      "Downy growth on lower surface",
+      "Leaf drop"
+    ],
+    "causes": [
+      "Fungal pathogens (Peronospora, Plasmopara)",
+      "High humidity",
+      "Cool temperatures",
+      "Wet conditions"
+    ],
+    "affected_crops": [
+      "Grapes",
+      "Cucumber",
+      "Onion",
+      "Lettuce",
+      "Sunflower",
+      "Sorghum",
+      "Maize"
+    ],
+    "chemical_treatment": [
+      "Metalaxyl + Mancozeb",
+      "Fosetyl-Al",
+      "Propamocarb",
+      "Apply preventively"
+    ],
+    "organic_treatment": [
+      "Copper-based fungicides",
+      "Improve air circulation",
+      "Reduce humidity",
+      "Remove affected leaves"
+    ],
+    "prevention": [
+      "Use resistant varieties",
+      "Ensure good air circulation",
+      "Avoid overhead irrigation",
+      "Practice crop rotation",
+      "Apply preventive fungicides"
+    ]
+  },
+  "leaf_spot": {
+    "description": "Fungal disease causing circular or irregular spots on leaves",
+    "symptoms": [
+      "Circular brown/black spots on leaves",
+      "Yellowing around spots",
+      "Leaf drop in severe cases"
+    ],
+    "causes": [
+      "Fungal pathogens (Cercospora, Alternaria)",
+      "High humidity",
+      "Poor air circulation",
+      "Overhead irrigation"
+    ],
+    "affected_crops": [
+      "Rice",
+      "Wheat",
+      "Maize",
+      "Tomato",
+      "Potato",
+      "Cotton",
+      "Soybean",
+      "Groundnut",
+      "Almond",
+      "Arecanut",
+      "Arhar",
+      "Bajra",
+      "Barley",
+      "Barnyard_Millet",
+      "Beetroot",
+      "Bitter_Gourd",
+      "Black_Pepper",
+      "Bottle_Gourd",
+      "Buckwheat",
+      "Cabbage",
+      "Cardamom",
+      "Carrot",
+      "Cashew",
+      "Castor",
+      "Cauliflower",
+      "Chickpea",
+      "Cluster_Bean",
+      "Coconut",
+      "Coriander",
+      "Cumin",
+      "Custard_Apple",
+      "Dragon_Fruit",
+      "Fenugreek",
+      "Field_Pea",
+      "Foxtail_Millet",
+      "French_Bean",
+      "Garlic",
+      "Ginger",
+      "Green_Pea",
+      "Guava",
+      "Horse_Gram",
+      "Jackfruit",
+      "Jowar",
+      "Jute",
+      "Kidney_Bean",
+      "Kodo_Millet",
+      "Lentil",
+      "Lettuce",
+      "Linseed",
+      "Litchi",
+      "Little_Millet",
+      "Masoor",
+      "Moong",
+      "Moth_Bean",
+      "Muskmelon",
+      "Mustard",
+      "Niger",
+      "Oats",
+      "Okra",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Pearl_Millet",
+      "Pigeon_Pea",
+      "Pineapple",
+      "Pomegranate",
+      "Proso_Millet",
+      "Pumpkin",
+      "Radish",
+      "Ragi",
+      "Ridge_Gourd",
+      "Rubber",
+      "Safflower",
+      "Sapota",
+      "Sesame",
+      "Sorghum",
+      "Spinach",
+      "Strawberry",
+      "Sugarcane",
+      "Sunflower",
+      "Sweet_Potato",
+      "Tobacco",
+      "Turmeric",
+      "Turnip",
+      "Urad",
+      "Walnut",
+      "Watermelon"
+    ],
+    "chemical_treatment": [
+      "Mancozeb 2g/L water, spray every 7-10 days",
+      "Copper oxychloride 2kg/ha",
+      "Chlorothalonil 1.5g/L water"
+    ],
+    "organic_treatment": [
+      "Neem oil spray (5ml/L water)",
+      "Baking soda solution (1 tsp/L water)",
+      "Garlic extract spray",
+      "Remove and destroy affected leaves"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Maintain proper plant spacing",
+      "Avoid overhead irrigation",
+      "Practice crop rotation",
+      "Remove crop debris after harvest"
+    ]
+  },
+  "root_rot": {
+    "description": "Decay of root system leading to plant decline",
+    "symptoms": [
+      "Yellowing leaves",
+      "Stunted growth",
+      "Root discoloration",
+      "Plant wilting"
+    ],
+    "causes": [
+      "Fungal pathogens (Rhizoctonia, Pythium)",
+      "Waterlogging",
+      "Poor drainage",
+      "Overwatering"
+    ],
+    "affected_crops": [
+      "Rice",
+      "Wheat",
+      "Soybean",
+      "Cotton",
+      "Chilli",
+      "Tomato",
+      "Pepper",
+      "Almond",
+      "Arecanut",
+      "Arhar",
+      "Bajra",
+      "Barley",
+      "Barnyard_Millet",
+      "Beetroot",
+      "Bitter_Gourd",
+      "Black_Pepper",
+      "Bottle_Gourd",
+      "Buckwheat",
+      "Cabbage",
+      "Cardamom",
+      "Carrot",
+      "Cashew",
+      "Castor",
+      "Cauliflower",
+      "Chickpea",
+      "Cluster_Bean",
+      "Coconut",
+      "Coffee",
+      "Coriander",
+      "Cumin",
+      "Custard_Apple",
+      "Dragon_Fruit",
+      "Fenugreek",
+      "Field_Pea",
+      "Foxtail_Millet",
+      "French_Bean",
+      "Garlic",
+      "Ginger",
+      "Green_Pea",
+      "Guava",
+      "Horse_Gram",
+      "Jackfruit",
+      "Jowar",
+      "Jute",
+      "Kidney_Bean",
+      "Kodo_Millet",
+      "Lentil",
+      "Lettuce",
+      "Linseed",
+      "Litchi",
+      "Little_Millet",
+      "Masoor",
+      "Moong",
+      "Moth_Bean",
+      "Muskmelon",
+      "Mustard",
+      "Niger",
+      "Oats",
+      "Okra",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Pearl_Millet",
+      "Pigeon_Pea",
+      "Pineapple",
+      "Pomegranate",
+      "Proso_Millet",
+      "Pumpkin",
+      "Radish",
+      "Ragi",
+      "Ridge_Gourd",
+      "Rubber",
+      "Safflower",
+      "Sapota",
+      "Sesame",
+      "Sorghum",
+      "Spinach",
+      "Strawberry",
+      "Sunflower",
+      "Sweet_Potato",
+      "Tobacco",
+      "Turmeric",
+      "Turnip",
+      "Urad",
+      "Walnut",
+      "Watermelon"
+    ],
+    "chemical_treatment": [
+      "Metalaxyl seed treatment",
+      "Carbendazim drenching",
+      "Thiophanate-methyl application"
+    ],
+    "organic_treatment": [
+      "Trichoderma application",
+      "Improve drainage",
+      "Reduce watering",
+      "Apply organic matter"
+    ],
+    "prevention": [
+      "Ensure proper drainage",
+      "Avoid waterlogging",
+      "Use raised beds",
+      "Practice crop rotation",
+      "Use disease-free seeds"
+    ]
+  },
+  "wilt": {
+    "description": "Plant wilting due to vascular system blockage",
+    "symptoms": [
+      "Wilting of leaves",
+      "Yellowing",
+      "Stem discoloration",
+      "Plant death"
+    ],
+    "causes": [
+      "Fungal pathogens (Fusarium, Verticillium)",
+      "Bacterial pathogens",
+      "Nematodes",
+      "Water stress"
+    ],
+    "affected_crops": [
+      "Tomato",
+      "Cotton",
+      "Banana",
+      "Chilli",
+      "Brinjal",
+      "Okra",
+      "Cucumber",
+      "Almond",
+      "Arecanut",
+      "Arhar",
+      "Bajra",
+      "Barley",
+      "Barnyard_Millet",
+      "Beetroot",
+      "Bitter_Gourd",
+      "Black_Pepper",
+      "Bottle_Gourd",
+      "Buckwheat",
+      "Cabbage",
+      "Cardamom",
+      "Carrot",
+      "Cashew",
+      "Castor",
+      "Cauliflower",
+      "Chickpea",
+      "Cluster_Bean",
+      "Coconut",
+      "Coriander",
+      "Cumin",
+      "Custard_Apple",
+      "Dragon_Fruit",
+      "Fenugreek",
+      "Field_Pea",
+      "Foxtail_Millet",
+      "French_Bean",
+      "Garlic",
+      "Ginger",
+      "Green_Pea",
+      "Guava",
+      "Horse_Gram",
+      "Jackfruit",
+      "Jowar",
+      "Jute",
+      "Kidney_Bean",
+      "Kodo_Millet",
+      "Lentil",
+      "Lettuce",
+      "Linseed",
+      "Litchi",
+      "Little_Millet",
+      "Masoor",
+      "Moong",
+      "Moth_Bean",
+      "Muskmelon",
+      "Mustard",
+      "Niger",
+      "Oats",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Pearl_Millet",
+      "Pigeon_Pea",
+      "Pineapple",
+      "Pomegranate",
+      "Proso_Millet",
+      "Pumpkin",
+      "Radish",
+      "Ragi",
+      "Ridge_Gourd",
+      "Rubber",
+      "Safflower",
+      "Sapota",
+      "Sesame",
+      "Sorghum",
+      "Spinach",
+      "Strawberry",
+      "Sunflower",
+      "Sweet_Potato",
+      "Tobacco",
+      "Turmeric",
+      "Turnip",
+      "Urad",
+      "Walnut",
+      "Watermelon"
+    ],
+    "chemical_treatment": [
+      "Carbendazim drenching for fungal wilt",
+      "Streptomycin for bacterial wilt",
+      "Apply at early stages"
+    ],
+    "organic_treatment": [
+      "Trichoderma application",
+      "Neem cake application",
+      "Crop rotation with non-host crops",
+      "Soil solarization"
+    ],
+    "prevention": [
+      "Use wilt-resistant varieties",
+      "Practice long crop rotation",
+      "Improve soil drainage",
+      "Avoid waterlogging",
+      "Use disease-free seeds/seedlings"
+    ]
+  },
+  "scab": {
+    "description": "Scab affecting Apple",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Apple",
+      "Potato"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "powdery_mildew": {
+    "description": "Fungal disease appearing as white powdery growth on leaves and stems",
+    "symptoms": [
+      "White powdery coating on leaves",
+      "Leaf curling and distortion",
+      "Premature leaf drop"
+    ],
+    "causes": [
+      "Fungal pathogens (Erysiphe, Podosphaera)",
+      "High humidity",
+      "Moderate temperatures",
+      "Poor air circulation"
+    ],
+    "affected_crops": [
+      "Wheat",
+      "Barley",
+      "Cucumber",
+      "Pumpkin",
+      "Grapes",
+      "Apple",
+      "Pea",
+      "Mustard",
+      "Mango"
+    ],
+    "chemical_treatment": [
+      "Sulfur-based fungicides (2g/L water)",
+      "Tebuconazole 0.5ml/L water",
+      "Propiconazole 1ml/L water"
+    ],
+    "organic_treatment": [
+      "Milk spray (1:9 ratio with water)",
+      "Baking soda solution (1 tsp/L water)",
+      "Neem oil spray",
+      "Potassium bicarbonate spray"
+    ],
+    "prevention": [
+      "Plant resistant varieties",
+      "Ensure good air circulation",
+      "Avoid dense planting",
+      "Water at base, not on leaves",
+      "Apply preventive fungicides in high-risk periods"
+    ]
+  },
+  "fire_blight": {
+    "description": "Fire Blight affecting Apple",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Apple"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "cedar_apple_rust": {
+    "description": "Cedar Apple Rust affecting Apple",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Apple"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "panama_disease": {
+    "description": "Panama Disease affecting Banana",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Banana"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "sigatoka": {
+    "description": "Sigatoka affecting Banana",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Banana"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "bunchy_top": {
+    "description": "Bunchy Top affecting Banana",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Banana"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "mosaic_virus": {
+    "description": "Viral disease causing mottled leaf patterns",
+    "symptoms": [
+      "Mottled/mosaic patterns on leaves",
+      "Leaf distortion",
+      "Stunted growth",
+      "Reduced yield"
+    ],
+    "causes": [
+      "Viral pathogens",
+      "Aphid transmission",
+      "Whitefly transmission",
+      "Mechanical transmission"
+    ],
+    "affected_crops": [
+      "Tomato",
+      "Cucumber",
+      "Pumpkin",
+      "Tobacco",
+      "Potato",
+      "Pepper",
+      "Beans",
+      "Banana",
+      "Soybean"
+    ],
+    "chemical_treatment": [
+      "No direct chemical cure for viruses",
+      "Control insect vectors with insecticides",
+      "Imidacloprid for aphids",
+      "Acetamiprid for whiteflies"
+    ],
+    "organic_treatment": [
+      "Remove and destroy infected plants",
+      "Control insect vectors",
+      "Use reflective mulches",
+      "Plant barrier crops"
+    ],
+    "prevention": [
+      "Use virus-free seeds/seedlings",
+      "Control insect vectors",
+      "Remove infected plants immediately",
+      "Practice crop rotation",
+      "Use resistant varieties",
+      "Avoid working in infected fields"
+    ]
+  },
+  "bacterial_wilt": {
+    "description": "Bacterial Wilt affecting Brinjal",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Brinjal",
+      "Potato",
+      "Tomato"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "phomopsis_blight": {
+    "description": "Phomopsis Blight affecting Brinjal",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Brinjal"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "little_leaf": {
+    "description": "Little Leaf affecting Brinjal",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Brinjal"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "fruit_rot": {
+    "description": "Fruit Rot affecting Brinjal",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Brinjal"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "anthracnose": {
+    "description": "Anthracnose affecting Chilli",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Chilli",
+      "Cucumber",
+      "Grapes",
+      "Mango"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "bacterial_leaf_spot": {
+    "description": "Bacterial Leaf Spot affecting Chilli",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Chilli"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "viral_diseases": {
+    "description": "Viral Diseases affecting Chilli",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Chilli"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "damping_off": {
+    "description": "Damping Off affecting Chilli",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Chilli"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "coffee_rust": {
+    "description": "Coffee Rust affecting Coffee",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Coffee"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "berry_disease": {
+    "description": "Berry Disease affecting Coffee",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Coffee"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "bacterial_blight": {
+    "description": "Bacterial Blight affecting Cotton",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Cotton",
+      "Soybean"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "fusarium_wilt": {
+    "description": "Fusarium Wilt affecting Cotton",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Cotton",
+      "Tomato"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "verticillium_wilt": {
+    "description": "Verticillium Wilt affecting Cotton",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Cotton"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "downy_mildew": {
+    "description": "Fungal disease with downy growth on leaf undersides",
+    "symptoms": [
+      "Yellow spots on upper leaf surface",
+      "Downy growth on lower surface",
+      "Leaf drop"
+    ],
+    "causes": [
+      "Fungal pathogens (Peronospora, Plasmopara)",
+      "High humidity",
+      "Cool temperatures",
+      "Wet conditions"
+    ],
+    "affected_crops": [
+      "Grapes",
+      "Cucumber",
+      "Onion",
+      "Lettuce",
+      "Sunflower",
+      "Sorghum",
+      "Maize"
+    ],
+    "chemical_treatment": [
+      "Metalaxyl + Mancozeb",
+      "Fosetyl-Al",
+      "Propamocarb",
+      "Apply preventively"
+    ],
+    "organic_treatment": [
+      "Copper-based fungicides",
+      "Improve air circulation",
+      "Reduce humidity",
+      "Remove affected leaves"
+    ],
+    "prevention": [
+      "Use resistant varieties",
+      "Ensure good air circulation",
+      "Avoid overhead irrigation",
+      "Practice crop rotation",
+      "Apply preventive fungicides"
+    ]
+  },
+  "angular_leaf_spot": {
+    "description": "Angular Leaf Spot affecting Cucumber",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Cucumber"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "black_rot": {
+    "description": "Black Rot affecting Grapes",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Grapes"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "early_leaf_spot": {
+    "description": "Early Leaf Spot affecting Groundnut",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Groundnut"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "late_leaf_spot": {
+    "description": "Late Leaf Spot affecting Groundnut",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Groundnut"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "rust": {
+    "description": "Fungal disease causing rust-colored pustules on leaves and stems",
+    "symptoms": [
+      "Rust-colored pustules on leaves",
+      "Yellowing and premature leaf drop",
+      "Reduced yield"
+    ],
+    "causes": [
+      "Rust fungi (Puccinia spp.)",
+      "High humidity",
+      "Moderate temperatures",
+      "Susceptible varieties"
+    ],
+    "affected_crops": [
+      "Wheat",
+      "Barley",
+      "Oats",
+      "Soybean",
+      "Groundnut",
+      "Sunflower",
+      "Coffee",
+      "Maize",
+      "Sugarcane"
+    ],
+    "chemical_treatment": [
+      "Propiconazole 1ml/L water",
+      "Tebuconazole 0.5ml/L water",
+      "Azoxystrobin 0.5ml/L water"
+    ],
+    "organic_treatment": [
+      "Sulfur dust application",
+      "Copper-based fungicides",
+      "Remove and destroy infected plant parts"
+    ],
+    "prevention": [
+      "Use rust-resistant varieties",
+      "Practice crop rotation",
+      "Destroy volunteer plants",
+      "Apply preventive fungicides",
+      "Avoid late planting"
+    ]
+  },
+  "stem_rot": {
+    "description": "Stem Rot affecting Groundnut",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Groundnut"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "turcicum_leaf_blight": {
+    "description": "Turcicum Leaf Blight affecting Maize",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Maize"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "ear_rot": {
+    "description": "Ear Rot affecting Maize",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Maize"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "bacterial_canker": {
+    "description": "Bacterial Canker affecting Mango",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Mango"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "stem_end_rot": {
+    "description": "Stem End Rot affecting Mango",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Mango"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "late_blight": {
+    "description": "Late Blight affecting Potato",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Potato",
+      "Tomato"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "early_blight": {
+    "description": "Early Blight affecting Potato",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Potato",
+      "Tomato"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "blackleg": {
+    "description": "Blackleg affecting Potato",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Potato"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "blast": {
+    "description": "Blast affecting Rice",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Rice"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "brown_spot": {
+    "description": "Brown Spot affecting Rice",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Rice"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "sheath_blight": {
+    "description": "Sheath Blight affecting Rice",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Rice"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "bacterial_leaf_blight": {
+    "description": "Bacterial Leaf Blight affecting Rice",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Rice"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "tungro_virus": {
+    "description": "Tungro Virus affecting Rice",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Rice"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "red_rot": {
+    "description": "Red Rot affecting Sugarcane",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Sugarcane"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "smut": {
+    "description": "Smut affecting Sugarcane",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Sugarcane"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "blister_blight": {
+    "description": "Blister Blight affecting Tea",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Tea"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "red_rust": {
+    "description": "Red Rust affecting Tea",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Tea"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "brown_blight": {
+    "description": "Brown Blight affecting Tea",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Tea"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "grey_blight": {
+    "description": "Grey Blight affecting Tea",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Tea"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "karnal_bunt": {
+    "description": "Karnal Bunt affecting Wheat",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Wheat"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "leaf_blight": {
+    "description": "Leaf Blight affecting Wheat",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Wheat"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  },
+  "loose_smut": {
+    "description": "Loose Smut affecting Wheat",
+    "symptoms": [
+      "Leaf discoloration and spots",
+      "Reduced growth and yield",
+      "Plant wilting in severe cases"
+    ],
+    "causes": [
+      "Pathogenic infection",
+      "Environmental stress",
+      "Poor crop management"
+    ],
+    "affected_crops": [
+      "Wheat"
+    ],
+    "chemical_treatment": [
+      "Apply appropriate fungicide/bactericide",
+      "Follow recommended dosage",
+      "Repeat application as needed"
+    ],
+    "organic_treatment": [
+      "Remove and destroy affected parts",
+      "Apply organic fungicides",
+      "Improve crop management practices"
+    ],
+    "prevention": [
+      "Use disease-resistant varieties",
+      "Practice crop rotation",
+      "Maintain field hygiene",
+      "Monitor regularly"
+    ]
+  }
+}

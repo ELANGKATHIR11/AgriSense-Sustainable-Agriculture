@@ -1,0 +1,13 @@
+{
+  "completed": [],
+  "needs_download": [
+    "crop_recommendation",
+    "yield_prediction",
+    "water_requirement",
+    "season_classification",
+    "crop_type",
+    "plant_disease",
+    "agricultural_qa"
+  ],
+  "total": 7
+}

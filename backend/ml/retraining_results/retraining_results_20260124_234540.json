@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-01-24T23:45:40.804661",
+  "models_trained": 3,
+  "models_failed": 0,
+  "results": {
+    "crop_recommendation": {
+      "accuracy": 1.0,
+      "f1_score": 1.0,
+      "samples_trained": 2,
+      "classes": 1
+    },
+    "yield_prediction": {
+      "r2_score": -0.593776009317645,
+      "rmse": 322.43202001630095,
+      "samples_trained": 80
+    },
+    "water_requirement": {
+      "r2_score": -0.07207550580023381,
+      "samples_trained": 80
+    }
+  }
+}

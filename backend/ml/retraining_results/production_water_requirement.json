@@ -1,0 +1,8 @@
+{
+  "model": "Water Requirement",
+  "dataset_size": 5000,
+  "best_estimator": "GradientBoosting",
+  "test_r2_score": 0.9382317426869281,
+  "test_rmse": 0.1918164383121046,
+  "timestamp": "2026-01-27T21:28:01.360942"
+}

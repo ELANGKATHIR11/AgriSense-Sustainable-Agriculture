@@ -1,0 +1,7 @@
+{
+  "model_name": "Yield Prediction",
+  "best_estimator": "RandomForest",
+  "test_r2_score": -0.1549760567431704,
+  "test_rmse": 1179.9792591049104,
+  "timestamp": "2026-01-25T21:36:17.701520"
+}
