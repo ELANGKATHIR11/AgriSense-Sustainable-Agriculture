@@ -1,0 +1,6 @@
+[flake8]
+max-line-length = 79
+extend-ignore = E501, W291, W293
+exclude = .git,__pycache__,build,dist
+per-file-ignores =
+    crop_requirements_dataset.py:E501
