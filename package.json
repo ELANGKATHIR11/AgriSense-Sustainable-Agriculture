@@ -8,9 +8,14 @@
     "dev": "cd backend && npm run dev:full",
     "dev:backend": "cd backend && npm run dev:backend",
     "dev:frontend": "cd frontend && npm run dev",
+    "dev:all": "npm run install:all && cd backend && npm run dev:full",
     "build": "cd frontend && npm run build",
     "start": "cd backend && npm start",
-    "start:production": "cd backend && npm run start:production"
+    "start:production": "cd backend && npm run start:production",
+    "test": "cd backend && npm test",
+    "test:frontend": "cd frontend && npx vitest run",
+    "test:all": "npm run test && npm run test:frontend",
+    "lint:frontend": "cd frontend && npx tsc --noEmit"
   },
   "keywords": [
     "agriculture",

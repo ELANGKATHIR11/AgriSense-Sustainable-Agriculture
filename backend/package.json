@@ -11,7 +11,7 @@
     "dev:full": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" --names \"backend,frontend\" --prefix-colors \"blue,green\"",
     "build:frontend": "cd ../frontend && npm run build",
     "start:production": "npm run build:frontend && NODE_ENV=production node server.js",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "build": "echo 'No build step required for Node.js'"
   },
   "dependencies": {
