@@ -23,7 +23,7 @@ export default function Settings() {
 
   const systemInfo = [
     { label: "Edge Backend",       value: "FastAPI 0.110",   status: "green",  icon: <Server className="w-3.5 h-3.5" /> },
-    { label: "LLM Engine",         value: "Ollama + Qwen2.5-Coder 3B", status: "green", icon: <Cpu className="w-3.5 h-3.5" /> },
+    { label: "LLM Engine",         value: "Ollama + Qwen2.5 1.5B-Instruct", status: "green", icon: <Cpu className="w-3.5 h-3.5" /> },
     { label: "Vision Model",       value: "riven/florence-2 (Florence-2 3B)", status: "green", icon: <Zap className="w-3.5 h-3.5" /> },
     { label: "Database",           value: "SQLite (agrisense.db)", status: "amber", icon: <Database className="w-3.5 h-3.5" /> },
     { label: "ML Runtime",         value: "scikit-learn + TabPFN", status: "green", icon: <Leaf className="w-3.5 h-3.5" /> },

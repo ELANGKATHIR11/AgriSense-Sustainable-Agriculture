@@ -211,7 +211,7 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
 
       {/* Trace */}
       <div className="trace-bar flex-shrink-0">
-        <span>MODEL: Qwen2.5-Coder 3B · BACKEND: Ollama Edge Node</span>
+        <span>MODEL: Qwen2.5 1.5B-Instruct · BACKEND: Ollama Edge Node</span>
         <span className="text-emerald-600 font-bold">LOCAL · NO CLOUD</span>
       </div>
     </div>
