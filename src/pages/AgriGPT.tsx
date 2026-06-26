@@ -23,7 +23,7 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
     {
       id: "init-01",
       role: "model",
-      content: "Hello! I'm AgriGPT — your edge-native agricultural intelligence assistant powered by Qwen2.5-Coder 3B running locally on Ollama.\n\nI'm synced with your live field data. Ask me anything about soil health, crop pathology, irrigation scheduling, or ML model metrics.",
+      content: "Hello! I'm AgriGPT — your edge-native agricultural intelligence assistant powered by **Qwen2.5 1.5B-Instruct** running locally on Ollama.\n\nI'm synced with your live field data. Ask me anything about soil health, crop pathology, irrigation scheduling, or ML model metrics.",
       timestamp: new Date().toISOString()
     }
   ]);
@@ -74,7 +74,7 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
       setMessages(prev => [...prev, {
         id: "err-" + Math.random().toString(36).slice(4, 9),
         role: "model",
-        content: `⚠️ Connection error: ${err.message}. Check that the Qwen2.5 Ollama backend is running on port 8000.`,
+        content: `⚠️ Chat error: ${err.message}. The backend may still be starting up — please wait a moment and try again.`,
         timestamp: new Date().toISOString()
       }]);
     } finally {
@@ -99,7 +99,7 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
         <div className="relative z-10 flex items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="agri-badge">🤖 Qwen2.5-Coder 3B</span>
+              <span className="agri-badge">🤖 Qwen2.5 1.5B-Instruct</span>
               <span className="agri-badge agri-badge-amber">⚡ Ollama Local</span>
             </div>
             <h1 className="text-xl font-black tracking-tight">

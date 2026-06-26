@@ -4,16 +4,20 @@ import logging
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
-from backend.rag.faiss_service import query_kb
-
 router = APIRouter(prefix="/chat", tags=["AI Chatbot"])
 
 logger = logging.getLogger("AgriAssistant")
 OLLAMA_BASE = "http://localhost:11434"
 
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
 class ChatRequest(BaseModel):
-    message: str
-    prediction_context: Optional[dict] = None  # Inputs/outputs from TabPFN or Florence-2
+    message: Optional[str] = None
+    messages: Optional[List[ChatMessage]] = None
+    prediction_context: Optional[dict] = None
+    sensorContext: Optional[dict] = None
 
 async def chat_query_ollama(prompt: str) -> str:
     payload = {
@@ -52,20 +56,32 @@ async def chat_query_ollama(prompt: str) -> str:
 @router.post("")
 async def query_assistant(payload: ChatRequest):
     query = payload.message
-    pred_context = payload.prediction_context
+    if not query and payload.messages:
+        user_msgs = [m.content for m in payload.messages if m.role == "user"]
+        if user_msgs:
+            query = user_msgs[-1]
+            
+    if not query:
+        raise HTTPException(status_code=400, detail="Query message not found")
+        
+    pred_context = payload.prediction_context or payload.sensorContext
     
-    # 1. Fetch relevant context from FAISS (BGE-M3 grounded lookup)
-    rag_matches = query_kb(query, k=2)
+    # 1. Safely fetch relevant context (lazy load to avoid segfault on Windows)
     context_str = ""
     sources = []
-    if rag_matches:
-        context_str = "\n".join([f"- {r['text']}" for r in rag_matches])
-        sources = [r["metadata"] for r in rag_matches]
+    try:
+        from backend.rag.faiss_service import query_kb
+        rag_matches = query_kb(query, k=2)
+        if rag_matches:
+            context_str = "\n".join([f"- {r['text']}" for r in rag_matches])
+            sources = [r["metadata"] for r in rag_matches]
+    except Exception:
+        pass  # RAG unavailable, continue without context
         
     # 2. Compose structured prompt
     full_prompt = f"User Query: {query}\n\n"
     if pred_context:
-        full_prompt += f"Specialized Model Context:\n{pred_context}\n\n"
+        full_prompt += f"Specialized Model/Sensor Context:\n{pred_context}\n\n"
     if context_str:
         full_prompt += f"Retrieved Knowledge base context:\n{context_str}\n\n"
         
@@ -74,6 +90,7 @@ async def query_assistant(payload: ChatRequest):
     reply = await chat_query_ollama(full_prompt)
     return {
         "reply": reply,
+        "text": reply,
         "retrieved_documents": sources,
         "confidence_score": 0.95 if rag_matches else 0.50
     }

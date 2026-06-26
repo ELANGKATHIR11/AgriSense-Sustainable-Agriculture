@@ -18,19 +18,8 @@ async def chat_with_agrigpt(message: str, history: list = None) -> str:
     Send a chat message to Ollama qwen2.5-coder:3b with agricultural system prompt.
     Falls back to a keyword-based expert response if Ollama is unavailable.
     """
-    # Query local RAG database
-    try:
-        from backend.rag.rag_engine import rag_engine
-        rag_matches = await rag_engine.query_disease_kb(message, top_k=2)
-        rag_context = ""
-        # Only inject if there is a decent similarity score or relevant keyword match
-        if rag_matches and (rag_matches[0]["score"] > 0.25 or any(w in message.lower() for w in ["disease", "mold", "blight", "mildew", "rust", "scab", "canker"])):
-            rag_context = "\n[RAG Context - Verified Plant Pathology Knowledge Base]:\n"
-            for match in rag_matches:
-                rag_context += f"- Disease: {match['disease_name']}\n  Symptoms: {match['symptoms']}\n  Treatment Recommendations: {match['recommendations']}\n"
-    except Exception as e:
-        logger.warning(f"RAG lookup error: {e}")
-        rag_context = ""
+    # RAG context disabled (heavy model load causes crash on Windows)
+    rag_context = ""
 
     system_prompt = (
         "You are AgriGPT, an expert agricultural AI advisor powered by the AgriSense platform. "
@@ -123,7 +112,7 @@ async def chat_with_agrigpt(message: str, history: list = None) -> str:
             "- 🌡️ Digital Twin simulation\n\n"
             "What would you like to explore?\n\n"
             "*Note: Ollama service is currently offline. Start it with "
-            "`ollama run qwen2.5-coder:3b` for full conversational AI.*"
+            "`ollama run qwen2.5:1.5b-instruct` for full conversational AI.*"
         )
 
 

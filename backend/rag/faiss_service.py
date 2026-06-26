@@ -1,81 +1,48 @@
 # -*- coding: utf-8 -*-
-import os
-import joblib
-import numpy as np
+"""
+Lightweight knowledge base lookup - pure NumPy, no FAISS, no heavy model loading.
+Prevents segfaults on Windows caused by FAISS AVX2 / BGE-M3 loading.
+"""
 from typing import List, Dict, Any
-from backend.rag.embedding_service import get_embedding
 
-_faiss_index = None
-_documents = []
-
-MODEL_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "ml", "models")
-INDEX_PATH = os.path.join(MODEL_DIR, "faiss_index.bin")
-DOCS_PATH = os.path.join(MODEL_DIR, "faiss_docs.joblib")
-
-def init_kb():
-    global _faiss_index, _documents
-    if _faiss_index is not None:
-        return
-
-    # Seed FAQ documents
-    docs = [
-        {"text": "Tomato Leaf Mold is caused by Passalora fulva. Symptoms include yellow spots on leaves. Improve greenhouse ventilation.", "disease": "Tomato Leaf Mold"},
-        {"text": "Late Blight on Squash is caused by Phytophthora. Dark necrotic lesions appear. Apply copper biological fungicide.", "disease": "Late Blight on Squash"},
-        {"text": "Nitrogen deficiency causes uniform yellowing of older leaves. Supplement with organic blood meal or legume compost.", "nutrient": "Nitrogen"},
-        {"text": "Potassium deficiency leads to leaf margin curling and necrosis. Apply wood ash or kelp meal.", "nutrient": "Potassium"},
-        {"text": "Weeds compete for soil nitrogen and moisture. Use mulching or selective organic pre-emergents.", "weed": "Weed competition"}
-    ]
-
-    try:
-        import faiss
-        # Dimension is 1024 for BGE-M3
-        index = faiss.IndexFlatIP(1024)
-        embeddings = []
-        for doc in docs:
-            embeddings.append(get_embedding(doc["text"]))
-        
-        index.add(np.array(embeddings).astype("float32"))
-        _faiss_index = index
-        _documents = docs
-        
-        # Cache index
-        os.makedirs(MODEL_DIR, exist_ok=True)
-        faiss.write_index(index, INDEX_PATH)
-        joblib.dump(docs, DOCS_PATH)
-    except Exception:
-        # Fallback manual similarity index
-        class ManualIndex:
-            def __init__(self):
-                self.embeddings = []
-            def add(self, embs):
-                self.embeddings.extend(embs)
-            def search(self, query_emb, k):
-                # Cosine similarity (dot product of normalized vectors)
-                sims = [np.dot(e, query_emb[0]) for e in self.embeddings]
-                indices = np.argsort(sims)[::-1][:k]
-                return np.array([sims]), np.array([indices])
-
-        index = ManualIndex()
-        embeddings = []
-        for doc in docs:
-            embeddings.append(get_embedding(doc["text"]))
-        index.add(embeddings)
-        _faiss_index = index
-        _documents = docs
+# In-memory lightweight knowledge base - no model required
+_KNOWLEDGE_BASE = [
+    {"text": "Tomato Leaf Mold is caused by Passalora fulva. Symptoms include yellow spots on upper leaf surfaces and olive-green velvet mold underneath. Improve greenhouse ventilation and avoid overhead watering.", "disease": "Tomato Leaf Mold", "keywords": ["tomato", "leaf", "mold", "yellow", "spots", "velvet"]},
+    {"text": "Late Blight on Squash is caused by Phytophthora. Dark water-soaked lesions appear on leaves. Apply copper-based biological fungicide immediately.", "disease": "Late Blight", "keywords": ["blight", "squash", "phytophthora", "lesion", "dark", "necrosis"]},
+    {"text": "Nitrogen deficiency causes uniform yellowing of older leaves starting at the tips. Supplement with organic blood meal, urea, or legume compost.", "nutrient": "Nitrogen", "keywords": ["nitrogen", "npk", "yellowing", "deficiency", "fertilizer", "n"]},
+    {"text": "Potassium deficiency leads to leaf margin curling and brown necrotic edges. Apply wood ash or kelp meal for correction.", "nutrient": "Potassium", "keywords": ["potassium", "k", "curling", "necrosis", "margin", "deficiency"]},
+    {"text": "Phosphorus deficiency shows as purple/red discolouration on undersides of leaves. Apply bone meal or rock phosphate.", "nutrient": "Phosphorus", "keywords": ["phosphorus", "p", "purple", "red", "deficiency", "discolouration"]},
+    {"text": "Powdery Mildew shows white talcum-like powdery spots on leaves. Apply neem oil extract or potassium bicarbonate. Ensure full sunlight and good spacing.", "disease": "Powdery Mildew", "keywords": ["mildew", "powdery", "white", "spots", "fungal", "squash"]},
+    {"text": "Corn Common Rust shows reddish-brown powdery pustules on both leaf surfaces. Apply strobilurin or triazole fungicides. Plant rust-resistant hybrids.", "disease": "Corn Rust", "keywords": ["rust", "corn", "maize", "pustules", "orange", "fungal"]},
+    {"text": "Weeds compete for soil nitrogen and moisture. Use mulching or selective organic pre-emergents to control weed growth.", "weed": "Weed competition", "keywords": ["weed", "mulch", "competition", "organic", "pre-emergent"]},
+    {"text": "Sandy soil has low water retention and nutrients. Add organic matter (compost), use drip irrigation, and apply slow-release NPK fertilizers.", "soil": "Sandy Soil", "keywords": ["sandy", "soil", "drainage", "water", "retention", "compost"]},
+    {"text": "For rice cultivation, optimal soil pH is 5.5-6.5. Maintain 80-90% soil moisture. Use nitrogen fertilizers in split doses.", "crop": "Rice", "keywords": ["rice", "paddy", "ph", "moisture", "nitrogen", "cultivation"]},
+    {"text": "For tomato cultivation, optimal soil pH is 6.0-6.8. Water deeply but infrequently. Apply calcium to prevent blossom end rot.", "crop": "Tomato", "keywords": ["tomato", "ph", "calcium", "blossom", "water", "cultivation"]},
+    {"text": "Irrigation optimization: water requirements depend on crop type, soil moisture, temperature and evapotranspiration. Use drip irrigation for 40% water savings.", "topic": "Irrigation", "keywords": ["irrigation", "water", "drip", "moisture", "evapotranspiration", "schedule"]},
+]
 
 def query_kb(query: str, k: int = 2) -> List[Dict[str, Any]]:
-    init_kb()
-    q_emb = get_embedding(query).reshape(1, -1).astype("float32")
-    
-    D, I = _faiss_index.search(q_emb, k)
-    
-    results = []
-    for score, idx in zip(D[0], I[0]):
-        if idx < len(_documents):
-            doc = _documents[idx]
-            results.append({
-                "text": doc["text"],
-                "score": float(score),
-                "metadata": doc
-            })
-    return results
+    """
+    Lightweight keyword-based knowledge base lookup.
+    No heavy models, no FAISS - just fast string matching.
+    """
+    query_lower = query.lower()
+    scored = []
+    for doc in _KNOWLEDGE_BASE:
+        score = sum(1 for kw in doc.get("keywords", []) if kw in query_lower)
+        if score > 0:
+            scored.append((score, doc))
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return [
+        {
+            "text": doc["text"],
+            "score": float(s),
+            "metadata": {k2: v for k2, v in doc.items() if k2 not in ("text", "keywords")}
+        }
+        for s, doc in scored[:k]
+    ]
+
+def init_kb():
+    """No-op - knowledge base is initialized at module level."""
+    pass

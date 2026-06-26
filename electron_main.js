@@ -28,9 +28,17 @@ function checkAndStartOllama() {
   checkPort(11434, (inUse) => {
     if (!inUse) {
       console.log('Ollama is offline. Attempting to start service silently...');
-      exec('start /B ollama serve', (err) => {
-        if (err) console.error('Failed to automatically boot Ollama:', err);
-      });
+      const ollamaPath = 'C:\\Users\\elang\\AppData\\Local\\Programs\\Ollama\\ollama.exe';
+      const fs = require('fs');
+      if (fs.existsSync(ollamaPath)) {
+        exec(`start /B "" "${ollamaPath}" serve`, (err) => {
+          if (err) console.error('Failed to automatically boot Ollama:', err);
+        });
+      } else {
+        exec('start /B ollama serve', (err) => {
+          if (err) console.error('Failed to automatically boot Ollama:', err);
+        });
+      }
     } else {
       console.log('Ollama service detected on port 11434.');
     }
@@ -46,24 +54,31 @@ function startBackend() {
     console.log(`Spawning packaged backend: ${backendPath}`);
     backendProcess = spawn(backendPath, ['--host', '127.0.0.1', '--port', PORT.toString()]);
   } else {
-    // Development mode: Run Python module
-    const pythonExe = 'C:\\Users\\elang\\Miniconda3\\envs\\dgpu-core\\python.exe';
-    console.log(`Spawning dev backend via Python: ${pythonExe}`);
-    backendProcess = spawn(pythonExe, ['-m', 'backend.main'], {
-      cwd: __dirname
+    // Development mode: Run start_backend.bat
+    const batPath = path.join(__dirname, 'start_backend.bat');
+    console.log(`Spawning dev backend via BAT: ${batPath}`);
+    backendProcess = spawn(batPath, [], {
+      cwd: __dirname,
+      shell: true
     });
   }
 
+  const fs = require('fs');
+  const logStream = fs.createWriteStream(path.join(__dirname, 'backend_boot.log'), { flags: 'a' });
+
   backendProcess.stdout.on('data', (data) => {
     console.log(`Backend stdout: ${data}`);
+    logStream.write(`[${new Date().toISOString()}] STDOUT: ${data}\n`);
   });
 
   backendProcess.stderr.on('data', (data) => {
     console.error(`Backend stderr: ${data}`);
+    logStream.write(`[${new Date().toISOString()}] STDERR: ${data}\n`);
   });
 
   backendProcess.on('close', (code) => {
     console.log(`Backend process exited with code ${code}`);
+    logStream.write(`[${new Date().toISOString()}] Backend process exited with code ${code}\n`);
   });
 }
 

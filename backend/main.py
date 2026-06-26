@@ -24,6 +24,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from backend.database import engine, get_db, Base
 from backend.models import SensorReading, ModelRegistry, PredictionLog, TwinState
+from backend.market_intelligence.models import MarketPrice, GovernmentUpdate, AgricultureNews, ScrapeCache
 from backend import schemas
 from backend import twin_engine
 from backend.digital_twin.twin_pipeline import twin_pipeline
@@ -35,7 +36,9 @@ from backend.ml import eif_detector
 from backend.vision import florence_engine
 from backend.vision import yolo_weed_detector
 from backend.llm import agri_assistant
+from backend import ollama_service as ollama_svc
 from backend.agents import coder_agent
+from backend.market_intelligence import router as market_intelligence_router
 
 # Initialize database tables
 Base.metadata.create_all(bind=engine)
@@ -50,6 +53,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+    allow_origin_regex=".*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -74,6 +78,12 @@ app.include_router(auth_routes.router, prefix="/api")
 app.include_router(farm_routes.router, prefix="/api")
 app.include_router(marketplace_routes.router, prefix="/api")
 app.include_router(system_routes.router, prefix="/api")
+app.include_router(market_intelligence_router, prefix="/api")
+
+@app.on_event("startup")
+async def startup_event():
+    from backend.market_intelligence.scheduler import start_scheduler
+    start_scheduler()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("AgrisenseBackend")
@@ -458,11 +468,30 @@ async def disease_detect_compat(payload: DiseaseDetectRequest, db: Session = Dep
 
 # ── Chatbot Interaction ──────────────────────────────────────────────────────
 
+class ChatRequestAlt(BaseModel):
+    messages: Optional[List[dict]] = None
+    message: Optional[str] = None
+    sensorContext: Optional[dict] = None
+    prediction_context: Optional[dict] = None
+
 @app.post("/api/chat")
-async def chat_interaction(payload: schemas.ChatRequest):
-    user_message = payload.messages[-1].content
-    res = await agri_assistant.query_assistant(agri_assistant.ChatRequest(message=user_message))
-    return {"text": res["reply"]}
+async def chat_interaction(payload: ChatRequestAlt):
+    # Extract the user message from messages list or message field
+    user_message = payload.message
+    if not user_message and payload.messages:
+        for m in reversed(payload.messages):
+            if m.get("role") == "user":
+                user_message = m.get("content", "")
+                break
+    if not user_message:
+        return {"text": "Please send a message to get started."}
+
+    # Build history for context
+    history = payload.messages or []
+
+    # Use ollama_service which handles Ollama + keyword fallback gracefully
+    reply = await ollama_svc.chat_with_agrigpt(user_message, history=history)
+    return {"text": reply, "reply": reply}
 
 
 # ── Digital Twin ─────────────────────────────────────────────────────────────

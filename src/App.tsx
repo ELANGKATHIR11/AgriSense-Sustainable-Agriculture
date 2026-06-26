@@ -26,6 +26,7 @@ import AgentDashboard from "./pages/AgentDashboard";
 import Login from "./pages/Login";
 import Marketplace from "./pages/Marketplace";
 import LocalAIHub from "./pages/LocalAIHub";
+import MarketIntelligence from "./pages/MarketIntelligence";
 
 import { SensorReading } from "./types";
 
@@ -65,6 +66,7 @@ const navSections = [
     title: "Commerce & Infrastructure",
     items: [
       { id: "marketplace", label: "Agri Marketplace", icon: <ShoppingBag className="w-4 h-4" /> },
+      { id: "market_intelligence", label: "Market Intelligence", icon: <TrendingUp className="w-4 h-4" />, badge: "LIVE" },
       { id: "aihub",       label: "Local AI Hub",     icon: <Terminal className="w-4 h-4" />, badge: "GPU" },
       { id: "agrigpt",     label: "AgriGPT Chat",     icon: <Bot className="w-4 h-4" /> },
       { id: "agents",      label: "ASO Swarm",        icon: <Cpu className="w-4 h-4" /> },
@@ -193,6 +195,7 @@ export default function App() {
       case "weather":     return <WeatherIntelligence />;
       case "yield":       return <YieldPrediction />;
       case "marketplace": return <Marketplace />;
+      case "market_intelligence": return <MarketIntelligence />;
       case "aihub":       return <LocalAIHub />;
       case "agrigpt":     return <AgriGPT sensors={sensors} />;
       case "agents":      return <AgentDashboard />;

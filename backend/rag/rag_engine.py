@@ -18,7 +18,7 @@ os.makedirs(os.path.dirname(FAISS_INDEX_PATH), exist_ok=True)
 # Try loading FAISS and SentenceTransformers
 try:
     import faiss
-    FAISS_AVAILABLE = True
+    FAISS_AVAILABLE = False # Disabled due to segmentation fault on Windows
 except ImportError:
     FAISS_AVAILABLE = False
 
