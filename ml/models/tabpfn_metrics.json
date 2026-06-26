@@ -1,0 +1,17 @@
+{
+  "crop_recommendation": {
+    "accuracy": 0.965,
+    "f1_score": 0.962,
+    "status": "SUCCESS"
+  },
+  "fertilizer_recommendation": {
+    "accuracy": 0.978,
+    "f1_score": 0.975,
+    "status": "SUCCESS"
+  },
+  "irrigation_optimization": {
+    "accuracy": 0.942,
+    "f1_score": 0.938,
+    "status": "SUCCESS"
+  }
+}

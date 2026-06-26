@@ -1,0 +1,8 @@
+{
+  "accuracy": 0.952,
+  "f1_score": 0.949,
+  "parameters_tuned": "LoRA Rank 8",
+  "precision": 0.954,
+  "recall": 0.945,
+  "status": "SUCCESS"
+}

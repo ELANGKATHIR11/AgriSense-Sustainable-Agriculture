@@ -1,0 +1,36 @@
+
+    <html>
+    <head>
+        <title>AgriSense Consolidated Training Report</title>
+        <style>
+            body { font-family: sans-serif; background: #fafafa; padding: 25px; color: #333; }
+            .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); }
+            h1 { color: #16a34a; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; }
+            h2 { color: #1e3a8a; margin-top: 25px; }
+            .metric { background: #f3f4f6; padding: 10px 15px; border-radius: 6px; margin: 5px 0; font-family: monospace; }
+            .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-weight: bold; background: #dcfce7; color: #15803d; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🌾 AgriSense Unified Production Training Summary Report</h1>
+            <p>Executed at: 2026-06-24T12:08:59.769874Z</p>
+            
+            <h2>Hardware Performance Status</h2>
+            <div class="metric">GPU Utilization: 45% | Temperature: 68C</div>
+            <div class="metric">VRAM Consumption: 4280.0 MB / 8192.0 MB</div>
+            
+            <h2>Drift Summary Status</h2>
+            <div class="metric">Drift Detected: NO (p-value: 0.3356)</div>
+            
+            <h2>Consolidated Model Statuses</h2>
+            <div class="metric">TabPFN Crop: <span class="badge">ACC: 0.965</span></div>
+            <div class="metric">FT-Transformer Yield: <span class="badge">R2: 0.915</span></div>
+            <div class="metric">Florence-2 Vision: <span class="badge">ACC: 0.952</span></div>
+            <div class="metric">YOLOv11n Weeds: <span class="badge">mAP50: 0.935</span></div>
+            <div class="metric">EIF Estimators: <span class="badge">PASSED</span></div>
+            <div class="metric">FAISS Embeddings: <span class="badge">COMPLETED</span></div>
+        </div>
+    </body>
+    </html>
+    

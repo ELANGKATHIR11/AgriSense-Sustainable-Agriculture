@@ -1,0 +1,23 @@
+{
+    "active_model_id": "efficientnet_v2_s",
+    "registry": {
+        "efficientnet_v2_s": {
+            "name": "EfficientNetV2-S Disease Classifier",
+            "version": "v1.2.0",
+            "accuracy": 1.0,
+            "throughput_fps": 143.9,
+            "cuda_peak_memory_mb": 1884.1,
+            "status": "active",
+            "last_retrained": "2026-06-09T17:06:12.181478Z"
+        },
+        "convnext_tiny": {
+            "name": "ConvNeXt-Tiny Disease Classifier",
+            "version": "v1.2.0",
+            "accuracy": 1.0,
+            "throughput_fps": 234.6,
+            "cuda_peak_memory_mb": 2340.4,
+            "status": "retired",
+            "last_retrained": "2026-06-09T17:06:12.181478Z"
+        }
+    }
+}

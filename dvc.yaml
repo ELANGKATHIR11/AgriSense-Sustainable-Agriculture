@@ -1,0 +1,49 @@
+stages:
+  validate_data:
+    cmd: python backend/data_validation/dataset_validator.py
+    deps:
+      - AgriSense-Dataset/Crop_recommendation.csv
+      - AgriSense-Dataset/fertilizer_dataset.csv
+    outs:
+      - validation_reports/dataset_validation_report.html
+
+  check_drift:
+    cmd: python backend/mlops/drift/data_drift_monitor.py
+    deps:
+      - AgriSense-Dataset/Crop_recommendation.csv
+    outs:
+      - validation_reports/drift_report.html
+
+  train_tabular:
+    cmd: python backend/ml/tabpfn/train_tabpfn.py
+    deps:
+      - backend/data_validation/dataset_validator.py
+    outs:
+      - ml/models/tabpfn_metrics.json
+
+  train_yield:
+    cmd: python backend/ml/crop_yield/train_ft_transformer.py
+    deps:
+      - AgriSense-Dataset/crop_yield.csv
+    outs:
+      - ml/models/yield_metrics.json
+
+  train_vision:
+    cmd: python backend/vision/florence2/train_florence2.py
+    outs:
+      - ml/models/vision_metrics.json
+
+  train_weed:
+    cmd: python backend/vision/yolo/train_yolo.py
+    outs:
+      - ml/models/yolo_metrics.json
+
+  train_anomaly:
+    cmd: python backend/ml/eif/train_eif.py
+    outs:
+      - ml/models/eif_metrics.json
+
+  build_rag:
+    cmd: python backend/rag/faiss_builder.py
+    outs:
+      - ml/models/embedding_metrics.json

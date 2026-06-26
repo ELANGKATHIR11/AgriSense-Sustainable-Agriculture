@@ -1,0 +1,38 @@
+{
+  "crop_recommendation": {
+    "model": "CatBoostClassifier",
+    "accuracy": 0.8717,
+    "f1_score": 0.8577,
+    "train_time_s": 7.9,
+    "status": "active"
+  },
+  "fertilizer_recommendation": {
+    "model": "CatBoostClassifier",
+    "accuracy": 0.9714,
+    "f1_score": 0.9719,
+    "train_time_s": 0.6,
+    "status": "active"
+  },
+  "irrigation": {
+    "model": "PatchTST Sequence Transformer",
+    "r2_score": -0.0011,
+    "mae_liters": 11.57,
+    "train_time_s": 5.3,
+    "status": "below_target"
+  },
+  "yield_prediction": {
+    "model": "PatchTST Sequence Transformer",
+    "r2_score": 0.1801,
+    "mae_tons": 3.6697,
+    "train_time_s": 10.3,
+    "status": "below_target"
+  },
+  "disease_risk": {
+    "model": "RandomForest + LightGBM (ROC-AUC optimised)",
+    "accuracy": 0.9983,
+    "roc_auc": 1.0,
+    "train_time_s": 3.0,
+    "status": "active"
+  },
+  "last_trained": "2026-06-09T17:16:26.656849Z"
+}

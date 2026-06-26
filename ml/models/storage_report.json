@@ -1,0 +1,16 @@
+{
+    "timestamp": "2026-06-09T17:08:41.217462Z",
+    "status": "safe",
+    "project_limit_gb": 35.0,
+    "initial_size_gb": 12.9588,
+    "final_size_gb": 12.9588,
+    "freed_space_mb": 0.0,
+    "details": {
+        "checkpoints_pruned": 0,
+        "checkpoint_freed_mb": 0.0,
+        "databases_vacuumed": 3,
+        "database_freed_mb": 0.0,
+        "logs_compressed": 0,
+        "logs_freed_mb": 0.0
+    }
+}
