@@ -13,7 +13,7 @@ logger = logging.getLogger("AgrisenseOllama")
 OLLAMA_BASE = "http://localhost:11434"
 
 
-async def chat_with_agrigpt(message: str, history: list = None) -> str:
+async def chat_with_agrigpt(message: str, history: list = None, lang: str = "en") -> str:
     """
     Send a chat message to Ollama qwen2.5-coder:3b with agricultural system prompt.
     Falls back to a keyword-based expert response if Ollama is unavailable.
@@ -28,6 +28,16 @@ async def chat_with_agrigpt(message: str, history: list = None) -> str:
         "Provide detailed, actionable advice with scientific context. "
         "Use markdown formatting for clarity."
     )
+    
+    # Inject language constraints
+    lang_instructions = {
+        "en": "You must respond only in English.",
+        "ta": "You must respond only in Tamil (தமிழ்).",
+        "te": "You must respond only in Telugu (తెలుగు).",
+        "ml": "You must respond only in Malayalam (മലയാളം).",
+        "hi": "You must respond only in Hindi (हिन्दी)."
+    }
+    system_prompt += f"\n{lang_instructions.get(lang, lang_instructions['en'])}"
     
     if rag_context:
         system_prompt += f"\nUse the following verified RAG database information to enrich your response:\n{rag_context}"
@@ -55,53 +65,48 @@ async def chat_with_agrigpt(message: str, history: list = None) -> str:
         logger.warning(f"Ollama chat unavailable: {e}")
 
     # ── Fallback: keyword-based expert responses ─────────────────────
-    msg = message.lower()
-    if any(w in msg for w in ["nitrogen", "npk", "fertilizer"]):
-        return (
-            "#### Nitrogen & NPK Nutrition Note:\n"
-            "- **Nitrogen (N)**: Crucial for photosynthetic leaf/shoot production.\n"
-            "- **Phosphorus (P)**: Supports robust early root systems & flowering.\n"
-            "- **Potassium (K)**: Enforces cellular turgor, water regulation, and pathogen resistance.\n\n"
-            "*Agronomic recommendation*: Utilize cover combinations (cloves, legumes) or organic blood meal "
-            "when nitrogen levels drop below 40 ppm."
-        )
-    elif any(w in msg for w in ["wheat", "rice", "crop", "recommend"]):
-        return (
-            "#### Crop Suitability Recommendations:\n"
-            "Our XGBoost ML model (91.7% accuracy) evaluates soil parameters such as **pH** (optimal: 6.0-7.0), "
-            "moisture, and temperature. For waterlogged fields, **Rice** (80-90% suitability). "
-            "Well-drained loamy soils favor **Maize** and **Soybeans**."
-        )
-    elif any(w in msg for w in ["esp32", "sensor", "hardware", "iot"]):
-        return (
-            "#### ESP32 Wiring & Hardware Guide:\n"
-            "- **Soil Moisture**: Capacitive sensor v1.2 on GPIO34 (ADC1)\n"
-            "- **Temp/Humidity DHT22**: Out pin to GPIO15\n"
-            "- **Solenoid Relay**: Gate terminal to GPIO12\n\n"
-            "Use the IoT Telemetry Hub to view live data streams."
-        )
-    elif any(w in msg for w in ["disease", "pathogen", "mildew"]):
-        return (
-            "#### Disease Detection (SmolVLM):\n"
-            "Our SmolVLM vision model analyzes crop leaves in real-time. "
-            "Yellowing spots or powdery patterns indicate Tomato Leaf Mold or Powdery Mildew. "
-            "Upload leaf images in the **Disease Vision** tab for instant analysis!"
-        )
-    elif any(w in msg for w in ["yield", "harvest", "production"]):
-        return (
-            "#### Yield Prediction:\n"
-            "Our CatBoost model (R²=0.966) predicts crop yield based on area, rainfall, "
-            "temperature, fertilizer usage, and pesticide application. Navigate to the "
-            "**Yield Prediction** page to run forecasts."
-        )
-    elif any(w in msg for w in ["irrigation", "water", "drought"]):
-        return (
-            "#### Irrigation Optimization:\n"
-            "Our RandomForest model (R²=0.999) calculates precise water requirements. "
-            "Factors include soil moisture, temperature, humidity, and evapotranspiration. "
-            "Visit the **Irrigation** page for real-time recommendations."
-        )
-    else:
+    from backend.localization.translator import translate_text
+    
+    def get_fallback_reply(message_text: str) -> str:
+        msg = message_text.lower()
+        if any(w in msg for w in ["nitrogen", "npk", "fertilizer"]):
+            return (
+                "#### Nitrogen & NPK Nutrition Note:\n"
+                "- **Nitrogen (N)**: Crucial for photosynthetic leaf/shoot production.\n"
+                "- **Phosphorus (P)**: Supports robust early root systems & flowering.\n"
+                "- **Potassium (K)**: Enforces cellular turgor, water regulation, and pathogen resistance.\n\n"
+                "*Agronomic recommendation*: Utilize cover combinations (cloves, legumes) or organic blood meal "
+                "when nitrogen levels drop below 40 ppm."
+            )
+        elif any(w in msg for w in ["wheat", "rice", "crop", "recommend"]):
+            return (
+                "#### Crop Suitability Recommendations:\n"
+                "Our XGBoost ML model (91.7% accuracy) evaluates soil parameters such as **pH** (optimal: 6.0-7.0), "
+                "moisture, and temperature. For waterlogged fields, **Rice** (80-90% suitability). "
+                "Well-drained loamy soils favor **Maize** and **Soybeans**."
+            )
+        elif any(w in msg for w in ["esp32", "sensor", "hardware", "iot"]):
+            return (
+                "#### ESP32 Wiring & Hardware Guide:\n"
+                "- **Soil Moisture**: Capacitive sensor v1.2 on GPIO34 (ADC1)\n"
+                "- **Temp/Humidity DHT22**: Out pin to GPIO15\n"
+                "- **Solenoid Relay**: Gate terminal to GPIO12\n\n"
+                "Use the IoT Telemetry Hub to view live data streams."
+            )
+        elif any(w in msg for w in ["yield", "harvest", "production"]):
+            return (
+                "#### Yield Prediction:\n"
+                "Our CatBoost model (R²=0.966) predicts crop yield based on area, rainfall, "
+                "temperature, fertilizer usage, and pesticide application. Navigate to the "
+                "**Yield Prediction** page to run forecasts."
+            )
+        elif any(w in msg for w in ["irrigation", "water", "drought"]):
+            return (
+                "#### Irrigation Optimization:\n"
+                "Our RandomForest model (R²=0.999) calculates precise water requirements. "
+                "Factors include soil moisture, temperature, humidity, and evapotranspiration. "
+                "Visit the **Irrigation** page for real-time recommendations."
+            )
         return (
             "I am **AgriGPT**, your Agri-Intelligence Agent. I can assist with:\n"
             "- 🌾 Crop recommendations & NPK analysis\n"
@@ -114,6 +119,9 @@ async def chat_with_agrigpt(message: str, history: list = None) -> str:
             "*Note: Ollama service is currently offline. Start it with "
             "`ollama run qwen2.5:1.5b-instruct` for full conversational AI.*"
         )
+
+    raw_fallback = get_fallback_reply(message)
+    return translate_text(raw_fallback, lang)
 
 
 async def analyze_image_vlm(image_bytes: bytes, mode: str = "disease", vlm_model: str = "riven/smolvlm") -> dict:

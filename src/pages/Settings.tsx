@@ -4,9 +4,11 @@
  */
 
 import React, { useState } from "react";
-import { Settings2, RefreshCw, Check, Info, Cpu, Server, Leaf, Wifi, Database, Zap } from "lucide-react";
+import { Settings2, RefreshCw, Check, Info, Cpu, Server, Leaf, Wifi, Database, Zap, Globus } from "lucide-react";
+import { useTranslation } from "../hooks/useTranslation";
 
 export default function Settings() {
+  const { t, language, setLanguage } = useTranslation();
   const [farmName, setFarmName] = useState("AgriSense Central Sector");
   const [alertThreshold, setAlertThreshold] = useState(35);
   const [saving, setSaving] = useState(false);
@@ -35,12 +37,12 @@ export default function Settings() {
       {/* Header */}
       <div className="page-header-strip p-6 text-white">
         <div className="relative z-10 space-y-2">
-          <span className="agri-badge">⚙️ Configuration</span>
+          <span className="agri-badge">⚙️ {t("nav.settings")}</span>
           <h1 className="text-2xl font-black tracking-tight">
-            System <span className="text-amber-400">Preferences</span>
+            {t("settings.title")}
           </h1>
           <p className="text-emerald-100/80 text-sm max-w-xl">
-            Configure farm parameters, alert thresholds, and review edge AI system status.
+            {t("settings.subtitle")}
           </p>
         </div>
       </div>
@@ -50,13 +52,13 @@ export default function Settings() {
         <div className="lg:col-span-7 agri-card p-6 space-y-6">
           <div className="flex items-center gap-2">
             <Settings2 className="w-4 h-4 text-emerald-600" />
-            <h3 className="text-sm font-bold text-gray-800">Farmland Configuration</h3>
+            <h3 className="text-sm font-bold text-gray-800">{t("settings.farm_config")}</h3>
           </div>
 
           <div className="space-y-5">
             <div className="space-y-1.5">
               <label className="text-xs font-bold font-mono text-gray-500 uppercase tracking-wider">
-                Registered Farm Sector
+                {t("settings.farm_name")}
               </label>
               <input
                 id="input-settings-farmnm"
@@ -74,7 +76,7 @@ export default function Settings() {
               <div className="flex justify-between items-center">
                 <div>
                   <label className="text-xs font-bold font-mono text-gray-500 uppercase tracking-wider">
-                    Moisture Alert Threshold
+                    {t("settings.moisture_label")}
                   </label>
                   <p className="text-[10px] text-gray-400 font-mono mt-0.5">Trigger warning when soil moisture drops below this level</p>
                 </div>
@@ -100,14 +102,14 @@ export default function Settings() {
             id="btn-settings-save"
             onClick={handleSave}
             disabled={saving}
-            className="btn-primary"
+            className="btn-primary cursor-pointer"
           >
             {saving ? (
-              <><RefreshCw className="w-4 h-4 animate-spin" /> Saving...</>
+              <><RefreshCw className="w-4 h-4 animate-spin" /> {t("settings.saving")}</>
             ) : saved ? (
-              <><Check className="w-4 h-4" /> Settings Saved!</>
+              <><Check className="w-4 h-4" /> {t("settings.saved")}</>
             ) : (
-              "Save Configuration"
+              t("settings.save")
             )}
           </button>
         </div>
@@ -116,7 +118,7 @@ export default function Settings() {
         <div className="lg:col-span-5 agri-card p-6 space-y-5">
           <div className="flex items-center gap-2">
             <Wifi className="w-4 h-4 text-emerald-600" />
-            <h3 className="text-sm font-bold text-gray-800">Edge System Status</h3>
+            <h3 className="text-sm font-bold text-gray-800">{t("settings.status")}</h3>
           </div>
 
           <div className="space-y-3">
@@ -136,9 +138,9 @@ export default function Settings() {
             <div className="flex items-start gap-2.5">
               <Info className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-[10px] font-bold font-mono text-emerald-800 uppercase tracking-wider">Edge-Only Architecture</p>
+                <p className="text-[10px] font-bold font-mono text-emerald-800 uppercase tracking-wider">{t("settings.edge_title")}</p>
                 <p className="text-xs text-emerald-700 leading-relaxed mt-1">
-                  All AI inference runs locally on your hardware via Ollama. No cloud API keys required — zero external data transmission.
+                  {t("settings.edge_desc")}
                 </p>
               </div>
             </div>

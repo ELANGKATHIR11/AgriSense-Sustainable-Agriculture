@@ -16,10 +16,15 @@ class AuthRegisterInput(BaseModel):
     email: EmailStr
     password: str
     role: str = "farmer"
+    preferred_language: str = "en"
 
 class AuthLoginInput(BaseModel):
     email: EmailStr
     password: str
+
+class LanguageUpdateInput(BaseModel):
+    email: str
+    preferred_language: str
 
 @router.post("/register")
 async def register_user(payload: AuthRegisterInput, db: Session = Depends(get_db)):
@@ -27,11 +32,11 @@ async def register_user(payload: AuthRegisterInput, db: Session = Depends(get_db
     if existing:
         raise HTTPException(status_code=400, detail="User already registered")
     
-    # In a full production env we would use passlib, but local single-user uses simple hashed hashes or direct hashes
     user = User(
         email=payload.email,
         hashed_password=f"hash_{payload.password}",
-        role=payload.role
+        role=payload.role,
+        preferred_language=payload.preferred_language
     )
     db.add(user)
     db.commit()
@@ -52,15 +57,26 @@ async def login_user(payload: AuthLoginInput, db: Session = Depends(get_db)):
     return {
         "accessToken": token,
         "tokenType": "bearer",
-        "profile": {"email": user.email, "role": user.role}
+        "profile": {"email": user.email, "role": user.role, "preferred_language": user.preferred_language or "en"}
     }
 
+@router.put("/language")
+async def update_user_language(payload: LanguageUpdateInput, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == payload.email).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    user.preferred_language = payload.preferred_language
+    db.commit()
+    return {"status": "success", "preferred_language": user.preferred_language}
+
 @router.get("/profile")
-async def get_profile(email: str = "farmer@agrisense.io"):
-    # Local single user default bypass profile
+async def get_profile(email: str = "farmer@agrisense.io", db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == email).first()
     return {
         "email": email,
-        "role": "Farmer",
+        "role": user.role if user else "farmer",
+        "preferred_language": user.preferred_language if user else "en",
         "name": "Farming Admin",
         "organization": "North Cooperatives"
     }
+

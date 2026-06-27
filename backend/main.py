@@ -14,7 +14,7 @@ import logging
 from datetime import datetime
 from typing import List, Optional, Dict, Any
 
-from fastapi import FastAPI, Depends, HTTPException, status, Body
+from fastapi import FastAPI, Depends, HTTPException, status, Body, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -475,7 +475,7 @@ class ChatRequestAlt(BaseModel):
     prediction_context: Optional[dict] = None
 
 @app.post("/api/chat")
-async def chat_interaction(payload: ChatRequestAlt):
+async def chat_interaction(payload: ChatRequestAlt, accept_language: Optional[str] = Header(None)):
     # Extract the user message from messages list or message field
     user_message = payload.message
     if not user_message and payload.messages:
@@ -489,8 +489,13 @@ async def chat_interaction(payload: ChatRequestAlt):
     # Build history for context
     history = payload.messages or []
 
+    lang = "en"
+    if accept_language:
+        from backend.localization.language_service import detect_language
+        lang = detect_language(accept_language)
+
     # Use ollama_service which handles Ollama + keyword fallback gracefully
-    reply = await ollama_svc.chat_with_agrigpt(user_message, history=history)
+    reply = await ollama_svc.chat_with_agrigpt(user_message, history=history, lang=lang)
     return {"text": reply, "reply": reply}
 
 

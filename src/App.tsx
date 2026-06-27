@@ -3,31 +3,32 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import {
   LayoutDashboard, Layers, ScanLine, Sprout, Droplet,
   Radio, CloudSun, TrendingUp, Bot, Cpu, Settings2,
-  Menu, X, Leaf, ChevronRight, Wifi, WifiOff, BookOpen, ShoppingBag, Terminal, LogOut, ChevronDown
+  Menu, X, Leaf, ChevronRight, Wifi, WifiOff, BookOpen, ShoppingBag, Terminal, LogOut, ChevronDown, Globus
 } from "lucide-react";
+import { useTranslation } from "./hooks/useTranslation";
 
-import Dashboard from "./pages/Dashboard";
-import DigitalTwin from "./pages/DigitalTwin";
-import DiseaseDetection from "./pages/DiseaseDetection";
-import CropRecommendation from "./pages/CropRecommendation";
-import CropDatabase from "./pages/CropDatabase";
-import IrrigationOptimization from "./pages/IrrigationOptimization";
-import SensorMonitoring from "./pages/SensorMonitoring";
-import WeatherIntelligence from "./pages/WeatherIntelligence";
-import YieldPrediction from "./pages/YieldPrediction";
-import AgriGPT from "./pages/AgriGPT";
-import MLOpsDashboard from "./pages/MLOpsDashboard";
-import Settings from "./pages/Settings";
-import AgentDashboard from "./pages/AgentDashboard";
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const DigitalTwin = lazy(() => import("./pages/DigitalTwin"));
+const DiseaseDetection = lazy(() => import("./pages/DiseaseDetection"));
+const CropRecommendation = lazy(() => import("./pages/CropRecommendation"));
+const CropDatabase = lazy(() => import("./pages/CropDatabase"));
+const IrrigationOptimization = lazy(() => import("./pages/IrrigationOptimization"));
+const SensorMonitoring = lazy(() => import("./pages/SensorMonitoring"));
+const WeatherIntelligence = lazy(() => import("./pages/WeatherIntelligence"));
+const YieldPrediction = lazy(() => import("./pages/YieldPrediction"));
+const AgriGPT = lazy(() => import("./pages/AgriGPT"));
+const MLOpsDashboard = lazy(() => import("./pages/MLOpsDashboard"));
+const Settings = lazy(() => import("./pages/Settings"));
+const AgentDashboard = lazy(() => import("./pages/AgentDashboard"));
+const Marketplace = lazy(() => import("./pages/Marketplace"));
+const LocalAIHub = lazy(() => import("./pages/LocalAIHub"));
+const MarketIntelligence = lazy(() => import("./pages/MarketIntelligence"));
+
 import Login from "./pages/Login";
-import Marketplace from "./pages/Marketplace";
-import LocalAIHub from "./pages/LocalAIHub";
-import MarketIntelligence from "./pages/MarketIntelligence";
-
 import { SensorReading } from "./types";
 
 interface Farm {
@@ -77,6 +78,7 @@ const navSections = [
 ];
 
 export default function App() {
+  const { t, language, setLanguage } = useTranslation();
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("agrisense_token"));
   const [profile, setProfile] = useState<{ email: string; role: string } | null>(() => {
     try {
@@ -184,25 +186,31 @@ export default function App() {
   }
 
   const renderContent = () => {
-    switch (activePage) {
-      case "dashboard":   return <Dashboard onNavigate={handleNavigation} sensors={sensors} />;
-      case "twin":        return <DigitalTwin />;
-      case "disease":     return <DiseaseDetection />;
-      case "crop":        return <CropRecommendation />;
-      case "crops":       return <CropDatabase />;
-      case "irrigation":  return <IrrigationOptimization />;
-      case "sensors":     return <SensorMonitoring sensors={sensors} onRefresh={fetchTelemetry} onSimulateIngest={handleSimulateIngest} />;
-      case "weather":     return <WeatherIntelligence />;
-      case "yield":       return <YieldPrediction />;
-      case "marketplace": return <Marketplace />;
-      case "market_intelligence": return <MarketIntelligence />;
-      case "aihub":       return <LocalAIHub />;
-      case "agrigpt":     return <AgriGPT sensors={sensors} />;
-      case "agents":      return <AgentDashboard />;
-      case "mlops":       return <MLOpsDashboard />;
-      case "settings":    return <Settings />;
-      default:            return <Dashboard onNavigate={handleNavigation} sensors={sensors} />;
-    }
+    return (
+      <Suspense fallback={<div className="p-10 text-center text-sm font-semibold text-emerald-800">Loading Module...</div>}>
+        {(() => {
+          switch (activePage) {
+            case "dashboard":   return <Dashboard onNavigate={handleNavigation} sensors={sensors} />;
+            case "twin":        return <DigitalTwin />;
+            case "disease":     return <DiseaseDetection />;
+            case "crop":        return <CropRecommendation />;
+            case "crops":       return <CropDatabase />;
+            case "irrigation":  return <IrrigationOptimization />;
+            case "sensors":     return <SensorMonitoring sensors={sensors} onRefresh={fetchTelemetry} onSimulateIngest={handleSimulateIngest} />;
+            case "weather":     return <WeatherIntelligence />;
+            case "yield":       return <YieldPrediction />;
+            case "marketplace": return <Marketplace />;
+            case "market_intelligence": return <MarketIntelligence />;
+            case "aihub":       return <LocalAIHub />;
+            case "agrigpt":     return <AgriGPT sensors={sensors} />;
+            case "agents":      return <AgentDashboard />;
+            case "mlops":       return <MLOpsDashboard />;
+            case "settings":    return <Settings />;
+            default:            return <Dashboard onNavigate={handleNavigation} sensors={sensors} />;
+          }
+        })()}
+      </Suspense>
+    );
   };
 
   const SidebarContent = () => (
@@ -255,42 +263,83 @@ export default function App() {
 
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-5 overflow-y-auto scrollbar-hide">
-        {navSections.map((section) => (
-          <div key={section.title}>
-            <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-emerald-600/70 px-2.5 mb-1.5 font-mono">
-              {section.title}
-            </p>
-            <div className="space-y-0.5">
-              {section.items.map((item) => {
-                const isActive = activePage === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    id={`sidebar-link-${item.id}`}
-                    onClick={() => handleNavigation(item.id)}
-                    className={`w-full px-3 py-2.5 rounded-lg text-[0.78rem] font-medium flex items-center gap-3 cursor-pointer transition-all duration-200 group ${
-                      isActive
-                        ? "nav-item-active"
-                        : "text-emerald-200/70 hover:text-white hover:bg-white/[0.06]"
-                    }`}
-                  >
-                    <span className={isActive ? "text-amber-900" : "text-emerald-400/80 group-hover:text-emerald-300 transition-colors"}>
-                      {item.icon}
-                    </span>
-                    <span className="flex-1 text-left">{item.label}</span>
-                    {item.badge && (
-                      <span className="text-[8px] font-bold px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded font-mono tracking-wider">
-                        {item.badge}
+        {navSections.map((section) => {
+          const secTitleKey = "nav." + (
+            section.title === "AI Vision" ? "aivision" : 
+            section.title === "Field Intelligence" ? "fieldintel" : 
+            section.title === "Commerce & Infrastructure" ? "commerce" : "overview"
+          );
+          return (
+            <div key={section.title}>
+              <p className="text-[9px] font-bold uppercase tracking-[0.14em] text-emerald-600/70 px-2.5 mb-1.5 font-mono">
+                {t(secTitleKey)}
+              </p>
+              <div className="space-y-0.5">
+                {section.items.map((item) => {
+                  const isActive = activePage === item.id;
+                  const itemLabelKey = "nav." + (
+                    item.id === "crops" ? "catalog" : 
+                    item.id === "disease" ? "disease" : 
+                    item.id === "crop" ? "suitability" : 
+                    item.id === "sensors" ? "sensors" : 
+                    item.id === "weather" ? "weather" : 
+                    item.id === "yield" ? "yield" : 
+                    item.id === "marketplace" ? "marketplace" : 
+                    item.id === "market_intelligence" ? "market_intel" : 
+                    item.id === "aihub" ? "aihub" : 
+                    item.id === "agrigpt" ? "chat" : 
+                    item.id === "agents" ? "swarm" : 
+                    item.id === "mlops" ? "mlops" : 
+                    item.id === "settings" ? "settings" : item.id
+                  );
+                  return (
+                    <button
+                      key={item.id}
+                      id={`sidebar-link-${item.id}`}
+                      onClick={() => handleNavigation(item.id)}
+                      className={`w-full px-3 py-2.5 rounded-lg text-[0.78rem] font-medium flex items-center gap-3 cursor-pointer transition-all duration-200 group ${
+                        isActive
+                          ? "nav-item-active"
+                          : "text-emerald-200/70 hover:text-white hover:bg-white/[0.06]"
+                      }`}
+                    >
+                      <span className={isActive ? "text-amber-900" : "text-emerald-400/80 group-hover:text-emerald-300 transition-colors"}>
+                        {item.icon}
                       </span>
-                    )}
-                    {isActive && <ChevronRight className="w-3.5 h-3.5 text-amber-900/60" />}
-                  </button>
-                );
-              })}
+                      <span className="flex-1 text-left">{t(itemLabelKey)}</span>
+                      {item.badge && (
+                        <span className="text-[8px] font-bold px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded font-mono tracking-wider">
+                          {item.badge}
+                        </span>
+                      )}
+                      {isActive && <ChevronRight className="w-3.5 h-3.5 text-amber-900/60" />}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </nav>
+
+      {/* Language Selector Dropdown */}
+      <div className="px-4 py-2 border-t border-emerald-900/40">
+        <div className="flex items-center gap-2 bg-black/10 px-2.5 py-1.5 rounded-lg">
+          <Globus className="w-3.5 h-3.5 text-emerald-400/80" />
+          <select
+            id="app-language-picker"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value as any)}
+            className="flex-1 bg-transparent border-none text-[10px] text-emerald-200 font-bold focus:ring-0 cursor-pointer outline-none font-mono"
+          >
+            <option value="en" className="bg-emerald-950 text-white">English</option>
+            <option value="ta" className="bg-emerald-950 text-white">தமிழ் (Tamil)</option>
+            <option value="te" className="bg-emerald-950 text-white">తెలుగు (Telugu)</option>
+            <option value="ml" className="bg-emerald-950 text-white">മലയാളം (Malayalam)</option>
+            <option value="hi" className="bg-emerald-950 text-white">हिन्दी (Hindi)</option>
+          </select>
+        </div>
+      </div>
 
       {/* Backend status */}
       <div className="px-4 py-3 border-t border-emerald-900/40">

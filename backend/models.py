@@ -10,6 +10,7 @@ class User(Base):
     hashed_password = Column(String)
     role = Column(String, default="farmer") # admin, farmer, researcher, student
     is_active = Column(Boolean, default=True)
+    preferred_language = Column(String, default="en")
 
 class SensorReading(Base):
     __tablename__ = "sensor_readings"

@@ -6,6 +6,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Trash2, Sparkles, Leaf, Cpu, Activity } from "lucide-react";
 import { ChatMessage, SensorReading } from "../types";
+import { useTranslation } from "../hooks/useTranslation";
 
 interface AgriGPTProps {
   sensors: SensorReading[];
@@ -19,6 +20,7 @@ const SAMPLE_PROMPTS = [
 ];
 
 export default function AgriGPT({ sensors }: AgriGPTProps) {
+  const { t, language } = useTranslation();
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "init-01",
@@ -54,7 +56,10 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
 
       const response = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept-Language": language
+        },
         body: JSON.stringify({
           messages: [...messages, userMsg].map(m => ({ role: m.role, content: m.content })),
           sensorContext: activeSensor
@@ -103,7 +108,7 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
               <span className="agri-badge agri-badge-amber">⚡ Ollama Local</span>
             </div>
             <h1 className="text-xl font-black tracking-tight">
-              AgriGPT <span className="text-amber-400">Intelligence Chat</span>
+              {t("agrigpt.title")}
             </h1>
           </div>
           <button
@@ -196,7 +201,7 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
           type="text"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          placeholder="Ask AgriGPT anything about your crops, soil, or system..."
+          placeholder={t("agrigpt.placeholder")}
           className="flex-1 bg-transparent text-sm text-gray-800 placeholder-gray-400 outline-none"
         />
         <button
