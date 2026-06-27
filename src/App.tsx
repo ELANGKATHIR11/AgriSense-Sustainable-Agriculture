@@ -169,9 +169,12 @@ export default function App() {
     setMobileMenuOpen(false);
   };
 
-  const handleLoginSuccess = (newToken: string, newProfile: { email: string; role: string }) => {
+  const handleLoginSuccess = (newToken: string, newProfile: { email: string; role: string; preferred_language?: string }) => {
     setToken(newToken);
     setProfile(newProfile);
+    if (newProfile.preferred_language) {
+      setLanguage(newProfile.preferred_language as any);
+    }
   };
 
   const handleLogout = () => {
