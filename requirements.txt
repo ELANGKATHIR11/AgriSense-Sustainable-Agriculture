@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+httpx
+beautifulsoup4
+pytest
+apscheduler
+numpy
+duckduckgo-search
+pydantic
+pytest-asyncio
