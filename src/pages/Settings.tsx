@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from "react";
-import { Settings2, RefreshCw, Check, Info, Cpu, Server, Leaf, Wifi, Database, Zap, Globus } from "lucide-react";
+import { Settings2, RefreshCw, Check, Info, Cpu, Server, Leaf, Wifi, Database, Zap, Globe } from "lucide-react";
 import { useTranslation } from "../hooks/useTranslation";
 
 export default function Settings() {

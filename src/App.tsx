@@ -7,7 +7,7 @@ import React, { useState, useEffect, Suspense, lazy } from "react";
 import {
   LayoutDashboard, Layers, ScanLine, Sprout, Droplet,
   Radio, CloudSun, TrendingUp, Bot, Cpu, Settings2,
-  Menu, X, Leaf, ChevronRight, Wifi, WifiOff, BookOpen, ShoppingBag, Terminal, LogOut, ChevronDown, Globus
+  Menu, X, Leaf, ChevronRight, Wifi, WifiOff, BookOpen, ShoppingBag, Terminal, LogOut, ChevronDown, Globe
 } from "lucide-react";
 import { useTranslation } from "./hooks/useTranslation";
 
@@ -325,7 +325,7 @@ export default function App() {
       {/* Language Selector Dropdown */}
       <div className="px-4 py-2 border-t border-emerald-900/40">
         <div className="flex items-center gap-2 bg-black/10 px-2.5 py-1.5 rounded-lg">
-          <Globus className="w-3.5 h-3.5 text-emerald-400/80" />
+          <Globe className="w-3.5 h-3.5 text-emerald-400/80" />
           <select
             id="app-language-picker"
             value={language}
