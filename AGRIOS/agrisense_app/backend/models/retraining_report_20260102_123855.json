@@ -1,0 +1,69 @@
+{
+  "timestamp": "2026-01-02T12:38:55.562930",
+  "timestamp_readable": "2026-01-02 12:38:55",
+  "models_trained": 4,
+  "models": {
+    "crop_recommendation": {
+      "name": "crop_recommendation",
+      "type": "RandomForest",
+      "estimators": 100,
+      "train_accuracy": 0.997554347826087,
+      "test_accuracy": 0.9271739130434783,
+      "f1_score": 0.9264860499134159,
+      "samples": 4600,
+      "features": 7,
+      "path": "agrisense_app/backend/models/crop_recommendation_model.joblib"
+    },
+    "disease_detection": {
+      "name": "disease_detection",
+      "type": "RandomForest",
+      "estimators": 80,
+      "train_accuracy": 1.0,
+      "test_accuracy": 0.19,
+      "f1_score": 0.18703843931685532,
+      "samples": 1500,
+      "features": 7,
+      "path": "agrisense_app/backend/models/disease_detection_model.joblib"
+    },
+    "weed_management": {
+      "name": "weed_management",
+      "type": "RandomForest",
+      "estimators": 80,
+      "train_accuracy": 1.0,
+      "test_accuracy": 0.23333333333333334,
+      "f1_score": 0.22908212917895704,
+      "samples": 1200,
+      "features": 7,
+      "path": "agrisense_app/backend/models/weed_management_model.joblib"
+    },
+    "fertilizer": {
+      "name": "fertilizer_recommendation",
+      "type": "RandomForest",
+      "estimators": 80,
+      "train_accuracy": 0.9993055555555556,
+      "test_accuracy": 0.21388888888888888,
+      "f1_score": 0.21167629414931965,
+      "samples": 1800,
+      "features": 7,
+      "path": "agrisense_app/backend/models/fertilizer_recommendation_model.joblib"
+    }
+  },
+  "accuracy_summary": {
+    "crop_recommendation": {
+      "test_accuracy": 0.9271739130434783,
+      "f1_score": 0.9264860499134159
+    },
+    "disease_detection": {
+      "test_accuracy": 0.19,
+      "f1_score": 0.18703843931685532
+    },
+    "weed_management": {
+      "test_accuracy": 0.23333333333333334,
+      "f1_score": 0.22908212917895704
+    },
+    "fertilizer": {
+      "test_accuracy": 0.21388888888888888,
+      "f1_score": 0.21167629414931965
+    }
+  }
+}

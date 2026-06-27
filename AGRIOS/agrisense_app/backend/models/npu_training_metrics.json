@@ -1,0 +1,14 @@
+{
+  "training_times": {
+    "crop_recommendation_rf_npu": 0.046999454498291016,
+    "crop_recommendation_gb_npu": 40.96468377113342,
+    "crop_recommendation_nn_npu": 4.642195463180542
+  },
+  "accuracies": {
+    "crop_recommendation_rf_npu": 0.9315217391304348,
+    "crop_recommendation_gb_npu": 0.9010869565217391,
+    "crop_recommendation_nn_npu": 0.914130449295044
+  },
+  "model_sizes": {},
+  "inference_times": {}
+}

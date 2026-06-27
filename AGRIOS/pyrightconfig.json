@@ -1,0 +1,11 @@
+{
+  "include": ["agrisense_app"],
+  "exclude": ["**/node_modules", "**/__pycache__", "**/migrations"],
+  "typeCheckingMode": "off",
+  "reportMissingImports": false,
+  "reportMissingTypeStubs": false,
+  "reportGeneralTypeIssues": false,
+  "reportOptionalMemberAccess": false,
+  "reportOptionalSubscript": false,
+  "reportPrivateImportUsage": false
+}

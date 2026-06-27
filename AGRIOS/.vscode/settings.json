@@ -1,0 +1,40 @@
+{
+  "python.analysis.extraPaths": [
+    "./agrisense_app/backend",
+    "./agrisense_app/backend/core",
+    "./agrisense_app/backend/ml"
+  ],
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingImports": "none",
+    "reportMissingTypeStubs": "none",
+    "reportUnknownMemberType": "none",
+    "reportUnknownVariableType": "none",
+    "reportUnknownArgumentType": "none",
+    "reportUnknownParameterType": "none",
+    "reportAttributeAccessIssue": "none",
+    "reportIndexIssue": "none",
+    "reportAssignmentType": "none",
+    "reportArgumentType": "none",
+    "reportGeneralTypeIssues": "none"
+  },
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": [
+    "--max-line-length=120",
+    "--extend-ignore=E203,E501,W503,F401"
+  ],
+  "[python]": {
+    "editor.rulers": [120],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.analysis.typeCheckingMode": "off",
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "120"],
+  "files.associations": {
+    "*.py": "python"
+  },
+  "editor.formatOnSave": false
+}
+

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T12:32:09.498755",
+  "start_time": "2026-01-02T12:32:06.657742",
+  "end_time": "2026-01-02T12:32:09.498521",
+  "total_duration_minutes": 0.047346316666666666,
+  "results": {
+    "plant_health": {
+      "success": false,
+      "elapsed_seconds": 0.013343572616577148,
+      "error": "",
+      "output": ""
+    },
+    "deep_learning": {
+      "success": false,
+      "elapsed_seconds": 0.010955095291137695,
+      "error": "",
+      "output": ""
+    },
+    "gpu_hybrid": {
+      "success": false,
+      "elapsed_seconds": 0.01035165786743164,
+      "error": "",
+      "output": ""
+    },
+    "tf_gpu": {
+      "success": false,
+      "elapsed_seconds": 0.01155996322631836,
+      "error": "",
+      "output": ""
+    }
+  }
+}
