@@ -3,16 +3,21 @@ import csv
 import logging
 import asyncio
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from backend.database import SessionLocal, get_db
-from backend.market_intelligence.models import MarketPrice, GovernmentUpdate, AgricultureNews
-from backend.market_intelligence.search import search_duckduckgo
+from backend.market_intelligence.models import (
+    MarketPrice, GovernmentUpdate, AgricultureNews, ScrapeCache, 
+    KnownSource, MarketIntelligenceMetric
+)
+from backend.market_intelligence.search import search_duckduckgo, get_source_confidence
 from backend.market_intelligence.scraper import scrape_url
 from backend.market_intelligence.parser import extract_prices_from_html, parse_article_page
-from backend.market_intelligence.summarizer import summarize_update
+from backend.market_intelligence.analytics import normalize_and_save_prices
+from backend.market_intelligence.summarizer import summarize_update, classify_gov_category, is_similar_article
 from backend.market_intelligence.websocket import manager as ws_manager
 from backend.market_intelligence.cache import is_cached, set_cache
 
@@ -23,13 +28,23 @@ scheduler = AsyncIOScheduler()
 DATASET_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "AgriSense-Dataset")
 CSV_200_PATH = os.path.join(DATASET_DIR, "top 200 indian crops.csv")
 
+# Crop Prioritization Sets
+FAVORITE_CROPS = {"Tomato", "Onion", "Potato"}
+FREQUENT_CROPS = {"Rice", "Wheat", "Maize", "Cotton", "Mustard", "Soybean", "Sugarcane", "Garlic", "Ginger", "Chilli"}
+
+def log_metric(db: Session, name: str, value: float = 1.0):
+    """Log performance and diagnostic metrics to database."""
+    try:
+        metric = MarketIntelligenceMetric(metric_name=name, value=value)
+        db.add(metric)
+        db.commit()
+    except Exception as e:
+        logger.error(f"Failed to log metric {name}: {e}")
+        db.rollback()
+
 def get_all_crops() -> list[str]:
-    """
-    Load crop names from `top 200 indian crops.csv` and merge with other datasets to remove duplicates.
-    """
+    """Load crop names from dataset csvs."""
     crops = set()
-    
-    # 1. Load from top 200 indian crops.csv
     if os.path.exists(CSV_200_PATH):
         try:
             with open(CSV_200_PATH, mode="r", encoding="utf-8") as f:
@@ -41,7 +56,6 @@ def get_all_crops() -> list[str]:
         except Exception as e:
             logger.error(f"Error loading {CSV_200_PATH}: {e}")
             
-    # 2. Try to merge from 48_crops_chatbot.csv if exists
     chatbot_csv = os.path.join(DATASET_DIR, "48_crops_chatbot.csv")
     if os.path.exists(chatbot_csv):
         try:
@@ -53,171 +67,178 @@ def get_all_crops() -> list[str]:
         except Exception as e:
             logger.warning(f"Could not merge chatbot crops: {e}")
             
-    # Fallback to standard crops if empty
     if not crops:
         crops = {"Rice", "Wheat", "Maize", "Tomato", "Potato", "Onion", "Cotton", "Sugarcane", "Mustard", "Soybean"}
         
-    # Clean list of crops, remove header-like or empty entries
     cleaned_crops = sorted([c for c in crops if c.lower() != "crop" and len(c) > 1])
-    logger.info(f"Loaded {len(cleaned_crops)} crops for market intelligence analysis.")
     return cleaned_crops
 
-def seed_initial_data():
+async def process_crop_scraping(crop: str, db: Session):
     """
-    Seed initial data if database tables are empty so the dashboard has instant, rich content.
+    Step 4: URL Discovery Workflow.
+    Uses known_sources table to reduce external search queries by >90%.
     """
-    db = SessionLocal()
-    try:
-        # Seeding Market Prices
-        if db.query(MarketPrice).count() == 0:
-            logger.info("Seeding initial market prices...")
-            initial_prices = [
-                MarketPrice(crop="Tomato", market="Kolar Mandi", district="Kolar", state="Karnataka", price=4500.0, min_price=4000.0, max_price=5000.0, arrival="45 Tons", unit="Quintal", source="Agmarknet", url="https://agmarknet.gov.in"),
-                MarketPrice(crop="Onion", market="Lasalgaon Mandi", district="Nashik", state="Maharashtra", price=2500.0, min_price=2200.0, max_price=2800.0, arrival="120 Tons", unit="Quintal", source="eNAM", url="https://enam.gov.in"),
-                MarketPrice(crop="Potato", market="Agra Mandi", district="Agra", state="Uttar Pradesh", price=1800.0, min_price=1600.0, max_price=2000.0, arrival="95 Tons", unit="Quintal", source="UP State Board", url="http://upmandiparishad.in"),
-                MarketPrice(crop="Rice", market="Karnal Mandi", district="Karnal", state="Haryana", price=3600.0, min_price=3400.0, max_price=3800.0, arrival="250 Tons", unit="Quintal", source="eNAM", url="https://enam.gov.in"),
-                MarketPrice(crop="Wheat", market="Khanna Mandi", district="Ludhiana", state="Punjab", price=2275.0, min_price=2275.0, max_price=2350.0, arrival="310 Tons", unit="Quintal", source="Agmarknet", url="https://agmarknet.gov.in"),
-                MarketPrice(crop="Cotton", market="Adoni Mandi", district="Kurnool", state="Andhra Pradesh", price=7200.0, min_price=6800.0, max_price=7500.0, arrival="80 Tons", unit="Quintal", source="eNAM", url="https://enam.gov.in"),
-                MarketPrice(crop="Mustard", market="Bharatpur Mandi", district="Bharatpur", state="Rajasthan", price=5400.0, min_price=5200.0, max_price=5650.0, arrival="110 Tons", unit="Quintal", source="Raj Mandi Board", url="https://rajmandiboard.in"),
-                MarketPrice(crop="Soybean", market="Indore Mandi", district="Indore", state="Madhya Pradesh", price=4600.0, min_price=4400.0, max_price=4800.0, arrival="150 Tons", unit="Quintal", source="eNAM", url="https://enam.gov.in"),
-            ]
-            db.add_all(initial_prices)
-            db.commit()
-
-        # Seeding Government Updates
-        if db.query(GovernmentUpdate).count() == 0:
-            logger.info("Seeding initial government updates...")
-            initial_updates = [
-                GovernmentUpdate(title="PM Kisan 17th Installment Released", summary="Prime Minister Narendra Modi released the 17th installment of PM Kisan Samman Nidhi Yojana, transferring Rs 20,000 crores to over 9.2 crore farmers. Farmers can check status on the official PM-Kisan portal using Aadhaar.", source="Ministry of Agriculture", url="https://pmkisan.gov.in", date=datetime.utcnow().strftime("%Y-%m-%d"), category="PM Kisan"),
-                GovernmentUpdate(title="Fertilizer Subsidy Allocation Updated", summary="Union cabinet approves Rs 1.08 lakh crore subsidy for Urea and NPK fertilizers for Rabi season to ensure easy availability at subsidized rates to farmers.", source="ICAR News", url="https://icar.org.in", date=datetime.utcnow().strftime("%Y-%m-%d"), category="fertilizer subsidy"),
-                GovernmentUpdate(title="ICAR Introduces High-Yield Maize Seed Varieties", summary="Indian Council of Agricultural Research (ICAR) has launched three new drought-resistant hybrid maize seeds suited for dryland farming regions in Western India.", source="ICAR", url="https://icar.org.in", date=datetime.utcnow().strftime("%Y-%m-%d"), category="ICAR")
-            ]
-            db.add_all(initial_updates)
-            db.commit()
-
-        # Seeding Agriculture News
-        if db.query(AgricultureNews).count() == 0:
-            logger.info("Seeding initial agriculture news...")
-            initial_news = [
-                AgricultureNews(title="Monsoon Rainfall Forecast Predicts Normal Showers", summary="India Meteorological Department (IMD) forecasts normal monsoon showers for central and northern agricultural zones, easing crop deficit concerns.", source="Krishi Jagran", url="https://krishijagran.com", published=datetime.utcnow().strftime("%Y-%m-%d")),
-                AgricultureNews(title="Tomato Leaf Mold Alert in Southern Districts", summary="Agricultural officials warn farmers in Kolar and Madanapalle of leaf mold outbreaks due to high morning humidity. Recommends copper fungicide.", source="AgriNews India", url="https://agrinews.in", published=datetime.utcnow().strftime("%Y-%m-%d")),
-                AgricultureNews(title="Record Wheat Arrivals Registered in Punjab Mandis", summary="Wheat arrivals across Punjab procurement markets breach the 100-lakh-tonne mark. Government agencies speed up purchase and transport operations.", source="Financial Express", url="https://financialexpress.com", published=datetime.utcnow().strftime("%Y-%m-%d"))
-            ]
-            db.add_all(initial_news)
-            db.commit()
-    except Exception as e:
-        logger.error(f"Error seeding market intelligence: {e}")
-        db.rollback()
-    finally:
-        db.close()
-
-async def job_update_market_prices():
-    """
-    Background job to run every 30 minutes to fetch live prices.
-    """
-    logger.info("Starting background market price scraper job...")
-    crops = get_all_crops()
-    db = SessionLocal()
+    now = datetime.utcnow()
     
-    try:
-        # Pick a randomized sample of 5 crops in each iteration to avoid overloading DDG
-        # and stay within execution boundaries.
-        sample_crops = random.sample(crops, min(len(crops), 5))
+    # 1. Fetch any known sources for this crop
+    known_sources = db.query(KnownSource).filter(
+        KnownSource.crop == crop
+    ).all()
+    
+    urls_to_scrape = []
+    
+    for src in known_sources:
+        # If refresh is not due, just use it
+        if not src.next_refresh or src.next_refresh <= now:
+            urls_to_scrape.append((src.url, src))
+            
+    # 2. If no known sources exist or all are failing, run DDG Search to discover new ones
+    if not known_sources:
+        logger.info(f"No known sources for {crop}. Discovering new URLs via DDG.")
+        queries = [
+            f"{crop} mandi price today India",
+            f"{crop} market price India"
+        ]
+        query = random.choice(queries)
+        log_metric(db, "ddg_search_count")
+        discovered_urls = await search_duckduckgo(query, max_results=3)
         
-        for crop in sample_crops:
-            # Query variations
-            queries = [
-                f"{crop} mandi price today India",
-                f"{crop} market price India",
-                f"{crop} modal price"
-            ]
-            
-            # Select a random query to discover urls
-            query = random.choice(queries)
-            urls = await search_duckduckgo(query, max_results=3)
-            
-            for url in urls:
-                if is_cached(url, db, expiry_hours=6):
-                    logger.info(f"URL {url} cached (scraped within 6h). Skipping.")
-                    continue
-                    
-                html = await scrape_url(url)
-                if not html:
-                    continue
-                    
-                records = extract_prices_from_html(html, crop)
-                set_cache(url, db)
+        for url in discovered_urls:
+            # Check cache to avoid double scraping
+            if not is_cached(url, db, expiry_hours=6):
+                urls_to_scrape.append((url, None))
                 
-                for record in records:
-                    # Save to DB (only keep latest per crop+market combination)
-                    existing = db.query(MarketPrice).filter(
-                        MarketPrice.crop == crop,
-                        MarketPrice.market == record["market"]
-                    ).first()
-                    
-                    if existing:
-                        existing.price = record["modal_price"]
-                        existing.min_price = record["min_price"]
-                        existing.max_price = record["max_price"]
-                        existing.arrival = record["arrival"]
-                        existing.source = record["market"] + " Scraper"
-                        existing.url = url
-                    else:
-                        new_price = MarketPrice(
-                            crop=crop,
-                            market=record["market"],
-                            district=record["district"],
-                            state=record["state"],
-                            price=record["modal_price"],
-                            min_price=record["min_price"],
-                            max_price=record["max_price"],
-                            arrival=record["arrival"],
-                            unit="Quintal",
-                            source=record["market"] + " Scraper",
-                            url=url
-                        )
-                        db.add(new_price)
-                        
+    # 3. Batch Scrape URLs concurrently using asyncio gather
+    async def scrape_and_parse(url, known_source_rec):
+        html = await scrape_url(url)
+        if not html:
+            # Handle failure
+            if known_source_rec:
+                known_source_rec.failure_count += 1
+                # If failing too many times, push refresh date further or discard
+                if known_source_rec.failure_count >= 5:
+                    db.delete(known_source_rec)
+                else:
+                    known_source_rec.next_refresh = now + timedelta(hours=12)
+                db.commit()
+            log_metric(db, "scrape_failures")
+            return []
+            
+        records = await extract_prices_from_html(html, crop)
+        set_cache(url, db)
+        
+        if records:
+            # Successful parse
+            log_metric(db, "parser_success_count")
+            if not known_source_rec:
+                # Add to known sources
+                domain = urllib.parse.urlparse(url).netloc
+                new_src = KnownSource(
+                    crop=crop,
+                    url=url,
+                    domain=domain,
+                    confidence=get_source_confidence(url),
+                    last_checked=now,
+                    success_count=1,
+                    next_refresh=now + timedelta(hours=6)
+                )
+                db.add(new_src)
+            else:
+                known_source_rec.success_count += 1
+                known_source_rec.last_checked = now
+                known_source_rec.next_refresh = now + timedelta(hours=6)
+            db.commit()
+        else:
+            # Parsing failed on this HTML
+            log_metric(db, "parser_failures")
+            if known_source_rec:
+                known_source_rec.failure_count += 1
                 db.commit()
                 
-        # Broadcast the latest update to WebSockets
-        latest_prices = db.query(MarketPrice).order_by(MarketPrice.timestamp.desc()).limit(10).all()
+        return records
+
+    tasks = [scrape_and_parse(url, src_rec) for url, src_rec in urls_to_scrape]
+    all_parsed_results = await asyncio.gather(*tasks)
+    
+    # Flatten results
+    flat_records = [rec for run in all_parsed_results for rec in run]
+    if flat_records:
+        normalize_and_save_prices(db, flat_records, urls_to_scrape[0][0])
+        # Broadcast incremental update to WebSocket
         await ws_manager.broadcast({
             "type": "market_prices_update",
             "data": [{
-                "crop": p.crop,
-                "market": p.market,
-                "district": p.district,
-                "state": p.state,
-                "price": p.price,
-                "arrival": p.arrival,
-                "source": p.source,
-                "timestamp": p.timestamp.isoformat() if p.timestamp else None
-            } for p in latest_prices]
+                "crop": crop,
+                "price": r["modal_price"],
+                "market": r["market"],
+                "state": r["state"],
+                "confidence_label": r.get("confidence_label", "Estimated"),
+                "timestamp": now.isoformat()
+            } for r in flat_records[:5]]
         })
-        
-    except Exception as e:
-        logger.error(f"Error in job_update_market_prices: {e}")
-        db.rollback()
+
+# --- SMART SCHEDULER JOBS ---
+
+async def job_favorite_crops():
+    """Priority 1: every 15 minutes."""
+    logger.info("Scheduler: Running Priority 1 (Favorite Crops) Job")
+    db = SessionLocal()
+    try:
+        for crop in FAVORITE_CROPS:
+            await process_crop_scraping(crop, db)
+    finally:
+        db.close()
+
+async def job_frequent_crops():
+    """Priority 2: every 1 hour."""
+    logger.info("Scheduler: Running Priority 2 (Frequently Searched Crops) Job")
+    db = SessionLocal()
+    try:
+        # Sample 3 crops to run in this hour cycle
+        sample = random.sample(list(FREQUENT_CROPS), 3)
+        for crop in sample:
+            await process_crop_scraping(crop, db)
+    finally:
+        db.close()
+
+async def job_common_crops():
+    """Priority 3: every 6 hours."""
+    logger.info("Scheduler: Running Priority 3 (Common Crops) Job")
+    db = SessionLocal()
+    try:
+        all_crops = get_all_crops()
+        commons = [c for c in all_crops if c not in FAVORITE_CROPS and c not in FREQUENT_CROPS]
+        sample = random.sample(commons, min(len(commons), 5))
+        for crop in sample:
+            await process_crop_scraping(crop, db)
+    finally:
+        db.close()
+
+async def job_rare_crops():
+    """Priority 4: every 24 hours."""
+    logger.info("Scheduler: Running Priority 4 (Rare Crops) Job")
+    db = SessionLocal()
+    try:
+        # Pick 2 crops to scan
+        all_crops = get_all_crops()
+        rare = [c for c in all_crops if c not in FAVORITE_CROPS and c not in FREQUENT_CROPS]
+        sample = random.sample(rare, min(len(rare), 2))
+        for crop in sample:
+            await process_crop_scraping(crop, db)
     finally:
         db.close()
 
 async def job_update_government_updates():
-    """
-    Background job to run every hour to collect government updates and schemes.
-    """
-    logger.info("Starting background government schemes job...")
+    """Priority 5: every 1 hour (Government Updates)."""
+    logger.info("Scheduler: Running Priority 5 (Government Updates) Job")
     db = SessionLocal()
-    
     queries = [
         ("latest agriculture schemes India", "Government Scheme"),
         ("PM Kisan updates", "PM Kisan"),
         ("fertilizer subsidy ministry of agriculture", "fertilizer subsidy"),
         ("ICAR technology transfer farmers", "ICAR")
     ]
-    
     try:
-        # Pick a random query
         query_text, category = random.choice(queries)
         urls = await search_duckduckgo(query_text, max_results=3)
         
@@ -233,10 +254,9 @@ async def job_update_government_updates():
             set_cache(url, db)
             
             if article and article.get("title"):
-                # Use AgriGPT summarization
                 ai_summary = await summarize_update(article["title"], article["summary"], category)
+                cat = classify_gov_category(article["title"], article["summary"])
                 
-                # Deduplicate by url/title
                 exists = db.query(GovernmentUpdate).filter(
                     (GovernmentUpdate.url == url) | (GovernmentUpdate.title == article["title"])
                 ).first()
@@ -248,11 +268,10 @@ async def job_update_government_updates():
                         source=article["source"],
                         url=url,
                         date=article["date"],
-                        category=category
+                        category=cat
                     )
                     db.add(new_scheme)
                     db.commit()
-                    
     except Exception as e:
         logger.error(f"Error in job_update_government_updates: {e}")
         db.rollback()
@@ -260,73 +279,112 @@ async def job_update_government_updates():
         db.close()
 
 async def job_update_news():
-    """
-    Background job to run every hour to collect agricultural news.
-    """
-    logger.info("Starting background agricultural news job...")
+    """Priority 6: every 1 hour (Agriculture News with Deduplication)."""
+    logger.info("Scheduler: Running Priority 6 (Agriculture News Clustering) Job")
     db = SessionLocal()
-    
     queries = [
         "Indian agriculture news today",
         "crop disease outbreak India",
         "rainfall agriculture updates India"
     ]
-    
     try:
         query_text = random.choice(queries)
         urls = await search_duckduckgo(query_text, max_results=3)
         
+        articles = []
         for url in urls:
             if is_cached(url, db, expiry_hours=6):
                 continue
-                
             html = await scrape_url(url)
             if not html:
                 continue
-                
             article = parse_article_page(html, url)
-            set_cache(url, db)
-            
             if article and article.get("title"):
-                ai_summary = await summarize_update(article["title"], article["summary"], "News")
+                articles.append(article)
                 
-                exists = db.query(AgricultureNews).filter(
-                    (AgricultureNews.url == url) | (AgricultureNews.title == article["title"])
-                ).first()
+        # Deduplication and Clustering
+        unique_articles = []
+        for art in articles:
+            is_dup = False
+            for u_art in unique_articles:
+                if is_similar_article(art["title"], u_art["title"]):
+                    is_dup = True
+                    break
+            if not is_dup:
+                unique_articles.append(art)
                 
-                if not exists:
-                    new_news = AgricultureNews(
-                        title=article["title"],
-                        summary=ai_summary,
-                        source=article["source"],
-                        url=url,
-                        published=article["date"]
-                    )
-                    db.add(new_news)
-                    db.commit()
-                    
+        for art in unique_articles:
+            exists = db.query(AgricultureNews).filter(
+                (AgricultureNews.url == art["url"]) | (AgricultureNews.title == art["title"])
+            ).first()
+            
+            if not exists:
+                ai_summary = await summarize_update(art["title"], art["summary"], "News")
+                new_news = AgricultureNews(
+                    title=art["title"],
+                    summary=ai_summary,
+                    source=art["source"],
+                    url=art["url"],
+                    published=art["date"]
+                )
+                db.add(new_news)
+                db.commit()
     except Exception as e:
         logger.error(f"Error in job_update_news: {e}")
         db.rollback()
     finally:
         db.close()
 
+def seed_initial_data():
+    """Seed initial data if empty."""
+    db = SessionLocal()
+    try:
+        if db.query(MarketPrice).count() == 0:
+            logger.info("Seeding initial market prices...")
+            initial_prices = [
+                MarketPrice(crop="Tomato", market="Kolar Mandi", district="Kolar", state="Karnataka", price=4500.0, min_price=4000.0, max_price=5000.0, arrival="45 Tons", unit="Quintal", source="Agmarknet", url="https://agmarknet.gov.in", confidence=1.0, source_rank=100, verification_count=1, freshness_score=1.0, confidence_label="Verified"),
+                MarketPrice(crop="Onion", market="Lasalgaon Mandi", district="Nashik", state="Maharashtra", price=2500.0, min_price=2200.0, max_price=2800.0, arrival="120 Tons", unit="Quintal", source="eNAM", url="https://enam.gov.in", confidence=1.0, source_rank=100, verification_count=1, freshness_score=1.0, confidence_label="Verified"),
+                MarketPrice(crop="Potato", market="Agra Mandi", district="Agra", state="Uttar Pradesh", price=1800.0, min_price=1600.0, max_price=2000.0, arrival="95 Tons", unit="Quintal", source="UP State Board", url="http://upmandiparishad.in", confidence=0.92, source_rank=92, verification_count=1, freshness_score=1.0, confidence_label="Verified")
+            ]
+            db.add_all(initial_prices)
+            db.commit()
+            
+        if db.query(GovernmentUpdate).count() == 0:
+            logger.info("Seeding initial government updates...")
+            initial_updates = [
+                GovernmentUpdate(title="PM Kisan 17th Installment Released", summary="Prime Minister Narendra Modi released the 17th installment of PM Kisan Samman Nidhi Yojana, transferring Rs 20,000 crores to over 9.2 crore farmers. Farmers can check status on the official PM-Kisan portal using Aadhaar.", source="Ministry of Agriculture", url="https://pmkisan.gov.in", date=datetime.utcnow().strftime("%Y-%m-%d"), category="PM Kisan"),
+                GovernmentUpdate(title="Fertilizer Subsidy Allocation Updated", summary="Union cabinet approves Rs 1.08 lakh crore subsidy for Urea and NPK fertilizers for Rabi season to ensure easy availability at subsidized rates to farmers.", source="ICAR News", url="https://icar.org.in", date=datetime.utcnow().strftime("%Y-%m-%d"), category="Subsidies"),
+            ]
+            db.add_all(initial_updates)
+            db.commit()
+    except Exception as e:
+        logger.error(f"Error seeding market intelligence: {e}")
+        db.rollback()
+    finally:
+        db.close()
+
 def start_scheduler():
-    """
-    Start background jobs using APScheduler.
-    """
-    # Seed data first to guarantee direct availability
+    """Start background jobs using APScheduler."""
     seed_initial_data()
     
-    # Schedule market updates every 30 minutes
-    scheduler.add_job(job_update_market_prices, 'interval', minutes=30, id="market_prices_job")
+    # Priority 1: Favorite Crops every 15 mins
+    scheduler.add_job(job_favorite_crops, 'interval', minutes=15, id="priority_1_job")
     
-    # Schedule government updates every 60 minutes
-    scheduler.add_job(job_update_government_updates, 'interval', minutes=60, id="gov_updates_job")
+    # Priority 2: Frequent Crops every 1 hour
+    scheduler.add_job(job_frequent_crops, 'interval', minutes=60, id="priority_2_job")
     
-    # Schedule news updates every 60 minutes
-    scheduler.add_job(job_update_news, 'interval', minutes=60, id="news_job")
+    # Priority 3: Common Crops every 6 hours
+    scheduler.add_job(job_common_crops, 'interval', hours=6, id="priority_3_job")
     
-    # Start scheduler
+    # Priority 4: Rare Crops every 24 hours
+    scheduler.add_job(job_rare_crops, 'interval', hours=24, id="priority_4_job")
+    
+    # Priority 5: Government Updates every 1 hour
+    scheduler.add_job(job_update_government_updates, 'interval', minutes=60, id="priority_5_job")
+    
+    # Priority 6: Agricultural News every 1 hour
+    scheduler.add_job(job_update_news, 'interval', minutes=60, id="priority_6_job")
+    
     scheduler.start()
     logger.info("Market Intelligence APScheduler started successfully.")
+

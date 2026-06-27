@@ -24,7 +24,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from backend.database import engine, get_db, Base
 from backend.models import SensorReading, ModelRegistry, PredictionLog, TwinState
-from backend.market_intelligence.models import MarketPrice, GovernmentUpdate, AgricultureNews, ScrapeCache
+from backend.market_intelligence.models import MarketPrice, GovernmentUpdate, AgricultureNews, ScrapeCache, KnownSource, MarketIntelligenceMetric, CacheEntry
 from backend import schemas
 from backend import twin_engine
 from backend.digital_twin.twin_pipeline import twin_pipeline
