@@ -1,5 +1,6 @@
 import logging
 import base64
+from typing import Optional
 from PIL import Image
 from backend.vision.image_loader import load_image_from_base64, image_to_base64
 from backend.vision.image_validator import validate_image_integrity, check_image_resolution, estimate_blur
@@ -11,7 +12,8 @@ logger = logging.getLogger("AgriVisionPipeline")
 async def process_and_analyze_image(
     image_base64: str,
     mode: str = "disease",
-    apply_augmentation: bool = False
+    apply_augmentation: bool = False,
+    file_name: Optional[str] = None
 ) -> dict:
     """
     Validates, standardizes, preprocesses, and executes SmolVLM analysis on an input image.
@@ -58,7 +60,7 @@ async def process_and_analyze_image(
 
     # 6. Execute model inference using SmolVLM
     try:
-        inference_result = await analyze_image_vlm(image_bytes, mode=mode)
+        inference_result = await analyze_image_vlm(image_bytes, mode=mode, file_name=file_name)
         
         # Structure the standard output contract
         return {

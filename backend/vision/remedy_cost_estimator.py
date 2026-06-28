@@ -23,6 +23,11 @@ CATALOG_DB = {
     "weed": [
         {"name": "Glyphosate 41% SL (1L)", "source": "AgriBegri", "price_range": "₹480 - ₹530"},
         {"name": "Atrazine 50% WP (500g)", "source": "BigHaat", "price_range": "₹310 - ₹360"}
+    ],
+    "bacterial spot": [
+        {"name": "Copper Hydroxide 53.8% DF (500g)", "source": "BigHaat", "price_range": "₹380 - ₹440"},
+        {"name": "Streptocycline Bactericide (6g)", "source": "AgriBegri", "price_range": "₹45 - ₹55"},
+        {"name": "Neem Oil 10000 PPM (1L)", "source": "Ugaoo", "price_range": "₹550 - ₹620"}
     ]
 }
 

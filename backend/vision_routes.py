@@ -23,12 +23,13 @@ vision_rag = VisionRAG()
 class VisionRequest(BaseModel):
     imageBase64: str
     mode: Optional[str] = "disease"
+    fileName: Optional[str] = None
 
 
 @router.post("/disease")
 async def vision_disease(payload: VisionRequest):
     """Diagnoses crop diseases from leaf images, runs RAG advice, and syncs to twin."""
-    res = await process_and_analyze_image(payload.imageBase64, mode="disease")
+    res = await process_and_analyze_image(payload.imageBase64, mode="disease", file_name=payload.fileName)
     if not res["success"]:
         raise HTTPException(status_code=500, detail=res.get("error", "Disease analysis failed"))
 

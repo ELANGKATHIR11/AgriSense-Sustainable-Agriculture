@@ -315,7 +315,7 @@ export default function DiseaseDetection() {
       const res = await fetch("/api/vision/disease", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageBase64: imagePreview })
+        body: JSON.stringify({ imageBase64: imagePreview, fileName: imageFileName })
       });
       if (res.ok) {
         const data = await res.json();
@@ -509,7 +509,7 @@ WEATHER IMPACT:
         
         {/* LEFT PANEL — IMAGE INPUT & CONTROLS */}
         <div className="lg:col-span-4 space-y-5">
-          <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg relative">
+          <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg relative">
             <h2 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
               <ImageIcon className="w-4 h-4" /> {getT("uploadTitle")}
             </h2>
@@ -575,7 +575,7 @@ WEATHER IMPACT:
           </div>
 
           {/* PRESETS */}
-          <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg">
+          <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg">
             <h2 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest mb-3 flex items-center gap-2">
               <Zap className="w-4 h-4" /> {getT("presetsTitle")}
             </h2>
@@ -598,7 +598,7 @@ WEATHER IMPACT:
 
           {/* HISTORY */}
           {history.length > 0 && (
-            <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg">
+            <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg">
               <h3 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest mb-3">Recent Analyses</h3>
               <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                 {history.map((h) => (
@@ -618,7 +618,7 @@ WEATHER IMPACT:
         {/* CENTER PANEL — IMAGE PREVIEW, DIAGNOSIS, EVIDENCE */}
         <div className="lg:col-span-5 space-y-5">
           {/* Image Workspace Preview */}
-          <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg relative flex flex-col min-h-[300px]">
+          <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg relative flex flex-col min-h-[300px]">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest flex items-center gap-2">
                 <Microscope className="w-4 h-4" /> Interactive Analysis
@@ -713,7 +713,7 @@ WEATHER IMPACT:
 
           {/* AI DIAGNOSIS & SEVERITY */}
           {result && (
-            <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-4">
+            <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-4">
               <div className="flex items-center justify-between border-b border-emerald-950/60 pb-3">
                 <h3 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest">{getT("diagnosticsTitle")}</h3>
                 <span className="text-xs font-bold text-amber-400 font-mono bg-amber-950/40 px-2 py-0.5 rounded border border-amber-900/60">
@@ -767,7 +767,7 @@ WEATHER IMPACT:
 
           {/* VISUAL EVIDENCE */}
           {result && (
-            <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-3">
+            <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-3">
               <h3 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest border-b border-emerald-950/60 pb-2">
                 {getT("evidenceTitle")}
               </h3>
@@ -797,7 +797,7 @@ WEATHER IMPACT:
         <div className="lg:col-span-3 space-y-5">
           {/* CONFIDENCE GAUGES */}
           {result && (
-            <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-3.5">
+            <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-3.5">
               <h3 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest">{getT("confidenceTitle")}</h3>
               
               <div className="space-y-2">
@@ -823,7 +823,7 @@ WEATHER IMPACT:
 
           {/* TREATMENT GUIDE TABS */}
           {result && (
-            <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-4">
+            <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-4">
               <h3 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest">{getT("advisoryTitle")}</h3>
               
               {/* Tab Header */}
@@ -870,7 +870,7 @@ WEATHER IMPACT:
 
           {/* WEATHER & MARKET IMPACTS */}
           {result && (
-            <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-4">
+            <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-4">
               {/* Weather */}
               <div className="space-y-1.5">
                 <h4 className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
@@ -910,7 +910,7 @@ WEATHER IMPACT:
 
       {/* TIMELINE COMPARISON SLIDER */}
       {result && (
-        <div className="agri-card p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-4">
+        <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-4">
           <h3 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest">{getT("timelineTitle")}</h3>
           <p className="text-[10px] text-emerald-500/70 font-mono">{getT("comparisonText")}</p>
 
