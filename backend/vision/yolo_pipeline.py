@@ -21,13 +21,19 @@ def get_yolo_model():
     if _yolo_model is None:
         try:
             from ultralytics import YOLO
-            # Load best checkpoint or default yolo11s
-            model_path = os.path.join("agrisense_yolo", "train_run", "weights", "best.pt")
-            if os.path.exists(model_path):
-                _yolo_model = YOLO(model_path)
-            else:
-                _yolo_model = YOLO("yolo11s.pt")
-            logger.info("YOLOv11 model loaded successfully.")
+            # Load best checkpoint from training runs
+            possible_paths = [
+                os.path.join("runs", "detect", "agrisense_yolo", "train_run-2", "weights", "best.pt"),
+                os.path.join("runs", "detect", "agrisense_yolo", "train_run", "weights", "best.pt"),
+                os.path.join("agrisense_yolo", "train_run", "weights", "best.pt"),
+            ]
+            model_path = "yolo11s.pt"
+            for p in possible_paths:
+                if os.path.exists(p):
+                    model_path = p
+                    break
+            _yolo_model = YOLO(model_path)
+            logger.info(f"YOLOv11 model loaded from: {model_path}")
         except Exception as e:
             logger.warning(f"Ultralytics YOLO unavailable: {e}. Falling back to rule-based mock detection.")
             _yolo_model = None
