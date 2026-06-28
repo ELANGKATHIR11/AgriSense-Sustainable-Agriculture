@@ -6,7 +6,7 @@
 
 ## 🏗️ System Architecture Diagram
 
-AgriSense Desktop operates as a dual-runtime desktop application containerized with **Electron** and powered by a **FastAPI** Python AI daemon and local **Ollama** LLM node.
+AgriSense Desktop operates as a dual-runtime desktop application containerized with **Electron** and powered by a **FastAPI** Python AI daemon, local **Ollama** LLM node, and custom YOLOv11 bounding box inference logic.
 
 ```mermaid
 graph TD
@@ -24,11 +24,14 @@ graph TD
     FastAPI -->|SQLAlchemy ORM| DB[(SQLite Database)]
     FastAPI -->|Inference Logs| MLOps[MLOps Monitor & Drift Tracking]
     FastAPI -->|Execute model| TabPFN[TabPFN Classification / Regressions]
-    FastAPI -->|Inference weights| CV[Florence-2 / YOLOv11n Vision]
+    FastAPI -->|Features Extraction| YOLO[YOLOv11 Bounding-Box Detection]
+    YOLO -->|ROI Partitioning| SmolVLM[SmolVLM Vision diagnostics via Ollama]
+    SmolVLM -->|Advisory Lookup| VRAG[Visual RAG & Multimodal RAG]
+    VRAG -->|Remedy lookup| Scraper[Web Scraper & Gen AI Cost Estimator]
   end
 
   subgraph LLM Server
-    Ollama -->|Conversational RAG| Qwen[qwen2.5:1.5b-instruct]
+    Ollama -->|Conversational RAG| Qwen[qwen2.5:1.5b-instruct / riven/smolvlm]
   end
 ```
 
@@ -37,6 +40,11 @@ graph TD
 ## 🚀 Key Features
 
 *   **Single-Click Boot:** Launches both the FastAPI python backend and the Electron browser window simultaneously with zero terminals or console windows visible.
+*   **Enterprise-Grade AI Vision Diagnostics:** 
+    *   **YOLOv11 Pipeline:** Locates leaves, fruits, stems, lesions, pests, and weeds instantly on the GPU (<150ms).
+    *   **SmolVLM reasoning:** Executes visual question answering using `riven/smolvlm:latest` on cropped target ROIs.
+    *   **Visual & Multimodal RAG:** Augments diagnostic outputs with scientific advisory journals.
+    *   **Scraped Remedy Costs:** Queries online agricultural portals and uses Gen AI parsing to return cure costs in Indian Rupees (₹).
 *   **Authentication & Roles:** Safe, offline user gates (Register / Login) using JWT tokens to distinguish between Farmers, Consultants, Researchers, and Enterprise Admins.
 *   **Multi-Farm Field Contexts:** Manage multiple separate farm properties with dynamic selector switches, filtering sensor metrics and telemetry indicators based on active locations.
 *   **Agri Marketplace:** An inputs ecommerce catalog (seeds, fertilizers, organic pesticides) with intelligent, automated diagnostic product recommendations.
@@ -61,8 +69,8 @@ graph TD
 
 ### AI / ML Models
 *   **Crop & Irrigation Analytics:** TabPFN & FT-Transformer.
-*   **Leaf Disease Pathology:** HuggingFace Florence-2.
-*   **Weed Coordination:** Ultralytics YOLOv11n.
+*   **Leaf Disease Pathology:** riven/smolvlm via local Ollama.
+*   **Feature Detection:** Custom YOLOv11m / YOLOv11s.
 *   **Anomaly detection:** Extended Isolation Forest (EIF).
 *   **Chatbot & RAG:** Ollama + Qwen2.5 1.5B (Instruct).
 
@@ -81,6 +89,8 @@ graph TD
 │   ├── farm_routes.py  # Multi-farm context controllers
 │   ├── marketplace_routes.py # Marketplace inputs catalog & recommendations
 │   ├── system_routes.py # Local hardware NVML monitoring & licenses
+│   ├── ml/             # YOLOv11 & SmolVLM training trainers
+│   ├── vision/         # YOLO pipeline router & remedy cost scraper
 │   └── llm/            # AgriGPT RAG chatbot integrations
 └── src/                # Vite React 19 Frontend source code
     ├── App.tsx         # Layout, nav sections, and active farm context switcher
@@ -94,7 +104,7 @@ graph TD
 ### 1. Prerequisites
 *   [Node.js (F:\FULL-STACK)](file:///f:/FULL-STACK)
 *   Python 3.12 (Miniconda environment `dgpu-core`)
-*   Ollama running locally
+*   Ollama running locally with `riven/smolvlm:latest` and `qwen2.5:1.5b-instruct`
 
 ### 2. Development Startup
 To run the full workspace locally in developer mode:
