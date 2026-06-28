@@ -23,6 +23,7 @@ def get_yolo_model():
             from ultralytics import YOLO
             # Load best checkpoint from training runs
             possible_paths = [
+                os.path.join("runs", "detect", "agrisense_yolo", "train_run-3", "weights", "best.pt"),
                 os.path.join("runs", "detect", "agrisense_yolo", "train_run-2", "weights", "best.pt"),
                 os.path.join("runs", "detect", "agrisense_yolo", "train_run", "weights", "best.pt"),
                 os.path.join("agrisense_yolo", "train_run", "weights", "best.pt"),
