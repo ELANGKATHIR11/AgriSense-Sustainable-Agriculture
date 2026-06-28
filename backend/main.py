@@ -66,7 +66,10 @@ from backend import farm_routes
 from backend import marketplace_routes
 from backend import system_routes
 
+from backend import vision_routes
+
 # Register new routers
+app.include_router(vision_routes.router)
 app.include_router(tabpfn_engine.router, prefix="/api")
 app.include_router(yield_transformer.router, prefix="/api")
 app.include_router(eif_detector.router, prefix="/api")
