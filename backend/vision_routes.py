@@ -55,6 +55,16 @@ async def vision_disease(payload: VisionRequest):
     except Exception:
         pass
 
+    # Web scrape & Gen AI cost estimation integration
+    try:
+        from backend.vision.remedy_cost_estimator import scrape_and_estimate_costs
+        disease_name = res["results"].get("disease", "")
+        costs = await scrape_and_estimate_costs(disease_name)
+        res["remedy_costs"] = costs
+    except Exception as e:
+        logger.error(f"Failed to estimate remedy costs: {e}")
+        res["remedy_costs"] = []
+
     return res
 
 
