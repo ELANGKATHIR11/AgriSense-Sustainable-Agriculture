@@ -35,6 +35,7 @@ from backend.ml import yield_transformer
 from backend.ml import eif_detector
 from backend.vision import florence_engine
 from backend.vision import yolo_weed_detector
+from backend.vision import yolo_pipeline
 from backend.llm import agri_assistant
 from backend import ollama_service as ollama_svc
 from backend.agents import coder_agent
@@ -71,6 +72,7 @@ app.include_router(yield_transformer.router, prefix="/api")
 app.include_router(eif_detector.router, prefix="/api")
 app.include_router(florence_engine.router, prefix="/api")
 app.include_router(yolo_weed_detector.router, prefix="/api")
+app.include_router(yolo_pipeline.router, prefix="/api")
 app.include_router(agri_assistant.router, prefix="/api")
 app.include_router(coder_agent.router, prefix="/api")
 app.include_router(data_drift_monitor.router, prefix="/api")

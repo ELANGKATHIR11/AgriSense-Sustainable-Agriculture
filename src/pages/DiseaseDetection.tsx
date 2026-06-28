@@ -66,6 +66,8 @@ export default function DiseaseDetection() {
   const [history, setHistory] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<"organic" | "chemical" | "ipm" | "preventive">("organic");
   const [sliderPosition, setSliderPosition] = useState(50); // For timeline comparison slider
+  const [dimensions, setDimensions] = useState({ width: 640, height: 480 });
+  const [detections, setDetections] = useState<any[]>([]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   // Localized string dictionary for UI
@@ -282,14 +284,45 @@ export default function DiseaseDetection() {
     }
     setLoading(true);
     setError(null);
+    setDetections([]);
+
+    let apiDetections = [];
+    try {
+      const res = await fetch("/api/vision/yolo/detect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageBase64: imagePreview })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          apiDetections = data.detections || [];
+          setDetections(apiDetections);
+          if (data.dimensions) {
+            setDimensions(data.dimensions);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("YOLO detect API offline or errored, using fallback simulation", e);
+    }
 
     // Call mock API or real endpoint depending on availability
     setTimeout(() => {
       const matchedPreset = PRESETS.find(p => imageFileName?.includes(p.name)) || PRESETS[0];
+      
+      // Merge real API detections into candidates list if available
+      const customCandidates = apiDetections.map((d: any) => ({
+        name: d.class_name,
+        probability: d.confidence,
+        severity: d.severity,
+        reason: `Detected region matching ${d.class_name} with local box coordinates.`
+      }));
+
       const diagnosticData = {
         success: true,
         detectedCrop: matchedPreset.crop,
-        diseaseCandidates: [
+        diseaseCandidates: customCandidates.length > 0 ? customCandidates : [
           { name: matchedPreset.name, probability: matchedPreset.confidence, severity: matchedPreset.severity, reason: "Chlorotic spot expansion and necrotic lesions matching standard foliar signature." },
           { name: "Powdery Mildew", probability: 42, severity: "Moderate", reason: "Superficial white powdery patches observed on secondary leaves." },
           { name: "Early Blight", probability: 28, severity: "Early", reason: "Target-board concentric rings visible on the leaf margins." },
@@ -542,15 +575,43 @@ WEATHER IMPACT:
               onMouseLeave={handleMouseUp}
             >
               {imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="Crop Target"
+                <div
                   style={{
                     transform: `scale(${zoom}) translate(${pan.x}px, ${pan.y}px)`,
-                    transition: isDragging.current ? "none" : "transform 0.15s ease-out"
+                    transition: isDragging.current ? "none" : "transform 0.15s ease-out",
+                    position: "relative"
                   }}
-                  className="max-h-[260px] object-contain select-none pointer-events-none rounded"
-                />
+                  className="max-h-[260px] max-w-full flex items-center justify-center"
+                >
+                  <img
+                    src={imagePreview}
+                    alt="Crop Target"
+                    className="max-h-[260px] object-contain select-none pointer-events-none rounded"
+                  />
+                  <svg
+                    viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
+                    className="absolute inset-0 w-full h-full pointer-events-none"
+                  >
+                    {detections.map((det, idx) => {
+                      const [x1, y1, x2, y2] = det.box;
+                      const w = x2 - x1;
+                      const h = y2 - y1;
+                      return (
+                        <g key={idx} className="pointer-events-auto cursor-pointer">
+                          <rect
+                            x={x1}
+                            y={y1}
+                            width={w}
+                            height={h}
+                            fill="transparent"
+                            stroke={det.class_name === "Disease Lesions" ? "red" : "green"}
+                            strokeWidth={3}
+                          />
+                        </g>
+                      );
+                    })}
+                  </svg>
+                </div>
               ) : (
                 <div className="text-center p-6 text-emerald-500/60">
                   <ScanLine className="w-12 h-12 mx-auto mb-2 text-emerald-600/40" />
