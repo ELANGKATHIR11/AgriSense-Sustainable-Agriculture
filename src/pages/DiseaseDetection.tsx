@@ -307,7 +307,26 @@ export default function DiseaseDetection() {
       console.warn("YOLO detect API offline or errored, using fallback simulation", e);
     }
 
-    // Call mock API or real endpoint depending on availability
+    // Call real VLM + RAG endpoint and merge outputs
+    let vlmResult: any = null;
+    let vlmConf = 90;
+    try {
+      const res = await fetch("/api/vision/disease", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageBase64: imagePreview })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          vlmResult = data.results;
+          vlmConf = Math.round((data.confidence || 0.9) * 100);
+        }
+      }
+    } catch (e) {
+      console.warn("VLM Disease API offline or errored, falling back to simulated diagnostics", e);
+    }
+
     setTimeout(() => {
       const matchedPreset = PRESETS.find(p => imageFileName?.includes(p.name)) || PRESETS[0];
       
@@ -318,6 +337,54 @@ export default function DiseaseDetection() {
         severity: d.severity,
         reason: `Detected region matching ${d.class_name} with local box coordinates.`
       }));
+
+      // If we got a real response from the local SmolVLM/RAG server
+      if (vlmResult) {
+        setResult({
+          success: true,
+          detectedCrop: vlmResult.detectedCrop || matchedPreset.crop,
+          diseaseCandidates: [
+            {
+              name: vlmResult.disease || matchedPreset.name,
+              probability: vlmConf,
+              severity: vlmResult.severity || matchedPreset.severity,
+              reason: vlmResult.farmer_explanation || "Computed local diagnosis via SmolVLM & Visual RAG."
+            },
+            ...customCandidates
+          ],
+          visualEvidence: {
+            color: "Spotted and chlorotic foliage",
+            spots: vlmResult.symptoms ? vlmResult.symptoms.join(", ") : "Foliar spots visible",
+            insects: "None visible",
+            growthStage: "Vegetative / Bloom"
+          },
+          treatment: {
+            organic: vlmResult.recommendations ? vlmResult.recommendations[0] || "Apply neem oil" : "Apply organic neem oil.",
+            chemical: vlmResult.recommendations ? vlmResult.recommendations[1] || "Fungicide" : "Foliar copper fungicide.",
+            ipm: "Prune infected lower foliage."
+          },
+          weather: {
+            temperature: "27.5°C",
+            humidity: "82%",
+            rainfall: "5.4 mm",
+            favorability: "High Risk"
+          },
+          market: {
+            yieldReduction: "25-30%",
+            impact: "Volume reduction in local markets.",
+            currentPrice: "₹4,200",
+            advisory: "Supply constraints matching local mandates."
+          },
+          confidence: {
+            visual: vlmConf,
+            retrieval: 88,
+            government: 85,
+            overall: vlmConf
+          }
+        });
+        setLoading(false);
+        return;
+      }
 
       const diagnosticData = {
         success: true,
