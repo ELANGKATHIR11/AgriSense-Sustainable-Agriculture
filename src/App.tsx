@@ -22,6 +22,7 @@ const WeatherIntelligence = lazy(() => import("./pages/WeatherIntelligence"));
 const YieldPrediction = lazy(() => import("./pages/YieldPrediction"));
 const AgriGPT = lazy(() => import("./pages/AgriGPT"));
 const MLOpsDashboard = lazy(() => import("./pages/MLOpsDashboard"));
+const AgriOpsDashboard = lazy(() => import("./pages/AgriOpsDashboard"));
 const Settings = lazy(() => import("./pages/Settings"));
 const AgentDashboard = lazy(() => import("./pages/AgentDashboard"));
 const Marketplace = lazy(() => import("./pages/Marketplace"));
@@ -72,6 +73,7 @@ const navSections = [
       { id: "agrigpt",     label: "AgriGPT Chat",     icon: <Bot className="w-4 h-4" /> },
       { id: "agents",      label: "ASO Swarm",        icon: <Cpu className="w-4 h-4" /> },
       { id: "mlops",       label: "MLOps Control",    icon: <Cpu className="w-4 h-4" /> },
+      { id: "agriops",     label: "AgriOps Hub",      icon: <Layers className="w-4 h-4" />, badge: "NEW" },
       { id: "settings",    label: "Settings",         icon: <Settings2 className="w-4 h-4" /> },
     ]
   }
@@ -208,6 +210,7 @@ export default function App() {
             case "agrigpt":     return <AgriGPT sensors={sensors} />;
             case "agents":      return <AgentDashboard />;
             case "mlops":       return <MLOpsDashboard />;
+            case "agriops":     return <AgriOpsDashboard />;
             case "settings":    return <Settings />;
             default:            return <Dashboard onNavigate={handleNavigation} sensors={sensors} />;
           }
@@ -293,6 +296,7 @@ export default function App() {
                     item.id === "agrigpt" ? "chat" : 
                     item.id === "agents" ? "swarm" : 
                     item.id === "mlops" ? "mlops" : 
+                    item.id === "agriops" ? "agriops" : 
                     item.id === "settings" ? "settings" : item.id
                   );
                   return (

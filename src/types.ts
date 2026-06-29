@@ -118,6 +118,9 @@ export interface ChatMessage {
   role: 'user' | 'model';
   content: string;
   timestamp: string;
+  citations?: Array<{ id: string; text: string; score: number; metadata: any }>;
+  confidence?: number;
+  isLiveSearch?: boolean;
 }
 
 // --- DIGITAL TWIN CONTRACTS ---

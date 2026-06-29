@@ -277,6 +277,7 @@ export default function DiseaseDetection() {
   };
 
   // Run Inference Pipeline (with dynamic visual RAG matching)
+  // Run Inference Pipeline (with dynamic visual RAG matching)
   const runInference = async () => {
     if (!imagePreview) {
       setError("Please capture or upload an image first.");
@@ -305,6 +306,21 @@ export default function DiseaseDetection() {
       }
     } catch (e) {
       console.warn("YOLO detect API offline or errored, using fallback simulation", e);
+    }
+
+    // Fetch visual RAG matches from LanceDB VRAG
+    let vragData: any = null;
+    try {
+      const vragRes = await fetch("/api/mrag/vrag", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageBase64: imagePreview, mode: "disease" })
+      });
+      if (vragRes.ok) {
+        vragData = await vragRes.json();
+      }
+    } catch (e) {
+      console.warn("VRAG query failed: ", e);
     }
 
     // Call real VLM + RAG endpoint and merge outputs
@@ -379,10 +395,11 @@ export default function DiseaseDetection() {
           },
           confidence: {
             visual: vlmConf,
-            retrieval: 88,
+            retrieval: vragData ? Math.round(vragData.highest_confidence) : 88,
             government: 85,
             overall: vlmConf
           },
+          vrag: vragData,
           remedy_costs: vlmCosts
         });
         setLoading(false);
@@ -427,11 +444,12 @@ export default function DiseaseDetection() {
         },
         confidence: {
           visual: 96,
-          retrieval: 92,
+          retrieval: vragData ? Math.round(vragData.highest_confidence) : 92,
           government: 90,
           research: 85,
           overall: 94
         },
+        vrag: vragData,
         remedy_costs: [
           { product_name: "Copper Oxychloride 50% WP (500g)", retailer: "BigHaat", cost_inr: "₹320 - ₹380", notes: "Verified price index" },
           { product_name: "Neem Oil 10000 PPM (1L)", retailer: "AgriBegri", cost_inr: "₹550 - ₹620", notes: "Verified price index" }
@@ -788,6 +806,33 @@ WEATHER IMPACT:
                   <span className="text-[9px] text-emerald-500 font-mono block uppercase">Growth Stage</span>
                   <span className="font-bold text-emerald-100 mt-0.5 block">{result.visualEvidence.growthStage}</span>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* LANCEDB VISUAL RAG MATCHES */}
+          {result && result.vrag && result.vrag.matches && (
+            <div className="agri-card-dark p-5 border border-emerald-950/30 bg-[#0a140c]/90 rounded-2xl shadow-lg space-y-3 animate-fade-in">
+              <h3 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-widest border-b border-emerald-950/60 pb-2">
+                {getT("retrievalTitle")}
+              </h3>
+              <div className="space-y-3">
+                {result.vrag.matches.map((match: any, idx: number) => (
+                  <div key={idx} className="p-3 bg-emerald-950/10 border border-emerald-900/35 rounded-xl space-y-2 text-xs">
+                    <div className="flex justify-between items-center">
+                      <span className="font-bold text-emerald-100">{match.label}</span>
+                      <span className="text-[10px] font-mono text-amber-400 font-bold bg-amber-950/40 px-1.5 py-0.5 rounded border border-amber-900/60">
+                        {match.confidence.toFixed(1)}% Match
+                      </span>
+                    </div>
+                    <p className="text-[10.5px] text-[#a7d8b5] leading-relaxed pl-3 border-l border-emerald-900/50">
+                      {match.explanation}
+                    </p>
+                    <p className="text-[9.5px] text-amber-400/90 font-mono">
+                      Treatment: {match.treatment}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           )}

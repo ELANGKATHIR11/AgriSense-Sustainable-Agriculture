@@ -41,9 +41,6 @@ from backend import ollama_service as ollama_svc
 from backend.agents import coder_agent
 from backend.market_intelligence import router as market_intelligence_router
 
-# Initialize database tables
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(
     title="Agrisense AI Gateway v4.0",
     version="4.0.0",
@@ -85,8 +82,22 @@ app.include_router(marketplace_routes.router, prefix="/api")
 app.include_router(system_routes.router, prefix="/api")
 app.include_router(market_intelligence_router, prefix="/api")
 
+from backend.agriops.dashboards import router as agriops_router
+app.include_router(agriops_router.router, prefix="/api")
+
+from backend.rag import rag_router
+app.include_router(rag_router.router, prefix="/api")
+
+from backend.agriops.common import knowledge_router
+app.include_router(knowledge_router.router, prefix="/api")
+
+
+
 @app.on_event("startup")
+
 async def startup_event():
+    from backend.database.setup import setup_database
+    setup_database()
     from backend.market_intelligence.scheduler import start_scheduler
     start_scheduler()
 

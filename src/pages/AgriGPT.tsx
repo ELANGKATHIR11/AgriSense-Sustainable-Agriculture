@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, Trash2, Sparkles, Leaf, Cpu, Activity } from "lucide-react";
+import { Send, Bot, User, Trash2, Sparkles, Leaf, Cpu, Activity, BookOpen } from "lucide-react";
 import { ChatMessage, SensorReading } from "../types";
 import { useTranslation } from "../hooks/useTranslation";
 
@@ -54,6 +54,29 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
     try {
       const activeSensor = sensors[0] || { soilMoisture: 38, temperature: 28, humidity: 60, pH: 6.3, nitrogen: 45, phosphorus: 38, potassium: 42 };
 
+      // Query unified Knowledge Platform context
+      let citations: any[] = [];
+      let confidence = 0.0;
+      let isLiveSearch = false;
+      try {
+        const knowledgeResponse = await fetch("/api/knowledge/retrieve", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: text,
+            sensor_context: activeSensor
+          })
+        });
+        if (knowledgeResponse.ok) {
+          const knowledgeData = await knowledgeResponse.json();
+          citations = knowledgeData.context || [];
+          confidence = knowledgeData.highest_score || 0.0;
+          isLiveSearch = knowledgeData.source_used === "live_web_search";
+        }
+      } catch (e) {
+        console.error("Unified knowledge retrieval failed: ", e);
+      }
+
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { 
@@ -73,7 +96,10 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
         id: "gpt-" + Math.random().toString(36).slice(4, 9),
         role: "model",
         content: data.text || "Unable to generate advisory for this request.",
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        citations: citations,
+        confidence: confidence,
+        isLiveSearch: isLiveSearch
       }]);
     } catch (err: any) {
       setMessages(prev => [...prev, {
@@ -106,6 +132,7 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
             <div className="flex items-center gap-2">
               <span className="agri-badge">🤖 Qwen2.5 1.5B-Instruct</span>
               <span className="agri-badge agri-badge-amber">⚡ Ollama Local</span>
+              <span className="agri-badge bg-blue-500 text-white font-mono">LanceDB MRAG</span>
             </div>
             <h1 className="text-xl font-black tracking-tight">
               {t("agrigpt.title")}
@@ -150,12 +177,42 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
             }`}>
               {m.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
             </div>
-            <div className={`px-4 py-3 rounded-xl text-sm leading-relaxed whitespace-pre-wrap ${
-              m.role === "user"
-                ? "bg-emerald-600 text-white rounded-tr-none"
-                : "bg-white border border-gray-100 text-gray-800 rounded-tl-none shadow-sm"
-            }`}>
-              {m.content}
+            <div className="flex flex-col gap-1.5 max-w-lg">
+              <div className={`px-4 py-3 rounded-xl text-sm leading-relaxed whitespace-pre-wrap ${
+                m.role === "user"
+                  ? "bg-emerald-600 text-white rounded-tr-none"
+                  : "bg-white border border-gray-100 text-gray-800 rounded-tl-none shadow-sm"
+              }`}>
+                {m.content}
+              </div>
+
+              {/* Citations block */}
+              {m.citations && m.citations.length > 0 && (
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center gap-1.5 text-[9px] text-gray-400 font-bold font-mono uppercase tracking-wider">
+                    <BookOpen size={10} className="text-[#1e6140]" />
+                    <span>Knowledge Source:</span>
+                    {m.isLiveSearch && (
+                      <span className="bg-amber-100 text-amber-800 px-1.5 py-0.25 rounded text-[8px] font-mono font-bold">
+                        LIVE SEARCHFALLBACK
+                      </span>
+                    )}
+                    {m.confidence !== undefined && (
+                      <span className="bg-emerald-50 text-emerald-700 px-1.5 py-0.25 rounded text-[8px] font-mono font-bold">
+                        Sim: {(m.confidence * 100).toFixed(0)}%
+                      </span>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-1 gap-1">
+                    {m.citations.map((cit, cidx) => (
+                      <div key={cidx} className="bg-gray-50 border border-gray-100 p-2 rounded-lg text-[10px] text-gray-600">
+                        <p className="font-semibold text-gray-700 line-clamp-2">{cit.text}</p>
+                        <span className="text-[8px] font-mono text-gray-400">Score: {(cit.score * 100).toFixed(1)}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -202,23 +259,16 @@ export default function AgriGPT({ sensors }: AgriGPTProps) {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder={t("agrigpt.placeholder")}
-          className="flex-1 bg-transparent text-sm text-gray-800 placeholder-gray-400 outline-none"
+          className="flex-1 bg-transparent border-none text-sm text-gray-800 outline-none placeholder-gray-400 focus:ring-0"
         />
         <button
-          id="btn-send-agrigpt"
+          id="btn-send-message"
           type="submit"
-          disabled={loading || !inputText.trim()}
-          className="w-9 h-9 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:bg-gray-100 disabled:text-gray-400 text-white flex items-center justify-center flex-shrink-0 transition-all cursor-pointer"
+          className="p-1.5 bg-[#1e6140] hover:bg-[#1a5234] text-white rounded-lg transition-colors flex-shrink-0"
         >
-          {loading ? <Activity className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+          <Send className="w-3.5 h-3.5" />
         </button>
       </form>
-
-      {/* Trace */}
-      <div className="trace-bar flex-shrink-0">
-        <span>MODEL: Qwen2.5 1.5B-Instruct · BACKEND: Ollama Edge Node</span>
-        <span className="text-emerald-600 font-bold">LOCAL · NO CLOUD</span>
-      </div>
     </div>
   );
 }
