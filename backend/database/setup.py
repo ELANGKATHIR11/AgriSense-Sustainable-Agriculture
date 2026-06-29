@@ -78,6 +78,7 @@ def setup_database():
     try:
         # Fallback creation check
         from backend.database.base import Base
+        import backend.database.models
         from backend.database.connection import sync_engine
         Base.metadata.create_all(bind=sync_engine)
         print("✓ Tables Ready")
