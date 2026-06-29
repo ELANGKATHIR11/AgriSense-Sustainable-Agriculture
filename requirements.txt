@@ -9,3 +9,9 @@ numpy
 duckduckgo-search
 pydantic
 pytest-asyncio
+lancedb
+pyarrow
+sentence-transformers
+psycopg[binary]
+python-dotenv
+alembic
