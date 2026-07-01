@@ -21,7 +21,7 @@ from backend.twin_engine import calculate_fao56_et0
 from backend.ml.tabpfn_engine import load_or_init_tabpfn
 from backend.ml.yield_transformer import load_or_train_yield
 
-CLEANED_DATA_PATH = "AgriSense-Dataset/fertilizer_dataset.csv"
+CLEANED_DATA_PATH = "AgriSense-Dataset/consolidated_agriculture_dataset.csv"
 
 class DigitalTwinPipeline:
     def __init__(self):
@@ -34,6 +34,21 @@ class DigitalTwinPipeline:
         try:
             if os.path.exists(CLEANED_DATA_PATH):
                 df = pd.read_csv(CLEANED_DATA_PATH)
+                df = df[df["source_file"] == "fertilizer_dataset.csv"].dropna(how="all", axis=1)
+                
+                col_map = {
+                    "nitrogen": "Nitrogen",
+                    "phosphorous": "Phosphorous",
+                    "potassium": "Potassium",
+                    "temparature": "Temparature",
+                    "humidity": "Humidity",
+                    "ph": "pH",
+                    "moisture": "Moisture"
+                }
+                for c_low, c_orig in col_map.items():
+                    if c_orig not in df.columns and c_low in df.columns:
+                        df[c_orig] = df[c_low]
+                
                 if "Moisture" not in df.columns:
                     df["Moisture"] = np.random.uniform(20, 60, len(df))
                 
@@ -43,8 +58,8 @@ class DigitalTwinPipeline:
                 print("EIF anomaly model trained successfully on telemetry history.")
             else:
                 raise FileNotFoundError()
-        except Exception:
-            print("Telemetry dataset not found. Bootstrapping EIF with synthetic normal agricultural records...")
+        except Exception as e:
+            print(f"Telemetry dataset load failed ({e}). Bootstrapping EIF with synthetic normal agricultural records...")
             N = np.random.uniform(20, 140, 200)
             P = np.random.uniform(10, 90, 200)
             K = np.random.uniform(10, 90, 200)

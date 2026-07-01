@@ -80,24 +80,28 @@ def load_or_init_tabpfn(task: str):
 
         model = TabPFNEmulator()
 
-    # Pre-train/seed TabPFN using existing CSV datasets
+    # Pre-train/seed TabPFN using consolidated CSV dataset
     try:
+        consolidated_path = os.path.join(DATASET_DIR, "consolidated_agriculture_dataset.csv")
         if task == "crop_recommendation":
-            df = pd.read_csv(os.path.join(DATASET_DIR, "Crop_recommendation.csv"))
+            df = pd.read_csv(consolidated_path)
+            df = df[df["source_file"] == "Crop_recommendation.csv"].dropna(subset=['label'])
             X = df[['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall']].values
             y = df['label'].values
             # Subsample for TabPFN size limit (typically fits < 1000 samples)
             indices = np.random.choice(len(X), min(800, len(X)), replace=False)
             model.fit(X[indices], y[indices])
         elif task == "fertilizer_recommendation":
-            df = pd.read_csv(os.path.join(DATASET_DIR, "fertilizer_dataset.csv"))
+            df = pd.read_csv(consolidated_path)
+            df = df[df["source_file"] == "fertilizer_dataset.csv"].dropna(subset=['Fertilizer Name'])
             # Preprocess features
             X = df[['Temparature', 'Humidity ', 'Moisture', 'Nitrogen', 'Potassium', 'Phosphorous']].values
             y = df['Fertilizer Name'].values
             model.fit(X, y)
         elif task == "irrigation_optimization":
             # TabPFN classifies irrigation levels or moisture statuses
-            df = pd.read_csv(os.path.join(DATASET_DIR, "weed_management_dataset.csv"))
+            df = pd.read_csv(consolidated_path)
+            df = df[df["source_file"] == "weed_management_dataset.csv"].dropna(subset=['recommended_action'])
             X = df[['soil_moisture_pct', 'ndvi', 'canopy_cover_pct']].values
             y = df['recommended_action'].values
             model.fit(X, y)

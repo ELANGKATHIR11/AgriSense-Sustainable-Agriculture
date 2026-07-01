@@ -11,9 +11,10 @@ def run_validation_checks() -> dict:
     html_sections = []
     
     # 1. Validate Crop Recommendations
-    crop_path = os.path.join(dataset_dir, "Crop_recommendation.csv")
+    crop_path = os.path.join(dataset_dir, "consolidated_agriculture_dataset.csv")
     if os.path.exists(crop_path):
         df = pd.read_csv(crop_path)
+        df = df[df["source_file"] == "Crop_recommendation.csv"].dropna(how="all", axis=1)
         nulls = int(df.isnull().sum().sum())
         duplicates = int(df.duplicated().sum())
         
