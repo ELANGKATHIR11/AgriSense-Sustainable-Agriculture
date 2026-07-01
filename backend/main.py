@@ -437,6 +437,16 @@ async def get_mlops_data(db: Session = Depends(get_db)):
     }
 
 
+@app.post("/api/mlops/models/{model_id}/status")
+async def update_model_status(model_id: str, status: str, db: Session = Depends(get_db)):
+    model = db.query(ModelRegistry).filter(ModelRegistry.id == model_id).first()
+    if not model:
+        raise HTTPException(status_code=404, detail="Model not found")
+    model.status = status
+    db.commit()
+    return {"message": f"Model {model.name} status updated to {status}"}
+
+
 @app.post("/api/mlops/retrain")
 async def retrain_model_api(payload: dict = Body(...), db: Session = Depends(get_db)):
     model_id = payload.get("modelId")
