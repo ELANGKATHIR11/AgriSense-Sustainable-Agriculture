@@ -14,7 +14,7 @@ from backend.database.connection import (
 
 def audit_database():
     results = {"status": "success", "errors": [], "details": {}}
-    dsn = f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} password={POSTGRES_PASSWORD} dbname={POSTGRES_DB}"
+    dsn = f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} password={POSTGRES_PASSWORD} dbname={POSTGRES_DB} connect_timeout=3"
     
     try:
         conn = psycopg.connect(dsn)
