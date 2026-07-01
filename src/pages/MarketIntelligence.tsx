@@ -70,7 +70,7 @@ export default function MarketIntelligence() {
       const pricesRes = await fetch("/api/market/prices");
       if (pricesRes.ok) {
         const data = await pricesRes.json();
-        setPrices(data);
+        setPrices(data.prices || data);
       }
 
       const updatesRes = await fetch("/api/market/updates");
