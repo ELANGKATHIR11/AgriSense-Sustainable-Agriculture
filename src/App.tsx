@@ -25,7 +25,6 @@ const MLOpsDashboard = lazy(() => import("./pages/MLOpsDashboard"));
 const AgriOpsDashboard = lazy(() => import("./pages/AgriOpsDashboard"));
 const Settings = lazy(() => import("./pages/Settings"));
 const AgentDashboard = lazy(() => import("./pages/AgentDashboard"));
-const Marketplace = lazy(() => import("./pages/Marketplace"));
 const LocalAIHub = lazy(() => import("./pages/LocalAIHub"));
 const MarketIntelligence = lazy(() => import("./pages/MarketIntelligence"));
 
@@ -67,7 +66,6 @@ const navSections = [
   {
     title: "Commerce & Infrastructure",
     items: [
-      { id: "marketplace", label: "Agri Marketplace", icon: <ShoppingBag className="w-4 h-4" /> },
       { id: "market_intelligence", label: "Market Intelligence", icon: <TrendingUp className="w-4 h-4" />, badge: "LIVE" },
       { id: "aihub",       label: "Local AI Hub",     icon: <Terminal className="w-4 h-4" />, badge: "GPU" },
       { id: "agrigpt",     label: "AgriGPT Chat",     icon: <Bot className="w-4 h-4" /> },
@@ -204,7 +202,6 @@ export default function App() {
             case "sensors":     return <SensorMonitoring sensors={sensors} onRefresh={fetchTelemetry} onSimulateIngest={handleSimulateIngest} />;
             case "weather":     return <WeatherIntelligence />;
             case "yield":       return <YieldPrediction />;
-            case "marketplace": return <Marketplace />;
             case "market_intelligence": return <MarketIntelligence />;
             case "aihub":       return <LocalAIHub />;
             case "agrigpt":     return <AgriGPT sensors={sensors} />;

@@ -386,14 +386,14 @@ export default function YieldPrediction() {
                     <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
                       <Coins className="w-4 h-4 text-amber-400" />
                     </div>
-                    <span className="agri-chip chip-amber text-[9px]">USD</span>
+                    <span className="agri-chip chip-amber text-[9px]">INR</span>
                   </div>
                   <div>
                     <span className="text-[10px] font-mono text-emerald-400/60 uppercase tracking-widest font-semibold block">
                       Market Valuation
                     </span>
                     <h3 className="text-3xl font-extrabold text-slate-900 mt-1 tabular-nums">
-                      ${result.marketValueEstimate.toLocaleString()}
+                      ₹{result.marketValueEstimate.toLocaleString()}
                     </h3>
                     <p className="text-[10px] text-emerald-400/50 mt-1 font-mono leading-relaxed">
                       Live local wholesale value schema

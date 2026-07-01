@@ -293,12 +293,39 @@ async def yield_prediction(payload: schemas.YieldInput, db: Session = Depends(ge
         "potassium": payload.potassium
     })
     
+    # Query live Indian market prices for the selected crop
+    from backend.market_intelligence.models import MarketPrice
+    latest_market_price = db.query(MarketPrice).filter(
+        MarketPrice.crop.ilike(payload.cropType)
+    ).order_by(MarketPrice.timestamp.desc()).first()
+    
+    defaults_inr = {
+        "maize": 2200.0,
+        "rice": 2500.0,
+        "tomato": 3000.0,
+        "cucumber": 1800.0,
+        "beans": 4500.0,
+        "wheat": 2300.0
+    }
+    
+    mandi_price_per_q = latest_market_price.price if latest_market_price else defaults_inr.get(payload.cropType.lower(), 2500.0)
+    price_per_ton_inr = mandi_price_per_q * 10
+    predicted_yield = res.get("predictedYieldTons", 0.0)
+    market_value_inr = int(predicted_yield * price_per_ton_inr)
+    
+    res["marketValueEstimate"] = market_value_inr
+    source_info = f"live mandi price of ₹{mandi_price_per_q}/q from '{latest_market_price.market}'" if latest_market_price else "regional fallback price index"
+    res["yieldBreakdown"] = (
+        f"Yield forecasted by deep FT-Transformer regression model. "
+        f"Market valuation calculated using {source_info} (converted to ₹{int(price_per_ton_inr)}/ton)."
+    )
+    
     log_id = f"pl-{uuid.uuid4().hex[:5]}"
     db_log = PredictionLog(
         id=log_id,
         model_name="YieldPredictor-FTTransformer",
         inputs_json=payload.model_dump_json(),
-        output=f"{res['predictedYieldTons']} tons forecast",
+        output=f"{res['predictedYieldTons']} tons forecast (Valuation: ₹{market_value_inr:,})",
         confidence=0.95,
         latency_ms=18,
         drift_score=0.01
