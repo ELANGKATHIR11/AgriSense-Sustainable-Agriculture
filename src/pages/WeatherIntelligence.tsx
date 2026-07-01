@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   CloudSun, Sun, CloudRain, CloudLightning, Cloud,
   Droplets, Wind, AlertTriangle, Sparkles, MapPin, RefreshCw, Thermometer
@@ -11,26 +11,131 @@ import {
 import { WeatherDay } from "../types";
 
 export default function WeatherIntelligence() {
-  const [locationQuery, setLocationQuery] = useState("Zone A – Central Sector");
+  const [locationQuery, setLocationQuery] = useState("Detecting GPS...");
   const [soilPrediction, setSoilPrediction] = useState<string | null>(null);
   const [predicting, setPredicting] = useState(false);
+  const [gpsLoading, setGpsLoading] = useState(false);
+  
+  // Risk levels based on weather data
+  const [blightRisk, setBlightRisk] = useState(30);
+  const [anoxiaRisk, setAnoxiaRisk] = useState(25);
 
-  const forecast: WeatherDay[] = [
+  const [forecast, setForecast] = useState<WeatherDay[]>([
     { date: "Wednesday", temperature: 28.5, humidity: 59, rainfall: 4.2,  condition: "cloudy",  windSpeed: 12 },
     { date: "Thursday",  temperature: 29.1, humidity: 55, rainfall: 0.0,  condition: "sunny",   windSpeed: 8  },
     { date: "Friday",    temperature: 26.3, humidity: 85, rainfall: 42.5, condition: "stormy",  windSpeed: 24 },
     { date: "Saturday",  temperature: 24.8, humidity: 78, rainfall: 15.0, condition: "rainy",   windSpeed: 16 },
     { date: "Sunday",    temperature: 27.2, humidity: 62, rainfall: 1.2,  condition: "sunny",   windSpeed: 10 },
-  ];
+  ]);
+
+  const mapWmoCodeToCondition = (code: number): "sunny" | "cloudy" | "rainy" | "stormy" => {
+    if (code === 0) return "sunny";
+    if (code >= 1 && code <= 3) return "cloudy";
+    if (code >= 45 && code <= 48) return "cloudy";
+    if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return "rainy";
+    return "stormy"; // 71-77, 85-86, 95-99
+  };
+
+  const getDayName = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", { weekday: "long" });
+  };
+
+  const fetchLiveWeather = () => {
+    if (!navigator.geolocation) {
+      setLocationQuery("GPS Not Supported");
+      return;
+    }
+
+    setGpsLoading(true);
+    setLocationQuery("Requesting GPS Position...");
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        setLocationQuery(`Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`);
+
+        try {
+          const response = await fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,relative_humidity_2m_mean,precipitation_sum,weathercode,windspeed_10m_max&timezone=auto`
+          );
+          
+          if (response.ok) {
+            const data = await response.json();
+            const daily = data.daily;
+            
+            const parsedForecast: WeatherDay[] = daily.time.slice(0, 5).map((timeStr: string, idx: number) => {
+              return {
+                date: getDayName(timeStr),
+                temperature: Math.round(daily.temperature_2m_max[idx] * 10) / 10,
+                humidity: Math.round(daily.relative_humidity_2m_mean[idx]),
+                rainfall: Math.round(daily.precipitation_sum[idx] * 10) / 10,
+                condition: mapWmoCodeToCondition(daily.weathercode[idx]),
+                windSpeed: Math.round(daily.windspeed_10m_max[idx])
+              };
+            });
+            
+            setForecast(parsedForecast);
+            generateAgriSuggestions(parsedForecast);
+          } else {
+            setLocationQuery("Weather Fetch Error");
+          }
+        } catch (err) {
+          console.error("Open-Meteo fetch failed", err);
+          setLocationQuery("Network API Error");
+        } finally {
+          setGpsLoading(false);
+        }
+      },
+      (error) => {
+        console.error("Geolocation failed", error);
+        setLocationQuery("GPS Access Denied");
+        setGpsLoading(false);
+      },
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  };
+
+  const generateAgriSuggestions = (days: WeatherDay[]) => {
+    // Computes average values and maximums to produce recommendations
+    const maxRain = Math.max(...days.map(d => d.rainfall));
+    const avgHumid = days.reduce((acc, d) => acc + d.humidity, 0) / days.length;
+    const avgTemp = days.reduce((acc, d) => acc + d.temperature, 0) / days.length;
+
+    let rainDay = days.find(d => d.rainfall === maxRain);
+    let suggestion = "";
+    
+    // Dynamic risk adjustment
+    const calculatedBlightRisk = Math.min(95, Math.round((avgHumid * 0.8) + (avgTemp * 0.4)));
+    const calculatedAnoxiaRisk = Math.min(98, Math.round(maxRain * 2.0));
+    setBlightRisk(calculatedBlightRisk);
+    setAnoxiaRisk(calculatedAnoxiaRisk);
+
+    if (maxRain > 15 && rainDay) {
+      suggestion = `Alert: High rainfall event of ${maxRain}mm detected on ${rainDay.date}. Soil moisture levels are predicted to spike rapidly, creating severe water-clogging and root anoxia risk (calculated at ${calculatedAnoxiaRisk}%). Recommend pausing all drip-irrigation modules 24h prior, clearing main farm outlet drainage channels, and keeping ESP32 edge nodes shielded.`;
+    } else if (avgHumid > 75) {
+      suggestion = `Warning: Elevated relative humidity average of ${avgHumid.toFixed(0)}% creates high pathogen susceptibility, boosting Tomato Late Blight risk to ${calculatedBlightRisk}%. Ensure plants are adequately spaced to maximize air circulation. Recommend applying defensive biological neem oil or organic copper hydroxide sprays.`;
+    } else if (avgTemp > 32) {
+      suggestion = `Warning: High thermal stress average of ${avgTemp.toFixed(1)}°C detected. Micro-climate transpiration index indicates severe evaporation. Increase drip irrigation volume by 25% during early morning hours to maintain root moisture buffers.`;
+    } else {
+      suggestion = `Optimal conditions detected. Consistent temperature (${avgTemp.toFixed(1)}°C) and moderate relative humidity (${avgHumid.toFixed(0)}%) are ideal for vegetative growth. Maintain standard soil moisture settings (32-35%) via localized schedules.`;
+    }
+
+    setSoilPrediction(suggestion);
+  };
+
+  // Run weather fetch automatically on mount
+  useEffect(() => {
+    fetchLiveWeather();
+  }, []);
 
   const predict = () => {
     setPredicting(true);
     setTimeout(() => {
-      setSoilPrediction(
-        "Friday's 42.5 mm storm event will saturate Zone A soil to ~68% moisture — critical water-clogging risk for root vegetables. Recommend closing micro-drip systems 48h before event and clearing drainage channels preemptively."
-      );
+      generateAgriSuggestions(forecast);
       setPredicting(false);
-    }, 1200);
+    }, 800);
   };
 
   const getWeatherIcon = (cond: string) => {
@@ -66,17 +171,15 @@ export default function WeatherIntelligence() {
               5-day agronomic forecast synced with soil moisture models and pathogen risk indices.
             </p>
           </div>
-          <div className="flex items-center gap-2 bg-black/20 border border-emerald-900/40 rounded-xl px-3 py-2 flex-shrink-0">
-            <MapPin className="w-3.5 h-3.5 text-amber-400" />
-            <input
-              id="input-weather-loc"
-              type="text"
-              value={locationQuery}
-              onChange={(e) => setLocationQuery(e.target.value)}
-              className="bg-transparent text-xs font-mono text-white placeholder-emerald-400/60 outline-none w-44"
-              placeholder="Enter zone or location..."
-            />
-          </div>
+          <button
+            onClick={fetchLiveWeather}
+            disabled={gpsLoading}
+            className="flex items-center gap-2 bg-black/20 border border-emerald-900/40 rounded-xl px-3 py-2 flex-shrink-0 text-white cursor-pointer hover:bg-black/30 transition-all text-xs font-mono font-bold"
+          >
+            <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <span>{gpsLoading ? "Syncing GPS..." : locationQuery}</span>
+            <RefreshCw className={`w-3.5 h-3.5 text-emerald-400 ${gpsLoading ? "animate-spin" : ""}`} />
+          </button>
         </div>
       </div>
 
@@ -137,7 +240,7 @@ export default function WeatherIntelligence() {
           <button
             id="btn-run-hydropredict"
             onClick={predict}
-            disabled={predicting}
+            disabled={predicting || gpsLoading}
             className="btn-primary"
           >
             {predicting ? (
@@ -167,21 +270,21 @@ export default function WeatherIntelligence() {
             <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-100 space-y-2">
               <div className="flex justify-between items-center">
                 <p className="text-xs font-bold font-mono text-amber-800 uppercase">Tomato Late Blight</p>
-                <span className="agri-chip chip-amber">62% RISK</span>
+                <span className="agri-chip chip-amber">{blightRisk}% RISK</span>
               </div>
-              <p className="text-xs text-amber-800/80">High humidity forecasted Saturday increases sporulation chance by 22%.</p>
+              <p className="text-xs text-amber-800/80">Relative humidity levels forecasted alter spore germination rate.</p>
               <div className="progress-bar-track">
-                <div className="progress-bar-fill" style={{ width: "62%", background: "linear-gradient(90deg, #f59e0b, #fbbf24)" }} />
+                <div className="progress-bar-fill" style={{ width: `${blightRisk}%`, background: "linear-gradient(90deg, #f59e0b, #fbbf24)" }} />
               </div>
             </div>
             <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 space-y-2">
               <div className="flex justify-between items-center">
                 <p className="text-xs font-bold font-mono text-red-800 uppercase">Root Anoxia Risk</p>
-                <span className="agri-chip chip-red">87% RISK</span>
+                <span className="agri-chip chip-red">{anoxiaRisk}% RISK</span>
               </div>
-              <p className="text-xs text-red-800/80">Friday storm will saturate subsurface soil profiles — clear drainage channels urgently.</p>
+              <p className="text-xs text-red-800/80">Heavy precipitation rates saturate subsurface soil profiles.</p>
               <div className="progress-bar-track">
-                <div className="progress-bar-fill" style={{ width: "87%", background: "linear-gradient(90deg, #ef4444, #f87171)" }} />
+                <div className="progress-bar-fill" style={{ width: `${anoxiaRisk}%`, background: "linear-gradient(90deg, #ef4444, #f87171)" }} />
               </div>
             </div>
           </div>
