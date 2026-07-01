@@ -45,6 +45,35 @@ function checkAndStartOllama() {
   });
 }
 
+function checkAndStartPostgres() {
+  checkPort(5432, (inUse) => {
+    if (!inUse) {
+      console.log('PostgreSQL is offline. Attempting to start service...');
+      const pgctlPath = 'F:\\Program Files\\PostgreSQL\\18\\bin\\pg_ctl.exe';
+      const pgData = 'F:\\Program Files\\PostgreSQL\\18\\data';
+      const fs = require('fs');
+      if (fs.existsSync(pgctlPath)) {
+        exec(`"${pgctlPath}" start -D "${pgData}"`, (err, stdout, stderr) => {
+          if (err) {
+            console.error('Failed to boot PostgreSQL via pg_ctl:', err);
+            exec('net start postgresql-x64-18', (err2) => {
+              if (err2) console.error('Failed to start postgresql service:', err2);
+            });
+          } else {
+            console.log('PostgreSQL daemon started successfully via pg_ctl.');
+          }
+        });
+      } else {
+        exec('net start postgresql-x64-18', (err) => {
+          if (err) console.error('Failed to start postgresql service:', err);
+        });
+      }
+    } else {
+      console.log('PostgreSQL service detected on port 5432.');
+    }
+  });
+}
+
 function startBackend() {
   const isPackaged = app.isPackaged;
   
@@ -93,6 +122,9 @@ function createWindow() {
     }
   });
 
+  // Open Developer Tools
+  mainWindow.webContents.openDevTools();
+
   // Poll FastAPI gateway status on port 8000 and load the page once it responds 200
   const pollInterval = setInterval(() => {
     http.get(`http://127.0.0.1:${PORT}/api/health`, (res) => {
@@ -112,8 +144,12 @@ function createWindow() {
 
 app.on('ready', () => {
   checkAndStartOllama();
-  startBackend();
-  createWindow();
+  checkAndStartPostgres();
+  // Wait a short moment for database port to bind before spawning backend
+  setTimeout(() => {
+    startBackend();
+    createWindow();
+  }, 1500);
 });
 
 app.on('window-all-closed', () => {
