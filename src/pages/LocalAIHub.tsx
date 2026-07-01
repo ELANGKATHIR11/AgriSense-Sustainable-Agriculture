@@ -37,10 +37,10 @@ export default function LocalAIHub() {
 
   const fetchModels = async () => {
     try {
-      const res = await fetch("/api/mlops/models");
+      const res = await fetch("/api/mlops");
       if (res.ok) {
         const data = await res.json();
-        setModels(data.models || []);
+        setModels(data.registry || []);
       }
     } catch (e) {
       console.error("Failed to load model registry", e);

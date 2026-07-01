@@ -70,21 +70,21 @@ export default function AgentDashboard() {
   const fetchState = async () => {
     try {
       // Fetch agents
-      const agentRes = await fetch("/agents/list");
+      const agentRes = await fetch("/api/agents/list");
       if (agentRes.ok) {
         const agentData = await agentRes.json();
         setAgents(agentData);
       }
 
       // Fetch history
-      const historyRes = await fetch("/agents/history");
+      const historyRes = await fetch("/api/agents/history");
       if (historyRes.ok) {
         const historyData = await historyRes.json();
         setHistory(historyData);
       }
 
       // Fetch metrics
-      const metricsRes = await fetch("/metrics");
+      const metricsRes = await fetch("/api/metrics");
       if (metricsRes.ok) {
         const metricsData = await metricsRes.json();
         setMetrics(metricsData.aso_telemetry);
@@ -128,7 +128,7 @@ export default function AgentDashboard() {
     setRunningWorkflow(initialRun);
 
     try {
-      const res = await fetch("/swarm/execute", {
+      const res = await fetch("/api/swarm/execute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ task: taskText })
@@ -152,7 +152,7 @@ export default function AgentDashboard() {
     if (!searchQuery.trim()) return;
     setIsSearching(true);
     try {
-      const res = await fetch(`/memory/search?query=${encodeURIComponent(searchQuery)}`);
+      const res = await fetch(`/api/memory/search?query=${encodeURIComponent(searchQuery)}`);
       if (res.ok) {
         const data = await res.json();
         setSearchResults(data.matches || []);

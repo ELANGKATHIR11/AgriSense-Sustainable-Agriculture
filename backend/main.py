@@ -63,6 +63,7 @@ from backend import farm_routes
 from backend import marketplace_routes
 from backend import system_routes
 from backend.rag import rag_router
+from backend.agents import api_routes as agent_api
 
 from backend import vision_routes
 
@@ -82,6 +83,7 @@ app.include_router(farm_routes.router, prefix="/api")
 app.include_router(marketplace_routes.router, prefix="/api")
 app.include_router(system_routes.router, prefix="/api")
 app.include_router(rag_router.router, prefix="/api")
+app.include_router(agent_api.router, prefix="/api")
 app.include_router(market_intelligence_router, prefix="/api")
 
 from backend.agriops.dashboards import router as agriops_router
