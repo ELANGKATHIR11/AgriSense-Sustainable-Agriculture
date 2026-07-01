@@ -74,35 +74,8 @@ class StorageOptimizer:
         return {"pruned_count": deleted_count, "freed_bytes": freed_bytes}
 
     def vacuum_databases(self) -> dict:
-        """Runs VACUUM on all SQLite databases in the workspace to reclaim unused space."""
-        db_extensions = ["*.db", "*.sqlite", "*.sqlite3"]
-        db_files = []
-        for ext in db_extensions:
-            db_files.extend(glob.glob(os.path.join(self.project_root, "**", ext), recursive=True))
-
-        freed_bytes = 0
-        vacuumed_count = 0
-
-        for db_path in db_files:
-            if "node_modules" in db_path or ".git" in db_path:
-                continue
-            try:
-                initial_size = os.path.getsize(db_path)
-                
-                # Execute VACUUM command
-                conn = sqlite3.connect(db_path)
-                conn.execute("VACUUM")
-                conn.close()
-                
-                final_size = os.path.getsize(db_path)
-                diff = initial_size - final_size
-                if diff > 0:
-                    freed_bytes += diff
-                vacuumed_count += 1
-            except Exception as e:
-                logger.error(f"Failed to vacuum database {db_path}: {e}")
-
-        return {"vacuumed_count": vacuumed_count, "freed_bytes": freed_bytes}
+        """PostgreSQL databases are cleaned automatically. This is a safe no-op to remove SQLite dependency."""
+        return {"vacuumed_count": 0, "freed_bytes": 0}
 
     def compress_logs(self, log_dir: str = "backend/logs") -> dict:
         """Compresses all .log files older than 3 days into zip archives."""

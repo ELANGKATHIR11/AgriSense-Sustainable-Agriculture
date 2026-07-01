@@ -16,7 +16,6 @@ from backend.ml.crop_yield.train_ft_transformer import train_yield_model
 from backend.vision.florence2.train_florence2 import train_florence_vision
 from backend.vision.yolo.train_yolo import train_yolo_weeds
 from backend.ml.eif.train_eif import train_eif_model
-from backend.rag.faiss_builder import build_faiss_index
 from backend.mlops.gpu.gpu_monitor import get_gpu_status
 
 def execute_complete_training():
@@ -53,9 +52,10 @@ def execute_complete_training():
     logger.info("Step 7: Training Extended Isolation Forest references...")
     eif_res = train_eif_model()
 
-    # 8. RAG FAISS Compilation
-    logger.info("Step 8: Constructing BGE-M3 FAISS knowledge index...")
-    faiss_res = build_faiss_index()
+    # 8. RAG LanceDB Compilation
+    logger.info("Step 8: Constructing BGE-M3 LanceDB knowledge index...")
+    from backend.rag.mrag_orchestrator import mrag_orchestrator
+    mrag_orchestrator._migrate_legacy_data()
 
     # 9. GPU Profile Enforcement
     logger.info("Step 9: Enforcing GPU hardware bounds...")
@@ -94,7 +94,7 @@ def execute_complete_training():
             <div class="metric">Florence-2 Vision: <span class="badge">ACC: {florence_res["accuracy"]}</span></div>
             <div class="metric">YOLOv11n Weeds: <span class="badge">mAP50: {yolo_res["mAP50"]}</span></div>
             <div class="metric">EIF Estimators: <span class="badge">PASSED</span></div>
-            <div class="metric">FAISS Embeddings: <span class="badge">COMPLETED</span></div>
+            <div class="metric">LanceDB Collections: <span class="badge">COMPLETED</span></div>
         </div>
     </body>
     </html>

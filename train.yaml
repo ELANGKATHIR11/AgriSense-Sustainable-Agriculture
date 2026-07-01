@@ -1,0 +1,13 @@
+# AgriSense YOLOv11 Dataset Configuration
+path: F:/agrisense-a-smart-agriculture-solution-for-sustainable-farming/AgriSense-Dataset/diseases
+train: disease2/PlantDisease416x416/PlantDisease416x416/train
+val: disease2/PlantDisease416x416/PlantDisease416x416/test
+
+names:
+  0: Leaf
+  1: Fruit
+  2: Stem
+  3: Disease Lesions
+  4: Pest
+  5: Weed
+  6: Damaged Regions

@@ -15,7 +15,21 @@ from typing import List, Dict, Any, Optional
 from datetime import datetime
 
 from backend.rag.embedding_service import get_embedding
-from backend.rag.faiss_service import _KNOWLEDGE_BASE
+
+_KNOWLEDGE_BASE = [
+    {"text": "Tomato Leaf Mold is caused by Passalora fulva. Symptoms include yellow spots on upper leaf surfaces and olive-green velvet mold underneath. Improve greenhouse ventilation and avoid overhead watering.", "disease": "Tomato Leaf Mold"},
+    {"text": "Late Blight on Squash is caused by Phytophthora. Dark water-soaked lesions appear on leaves. Apply copper-based biological fungicide immediately.", "disease": "Late Blight"},
+    {"text": "Nitrogen deficiency causes uniform yellowing of older leaves starting at the tips. Supplement with organic blood meal, urea, or legume compost.", "nutrient": "Nitrogen"},
+    {"text": "Potassium deficiency leads to leaf margin curling and brown necrotic edges. Apply wood ash or kelp meal for correction.", "nutrient": "Potassium"},
+    {"text": "Phosphorus deficiency shows as purple/red discolouration on undersides of leaves. Apply bone meal or rock phosphate.", "nutrient": "Phosphorus"},
+    {"text": "Powdery Mildew shows white talcum-like powdery spots on leaves. Apply neem oil extract or potassium bicarbonate. Ensure full sunlight and good spacing.", "disease": "Powdery Mildew"},
+    {"text": "Corn Common Rust shows reddish-brown powdery pustules on both leaf surfaces. Apply strobilurin or triazole fungicides. Plant rust-resistant hybrids.", "disease": "Corn Rust"},
+    {"text": "Weeds compete for soil nitrogen and moisture. Use mulching or selective organic pre-emergents to control weed growth.", "weed": "Weed competition"},
+    {"text": "Sandy soil has low water retention and nutrients. Add organic matter (compost), use drip irrigation, and apply slow-release NPK fertilizers.", "soil": "Sandy Soil"},
+    {"text": "For rice cultivation, optimal soil pH is 5.5-6.5. Maintain 80-90% soil moisture. Use nitrogen fertilizers in split doses.", "crop": "Rice"},
+    {"text": "For tomato cultivation, optimal soil pH is 6.0-6.8. Water deeply but infrequently. Apply calcium to prevent blossom end rot.", "crop": "Tomato"},
+    {"text": "Irrigation optimization: water requirements depend on crop type, soil moisture, temperature and evapotranspiration. Use drip irrigation for 40% water savings.", "topic": "Irrigation"},
+]
 
 logger = logging.getLogger("AgriOps.MRAG")
 

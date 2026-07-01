@@ -1,34 +1,35 @@
 import os
 import sys
-import sqlite3
 import json
 from datetime import datetime
 
 # Add project root to sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
+import psycopg
+from backend.database.connection import (
+    POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB,
+    POSTGRES_USER, POSTGRES_PASSWORD
+)
+
 def audit_database():
     results = {"status": "success", "errors": [], "details": {}}
-    db_path = "agrisense.db"
-    if not os.path.exists(db_path):
-        results["status"] = "warning"
-        results["errors"].append("agrisense.db file not found at root.")
-        return results
-
+    dsn = f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} password={POSTGRES_PASSWORD} dbname={POSTGRES_DB}"
+    
     try:
-        conn = sqlite3.connect(db_path)
+        conn = psycopg.connect(dsn)
         cursor = conn.cursor()
         
         # Check tables
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='public';")
         tables = [t[0] for t in cursor.fetchall()]
         results["details"]["tables"] = tables
         
         # Verify schema for critical tables
         for table in ["sensor_readings", "model_registry", "prediction_logs"]:
             if table in tables:
-                cursor.execute(f"PRAGMA table_info({table});")
-                cols = [c[1] for c in cursor.fetchall()]
+                cursor.execute(f"SELECT column_name FROM information_schema.columns WHERE table_name='{table}';")
+                cols = [c[0] for c in cursor.fetchall()]
                 results["details"][f"{table}_columns"] = cols
             else:
                 results["errors"].append(f"Table '{table}' is missing from database schema.")
@@ -36,7 +37,7 @@ def audit_database():
         conn.close()
     except Exception as e:
         results["status"] = "failed"
-        results["errors"].append(f"SQLite connection error: {str(e)}")
+        results["errors"].append(f"PostgreSQL connection error: {str(e)}")
     
     return results
 

@@ -14,7 +14,7 @@ POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "")
 
 # Generate DATABASE_URL dynamically (psycopg is the driver for psycopg3 in SQLAlchemy 2.x)
 DATABASE_URL_SYNC = f"postgresql+psycopg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
-DATABASE_URL_ASYNC = f"postgresql+psycopg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+DATABASE_URL_ASYNC = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
 # Async engine for async SQLAlchemy
 async_engine = create_async_engine(

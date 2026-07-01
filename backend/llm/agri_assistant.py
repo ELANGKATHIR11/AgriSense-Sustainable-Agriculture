@@ -70,8 +70,12 @@ async def query_assistant(payload: ChatRequest):
     context_str = ""
     sources = []
     try:
-        from backend.rag.faiss_service import query_kb
-        rag_matches = query_kb(query, k=2)
+        from backend.rag.mrag_orchestrator import mrag_orchestrator
+        rag_matches = mrag_orchestrator.search_collection(
+            collection_name="documents",
+            query=query,
+            k=2
+        )
         if rag_matches:
             context_str = "\n".join([f"- {r['text']}" for r in rag_matches])
             sources = [r["metadata"] for r in rag_matches]

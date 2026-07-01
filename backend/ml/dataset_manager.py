@@ -1,53 +1,56 @@
 import os
 import sys
 import json
-import sqlite3
 import hashlib
 import argparse
 import xml.etree.ElementTree as ET
 from typing import List, Dict, Any, Tuple
 from PIL import Image
-
-DB_PATH = "agrisense_datasets.db"
+import psycopg
+from backend.database.connection import (
+    POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB,
+    POSTGRES_USER, POSTGRES_PASSWORD
+)
 
 class DatasetManager:
     def __init__(self, root_dir: str = "."):
         self.root_dir = root_dir
+        self.dsn = f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} password={POSTGRES_PASSWORD} dbname={POSTGRES_DB}"
         self._init_db()
 
     def _init_db(self):
-        with sqlite3.connect(DB_PATH) as conn:
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS datasets (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT UNIQUE,
-                    path TEXT,
-                    type TEXT,
-                    quality_score REAL,
-                    image_count INTEGER,
-                    annotation_count INTEGER,
-                    status TEXT
-                )
-            """)
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS dataset_versions (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    dataset_id INTEGER,
-                    version_str TEXT,
-                    manifest_path TEXT,
-                    checksum TEXT,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-                )
-            """)
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS duplicates (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    file_hash TEXT UNIQUE,
-                    filepath TEXT,
-                    duplicate_filepath TEXT
-                )
-            """)
-            conn.commit()
+        with psycopg.connect(self.dsn, autocommit=True) as conn:
+            with conn.cursor() as cur:
+                cur.execute("""
+                    CREATE TABLE IF NOT EXISTS datasets (
+                        id SERIAL PRIMARY KEY,
+                        name VARCHAR(255) UNIQUE,
+                        path TEXT,
+                        type VARCHAR(50),
+                        quality_score REAL,
+                        image_count INTEGER,
+                        annotation_count INTEGER,
+                        status VARCHAR(50)
+                    )
+                """)
+                cur.execute("""
+                    CREATE TABLE IF NOT EXISTS dataset_versions (
+                        id SERIAL PRIMARY KEY,
+                        dataset_id INTEGER,
+                        version_str VARCHAR(50),
+                        manifest_path TEXT,
+                        checksum VARCHAR(255),
+                        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                """)
+                cur.execute("""
+                    CREATE TABLE IF NOT EXISTS duplicates (
+                        id SERIAL PRIMARY KEY,
+                        file_hash VARCHAR(255) UNIQUE,
+                        filepath TEXT,
+                        duplicate_filepath TEXT
+                    )
+                """)
 
     def calculate_file_hash(self, filepath: str) -> str:
         """Calculate SHA256 of image to prevent duplicate uploads."""
@@ -149,10 +152,15 @@ class DatasetManager:
                     if f_hash:
                         if f_hash in hashes:
                             results["duplicates"] += 1
-                            with sqlite3.connect(DB_PATH) as conn:
-                                conn.execute("INSERT OR REPLACE INTO duplicates (file_hash, filepath, duplicate_filepath) VALUES (?, ?, ?)",
-                                             (f_hash, hashes[f_hash], filepath))
-                                conn.commit()
+                            with psycopg.connect(self.dsn) as conn:
+                                with conn.cursor() as cur:
+                                    cur.execute("""
+                                        INSERT INTO duplicates (file_hash, filepath, duplicate_filepath)
+                                        VALUES (%s, %s, %s)
+                                        ON CONFLICT (file_hash) DO UPDATE SET
+                                            filepath = EXCLUDED.filepath,
+                                            duplicate_filepath = EXCLUDED.duplicate_filepath
+                                    """, (f_hash, hashes[f_hash], filepath))
                         else:
                             hashes[f_hash] = filepath
                 
@@ -166,12 +174,19 @@ class DatasetManager:
             results["quality_score"] = max(0.0, 100.0 - deduction)
 
         # Register in database
-        with sqlite3.connect(DB_PATH) as conn:
-            conn.execute("""
-                INSERT OR REPLACE INTO datasets (name, path, type, quality_score, image_count, annotation_count, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, (results["name"], results["path"], "YOLO/COCO", results["quality_score"], results["images"], results["labels"], "Active"))
-            conn.commit()
+        with psycopg.connect(self.dsn) as conn:
+            with conn.cursor() as cur:
+                cur.execute("""
+                    INSERT INTO datasets (name, path, type, quality_score, image_count, annotation_count, status)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (name) DO UPDATE SET
+                        path = EXCLUDED.path,
+                        type = EXCLUDED.type,
+                        quality_score = EXCLUDED.quality_score,
+                        image_count = EXCLUDED.image_count,
+                        annotation_count = EXCLUDED.annotation_count,
+                        status = EXCLUDED.status
+                """, (results["name"], results["path"], "YOLO/COCO", results["quality_score"], results["images"], results["labels"], "Active"))
 
         return results
 

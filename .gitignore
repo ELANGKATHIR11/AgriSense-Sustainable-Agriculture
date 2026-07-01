@@ -16,4 +16,6 @@ AgriSense-Dataset/
 *.pth
 *.bin
 AGRIOS/
+*.pt
+runs/
 

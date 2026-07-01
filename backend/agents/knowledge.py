@@ -13,7 +13,7 @@ class RAGAgent(BaseAgent):
         super().__init__(
             name="RAGAgent",
             role="RAG Specialist",
-            skills=["FAISS indexing", "Vector embeddings", "Semantic retrieval", "Context loading"]
+            skills=["LanceDB indexing", "Vector embeddings", "Semantic retrieval", "Context loading"]
         )
 
 class MemoryAgent(BaseAgent):

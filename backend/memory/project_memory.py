@@ -1,34 +1,45 @@
-import sqlite3
+# -*- coding: utf-8 -*-
 import json
-import os
+from datetime import datetime
+from backend.rag.mrag_orchestrator import mrag_orchestrator
 
 class ProjectMemory:
-    def __init__(self, db_path="agents_memory.db"):
-        self.db_path = db_path
-        self._init_db()
-
-    def _init_db(self):
-        with sqlite3.connect(self.db_path) as conn:
-            conn.execute('''
-                CREATE TABLE IF NOT EXISTS memory_log (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    agent_name TEXT,
-                    task TEXT,
-                    result TEXT,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-                )
-            ''')
+    def __init__(self, db_path=None):
+        # db_path is accepted for backwards compatibility, but we use LanceDB
+        pass
 
     def log_task(self, agent_name: str, task: str, result: dict):
-        with sqlite3.connect(self.db_path) as conn:
-            conn.execute(
-                "INSERT INTO memory_log (agent_name, task, result) VALUES (?, ?, ?)",
-                (agent_name, task, json.dumps(result))
-            )
+        doc_id = f"mem-{agent_name}-{int(datetime.utcnow().timestamp())}"
+        text_content = f"Agent: {agent_name}. Task: {task}. Result: {json.dumps(result)}"
+        mrag_orchestrator.index_document(
+            collection_name="agent_memory",
+            doc_id=doc_id,
+            text=text_content,
+            metadata={
+                "agent_name": agent_name,
+                "task": task,
+                "result": result
+            }
+        )
 
     def get_history(self, limit=10):
-        with sqlite3.connect(self.db_path) as conn:
-            cursor = conn.execute("SELECT agent_name, task, result, timestamp FROM memory_log ORDER BY timestamp DESC LIMIT ?", (limit,))
-            return [{"agent": row[0], "task": row[1], "result": json.loads(row[2]), "time": row[3]} for row in cursor.fetchall()]
+        try:
+            tbl = mrag_orchestrator.db.open_table("agent_memory")
+            # Retrieve all records
+            rows = tbl.to_arrow().to_pylist()
+            # Sort by timestamp descending
+            rows.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+            formatted = []
+            for r in rows[:limit]:
+                meta = json.loads(r.get("metadata", "{}"))
+                formatted.append({
+                    "agent": meta.get("agent_name"),
+                    "task": meta.get("task"),
+                    "result": meta.get("result"),
+                    "time": r.get("timestamp")
+                })
+            return formatted
+        except Exception:
+            return []
 
 memory_system = ProjectMemory()
