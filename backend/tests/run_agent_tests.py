@@ -1,106 +1,145 @@
 import os
 import sys
-import json
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Add project root to sys.path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 import psycopg
 from backend.database.connection import (
-    POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB,
-    POSTGRES_USER, POSTGRES_PASSWORD
+    POSTGRES_HOST,
+    POSTGRES_PORT,
+    POSTGRES_DB,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
 )
+
 
 def audit_database():
     results = {"status": "success", "errors": [], "details": {}}
     dsn = f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} password={POSTGRES_PASSWORD} dbname={POSTGRES_DB} connect_timeout=3"
-    
+
     try:
         conn = psycopg.connect(dsn)
         cursor = conn.cursor()
-        
+
         # Check tables
-        cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='public';")
+        cursor.execute(
+            "SELECT table_name FROM information_schema.tables WHERE table_schema='public';"
+        )
         tables = [t[0] for t in cursor.fetchall()]
         results["details"]["tables"] = tables
-        
+
         # Verify schema for critical tables
         for table in ["sensor_readings", "model_registry", "prediction_logs"]:
             if table in tables:
-                cursor.execute(f"SELECT column_name FROM information_schema.columns WHERE table_name='{table}';")
+                cursor.execute(
+                    "SELECT column_name FROM information_schema.columns WHERE table_name = %s;",
+                    (table,),
+                )
                 cols = [c[0] for c in cursor.fetchall()]
                 results["details"][f"{table}_columns"] = cols
             else:
-                results["errors"].append(f"Table '{table}' is missing from database schema.")
-        
+                results["errors"].append(
+                    f"Table '{table}' is missing from database schema."
+                )
+
         conn.close()
     except Exception as e:
         results["status"] = "failed"
         results["errors"].append(f"PostgreSQL connection error: {str(e)}")
-    
+
     return results
+
 
 def audit_codebase():
     results = {"vulnerabilities": [], "code_quality": [], "architecture": []}
-    
+
     # Files to audit
     files_to_check = {
         "backend/main.py": "FastAPI Gateway",
         "backend/database.py": "DB Config",
         "server.ts": "Express Proxy/Server",
-        "backend/agents/api_routes.py": "Agent Router"
+        "backend/agents/api_routes.py": "Agent Router",
     }
-    
+
     for path, desc in files_to_check.items():
         if not os.path.exists(path):
-            results["architecture"].append(f"[Missing File] {path} ({desc}) does not exist.")
+            results["architecture"].append(
+                f"[Missing File] {path} ({desc}) does not exist."
+            )
             continue
-            
+
         with open(path, "r", encoding="utf-8") as f:
             content = f.read()
-            
-            # Security checks
-            if "CORSMiddleware" in content and "allow_origins=[\"*\"]" in content:
-                results["vulnerabilities"].append({
-                    "file": path,
-                    "level": "MEDIUM",
-                    "issue": "Wildcard CORS policy active (allow_origins=['*']).",
-                    "recommendation": "Configure explicit origin lists for production deployment."
-                })
-            
-            if "jwt" not in content.lower() and "auth" not in content.lower() and path == "backend/main.py":
-                results["vulnerabilities"].append({
-                    "file": path,
-                    "level": "HIGH",
-                    "issue": "No Authentication or authorization layer found on backend routes.",
-                    "recommendation": "Implement OAuth2 / JWT bearer tokens to secure APIs."
-                })
 
-            if "sqlite3" in content and "execute" in content and "%" in content and "SELECT" in content:
-                results["vulnerabilities"].append({
-                    "file": path,
-                    "level": "HIGH",
-                    "issue": "Potential SQL Injection risk due to dynamic query string formatting.",
-                    "recommendation": "Always use parameterized queries (i.e. '?', %s) or SQLAlchemy query builder."
-                })
-                
+            # Security checks
+            if "CORSMiddleware" in content and 'allow_origins=["*"]' in content:
+                results["vulnerabilities"].append(
+                    {
+                        "file": path,
+                        "level": "MEDIUM",
+                        "issue": "Wildcard CORS policy active (allow_origins=['*']).",
+                        "recommendation": "Configure explicit origin lists for production deployment.",
+                    }
+                )
+
+            if (
+                "jwt" not in content.lower()
+                and "auth" not in content.lower()
+                and path == "backend/main.py"
+            ):
+                results["vulnerabilities"].append(
+                    {
+                        "file": path,
+                        "level": "HIGH",
+                        "issue": "No Authentication or authorization layer found on backend routes.",
+                        "recommendation": "Implement OAuth2 / JWT bearer tokens to secure APIs.",
+                    }
+                )
+
+            if (
+                "sqlite3" in content
+                and "execute" in content
+                and "%" in content
+                and "SELECT" in content
+            ):
+                results["vulnerabilities"].append(
+                    {
+                        "file": path,
+                        "level": "HIGH",
+                        "issue": "Potential SQL Injection risk due to dynamic query string formatting.",
+                        "recommendation": "Always use parameterized queries (i.e. '?', %s) or SQLAlchemy query builder.",
+                    }
+                )
+
             # Code Quality checks
             if "print(" in content and "api_routes" in path:
-                results["code_quality"].append(f"[{path}] Leftover print statements. Use Python standard logging.")
-                
-            if "except:" in content or "except Exception:" in content and "pass" in content:
-                results["code_quality"].append(f"[{path}] Empty/silent exception catch block. Log or raise error instead of passing.")
+                results["code_quality"].append(
+                    f"[{path}] Leftover print statements. Use Python standard logging."
+                )
+
+            if (
+                "except:" in content
+                or "except Exception:" in content
+                and "pass" in content
+            ):
+                results["code_quality"].append(
+                    f"[{path}] Empty/silent exception catch block. Log or raise error instead of passing."
+                )
 
     return results
+
 
 def generate_report():
     print("Running Joint Swarm Audit (QAAgent + SecurityAgent + PerformanceAgent)...")
     db_res = audit_database()
     code_res = audit_codebase()
-    
+
     report_md = f"""# AGRISENSE SWARM END-TO-END AUDIT REPORT
-Generated on: {datetime.utcnow().isoformat()}Z
+Generated on: {datetime.now(timezone.utc).isoformat()}Z
 Audited By: Executive AI Board & Swarm Review Agents
 
 ---
@@ -113,13 +152,13 @@ Audited By: Executive AI Board & Swarm Review Agents
     if code_res["vulnerabilities"]:
         for v in code_res["vulnerabilities"]:
             report_md += f"""
-- **[{v['level']}]** In `{v['file']}`:
-  - *Issue*: {v['issue']}
-  - *Recommendation*: {v['recommendation']}
+- **[{v["level"]}]** In `{v["file"]}`:
+  - *Issue*: {v["issue"]}
+  - *Recommendation*: {v["recommendation"]}
 """
     else:
         report_md += "\n- No immediate security vulnerabilities detected.\n"
-        
+
     report_md += """
 ---
 
@@ -133,7 +172,7 @@ Audited By: Executive AI Board & Swarm Review Agents
             report_md += f"- ❌ {err}\n"
     else:
         report_md += f"- Schema checks passed on tables: `{', '.join(db_res['details'].get('tables', []))}` ✅\n"
-        
+
     report_md += """
 ### Code Quality Improvements:
 """
@@ -167,8 +206,9 @@ Audited By: Executive AI Board & Swarm Review Agents
     report_path = "f:/agrisense-a-smart-agriculture-solution-for-sustainable-farming/SWARM_AUDIT_REPORT.md"
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(report_md)
-        
+
     print(f"Audit Complete! Report saved to: {report_path}")
+
 
 if __name__ == "__main__":
     generate_report()

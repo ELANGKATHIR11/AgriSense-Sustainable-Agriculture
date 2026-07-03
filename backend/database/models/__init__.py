@@ -1,9 +1,20 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, ForeignKey, Text, Index
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Float,
+    Boolean,
+    DateTime,
+    ForeignKey,
+    Text,
+    Index,
+)
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geography
 
 from backend.database.base import Base
+
 
 # ── 1. Roles & Permissions ──
 class Role(Base):
@@ -12,11 +23,13 @@ class Role(Base):
     name = Column(String, unique=True, index=True, nullable=False)
     description = Column(String)
 
+
 class Permission(Base):
     __tablename__ = "permissions"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True, nullable=False)
     description = Column(String)
+
 
 # ── 2. Users (Existing + Trigram Index on Email) ──
 class User(Base):
@@ -28,8 +41,14 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     preferred_language = Column(String, default="en")
 
+
 # Trigram index on email for fast search
-Index('idx_users_email_trgm', User.email, postgresql_using='gin', postgresql_ops={'email': 'gin_trgm_ops'})
+Index(
+    "idx_users_email_trgm",
+    User.email,
+    postgresql_using="gin",
+    postgresql_ops={"email": "gin_trgm_ops"},
+)
 
 
 # ── 3. Farms, Fields & FarmBoundaries ──
@@ -41,8 +60,15 @@ class Farm(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
+
 # Trigram index on farm name
-Index('idx_farms_name_trgm', Farm.name, postgresql_using='gin', postgresql_ops={'name': 'gin_trgm_ops'})
+Index(
+    "idx_farms_name_trgm",
+    Farm.name,
+    postgresql_using="gin",
+    postgresql_ops={"name": "gin_trgm_ops"},
+)
+
 
 class Field(Base):
     __tablename__ = "fields"
@@ -52,16 +78,31 @@ class Field(Base):
     crop_type = Column(String)
     farm_id = Column(Integer, ForeignKey("farms.id"))
 
+
 # Trigram index on field name and crop type
-Index('idx_fields_name_trgm', Field.name, postgresql_using='gin', postgresql_ops={'name': 'gin_trgm_ops'})
-Index('idx_fields_crop_trgm', Field.crop_type, postgresql_using='gin', postgresql_ops={'crop_type': 'gin_trgm_ops'})
+Index(
+    "idx_fields_name_trgm",
+    Field.name,
+    postgresql_using="gin",
+    postgresql_ops={"name": "gin_trgm_ops"},
+)
+Index(
+    "idx_fields_crop_trgm",
+    Field.crop_type,
+    postgresql_using="gin",
+    postgresql_ops={"crop_type": "gin_trgm_ops"},
+)
+
 
 class FarmBoundary(Base):
     __tablename__ = "farm_boundaries"
     id = Column(Integer, primary_key=True, index=True)
     farm_id = Column(Integer, ForeignKey("farms.id"), unique=True)
     # Geospatial boundary (Polygon or MultiPolygon, SRID=4326)
-    boundary = Column(Geography(geometry_type='GEOMETRY', srid=4326, spatial_index=True), nullable=False)
+    boundary = Column(
+        Geography(geometry_type="GEOMETRY", srid=4326, spatial_index=True),
+        nullable=False,
+    )
     notes = Column(Text)
 
 
@@ -74,8 +115,13 @@ class Sensor(Base):
     status = Column(String, default="active")
     field_id = Column(Integer, ForeignKey("fields.id"), nullable=True)
     # Location as POINT geography
-    location = Column(Geography(geometry_type='POINT', srid=4326, spatial_index=True), nullable=True)
-    last_seen = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    location = Column(
+        Geography(geometry_type="POINT", srid=4326, spatial_index=True), nullable=True
+    )
+    last_seen = Column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
 
 class SensorReading(Base):
     __tablename__ = "sensor_readings"
@@ -99,7 +145,9 @@ class Device(Base):
     device_type = Column(String, default="ESP32")  # Gateway, Node, Actuator
     status = Column(String, default="active")  # active, offline
     field_id = Column(Integer, ForeignKey("fields.id"))
-    last_seen = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    last_seen = Column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
 
 
 # ── 6. Weather (New) ──
@@ -112,7 +160,9 @@ class Weather(Base):
     wind_speed = Column(Float)
     precipitation = Column(Float)
     # Point location
-    location = Column(Geography(geometry_type='POINT', srid=4326, spatial_index=True), nullable=True)
+    location = Column(
+        Geography(geometry_type="POINT", srid=4326, spatial_index=True), nullable=True
+    )
 
 
 # ── 7. Satellite Metadata & Tiles (New) ──
@@ -123,7 +173,10 @@ class SatelliteMetadata(Base):
     acquisition_date = Column(DateTime(timezone=True), index=True)
     cloud_cover = Column(Float)
     # Footprint of the satellite capture
-    footprint = Column(Geography(geometry_type='POLYGON', srid=4326, spatial_index=True), nullable=True)
+    footprint = Column(
+        Geography(geometry_type="POLYGON", srid=4326, spatial_index=True), nullable=True
+    )
+
 
 class SatelliteTile(Base):
     __tablename__ = "satellite_tiles"
@@ -142,7 +195,9 @@ class DroneImage(Base):
     file_path = Column(String)
     resolution_cm = Column(Float)
     # Covered area polygon
-    coverage_area = Column(Geography(geometry_type='POLYGON', srid=4326, spatial_index=True), nullable=True)
+    coverage_area = Column(
+        Geography(geometry_type="POLYGON", srid=4326, spatial_index=True), nullable=True
+    )
 
 
 # ── 9. Crop Health, Disease, Weed & Yield (New) ──
@@ -150,11 +205,16 @@ class CropHealth(Base):
     __tablename__ = "crop_health"
     id = Column(Integer, primary_key=True, index=True)
     field_id = Column(Integer, ForeignKey("fields.id"))
-    assessment_date = Column(DateTime(timezone=True), server_default=func.now(), index=True)
+    assessment_date = Column(
+        DateTime(timezone=True), server_default=func.now(), index=True
+    )
     health_score = Column(Float)  # 0.0 to 1.0
     ndvi_mean = Column(Float)
     # Optional sub-region covered
-    area = Column(Geography(geometry_type='POLYGON', srid=4326, spatial_index=True), nullable=True)
+    area = Column(
+        Geography(geometry_type="POLYGON", srid=4326, spatial_index=True), nullable=True
+    )
+
 
 class DiseaseDetection(Base):
     __tablename__ = "disease_detections"
@@ -165,7 +225,10 @@ class DiseaseDetection(Base):
     severity = Column(String, default="low")  # low, medium, high
     timestamp = Column(DateTime(timezone=True), server_default=func.now(), index=True)
     # Geo location of detection
-    location = Column(Geography(geometry_type='POINT', srid=4326, spatial_index=True), nullable=True)
+    location = Column(
+        Geography(geometry_type="POINT", srid=4326, spatial_index=True), nullable=True
+    )
+
 
 class WeedDetection(Base):
     __tablename__ = "weed_detections"
@@ -176,7 +239,10 @@ class WeedDetection(Base):
     density = Column(Float)  # weeds per sq meter
     timestamp = Column(DateTime(timezone=True), server_default=func.now(), index=True)
     # Location of detection
-    location = Column(Geography(geometry_type='POINT', srid=4326, spatial_index=True), nullable=True)
+    location = Column(
+        Geography(geometry_type="POINT", srid=4326, spatial_index=True), nullable=True
+    )
+
 
 class YieldPrediction(Base):
     __tablename__ = "yield_predictions"
@@ -185,8 +251,12 @@ class YieldPrediction(Base):
     predicted_yield = Column(Float)  # metric tons / hectare
     confidence = Column(Float)
     crop_type = Column(String)
-    prediction_date = Column(DateTime(timezone=True), server_default=func.now(), index=True)
-    boundary = Column(Geography(geometry_type='POLYGON', srid=4326, spatial_index=True), nullable=True)
+    prediction_date = Column(
+        DateTime(timezone=True), server_default=func.now(), index=True
+    )
+    boundary = Column(
+        Geography(geometry_type="POLYGON", srid=4326, spatial_index=True), nullable=True
+    )
 
 
 # ── 10. Recommendations & Notifications ──
@@ -198,6 +268,7 @@ class Recommendation(Base):
     content = Column(Text)
     severity = Column(String, default="info")  # info, warning, critical
     created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
+
 
 class Notification(Base):
     __tablename__ = "notifications"
@@ -221,6 +292,7 @@ class Task(Base):
     assigned_to = Column(Integer, ForeignKey("users.id"), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
+
 class AIAgent(Base):
     __tablename__ = "ai_agents"
     id = Column(Integer, primary_key=True, index=True)
@@ -230,12 +302,14 @@ class AIAgent(Base):
     status = Column(String, default="active")
     tools = Column(Text)  # JSON or comma-separated list of tool names
 
+
 class Chat(Base):
     __tablename__ = "chats"
     id = Column(Integer, primary_key=True, index=True)
     session_id = Column(String, unique=True, index=True)
     title = Column(String)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
 
 class Document(Base):
     __tablename__ = "documents"
@@ -255,6 +329,7 @@ class AuditLog(Base):
     user_email = Column(String)
     details = Column(Text)
 
+
 class TwinState(Base):
     __tablename__ = "twin_state"
     id = Column(Integer, primary_key=True, index=True)
@@ -263,6 +338,7 @@ class TwinState(Base):
     risk_index = Column(Float)
     yield_index = Column(Float)
     sustainability_index = Column(Float)
+
 
 class ModelRegistry(Base):
     __tablename__ = "model_registry"
@@ -277,6 +353,7 @@ class ModelRegistry(Base):
     last_retrained = Column(DateTime(timezone=True))
     prediction_count = Column(Integer, default=0)
 
+
 class PredictionLog(Base):
     __tablename__ = "prediction_logs"
     id = Column(String, primary_key=True, index=True)
@@ -288,6 +365,7 @@ class PredictionLog(Base):
     latency_ms = Column(Integer)
     drift_score = Column(Float)
 
+
 class MarketProduct(Base):
     __tablename__ = "marketplace_products"
     id = Column(Integer, primary_key=True, index=True)
@@ -298,6 +376,7 @@ class MarketProduct(Base):
     buy_url = Column(String)
     description = Column(Text)
 
+
 class Vendor(Base):
     __tablename__ = "marketplace_vendors"
     id = Column(Integer, primary_key=True, index=True)
@@ -305,6 +384,7 @@ class Vendor(Base):
     contact = Column(String)
     location = Column(String)
     rating = Column(Float, default=5.0)
+
 
 class Subscription(Base):
     __tablename__ = "subscriptions"
@@ -314,6 +394,7 @@ class Subscription(Base):
     status = Column(String, default="active")
     start_date = Column(DateTime(timezone=True), server_default=func.now())
     end_date = Column(DateTime(timezone=True))
+
 
 class LicenseKey(Base):
     __tablename__ = "licenses"

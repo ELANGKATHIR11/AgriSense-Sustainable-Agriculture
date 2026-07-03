@@ -1,6 +1,6 @@
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field
 from typing import List, Optional
-from datetime import datetime
+
 
 # Telemetry
 class TelemetryInbound(BaseModel):
@@ -13,13 +13,16 @@ class TelemetryInbound(BaseModel):
     phosphorus: int = Field(..., ge=0, le=500)
     potassium: int = Field(..., ge=0, le=500)
 
+
 # Chat
 class ChatMessage(BaseModel):
     role: str
     content: str
 
+
 class ChatRequest(BaseModel):
     messages: List[ChatMessage]
+
 
 # ML Inputs
 class CropRecommendationInput(BaseModel):
@@ -31,11 +34,13 @@ class CropRecommendationInput(BaseModel):
     ph: float
     rainfall: float
 
+
 class IrrigationInput(BaseModel):
     moisture: float
     temperature: float
     humidity: float
     cropType: Optional[str] = None
+
 
 class YieldInput(BaseModel):
     areaAcres: float
@@ -46,11 +51,13 @@ class YieldInput(BaseModel):
     phosphorus: Optional[float] = 38.0
     potassium: Optional[float] = 42.0
 
+
 # Outputs
 class CropPrediction(BaseModel):
     crops: List[dict]
     optimalPH: str
     nutritionStatus: str
+
 
 class IrrigationPrediction(BaseModel):
     waterRequiredLiters: float
@@ -58,6 +65,7 @@ class IrrigationPrediction(BaseModel):
     advice: str
     durationMinutes: int
     irrigationSchedule: str
+
 
 class YieldPrediction(BaseModel):
     predictedYieldTons: float

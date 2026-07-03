@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import httpx
 import logging
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from pydantic import BaseModel
 
 router = APIRouter(prefix="/ml/coder", tags=["Developer Agent"])
@@ -9,9 +9,11 @@ router = APIRouter(prefix="/ml/coder", tags=["Developer Agent"])
 logger = logging.getLogger("CoderAgent")
 OLLAMA_BASE = "http://localhost:11434"
 
+
 class CoderRequest(BaseModel):
     prompt: str
     context: str = ""
+
 
 @router.post("/execute")
 async def run_coder_agent(payload: CoderRequest):
@@ -24,11 +26,14 @@ async def run_coder_agent(payload: CoderRequest):
                     "You are the AgriSense Coder Agent. Your job is to generate clean python code, "
                     "SQL queries, bug fixes, or unit tests for the AgriSense smart agriculture platform. "
                     "Output clean, modular code with minimal conversational explanation."
-                )
+                ),
             },
-            {"role": "user", "content": f"Context: {payload.context}\n\nTask: {payload.prompt}"}
+            {
+                "role": "user",
+                "content": f"Context: {payload.context}\n\nTask: {payload.prompt}",
+            },
         ],
-        "stream": False
+        "stream": False,
     }
 
     try:
@@ -36,7 +41,11 @@ async def run_coder_agent(payload: CoderRequest):
             resp = await client.post(f"{OLLAMA_BASE}/api/chat", json=ollama_payload)
             if resp.status_code == 200:
                 answer = resp.json().get("message", {}).get("content", "")
-                return {"result": answer, "agent": "CoderAgent Qwen3B", "status": "SUCCESS"}
+                return {
+                    "result": answer,
+                    "agent": "CoderAgent Qwen3B",
+                    "status": "SUCCESS",
+                }
     except Exception as e:
         logger.warning(f"Ollama Coder model not available: {e}")
 
@@ -44,5 +53,5 @@ async def run_coder_agent(payload: CoderRequest):
     return {
         "result": "# Coder Agent Fallback Template\ndef run_check():\n    print('Calibration OK')\n",
         "agent": "CoderAgent Emulator",
-        "status": "FALLBACK"
+        "status": "FALLBACK",
     }

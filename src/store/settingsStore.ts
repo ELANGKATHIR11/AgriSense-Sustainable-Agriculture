@@ -2,7 +2,7 @@
  * AGRISENSE System Settings Parameter Store
  */
 
-import { create } from "zustand";
+import create from "zustand";
 
 interface SettingsState {
   farmName: string;
@@ -15,7 +15,7 @@ interface SettingsState {
   setSystemStatus: (status: "Healthy" | "Maintenance" | "Offline") => void;
 }
 
-export const useSettingsStore = create<SettingsState>((set) => ({
+export const useSettingsStore = create((set) => ({
   farmName: "North Grid Sector-A",
   moistureAlertThreshold: 35,
   language: "English (US)",

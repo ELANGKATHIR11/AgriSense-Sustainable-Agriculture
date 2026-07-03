@@ -9,13 +9,14 @@ import os
 import psutil
 import logging
 from typing import Dict, Any, List
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy.orm import Session
-from backend.database.models import Notification, AuditLog, ModelRegistry
+from backend.database.models import Notification, AuditLog
 from backend.agriops.common.event_bus import event_bus
 from backend.agriops.telemetry.tracer import trace_span
 
 logger = logging.getLogger("AgriOps.AIOps")
+
 
 class AIOpsService:
     @trace_span("AIOps.GetHardwareMetrics")
@@ -25,32 +26,33 @@ class AIOpsService:
         """
         cpu_pct = psutil.cpu_percent()
         ram = psutil.virtual_memory()
-        
+
         # Simple simulated GPU stats since CUDA might not be loaded in standard developer envs
-        gpu_vram_total = 8192 # 8GB VRAM
+        gpu_vram_total = 8192  # 8GB VRAM
         gpu_vram_used = 3450  # 3.4GB VRAM
         gpu_util = 35.0
 
         try:
             # Check pynvml if available
             import pynvml
+
             pynvml.nvmlInit()
             handle = pynvml.nvmlDeviceGetHandleByIndex(0)
             info = pynvml.nvmlDeviceGetMemoryInfo(handle)
-            gpu_vram_total = info.total / (1024 ** 2)
-            gpu_vram_used = info.used / (1024 ** 2)
+            gpu_vram_total = info.total / (1024**2)
+            gpu_vram_used = info.used / (1024**2)
             gpu_util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
         except Exception:
             pass
 
         return {
             "cpu_percentage": cpu_pct,
-            "ram_total_mb": int(ram.total / (1024 ** 2)),
-            "ram_used_mb": int(ram.used / (1024 ** 2)),
+            "ram_total_mb": int(ram.total / (1024**2)),
+            "ram_used_mb": int(ram.used / (1024**2)),
             "gpu_vram_total_mb": int(gpu_vram_total),
             "gpu_vram_used_mb": int(gpu_vram_used),
             "gpu_utilization": gpu_util,
-            "host_os": os.name
+            "host_os": os.name,
         }
 
     @trace_span("AIOps.RunDiagnosticsCheck")
@@ -64,23 +66,27 @@ class AIOpsService:
         # Check 1: VRAM Threshold
         vram_pct = (metrics["gpu_vram_used_mb"] / metrics["gpu_vram_total_mb"]) * 100
         if vram_pct > 85.0:
-            alerts.append({
-                "title": "GPU VRAM Out of Memory Risk",
-                "message": f"GPU utilization is high. VRAM at {vram_pct:.1f}% capacity.",
-                "severity": "critical",
-                "remediation": "clear_model_cache"
-            })
+            alerts.append(
+                {
+                    "title": "GPU VRAM Out of Memory Risk",
+                    "message": f"GPU utilization is high. VRAM at {vram_pct:.1f}% capacity.",
+                    "severity": "critical",
+                    "remediation": "clear_model_cache",
+                }
+            )
 
         # Check 2: Database Connection
         try:
             db.execute("SELECT 1")
         except Exception as e:
-            alerts.append({
-                "title": "Database degradation detected",
-                "message": f"SQLAlchemy engine connection failed: {e}",
-                "severity": "critical",
-                "remediation": "recycle_connections"
-            })
+            alerts.append(
+                {
+                    "title": "Database degradation detected",
+                    "message": f"SQLAlchemy engine connection failed: {e}",
+                    "severity": "critical",
+                    "remediation": "recycle_connections",
+                }
+            )
 
         # Process automatic self-healing remediations
         for alert in alerts:
@@ -90,7 +96,7 @@ class AIOpsService:
                 message=alert["message"],
                 severity=alert["severity"],
                 is_read=False,
-                timestamp=datetime.utcnow()
+                timestamp=datetime.now(timezone.utc),
             )
             db.add(notif)
             db.commit()
@@ -101,21 +107,27 @@ class AIOpsService:
         return alerts
 
     async def _execute_remediation(self, db: Session, task_name: str):
-        logger.warning(f"Triggering automatic AIOps Self-Healing remediation task: {task_name}")
-        
+        logger.warning(
+            f"Triggering automatic AIOps Self-Healing remediation task: {task_name}"
+        )
+
         # Fire event
-        await event_bus.publish("GPUOOM" if task_name == "clear_model_cache" else "DatabaseOffline", {
-            "remediation": task_name,
-            "timestamp": datetime.utcnow().isoformat()
-        })
+        await event_bus.publish(
+            "GPUOOM" if task_name == "clear_model_cache" else "DatabaseOffline",
+            {
+                "remediation": task_name,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            },
+        )
 
         # Log remediation success to AuditLog
         audit = AuditLog(
             action="SELF_HEALING",
             user_email="aiops@agriops.io",
-            details=f"Successfully executed self-healing task: {task_name}. Restored operations."
+            details=f"Successfully executed self-healing task: {task_name}. Restored operations.",
         )
         db.add(audit)
         db.commit()
+
 
 aiops_service = AIOpsService()

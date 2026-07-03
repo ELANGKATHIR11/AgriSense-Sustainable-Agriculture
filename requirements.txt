@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-sqlalchemy
+sqlalchemy>=2.0
 httpx
 beautifulsoup4
 pytest
@@ -16,3 +16,4 @@ psycopg[binary]
 python-dotenv
 alembic
 asyncpg
+geoalchemy2

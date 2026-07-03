@@ -4,7 +4,10 @@ from .connection import sync_engine, async_engine
 
 # Sync and Async Session factories
 SessionLocalSync = sessionmaker(autocommit=False, autoflush=False, bind=sync_engine)
-SessionLocalAsync = async_sessionmaker(bind=async_engine, expire_on_commit=False, class_=AsyncSession)
+SessionLocalAsync = async_sessionmaker(
+    bind=async_engine, expire_on_commit=False, class_=AsyncSession
+)
+
 
 # Dependency Injection helper for synchronous operations
 def get_db():
@@ -13,6 +16,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 # Dependency Injection helper for asynchronous operations
 async def get_async_db():

@@ -4,10 +4,12 @@ from sqlalchemy.future import select
 
 T = TypeVar("T")
 
+
 class BaseRepository(Generic[T]):
     """
     A generic async repository implementing SOLID principles for database operations.
     """
+
     def __init__(self, model: Type[T], db: AsyncSession):
         self.model = model
         self.db = db

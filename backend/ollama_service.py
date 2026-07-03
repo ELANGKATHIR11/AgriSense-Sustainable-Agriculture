@@ -2,18 +2,21 @@
 AGRISENSE Ollama Integration Service
 Provides AgriGPT chat (qwen2.5-coder:3b) and SmolVLM vision (riven/smolvlm).
 """
+
 import httpx
 import base64
 import logging
 import json
-from typing import List, Optional
+from typing import Optional
 
 logger = logging.getLogger("AgrisenseOllama")
 
 OLLAMA_BASE = "http://localhost:11434"
 
 
-async def chat_with_agrigpt(message: str, history: list = None, lang: str = "en") -> str:
+async def chat_with_agrigpt(
+    message: str, history: list = None, lang: str = "en"
+) -> str:
     """
     Send a chat message to Ollama qwen2.5-coder:3b with agricultural system prompt.
     Falls back to a keyword-based expert response if Ollama is unavailable.
@@ -28,31 +31,33 @@ async def chat_with_agrigpt(message: str, history: list = None, lang: str = "en"
         "Provide detailed, actionable advice with scientific context. "
         "Use markdown formatting for clarity."
     )
-    
+
     # Inject language constraints
     lang_instructions = {
         "en": "You must respond only in English.",
         "ta": "You must respond only in Tamil (தமிழ்).",
         "te": "You must respond only in Telugu (తెలుగు).",
         "ml": "You must respond only in Malayalam (മലയാളം).",
-        "hi": "You must respond only in Hindi (हिन्दी)."
+        "hi": "You must respond only in Hindi (हिन्दी).",
     }
     system_prompt += f"\n{lang_instructions.get(lang, lang_instructions['en'])}"
-    
+
     if rag_context:
         system_prompt += f"\nUse the following verified RAG database information to enrich your response:\n{rag_context}"
 
     messages = [{"role": "system", "content": system_prompt}]
     if history:
         for h in history[-6:]:  # Keep last 6 messages for context
-            messages.append({"role": h.get("role", "user"), "content": h.get("content", "")})
+            messages.append(
+                {"role": h.get("role", "user"), "content": h.get("content", "")}
+            )
     messages.append({"role": "user", "content": message})
 
     payload = {
         "model": "qwen2.5:1.5b-instruct",
         "messages": messages,
         "stream": False,
-        "options": {"temperature": 0.7, "num_predict": 512}
+        "options": {"temperature": 0.7, "num_predict": 512},
     }
 
     try:
@@ -66,7 +71,7 @@ async def chat_with_agrigpt(message: str, history: list = None, lang: str = "en"
 
     # ── Fallback: keyword-based expert responses ─────────────────────
     from backend.localization.translator import translate_text
-    
+
     def get_fallback_reply(message_text: str) -> str:
         msg = message_text.lower()
         if any(w in msg for w in ["nitrogen", "npk", "fertilizer"]):
@@ -124,9 +129,14 @@ async def chat_with_agrigpt(message: str, history: list = None, lang: str = "en"
     return translate_text(raw_fallback, lang)
 
 
-async def analyze_image_vlm(image_bytes: bytes, mode: str = "disease", vlm_model: str = "riven/smolvlm", file_name: Optional[str] = None) -> dict:
+async def analyze_image_vlm(
+    image_bytes: bytes,
+    mode: str = "disease",
+    vlm_model: str = "riven/smolvlm:latest",
+    file_name: Optional[str] = None,
+) -> dict:
     """
-    Send an image to Ollama (default riven/smolvlm) for disease/weed detection.
+    Send an image to Ollama (default riven/smolvlm:latest) for disease/weed detection.
     Falls back to randomized expert predictions if Ollama is unavailable.
     """
     b64_image = base64.b64encode(image_bytes).decode("utf-8")
@@ -155,7 +165,7 @@ async def analyze_image_vlm(image_bytes: bytes, mode: str = "disease", vlm_model
         "prompt": prompt,
         "images": [b64_image],
         "stream": False,
-        "options": {"temperature": 0.3, "num_predict": 300}
+        "options": {"temperature": 0.3, "num_predict": 300},
     }
 
     try:
@@ -182,52 +192,104 @@ async def analyze_image_vlm(image_bytes: bytes, mode: str = "disease", vlm_model
     # ── Fallback predictions ─────────────────────────────────────────
     if file_name:
         fn_lower = file_name.lower()
-        if "pepper" in fn_lower or "bacterial" in fn_lower or "spot" in fn_lower or "bell" in fn_lower:
+        if (
+            "pepper" in fn_lower
+            or "bacterial" in fn_lower
+            or "spot" in fn_lower
+            or "bell" in fn_lower
+        ):
             return {
                 "disease": "Pepper Bell Bacterial Spot",
                 "confidence": 93.6,
                 "severity": "high",
-                "symptoms": ["Small water-soaked leaf spots", "Dark circular leaf lesions", "Premature foliage defoliation"],
-                "recommendations": ["Apply copper-based protectant sprays", "Remove and burn infected leaf debris", "Avoid overhead irrigation during early bloom"],
+                "symptoms": [
+                    "Small water-soaked leaf spots",
+                    "Dark circular leaf lesions",
+                    "Premature foliage defoliation",
+                ],
+                "recommendations": [
+                    "Apply copper-based protectant sprays",
+                    "Remove and burn infected leaf debris",
+                    "Avoid overhead irrigation during early bloom",
+                ],
             }
 
     import random
+
     fallbacks = [
         {
             "disease": "Tomato Leaf Mold",
-            "confidence": 94.5, "severity": "medium",
-            "symptoms": ["Yellow spots on upper leaf surfaces", "Olive-green velvet-like mold on under-leaves", "Curling foliage"],
-            "recommendations": ["Improve ventilation in greenhouse", "Avoid overhead crop watering", "Apply copper-based biological fungicide"],
+            "confidence": 94.5,
+            "severity": "medium",
+            "symptoms": [
+                "Yellow spots on upper leaf surfaces",
+                "Olive-green velvet-like mold on under-leaves",
+                "Curling foliage",
+            ],
+            "recommendations": [
+                "Improve ventilation in greenhouse",
+                "Avoid overhead crop watering",
+                "Apply copper-based biological fungicide",
+            ],
         },
         {
             "disease": "Powdery Mildew on Squash",
-            "confidence": 88.2, "severity": "low",
-            "symptoms": ["White talcum-like powdery spots on leaves", "Premature leaf defoliation", "Stunted vegetative growth"],
-            "recommendations": ["Ensure full direct sunlight", "Space plants adequately", "Apply neem oil extract"],
+            "confidence": 88.2,
+            "severity": "low",
+            "symptoms": [
+                "White talcum-like powdery spots on leaves",
+                "Premature leaf defoliation",
+                "Stunted vegetative growth",
+            ],
+            "recommendations": [
+                "Ensure full direct sunlight",
+                "Space plants adequately",
+                "Apply neem oil extract",
+            ],
         },
         {
             "disease": "Broadleaf Weed (Pigweed)",
-            "confidence": 91.0, "severity": "high",
-            "symptoms": ["Erect red/green weed clusters", "Aggressive moisture depletion", "Rapid seed dispersal"],
-            "recommendations": ["Targeted localized weed extraction", "Apply organic cover compost", "Use selective pre-emergents"],
+            "confidence": 91.0,
+            "severity": "high",
+            "symptoms": [
+                "Erect red/green weed clusters",
+                "Aggressive moisture depletion",
+                "Rapid seed dispersal",
+            ],
+            "recommendations": [
+                "Targeted localized weed extraction",
+                "Apply organic cover compost",
+                "Use selective pre-emergents",
+            ],
         },
         {
             "disease": "Healthy Vegetation",
-            "confidence": 97.4, "severity": "low",
-            "symptoms": ["Vibrant chloroplast color", "Good structural turgor pressure", "No pathogenic necrosis"],
-            "recommendations": ["Maintain current irrigation", "Continue companion planting", "Document baseline metrics"],
+            "confidence": 97.4,
+            "severity": "low",
+            "symptoms": [
+                "Vibrant chloroplast color",
+                "Good structural turgor pressure",
+                "No pathogenic necrosis",
+            ],
+            "recommendations": [
+                "Maintain current irrigation",
+                "Continue companion planting",
+                "Document baseline metrics",
+            ],
         },
     ]
     return random.choice(fallbacks)
 
 
-async def ask_qwen_coder(prompt: str, system: str = "You are a smart assistant.") -> dict:
+async def ask_qwen_coder(
+    prompt: str, system: str = "You are a smart assistant."
+) -> dict:
     """
     Send a prompt to qwen2.5-coder:3b expecting a JSON response for ASO agent task execution.
     """
     messages = [
         {"role": "system", "content": system},
-        {"role": "user", "content": prompt}
+        {"role": "user", "content": prompt},
     ]
 
     payload = {
@@ -235,7 +297,7 @@ async def ask_qwen_coder(prompt: str, system: str = "You are a smart assistant."
         "messages": messages,
         "stream": False,
         "format": "json",
-        "options": {"temperature": 0.2, "num_predict": 1024}
+        "options": {"temperature": 0.2, "num_predict": 1024},
     }
 
     try:
@@ -250,5 +312,5 @@ async def ask_qwen_coder(prompt: str, system: str = "You are a smart assistant."
                     return {}
     except Exception as e:
         logger.warning(f"Ollama Qwen-coder unavailable: {e}")
-    
+
     return {}

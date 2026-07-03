@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import time
 import httpx
-import subprocess
 import logging
 
 logger = logging.getLogger("DesktopManager")
+
 
 def verify_and_connect_ollama():
     """Ensure Ollama local service port is listening and Qwen models are loaded."""
@@ -15,8 +15,11 @@ def verify_and_connect_ollama():
             logger.info("Ollama local service port is online.")
             return True
     except Exception:
-        logger.warning("Ollama port 11434 not reachable. Please start Ollama desktop client.")
+        logger.warning(
+            "Ollama port 11434 not reachable. Please start Ollama desktop client."
+        )
     return False
+
 
 def supervise_fastapi_services():
     """Sidecar verification routine to check gateway health status."""
@@ -25,5 +28,5 @@ def supervise_fastapi_services():
     return {
         "gateway_status": "ONLINE",
         "ollama_connected": ollama_ok,
-        "timestamp": time.time()
+        "timestamp": time.time(),
     }

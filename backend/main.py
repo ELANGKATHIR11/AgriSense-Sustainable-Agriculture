@@ -9,12 +9,11 @@ database persistence, digital twin updates, and local RAG/chat assistant pipelin
 import os
 import sys
 import uuid
-import base64
 import logging
-from datetime import datetime
-from typing import List, Optional, Dict, Any
+from datetime import datetime, timezone
+from typing import List, Optional
 
-from fastapi import FastAPI, Depends, HTTPException, status, Body, Header
+from fastapi import FastAPI, Depends, HTTPException, Body, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -22,9 +21,15 @@ from sqlalchemy.orm import Session
 # Add project root to sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from backend.database import engine, get_db, Base
-from backend.models import SensorReading, ModelRegistry, PredictionLog, TwinState
-from backend.market_intelligence.models import MarketPrice, GovernmentUpdate, AgricultureNews, ScrapeCache, KnownSource, MarketIntelligenceMetric, CacheEntry
+# Import Antigravity configuration
+from backend.config.antigravity_config import AG_CONFIG
+from google.antigravity import Agent, Conversation
+
+from backend.database import get_db
+from backend.models import SensorReading, ModelRegistry, PredictionLog
+from backend.market_intelligence.models import (
+    MarketPrice,
+)
 from backend import schemas
 from backend import twin_engine
 from backend.digital_twin.twin_pipeline import twin_pipeline
@@ -44,8 +49,19 @@ from backend.market_intelligence import router as market_intelligence_router
 app = FastAPI(
     title="Agrisense AI Gateway v4.0",
     version="4.0.0",
-    description="Modernized consolidated API server utilizing TabPFN, FT-Transformer, Florence-2, YOLOv11 and local Ollama Qwen models."
+    description="Modernized consolidated API server utilizing TabPFN, FT-Transformer, Florence-2, YOLOv11 and local Ollama Qwen models.",
 )
+
+# Antigravity agent middleware - creates a new Agent per request
+@app.middleware("http")
+async def antigravity_agent_middleware(request, call_next):
+    # Each request gets its own conversation state
+    conversation = Conversation()
+    agent = Agent(config=AG_CONFIG, conversation=conversation)
+    # Store agent in request.state for downstream handlers
+    request.state.agent = agent
+    response = await call_next(request)
+    return response
 
 # Cross-cutting middleware
 app.add_middleware(
@@ -87,29 +103,34 @@ app.include_router(agent_api.router, prefix="/api")
 app.include_router(market_intelligence_router, prefix="/api")
 
 from backend.agriops.dashboards import router as agriops_router
+
 app.include_router(agriops_router.router, prefix="/api")
 
 from backend.rag import rag_router
+
 app.include_router(rag_router.router, prefix="/api")
 
 from backend.agriops.common import knowledge_router
+
 app.include_router(knowledge_router.router, prefix="/api")
 
 
-
 @app.on_event("startup")
-
 async def startup_event():
     from backend.database.setup import setup_database
+
     setup_database()
     from backend.market_intelligence.scheduler import start_scheduler
+
     start_scheduler()
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("AgrisenseBackend")
 
 
 # ── Database Seeder ──────────────────────────────────────────────────────────
+
 
 def seed_db():
     db = next(get_db())
@@ -118,13 +139,90 @@ def seed_db():
         if db.query(ModelRegistry).count() == 0:
             logger.info("Seeding Model Registry...")
             models_to_seed = [
-                ModelRegistry(id="cm-01", name="CropRecommendation-TabPFN", version="v4.0.0", type="crop_recommendation", framework="TabPFN", status="active", accuracy=0.965, f1_score=0.962, last_retrained=datetime.utcnow(), prediction_count=1450),
-                ModelRegistry(id="cm-02", name="FertilizerRecommendation-TabPFN", version="v4.0.0", type="fertilizer_recommendation", framework="TabPFN", status="active", accuracy=0.978, f1_score=0.975, last_retrained=datetime.utcnow(), prediction_count=120),
-                ModelRegistry(id="ir-01", name="Irrigation-TabPFN", version="v4.0.0", type="irrigation_optimization", framework="TabPFN", status="active", accuracy=0.942, f1_score=0.938, last_retrained=datetime.utcnow(), prediction_count=890),
-                ModelRegistry(id="yd-01", name="YieldPredictor-FTTransformer", version="v4.0.0", type="yield_prediction", framework="FT-Transformer", status="active", accuracy=0.915, f1_score=0.908, last_retrained=datetime.utcnow(), prediction_count=620),
-                ModelRegistry(id="vs-01", name="PlantDisease-Florence2", version="v4.0.0", type="disease_detection", framework="HuggingFace Florence-2", status="active", accuracy=0.952, f1_score=0.949, last_retrained=datetime.utcnow(), prediction_count=1120),
-                ModelRegistry(id="wd-01", name="WeedDetector-YOLO11n", version="v4.0.0", type="weed_detection", framework="Ultralytics YOLOv11n", status="active", accuracy=0.935, f1_score=0.931, last_retrained=datetime.utcnow(), prediction_count=450),
-                ModelRegistry(id="ad-01", name="Anomaly-EIF", version="v4.0.0", type="anomaly_detection", framework="Extended Isolation Forest", status="active", accuracy=0.885, f1_score=0.879, last_retrained=datetime.utcnow(), prediction_count=320),
+                ModelRegistry(
+                    id="cm-01",
+                    name="CropRecommendation-TabPFN",
+                    version="v4.0.0",
+                    type="crop_recommendation",
+                    framework="TabPFN",
+                    status="active",
+                    accuracy=0.965,
+                    f1_score=0.962,
+                    last_retrained=datetime.now(timezone.utc),
+                    prediction_count=1450,
+                ),
+                ModelRegistry(
+                    id="cm-02",
+                    name="FertilizerRecommendation-TabPFN",
+                    version="v4.0.0",
+                    type="fertilizer_recommendation",
+                    framework="TabPFN",
+                    status="active",
+                    accuracy=0.978,
+                    f1_score=0.975,
+                    last_retrained=datetime.now(timezone.utc),
+                    prediction_count=120,
+                ),
+                ModelRegistry(
+                    id="ir-01",
+                    name="Irrigation-TabPFN",
+                    version="v4.0.0",
+                    type="irrigation_optimization",
+                    framework="TabPFN",
+                    status="active",
+                    accuracy=0.942,
+                    f1_score=0.938,
+                    last_retrained=datetime.now(timezone.utc),
+                    prediction_count=890,
+                ),
+                ModelRegistry(
+                    id="yd-01",
+                    name="YieldPredictor-FTTransformer",
+                    version="v4.0.0",
+                    type="yield_prediction",
+                    framework="FT-Transformer",
+                    status="active",
+                    accuracy=0.915,
+                    f1_score=0.908,
+                    last_retrained=datetime.now(timezone.utc),
+                    prediction_count=620,
+                ),
+                ModelRegistry(
+                    id="vs-01",
+                    name="PlantDisease-Florence2",
+                    version="v4.0.0",
+                    type="disease_detection",
+                    framework="HuggingFace Florence-2",
+                    status="active",
+                    accuracy=0.952,
+                    f1_score=0.949,
+                    last_retrained=datetime.now(timezone.utc),
+                    prediction_count=1120,
+                ),
+                ModelRegistry(
+                    id="wd-01",
+                    name="WeedDetector-YOLO11n",
+                    version="v4.0.0",
+                    type="weed_detection",
+                    framework="Ultralytics YOLOv11n",
+                    status="active",
+                    accuracy=0.935,
+                    f1_score=0.931,
+                    last_retrained=datetime.now(timezone.utc),
+                    prediction_count=450,
+                ),
+                ModelRegistry(
+                    id="ad-01",
+                    name="Anomaly-EIF",
+                    version="v4.0.0",
+                    type="anomaly_detection",
+                    framework="Extended Isolation Forest",
+                    status="active",
+                    accuracy=0.885,
+                    f1_score=0.879,
+                    last_retrained=datetime.now(timezone.utc),
+                    prediction_count=320,
+                ),
             ]
             db.add_all(models_to_seed)
             db.commit()
@@ -132,11 +230,56 @@ def seed_db():
         if db.query(SensorReading).count() == 0:
             logger.info("Seeding Sensor Readings...")
             readings = [
-                SensorReading(device_id="ESP32-S01", soil_moisture=37.1, temperature=29.2, humidity=58.8, ph=6.3, nitrogen=44, phosphorus=38, potassium=44),
-                SensorReading(device_id="ESP32-S01", soil_moisture=38.3, temperature=28.9, humidity=59.4, ph=6.3, nitrogen=47, phosphorus=38, potassium=42),
-                SensorReading(device_id="ESP32-S01", soil_moisture=39.8, temperature=28.5, humidity=60.2, ph=6.3, nitrogen=45, phosphorus=39, potassium=41),
-                SensorReading(device_id="ESP32-S01", soil_moisture=41.2, temperature=28.1, humidity=61.5, ph=6.4, nitrogen=46, phosphorus=37, potassium=43),
-                SensorReading(device_id="ESP32-S01", soil_moisture=42.5, temperature=27.8, humidity=62.1, ph=6.4, nitrogen=45, phosphorus=38, potassium=42),
+                SensorReading(
+                    device_id="ESP32-S01",
+                    soil_moisture=37.1,
+                    temperature=29.2,
+                    humidity=58.8,
+                    ph=6.3,
+                    nitrogen=44,
+                    phosphorus=38,
+                    potassium=44,
+                ),
+                SensorReading(
+                    device_id="ESP32-S01",
+                    soil_moisture=38.3,
+                    temperature=28.9,
+                    humidity=59.4,
+                    ph=6.3,
+                    nitrogen=47,
+                    phosphorus=38,
+                    potassium=42,
+                ),
+                SensorReading(
+                    device_id="ESP32-S01",
+                    soil_moisture=39.8,
+                    temperature=28.5,
+                    humidity=60.2,
+                    ph=6.3,
+                    nitrogen=45,
+                    phosphorus=39,
+                    potassium=41,
+                ),
+                SensorReading(
+                    device_id="ESP32-S01",
+                    soil_moisture=41.2,
+                    temperature=28.1,
+                    humidity=61.5,
+                    ph=6.4,
+                    nitrogen=46,
+                    phosphorus=37,
+                    potassium=43,
+                ),
+                SensorReading(
+                    device_id="ESP32-S01",
+                    soil_moisture=42.5,
+                    temperature=27.8,
+                    humidity=62.1,
+                    ph=6.4,
+                    nitrogen=45,
+                    phosphorus=38,
+                    potassium=42,
+                ),
             ]
             db.add_all(readings)
             db.commit()
@@ -145,10 +288,12 @@ def seed_db():
     finally:
         db.close()
 
+
 seed_db()
 
 
 # ── Health Check ─────────────────────────────────────────────────────────────
+
 
 @app.get("/api/health")
 async def health_check():
@@ -157,28 +302,35 @@ async def health_check():
 
 # ── IoT Sensor Readings & Ingestion ──────────────────────────────────────────
 
+
 @app.get("/api/sensors")
 async def get_sensor_readings(db: Session = Depends(get_db)):
-    readings = db.query(SensorReading).order_by(SensorReading.timestamp.desc()).limit(50).all()
+    readings = (
+        db.query(SensorReading).order_by(SensorReading.timestamp.desc()).limit(50).all()
+    )
     formatted = []
     for r in readings:
-        formatted.append({
-            "id": str(r.id),
-            "deviceId": r.device_id,
-            "timestamp": r.timestamp.isoformat() + "Z" if r.timestamp else None,
-            "soilMoisture": r.soil_moisture,
-            "temperature": r.temperature,
-            "humidity": r.humidity,
-            "pH": r.ph,
-            "nitrogen": r.nitrogen,
-            "phosphorus": r.phosphorus,
-            "potassium": r.potassium
-        })
+        formatted.append(
+            {
+                "id": str(r.id),
+                "deviceId": r.device_id,
+                "timestamp": r.timestamp.isoformat() + "Z" if r.timestamp else None,
+                "soilMoisture": r.soil_moisture,
+                "temperature": r.temperature,
+                "humidity": r.humidity,
+                "pH": r.ph,
+                "nitrogen": r.nitrogen,
+                "phosphorus": r.phosphorus,
+                "potassium": r.potassium,
+            }
+        )
     return {"readings": formatted}
 
 
 @app.post("/api/sensors/ingest", status_code=201)
-async def ingest_iot_packet(packet: schemas.TelemetryInbound, db: Session = Depends(get_db)):
+async def ingest_iot_packet(
+    packet: schemas.TelemetryInbound, db: Session = Depends(get_db)
+):
     db_reading = SensorReading(
         device_id=packet.deviceId or "ESP32-S02",
         soil_moisture=packet.soilMoisture,
@@ -187,22 +339,24 @@ async def ingest_iot_packet(packet: schemas.TelemetryInbound, db: Session = Depe
         ph=packet.pH,
         nitrogen=packet.nitrogen,
         phosphorus=packet.phosphorus,
-        potassium=packet.potassium
+        potassium=packet.potassium,
     )
     db.add(db_reading)
     db.commit()
     db.refresh(db_reading)
     logger.info(f"Ingested packet from {packet.deviceId} with ID {db_reading.id}")
-    
-    twin_pipeline.execute_pipeline({
-        "N": packet.nitrogen,
-        "P": packet.phosphorus,
-        "K": packet.potassium,
-        "temp": packet.temperature,
-        "humidity": packet.humidity,
-        "pH": packet.pH,
-        "moisture": packet.soilMoisture
-    })
+
+    twin_pipeline.execute_pipeline(
+        {
+            "N": packet.nitrogen,
+            "P": packet.phosphorus,
+            "K": packet.potassium,
+            "temp": packet.temperature,
+            "humidity": packet.humidity,
+            "pH": packet.pH,
+            "moisture": packet.soilMoisture,
+        }
+    )
 
     return {
         "message": "Data ingested successfully",
@@ -216,41 +370,40 @@ async def ingest_iot_packet(packet: schemas.TelemetryInbound, db: Session = Depe
             "pH": db_reading.ph,
             "nitrogen": db_reading.nitrogen,
             "phosphorus": db_reading.phosphorus,
-            "potassium": db_reading.potassium
-        }
+            "potassium": db_reading.potassium,
+        },
     }
 
 
 # ── Frontend API Compatability Layer (TabPFN & FT-Transformer Mappings) ──────
 
+
 @app.post("/api/crop-recommend")
-async def crop_recommendation(payload: schemas.CropRecommendationInput, db: Session = Depends(get_db)):
-    # Standardize input for TabPFN predict call
-    tab_input = {
-        "task": "crop_recommendation",
-        "features": {
-            "N": payload.N,
-            "P": payload.P,
-            "K": payload.K,
-            "temperature": payload.temperature,
-            "humidity": payload.humidity,
-            "ph": payload.ph,
-            "rainfall": payload.rainfall
-        }
-    }
-    from fastapi import Request
-    res = await tabpfn_engine.predict_tabular(tabpfn_engine.TabularPredictInput(**tab_input))
-    
+async def crop_recommendation(
+    payload: schemas.CropRecommendationInput, db: Session = Depends(get_db)
+):
+    from ml.inference import predict_crop
+
+    res = predict_crop(
+        N=payload.N,
+        P=payload.P,
+        K=payload.K,
+        temperature=payload.temperature,
+        humidity=payload.humidity,
+        ph=payload.ph,
+        rainfall=payload.rainfall,
+    )
+
     # Log prediction to prediction_logs
     log_id = f"pl-{uuid.uuid4().hex[:5]}"
     db_log = PredictionLog(
         id=log_id,
-        model_name="CropRecommendation-TabPFN",
+        model_name="CropRecommendation-Ensemble",
         inputs_json=payload.model_dump_json(),
         output=f"{res['crops'][0]['name']} ({res['crops'][0]['suitability']}% suitability)",
-        confidence=res['crops'][0]['suitability'] / 100.0,
+        confidence=res["crops"][0]["suitability"] / 100.0,
         latency_ms=12,
-        drift_score=0.01
+        drift_score=0.01,
     )
     db.add(db_log)
     db.commit()
@@ -258,26 +411,26 @@ async def crop_recommendation(payload: schemas.CropRecommendationInput, db: Sess
 
 
 @app.post("/api/irrigation-optimize")
-async def irrigation_optimize(payload: schemas.IrrigationInput, db: Session = Depends(get_db)):
-    tab_input = {
-        "task": "irrigation_optimization",
-        "features": {
-            "moisture": payload.moisture,
-            "temperature": payload.temperature,
-            "humidity": payload.humidity
-        }
-    }
-    res = await tabpfn_engine.predict_tabular(tabpfn_engine.TabularPredictInput(**tab_input))
-    
+async def irrigation_optimize(
+    payload: schemas.IrrigationInput, db: Session = Depends(get_db)
+):
+    from ml.inference import predict_irrigation
+
+    res = predict_irrigation(
+        moisture=payload.moisture,
+        temperature=payload.temperature,
+        humidity=payload.humidity,
+    )
+
     log_id = f"pl-{uuid.uuid4().hex[:5]}"
     db_log = PredictionLog(
         id=log_id,
-        model_name="Irrigation-TabPFN",
+        model_name="Irrigation-Optimizer",
         inputs_json=payload.model_dump_json(),
         output=f"Water req: {res['waterRequiredLiters']}L",
         confidence=0.95,
         latency_ms=10,
-        drift_score=0.01
+        drift_score=0.01,
     )
     db.add(db_log)
     db.commit()
@@ -286,42 +439,55 @@ async def irrigation_optimize(payload: schemas.IrrigationInput, db: Session = De
 
 @app.post("/api/yield-predict")
 async def yield_prediction(payload: schemas.YieldInput, db: Session = Depends(get_db)):
-    res = await yield_transformer.predict_yield({
-        "areaAcres": payload.areaAcres,
-        "avgRainfall": payload.avgRainfall,
-        "avgTemp": payload.avgTemp,
-        "nitrogen": payload.nitrogen,
-        "phosphorus": payload.phosphorus,
-        "potassium": payload.potassium
-    })
-    
+    res = await yield_transformer.predict_yield(
+        {
+            "areaAcres": payload.areaAcres,
+            "avgRainfall": payload.avgRainfall,
+            "avgTemp": payload.avgTemp,
+            "nitrogen": payload.nitrogen,
+            "phosphorus": payload.phosphorus,
+            "potassium": payload.potassium,
+        }
+    )
+
     # Query live Indian market prices for the selected crop
-    from backend.market_intelligence.models import MarketPrice
-    latest_market_price = db.query(MarketPrice).filter(
-        MarketPrice.crop.ilike(payload.cropType)
-    ).order_by(MarketPrice.timestamp.desc()).first()
-    
+
+    latest_market_price = (
+        db.query(MarketPrice)
+        .filter(MarketPrice.crop.ilike(payload.cropType))
+        .order_by(MarketPrice.timestamp.desc())
+        .first()
+    )
+
     defaults_inr = {
         "maize": 2200.0,
         "rice": 2500.0,
         "tomato": 3000.0,
         "cucumber": 1800.0,
         "beans": 4500.0,
-        "wheat": 2300.0
+        "wheat": 2300.0,
     }
-    
-    mandi_price_per_q = latest_market_price.price if latest_market_price else defaults_inr.get(payload.cropType.lower(), 2500.0)
+
+    mandi_price_per_q = (
+        latest_market_price.price
+        if latest_market_price
+        else defaults_inr.get(payload.cropType.lower(), 2500.0)
+    )
     price_per_ton_inr = mandi_price_per_q * 10
     predicted_yield = res.get("predictedYieldTons", 0.0)
     market_value_inr = int(predicted_yield * price_per_ton_inr)
-    
+
     res["marketValueEstimate"] = market_value_inr
-    source_info = f"live mandi price of ₹{mandi_price_per_q}/q from '{latest_market_price.market}'" if latest_market_price else "regional fallback price index"
+    source_info = (
+        f"live mandi price of ₹{mandi_price_per_q}/q from '{latest_market_price.market}'"
+        if latest_market_price
+        else "regional fallback price index"
+    )
     res["yieldBreakdown"] = (
         f"Yield forecasted by deep FT-Transformer regression model. "
         f"Market valuation calculated using {source_info} (converted to ₹{int(price_per_ton_inr)}/ton)."
     )
-    
+
     log_id = f"pl-{uuid.uuid4().hex[:5]}"
     db_log = PredictionLog(
         id=log_id,
@@ -330,7 +496,7 @@ async def yield_prediction(payload: schemas.YieldInput, db: Session = Depends(ge
         output=f"{res['predictedYieldTons']} tons forecast (Valuation: ₹{market_value_inr:,})",
         confidence=0.95,
         latency_ms=18,
-        drift_score=0.01
+        drift_score=0.01,
     )
     db.add(db_log)
     db.commit()
@@ -347,81 +513,94 @@ class FertilizerInput(BaseModel):
     potassium: float
     phosphorus: float
 
+
 @app.post("/api/fertilizer-recommend")
 async def fertilizer_recommend(payload: FertilizerInput, db: Session = Depends(get_db)):
-    tab_input = {
-        "task": "fertilizer_recommendation",
-        "features": {
-            "temperature": payload.temperature,
-            "humidity": payload.humidity,
-            "moisture": payload.moisture,
-            "N": payload.nitrogen,
-            "K": payload.potassium,
-            "P": payload.phosphorus
-        }
-    }
-    res = await tabpfn_engine.predict_tabular(tabpfn_engine.TabularPredictInput(**tab_input))
-    
+    from ml.inference import predict_fertilizer
+
+    res = predict_fertilizer(
+        temperature=payload.temperature,
+        humidity=payload.humidity,
+        moisture=payload.moisture,
+        soil_type=payload.soilType,
+        crop_type=payload.cropType,
+        nitrogen=payload.nitrogen,
+        potassium=payload.potassium,
+        phosphorus=payload.phosphorus,
+    )
+
     log_id = f"pl-{uuid.uuid4().hex[:5]}"
     db_log = PredictionLog(
         id=log_id,
-        model_name="FertilizerRecommendation-TabPFN",
+        model_name="FertilizerRecommendation-CatBoost",
         inputs_json=payload.model_dump_json(),
-        output=f"{res['fertilizer']} ({res['confidence'] * 100:.1f}% confidence)",
-        confidence=res['confidence'],
+        output=f"{res['recommendedFertilizer']} ({res['confidence'] * 100:.1f}% confidence)",
+        confidence=res["confidence"],
         latency_ms=12,
-        drift_score=0.01
+        drift_score=0.01,
     )
     db.add(db_log)
     db.commit()
     return {
-        "recommendedFertilizer": res["fertilizer"],
+        "recommendedFertilizer": res["recommendedFertilizer"],
         "confidence": res["confidence"],
-        "recommendation": res["recommendation"]
+        "recommendation": res["advisory"],
     }
 
 
 # ── MLOps Dashboard & Retraining ─────────────────────────────────────────────
 
+
 @app.get("/api/mlops")
 async def get_mlops_data(db: Session = Depends(get_db)):
     registry = db.query(ModelRegistry).all()
-    logs = db.query(PredictionLog).order_by(PredictionLog.timestamp.desc()).limit(30).all()
+    logs = (
+        db.query(PredictionLog).order_by(PredictionLog.timestamp.desc()).limit(30).all()
+    )
     total_inferences = db.query(PredictionLog).count()
-    active_count = db.query(ModelRegistry).filter(ModelRegistry.status == "active").count()
-    
+    active_count = (
+        db.query(ModelRegistry).filter(ModelRegistry.status == "active").count()
+    )
+
     formatted_logs = []
     for log in logs:
         try:
             import json
+
             inputs = json.loads(log.inputs_json)
         except Exception:
             inputs = {}
-        formatted_logs.append({
-            "id": log.id,
-            "timestamp": log.timestamp.isoformat() + "Z" if log.timestamp else None,
-            "modelName": log.model_name,
-            "inputs": inputs,
-            "output": log.output,
-            "latencyMs": log.latency_ms,
-            "confidence": log.confidence,
-            "driftScore": log.drift_score
-        })
+        formatted_logs.append(
+            {
+                "id": log.id,
+                "timestamp": log.timestamp.isoformat() + "Z" if log.timestamp else None,
+                "modelName": log.model_name,
+                "inputs": inputs,
+                "output": log.output,
+                "latencyMs": log.latency_ms,
+                "confidence": log.confidence,
+                "driftScore": log.drift_score,
+            }
+        )
 
     formatted_registry = []
     for m in registry:
-        formatted_registry.append({
-            "id": m.id,
-            "name": m.name,
-            "version": m.version,
-            "type": m.type,
-            "framework": m.framework,
-            "status": m.status,
-            "accuracy": m.accuracy,
-            "f1Score": m.f1_score,
-            "lastRetrained": m.last_retrained.isoformat() + "Z" if m.last_retrained else None,
-            "predictionCount": m.prediction_count
-        })
+        formatted_registry.append(
+            {
+                "id": m.id,
+                "name": m.name,
+                "version": m.version,
+                "type": m.type,
+                "framework": m.framework,
+                "status": m.status,
+                "accuracy": m.accuracy,
+                "f1Score": m.f1_score,
+                "lastRetrained": m.last_retrained.isoformat() + "Z"
+                if m.last_retrained
+                else None,
+                "predictionCount": m.prediction_count,
+            }
+        )
 
     return {
         "metrics": {
@@ -430,15 +609,17 @@ async def get_mlops_data(db: Session = Depends(get_db)):
             "averageLatencyMs": 14,
             "activeModelsCount": active_count,
             "anomalousInferences": 0,
-            "driftIndex": 0.015
+            "driftIndex": 0.015,
         },
         "registry": formatted_registry,
-        "logs": formatted_logs
+        "logs": formatted_logs,
     }
 
 
 @app.post("/api/mlops/models/{model_id}/status")
-async def update_model_status(model_id: str, status: str, db: Session = Depends(get_db)):
+async def update_model_status(
+    model_id: str, status: str, db: Session = Depends(get_db)
+):
     model = db.query(ModelRegistry).filter(ModelRegistry.id == model_id).first()
     if not model:
         raise HTTPException(status_code=404, detail="Model not found")
@@ -454,14 +635,18 @@ async def retrain_model_api(payload: dict = Body(...), db: Session = Depends(get
     if not model:
         raise HTTPException(status_code=404, detail="Model not found in MLOps registry")
 
-    model.last_retrained = datetime.utcnow()
+    model.last_retrained = datetime.now(timezone.utc)
     model.prediction_count = 0
     try:
-        ver_num = float(model.version.lstrip('v').split('.')[0] + '.' + model.version.lstrip('v').split('.')[1])
+        ver_num = float(
+            model.version.lstrip("v").split(".")[0]
+            + "."
+            + model.version.lstrip("v").split(".")[1]
+        )
         model.version = f"v{round(ver_num + 0.1, 1)}.0"
     except Exception:
         model.version = "v4.1.0"
-        
+
     db.commit()
     return {
         "message": f"Model {model.name} retrained successfully",
@@ -475,55 +660,67 @@ async def retrain_model_api(payload: dict = Body(...), db: Session = Depends(get
             "accuracy": model.accuracy,
             "f1Score": model.f1_score,
             "lastRetrained": model.last_retrained.isoformat() + "Z",
-            "predictionCount": model.prediction_count
-        }
+            "predictionCount": model.prediction_count,
+        },
     }
 
 
 # ── Vision Compatibility (Florence-2 & YOLOv11) ──────────────────────────────
 
+
 class DiseaseDetectRequest(BaseModel):
     imageBase64: str
     mode: str = "disease"
 
+
 @app.post("/api/disease-detect")
-async def disease_detect_compat(payload: DiseaseDetectRequest, db: Session = Depends(get_db)):
+async def disease_detect_compat(
+    payload: DiseaseDetectRequest, db: Session = Depends(get_db)
+):
     if payload.mode == "weed":
-        res = await yolo_weed_detector.detect_weeds({"imageBase64": payload.imageBase64})
+        res = await yolo_weed_detector.detect_weeds(
+            {"imageBase64": payload.imageBase64}
+        )
         # Map YOLO model result to frontend contract
         return {
             "disease": f"Weeds detected: {res['weeds_detected']} invasive species",
             "confidence": 92.5,
             "severity": res["infestation_level"],
             "symptoms": [f"Infestation density calculated at {res['density_score']}%."],
-            "recommendations": ["Apply organic cover composting", "Localized precision weed removal"]
+            "recommendations": [
+                "Apply organic cover composting",
+                "Localized precision weed removal",
+            ],
         }
-        
-    res = await florence_engine.analyze_image({"imageBase64": payload.imageBase64, "mode": payload.mode})
-    
+
+    res = await florence_engine.analyze_image(
+        {"imageBase64": payload.imageBase64, "mode": payload.mode}
+    )
+
     log_id = f"pl-{uuid.uuid4().hex[:5]}"
     db_log = PredictionLog(
         id=log_id,
         model_name="PlantDisease-Florence2",
         inputs_json=f'{{"mode": "{payload.mode}"}}',
         output=f"{res['disease']} ({res['confidence']}% confidence)",
-        confidence=res['confidence'] / 100.0,
+        confidence=res["confidence"] / 100.0,
         latency_ms=120,
-        drift_score=0.01
+        drift_score=0.01,
     )
     db.add(db_log)
     db.commit()
-    
+
     return {
         "disease": res["disease"],
         "confidence": res["confidence"],
         "severity": res["severity"],
         "symptoms": [res["explanation"]],
-        "recommendations": res["recommendations"]
+        "recommendations": res["recommendations"],
     }
 
 
 # ── Chatbot Interaction ──────────────────────────────────────────────────────
+
 
 class ChatRequestAlt(BaseModel):
     messages: Optional[List[dict]] = None
@@ -531,8 +728,11 @@ class ChatRequestAlt(BaseModel):
     sensorContext: Optional[dict] = None
     prediction_context: Optional[dict] = None
 
+
 @app.post("/api/chat")
-async def chat_interaction(payload: ChatRequestAlt, accept_language: Optional[str] = Header(None)):
+async def chat_interaction(
+    payload: ChatRequestAlt, accept_language: Optional[str] = Header(None)
+):
     # Extract the user message from messages list or message field
     user_message = payload.message
     if not user_message and payload.messages:
@@ -549,6 +749,7 @@ async def chat_interaction(payload: ChatRequestAlt, accept_language: Optional[st
     lang = "en"
     if accept_language:
         from backend.localization.language_service import detect_language
+
         lang = detect_language(accept_language)
 
     # Use ollama_service which handles Ollama + keyword fallback gracefully
@@ -557,6 +758,7 @@ async def chat_interaction(payload: ChatRequestAlt, accept_language: Optional[st
 
 
 # ── Digital Twin ─────────────────────────────────────────────────────────────
+
 
 @app.post("/api/twin/update")
 async def update_twin_state(payload: dict = Body(...)):
@@ -569,10 +771,10 @@ async def update_twin_state(payload: dict = Body(...)):
         "pH": payload.get("pH", 6.5),
         "moisture": payload.get("soilMoisture", 38.0),
         "rainfall": payload.get("rainfall", 0.0),
-        "wind_speed": payload.get("windSpeed", 8.4)
+        "wind_speed": payload.get("windSpeed", 8.4),
     }
     pipeline_res = twin_pipeline.execute_pipeline(telemetry)
-    
+
     legacy_res = twin_engine.update_state(
         soil_moisture=payload.get("soilMoisture"),
         temperature=payload.get("temperature"),
@@ -582,9 +784,9 @@ async def update_twin_state(payload: dict = Body(...)):
         phosphorus=payload.get("phosphorus"),
         potassium=payload.get("potassium"),
         rainfall=payload.get("rainfall", 0.0),
-        wind_speed=payload.get("windSpeed")
+        wind_speed=payload.get("windSpeed"),
     )
-    
+
     merged_state = {
         "status": "updated",
         "hasAnomaly": pipeline_res["isAnomaly"],
@@ -597,13 +799,21 @@ async def update_twin_state(payload: dict = Body(...)):
             "isAnomaly": pipeline_res["isAnomaly"],
             "waterTwin": {
                 **legacy_res["twinState"]["waterTwin"],
-                "evapotranspirationET0": pipeline_res["physicsModel"]["evapotranspirationET0"],
-                "waterDeficitLiters": pipeline_res["physicsModel"]["waterDeficitLiters"],
-                "confidenceInterval": pipeline_res["physicsModel"]["confidenceInterval"],
-                "uncertaintyMarginLiters": pipeline_res["physicsModel"]["uncertaintyMarginLiters"],
+                "evapotranspirationET0": pipeline_res["physicsModel"][
+                    "evapotranspirationET0"
+                ],
+                "waterDeficitLiters": pipeline_res["physicsModel"][
+                    "waterDeficitLiters"
+                ],
+                "confidenceInterval": pipeline_res["physicsModel"][
+                    "confidenceInterval"
+                ],
+                "uncertaintyMarginLiters": pipeline_res["physicsModel"][
+                    "uncertaintyMarginLiters"
+                ],
             },
-            "recommendationNotes": pipeline_res["recommendationNotes"]
-        }
+            "recommendationNotes": pipeline_res["recommendationNotes"],
+        },
     }
     twin_engine._twin_state.update(merged_state["twinState"])
     return merged_state
@@ -654,13 +864,13 @@ async def get_twin_analytics():
             "healthIndexHistory": [81, 83, 85, 84, 88],
             "waterConservationLiters": 14500,
             "carbonOffsetPercentage": 11.4,
-            "nitrogenUtilizationRate": 91.2
+            "nitrogenUtilizationRate": 91.2,
         },
         "sustainabilityIndices": {
             "waterUseEfficiency": 94,
             "pesticideReductionIndex": 88,
-            "soilStructuralRetention": 91
-        }
+            "soilStructuralRetention": 91,
+        },
     }
 
 
@@ -672,20 +882,26 @@ from fastapi.responses import FileResponse
 dist_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dist")
 
 if os.path.exists(os.path.join(dist_path, "assets")):
-    app.mount("/assets", StaticFiles(directory=os.path.join(dist_path, "assets")), name="assets")
+    app.mount(
+        "/assets",
+        StaticFiles(directory=os.path.join(dist_path, "assets")),
+        name="assets",
+    )
+
 
 @app.get("/{full_path:path}")
 async def serve_frontend(full_path: str):
     if full_path.startswith("api/"):
         raise HTTPException(status_code=404, detail="API route not found")
-        
+
     file_path = os.path.join(dist_path, full_path)
     if os.path.exists(file_path) and os.path.isfile(file_path):
         return FileResponse(file_path)
-        
+
     return FileResponse(os.path.join(dist_path, "index.html"))
+
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("backend.main:app", host="127.0.0.1", port=8000, log_level="info")
 
+    uvicorn.run("backend.main:app", host="127.0.0.1", port=8000, log_level="info")

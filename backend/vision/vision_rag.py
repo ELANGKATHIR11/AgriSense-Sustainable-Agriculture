@@ -3,11 +3,14 @@ from backend.vision.visual_retriever import VisualRetriever
 
 logger = logging.getLogger("AgriVisionRAG")
 
+
 class VisionRAG:
     def __init__(self):
         self.retriever = VisualRetriever()
 
-    def augment_analysis(self, smolvlm_result: dict, query_key: str = "disease") -> dict:
+    def augment_analysis(
+        self, smolvlm_result: dict, query_key: str = "disease"
+    ) -> dict:
         """
         Takes raw vision outputs and retrieves highly contextual treatment information
         from the indexed agricultural knowledge database.

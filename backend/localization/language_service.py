@@ -1,11 +1,11 @@
 import logging
 from datetime import datetime
-from backend.localization.translator import translate_text, translate_crop_name
 
 logger = logging.getLogger("LanguageService")
 
 SUPPORTED_LANGUAGES = {"en", "ta", "te", "ml", "hi"}
 DEFAULT_LANGUAGE = "en"
+
 
 def detect_language(accept_language_header: str) -> str:
     """
@@ -21,19 +21,20 @@ def detect_language(accept_language_header: str) -> str:
             return lang_code
     return DEFAULT_LANGUAGE
 
+
 def format_localized_currency(val: float, lang: str) -> str:
     """
     Format currency values correctly under Indian Rupees (INR).
     """
     if val is None:
         return "₹0.00"
-    
+
     # Simple Indian Numbering formatting (e.g., 1,00,000)
     s = f"{val:,.2f}"
     parts = s.split(".")
     integer_part = parts[0].replace(",", "")
     decimal_part = parts[1]
-    
+
     if len(integer_part) > 3:
         last_three = integer_part[-3:]
         remaining = integer_part[:-3]
@@ -45,9 +46,9 @@ def format_localized_currency(val: float, lang: str) -> str:
         formatted_int = ",".join(groups) + "," + last_three
     else:
         formatted_int = integer_part
-        
+
     formatted_val = f"₹{formatted_int}.{decimal_part}"
-    
+
     # Localized Currency text adjustments
     if lang == "ta":
         return f"{formatted_val} (ரூபாய்)"
@@ -58,6 +59,7 @@ def format_localized_currency(val: float, lang: str) -> str:
     elif lang == "ml":
         return f"₹{formatted_int}.{decimal_part} (രൂപ)"
     return formatted_val
+
 
 def format_localized_date(dt: datetime, lang: str) -> str:
     """

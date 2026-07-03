@@ -6,6 +6,7 @@ from typing import List
 logger = logging.getLogger("MarketWebSocket")
 router = APIRouter(prefix="/market", tags=["Market Realtime"])
 
+
 class ConnectionManager:
     def __init__(self):
         self.active_connections: List[WebSocket] = []
@@ -30,7 +31,7 @@ class ConnectionManager:
         async with self._lock:
             # Copy list to iterate safely
             connections = list(self.active_connections)
-            
+
         disconnected_clients = []
         for connection in connections:
             try:
@@ -38,12 +39,14 @@ class ConnectionManager:
             except Exception as e:
                 logger.warning(f"Error sending message to client: {e}")
                 disconnected_clients.append(connection)
-                
+
         for client in disconnected_clients:
             await self.disconnect(client)
 
+
 # Instantiate the shared connection manager
 manager = ConnectionManager()
+
 
 @router.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
@@ -58,4 +61,3 @@ async def websocket_endpoint(websocket: WebSocket):
     except Exception as e:
         logger.error(f"WebSocket error: {e}")
         await manager.disconnect(websocket)
-

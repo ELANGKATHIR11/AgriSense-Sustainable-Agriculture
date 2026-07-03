@@ -1,27 +1,30 @@
 import os
 import sys
 import time
-import logging
 import psycopg
 from alembic.config import Config
 from alembic import command
 
 # Fix UTF-8 output on Windows
 try:
-    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stdout.reconfigure(encoding="utf-8")
 except AttributeError:
     pass
 
 from backend.database.connection import (
-    POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB,
-    POSTGRES_USER, POSTGRES_PASSWORD
+    POSTGRES_HOST,
+    POSTGRES_PORT,
+    POSTGRES_DB,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
 )
+
 
 def setup_database():
     conn = None
     retries = 5
     connected = False
-    
+
     postgres_url = f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} password={POSTGRES_PASSWORD} dbname=postgres"
     agriops_url = f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} password={POSTGRES_PASSWORD} dbname={POSTGRES_DB}"
 
@@ -33,7 +36,9 @@ def setup_database():
             print("✓ PostgreSQL Connected")
             break
         except Exception as e:
-            print(f"PostgreSQL Connection attempt {i+1} failed. Retrying in 2s... Error details: {e}")
+            print(
+                f"PostgreSQL Connection attempt {i + 1} failed. Retrying in 2s... Error details: {e}"
+            )
             time.sleep(2)
 
     if not connected:
@@ -62,11 +67,11 @@ def setup_database():
                 print("✓ PostGIS Enabled")
             except Exception as e:
                 print(f"PostGIS not enabled (skipping gracefully): {e}")
-            
+
             for ext in ["pg_trgm", "citext", "pgcrypto"]:
                 try:
                     cur.execute(f"CREATE EXTENSION IF NOT EXISTS {ext};")
-                except Exception as e:
+                except Exception:
                     pass
     except Exception as e:
         print(f"Error enabling extensions: {e}")
@@ -78,25 +83,27 @@ def setup_database():
     try:
         # Fallback creation check
         from backend.database.base import Base
-        import backend.database.models
         from backend.database.connection import sync_engine
+
         Base.metadata.create_all(bind=sync_engine)
         print("✓ Tables Ready")
 
         # Run Alembic migrations programmatically
-        project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        project_root = os.path.dirname(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        )
         alembic_cfg_path = os.path.join(project_root, "alembic.ini")
         if os.path.exists(alembic_cfg_path):
             alembic_cfg = Config(alembic_cfg_path)
             alembic_cfg.set_main_option(
-                "sqlalchemy.url", 
-                f"postgresql+psycopg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+                "sqlalchemy.url",
+                f"postgresql+psycopg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}",
             )
             try:
                 command.stamp(alembic_cfg, "head")
                 print("✓ Migrations Complete")
-            except Exception as e:
-                print(f"✓ Migrations Complete (Alembic stamped/up-to-date)")
+            except Exception:
+                print("✓ Migrations Complete (Alembic stamped/up-to-date)")
         else:
             print("✓ Migrations Complete")
     except Exception as e:

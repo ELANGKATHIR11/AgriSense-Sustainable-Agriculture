@@ -2,9 +2,9 @@
 AGRISENSE Digital Twin Engine
 Physics-based FAO-56 Penman-Monteith + predictive twin models.
 """
+
 import math
-import time
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
 from typing import Optional
 
 # ── In-memory twin state (will be persisted to DB in production) ─────
@@ -13,7 +13,7 @@ _twin_state = {
     "riskIndex": 12,
     "yieldIndex": 94,
     "sustainabilityIndex": 92,
-    "timestamp": datetime.utcnow().isoformat(),
+    "timestamp": datetime.now(timezone.utc).isoformat(),
     "waterTwin": {
         "currentMoisture": 38.3,
         "predictedMoisture5Days": [36.8, 35.1, 33.4, 31.2, 29.5],
@@ -22,17 +22,57 @@ _twin_state = {
         "irrigationRecommendation": "Trigger standard early-morning microflushes on Grid Zone 4: 1250 Liters required",
         "drainageRate": 0.6,
         "waterBalanceHistory": [
-            {"day": "Mon", "rainfall": 0.0, "irrigation": 0, "et0": 4.2, "activeMoisture": 42.5},
-            {"day": "Tue", "rainfall": 0.0, "irrigation": 0, "et0": 4.5, "activeMoisture": 41.2},
-            {"day": "Wed", "rainfall": 0.0, "irrigation": 0, "et0": 4.8, "activeMoisture": 39.8},
-            {"day": "Thu", "rainfall": 1.2, "irrigation": 1200, "et0": 4.4, "activeMoisture": 44.5},
-            {"day": "Fri", "rainfall": 0.0, "irrigation": 0, "et0": 4.7, "activeMoisture": 41.2},
-            {"day": "Sat", "rainfall": 0.0, "irrigation": 0, "et0": 4.9, "activeMoisture": 38.3},
+            {
+                "day": "Mon",
+                "rainfall": 0.0,
+                "irrigation": 0,
+                "et0": 4.2,
+                "activeMoisture": 42.5,
+            },
+            {
+                "day": "Tue",
+                "rainfall": 0.0,
+                "irrigation": 0,
+                "et0": 4.5,
+                "activeMoisture": 41.2,
+            },
+            {
+                "day": "Wed",
+                "rainfall": 0.0,
+                "irrigation": 0,
+                "et0": 4.8,
+                "activeMoisture": 39.8,
+            },
+            {
+                "day": "Thu",
+                "rainfall": 1.2,
+                "irrigation": 1200,
+                "et0": 4.4,
+                "activeMoisture": 44.5,
+            },
+            {
+                "day": "Fri",
+                "rainfall": 0.0,
+                "irrigation": 0,
+                "et0": 4.7,
+                "activeMoisture": 41.2,
+            },
+            {
+                "day": "Sat",
+                "rainfall": 0.0,
+                "irrigation": 0,
+                "et0": 4.9,
+                "activeMoisture": 38.3,
+            },
         ],
     },
     "soilTwin": {
-        "nitrogen": 45, "phosphorus": 38, "potassium": 42,
-        "pH": 6.4, "electricalConductivity": 1.2, "organicCarbon": 2.1,
+        "nitrogen": 45,
+        "phosphorus": 38,
+        "potassium": 42,
+        "pH": 6.4,
+        "electricalConductivity": 1.2,
+        "organicCarbon": 2.1,
         "healthScore": 89,
         "nutrientDeficitForecast": "Nitrogen depletion window predicted within 45 days of vegetative vigor.",
         "depletionTimeline": [
@@ -43,9 +83,12 @@ _twin_state = {
         ],
     },
     "cropTwin": {
-        "cropType": "Sweet Maize", "sowingDate": "2026-04-12",
-        "growthStage": "Vegetative", "biomassIndex": 1850,
-        "cropHealthScore": 86, "predictedYieldMultiplier": 1.05,
+        "cropType": "Sweet Maize",
+        "sowingDate": "2026-04-12",
+        "growthStage": "Vegetative",
+        "biomassIndex": 1850,
+        "cropHealthScore": 86,
+        "predictedYieldMultiplier": 1.05,
         "harvestForecastDate": "2026-08-30",
         "growthTimeline": [
             {"stage": "Germination", "expectedBiomass": 200, "actualBiomass": 210},
@@ -55,17 +98,68 @@ _twin_state = {
         ],
     },
     "weatherTwin": {
-        "currentTemp": 28.5, "currentHumidity": 62.0,
-        "windSpeed": 8.4, "rainProbability": 25,
+        "currentTemp": 28.5,
+        "currentHumidity": 62.0,
+        "windSpeed": 8.4,
+        "rainProbability": 25,
         "heatStressIndex": "Moderate",
         "forecast": [
-            {"date": "Wednesday", "temperature": 28.5, "humidity": 62.0, "rainfall": 0.0, "condition": "sunny", "windSpeed": 8.4},
-            {"date": "Thursday", "temperature": 29.1, "humidity": 58.5, "rainfall": 1.2, "condition": "cloudy", "windSpeed": 9.6},
-            {"date": "Friday", "temperature": 24.8, "humidity": 82.0, "rainfall": 24.5, "condition": "stormy", "windSpeed": 18.2},
-            {"date": "Saturday", "temperature": 26.2, "humidity": 75.4, "rainfall": 4.8, "condition": "rainy", "windSpeed": 12.0},
-            {"date": "Sunday", "temperature": 27.9, "humidity": 64.1, "rainfall": 0.0, "condition": "sunny", "windSpeed": 7.8},
-            {"date": "Monday", "temperature": 28.2, "humidity": 60.5, "rainfall": 0.0, "condition": "sunny", "windSpeed": 8.0},
-            {"date": "Tuesday", "temperature": 28.8, "humidity": 59.0, "rainfall": 0.0, "condition": "sunny", "windSpeed": 8.5},
+            {
+                "date": "Wednesday",
+                "temperature": 28.5,
+                "humidity": 62.0,
+                "rainfall": 0.0,
+                "condition": "sunny",
+                "windSpeed": 8.4,
+            },
+            {
+                "date": "Thursday",
+                "temperature": 29.1,
+                "humidity": 58.5,
+                "rainfall": 1.2,
+                "condition": "cloudy",
+                "windSpeed": 9.6,
+            },
+            {
+                "date": "Friday",
+                "temperature": 24.8,
+                "humidity": 82.0,
+                "rainfall": 24.5,
+                "condition": "stormy",
+                "windSpeed": 18.2,
+            },
+            {
+                "date": "Saturday",
+                "temperature": 26.2,
+                "humidity": 75.4,
+                "rainfall": 4.8,
+                "condition": "rainy",
+                "windSpeed": 12.0,
+            },
+            {
+                "date": "Sunday",
+                "temperature": 27.9,
+                "humidity": 64.1,
+                "rainfall": 0.0,
+                "condition": "sunny",
+                "windSpeed": 7.8,
+            },
+            {
+                "date": "Monday",
+                "temperature": 28.2,
+                "humidity": 60.5,
+                "rainfall": 0.0,
+                "condition": "sunny",
+                "windSpeed": 8.0,
+            },
+            {
+                "date": "Tuesday",
+                "temperature": 28.8,
+                "humidity": 59.0,
+                "rainfall": 0.0,
+                "condition": "sunny",
+                "windSpeed": 8.5,
+            },
         ],
         "riskIndicators": [
             "Storm convection event on Friday afternoon.",
@@ -73,30 +167,39 @@ _twin_state = {
         ],
     },
     "diseaseTwin": {
-        "riskScore": 18, "outbreakProbability": 15,
+        "riskScore": 18,
+        "outbreakProbability": 15,
         "environmentalPropensity": 22,
         "susceptibleCrops": ["Tomato Leaf Mold", "Powdery Mildew on Squash"],
-        "preventiveActionRequired": ["Boost high-tunnel air circulation", "Transition watering to ground drip lines"],
+        "preventiveActionRequired": [
+            "Boost high-tunnel air circulation",
+            "Transition watering to ground drip lines",
+        ],
     },
 }
 
 
-def calculate_fao56_et0(T: float, RH: float, wind_speed: float, Rn: float = 15.0) -> float:
+def calculate_fao56_et0(
+    T: float, RH: float, wind_speed: float, Rn: float = 15.0
+) -> float:
     """FAO-56 Penman-Monteith reference evapotranspiration (mm/day)."""
     es = 0.6108 * math.exp((17.27 * T) / (T + 237.3))
     ea = es * (RH / 100.0)
     delta = (4098.0 * es) / ((T + 237.3) ** 2)
     gamma = 0.066
 
-    numerator = 0.408 * delta * Rn + gamma * (900.0 / (T + 273.0)) * wind_speed * (es - ea)
+    numerator = 0.408 * delta * Rn + gamma * (900.0 / (T + 273.0)) * wind_speed * (
+        es - ea
+    )
     denominator = delta + gamma * (1.0 + 0.34 * wind_speed)
 
     et0 = numerator / denominator
     return round(max(1.0, min(10.0, et0)), 2)
 
 
-def predict_moisture(current: float, et0: float, rain: float,
-                     irrigation: float, days: int = 5) -> list:
+def predict_moisture(
+    current: float, et0: float, rain: float, irrigation: float, days: int = 5
+) -> list:
     """Predict soil moisture for N days using physics + AI residual correction."""
     predictions = []
     m = current
@@ -109,14 +212,19 @@ def predict_moisture(current: float, et0: float, rain: float,
     return predictions
 
 
-def detect_anomalies(humidity: float, moisture: float, temp: float,
-                     pH: float, nitrogen: int) -> dict:
+def detect_anomalies(
+    humidity: float, moisture: float, temp: float, pH: float, nitrogen: int
+) -> dict:
     """Isolation Forest-inspired anomaly detection on sensor readings."""
     alerts = []
     if moisture < 15.0:
-        alerts.append("CRITICAL ANOMALY: Soil desiccation detected (< 15%). Potential sensor dry-air exposure.")
+        alerts.append(
+            "CRITICAL ANOMALY: Soil desiccation detected (< 15%). Potential sensor dry-air exposure."
+        )
     elif moisture > 92.0:
-        alerts.append("CRITICAL ANOMALY: High water table inundation (> 92%). Potential waterlogging or valve leak.")
+        alerts.append(
+            "CRITICAL ANOMALY: High water table inundation (> 92%). Potential waterlogging or valve leak."
+        )
     if temp < 4.0 or temp > 47.0:
         alerts.append(f"CRITICAL ANOMALY: Extreme thermal outlier ({temp}°C).")
     if pH < 4.5 or pH > 9.2:
@@ -130,19 +238,25 @@ def get_state() -> dict:
     return _twin_state
 
 
-def update_state(soil_moisture: Optional[float] = None,
-                 temperature: Optional[float] = None,
-                 humidity: Optional[float] = None,
-                 pH: Optional[float] = None,
-                 nitrogen: Optional[int] = None,
-                 phosphorus: Optional[int] = None,
-                 potassium: Optional[int] = None,
-                 rainfall: float = 0.0,
-                 wind_speed: Optional[float] = None) -> dict:
+def update_state(
+    soil_moisture: Optional[float] = None,
+    temperature: Optional[float] = None,
+    humidity: Optional[float] = None,
+    pH: Optional[float] = None,
+    nitrogen: Optional[int] = None,
+    phosphorus: Optional[int] = None,
+    potassium: Optional[int] = None,
+    rainfall: float = 0.0,
+    wind_speed: Optional[float] = None,
+) -> dict:
     """Recompute all digital twins from incoming telemetry."""
     s = _twin_state
 
-    cM = soil_moisture if soil_moisture is not None else s["waterTwin"]["currentMoisture"]
+    cM = (
+        soil_moisture
+        if soil_moisture is not None
+        else s["waterTwin"]["currentMoisture"]
+    )
     cT = temperature if temperature is not None else s["weatherTwin"]["currentTemp"]
     cH = humidity if humidity is not None else s["weatherTwin"]["currentHumidity"]
     cpH = pH if pH is not None else s["soilTwin"]["pH"]
@@ -168,7 +282,7 @@ def update_state(soil_moisture: Optional[float] = None,
     soil_score = round((ph_score + n_factor + 90 + 95) / 4)
 
     # 5. Update twin state
-    s["timestamp"] = datetime.utcnow().isoformat()
+    s["timestamp"] = datetime.now(timezone.utc).isoformat()
     s["waterTwin"]["currentMoisture"] = cM
     s["waterTwin"]["predictedMoisture5Days"] = pred_moisture
     s["waterTwin"]["evapotranspirationET0"] = et0
@@ -179,36 +293,72 @@ def update_state(soil_moisture: Optional[float] = None,
         else "Moisture saturation within optimal range. No irrigation required."
     )
 
-    s["soilTwin"].update({"nitrogen": cN, "phosphorus": cP, "potassium": cK, "pH": cpH, "healthScore": soil_score})
-    s["weatherTwin"].update({
-        "currentTemp": cT, "currentHumidity": cH, "windSpeed": cWind,
-        "heatStressIndex": "Severe" if cT > 32 else ("Moderate" if cT > 28 else "Normal"),
-    })
+    s["soilTwin"].update(
+        {
+            "nitrogen": cN,
+            "phosphorus": cP,
+            "potassium": cK,
+            "pH": cpH,
+            "healthScore": soil_score,
+        }
+    )
+    s["weatherTwin"].update(
+        {
+            "currentTemp": cT,
+            "currentHumidity": cH,
+            "windSpeed": cWind,
+            "heatStressIndex": "Severe"
+            if cT > 32
+            else ("Moderate" if cT > 28 else "Normal"),
+        }
+    )
 
-    # 6. Disease risk
+    # 6. Hybrid Physics-Guided Digital Twin Inference
     try:
-        from ml.inference import predict_disease_risk
-        res = predict_disease_risk(
+        from ml.inference import predict_digital_twin_state
+
+        twin_res = predict_digital_twin_state(
+            nitrogen=cN,
+            phosphorus=cP,
+            potassium=cK,
+            air_temp=cT,
             humidity=cH,
-            temperature=cT,
-            leaf_wetness_hours=8.0,
-            soil_moisture=cM,
-            rainfall_mm=rainfall
+            pH=cpH,
+            moisture=cM,
+            rainfall=rainfall,
         )
-        pathogen_risk = res["riskScore"]
-        weather_intensity = (cH / 100.0) * (cT / 25.0)
+        s["cropTwin"]["waterStressIndex"] = twin_res["waterStressIndex"]
+        s["cropTwin"]["growthSimulationIndex"] = twin_res["growthSimulationIndex"]
+        s["cropTwin"]["yieldForecast"] = twin_res["yieldForecast"]
+        pathogen_risk = round(twin_res["diseaseRiskIndex"] * 100)
+        weather_intensity = round(
+            twin_res["physicsBaselines"]["diseaseRiskBaseline"] * 100
+        )
     except Exception:
-        weather_intensity = (cH / 100.0) * (cT / 25.0)
-        pathogen_risk = min(98, round(weather_intensity * 45 + (25 if cM > 55 else 0)))
+        # Fallback if loading fails during boot
+        weather_intensity = round((cH / 100.0) * (cT / 25.0) * 100)
+        pathogen_risk = min(
+            98, round(weather_intensity * 0.45 + (25 if cM > 55 else 0))
+        )
 
     s["diseaseTwin"]["riskScore"] = pathogen_risk
     s["diseaseTwin"]["outbreakProbability"] = round(pathogen_risk * 0.9)
-    s["diseaseTwin"]["environmentalPropensity"] = round(weather_intensity * 100)
+    s["diseaseTwin"]["environmentalPropensity"] = weather_intensity
 
     # 7. Overall indices
-    s["overallHealthScore"] = round((soil_score + s["cropTwin"]["cropHealthScore"] + (100 - pathogen_risk) + (100 if 25 < cM < 55 else 50)) / 4)
-    s["riskIndex"] = round((pathogen_risk + (45 if cM < 25 else 0) + (30 if cT > 35 else 0)) / 2)
-    s["yieldIndex"] = round(s["cropTwin"]["predictedYieldMultiplier"] * 85)
+    s["overallHealthScore"] = round(
+        (
+            soil_score
+            + s["cropTwin"]["cropHealthScore"]
+            + (100 - pathogen_risk)
+            + (100 if 25 < cM < 55 else 50)
+        )
+        / 4
+    )
+    s["riskIndex"] = round(
+        (pathogen_risk + (45 if cM < 25 else 0) + (30 if cT > 35 else 0)) / 2
+    )
+    s["yieldIndex"] = round(s["cropTwin"].get("predictedYieldMultiplier", 1.0) * 85)
 
     anomalies = detect_anomalies(cH, cM, cT, cpH, cN)
     return {"status": "updated", **anomalies, "twinState": s}
@@ -220,47 +370,77 @@ def run_simulation(scenario_id: str) -> dict:
         "drought_5_days": {
             "name": "Scenario 1: No Irrigation (5 Days)",
             "summary": "Severe moisture deficiency. Crop tissue suction triggers secondary root collapse.",
-            "yield": 2.4, "pest": 18, "water_stress": 0.84,
-            "gen": lambda i, m, h: (m - 4.2, max(40, 86 - i * 8), 100 - i * 6.5, 18 + i * 14),
+            "yield": 2.4,
+            "pest": 18,
+            "water_stress": 0.84,
+            "gen": lambda i, m, h: (
+                m - 4.2,
+                max(40, 86 - i * 8),
+                100 - i * 6.5,
+                18 + i * 14,
+            ),
         },
         "fertilizer_boost_20": {
             "name": "Scenario 2: Increase Nitrogen & Potassium by 20%",
             "summary": "Accelerated plant height expansion. Chloroplast densities optimized.",
-            "yield": 4.8, "pest": 14, "water_stress": 0.07,
+            "yield": 4.8,
+            "pest": 14,
+            "water_stress": 0.07,
             "gen": lambda i, m, h: (38.3, min(99, h + 1.8), 100 + i * 2.1, 12),
         },
         "downpour": {
             "name": "Scenario 3: Severe Climate Event (50mm Heavy Rainfall)",
             "summary": "Saturated soil structure inducing root hypoxia conditions.",
-            "yield": 3.8, "pest": 65, "water_stress": 0.0,
-            "gen": lambda i, m, h: (85.0 - (i - 1) * 3.5 if i > 1 else 85.0, max(70, h - 1.2), 100 - i * 1.5, 18 + i * 8),
+            "yield": 3.8,
+            "pest": 65,
+            "water_stress": 0.0,
+            "gen": lambda i, m, h: (
+                85.0 - (i - 1) * 3.5 if i > 1 else 85.0,
+                max(70, h - 1.2),
+                100 - i * 1.5,
+                18 + i * 8,
+            ),
         },
         "mildew_outbreak": {
             "name": "Scenario 4: Fungal Disease Outbreak Propagation",
             "summary": "Active pathogen spots confirmed. Foliar necrotic lesions reduce photosynthesis.",
-            "yield": 2.8, "pest": 94, "water_stress": 0.12,
+            "yield": 2.8,
+            "pest": 94,
+            "water_stress": 0.12,
             "gen": lambda i, m, h: (38.3, h - 7.5, 100 - i * 8.2, 40 + i * 10),
         },
     }
 
-    sc = scenarios.get(scenario_id, {
-        "name": "Scenario 5: Optimal Automated Operations",
-        "summary": "All systems green. Active ML adjustments controlling water balance dynamically.",
-        "yield": 4.95, "pest": 5, "water_stress": 0.02,
-        "gen": lambda i, m, h: (40.0 + math.sin(i) * 0.5, 92 + min(7, i), 100 + i * 2.8, 5),
-    })
+    sc = scenarios.get(
+        scenario_id,
+        {
+            "name": "Scenario 5: Optimal Automated Operations",
+            "summary": "All systems green. Active ML adjustments controlling water balance dynamically.",
+            "yield": 4.95,
+            "pest": 5,
+            "water_stress": 0.02,
+            "gen": lambda i, m, h: (
+                40.0 + math.sin(i) * 0.5,
+                92 + min(7, i),
+                100 + i * 2.8,
+                5,
+            ),
+        },
+    )
 
     timeline = []
     m, h = 38.3, 86.0
     for i in range(1, 6):
         m, h, yi, rs = sc["gen"](i, m, h)
-        timeline.append({
-            "day": i,
-            "soilMoisture": round(m, 1),
-            "cropHealth": round(h),
-            "yieldImpact": round(yi, 1),
-            "riskScore": round(rs),
-        })
+        timeline.append(
+            {
+                "day": i,
+                "soilMoisture": round(m, 1),
+                "cropHealth": round(h),
+                "yieldImpact": round(yi, 1),
+                "riskScore": round(rs),
+            }
+        )
 
     return {
         "scenarioName": sc["name"],

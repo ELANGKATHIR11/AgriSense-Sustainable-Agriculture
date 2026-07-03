@@ -23,7 +23,7 @@ async_engine = create_async_engine(
     future=True,
     pool_size=20,
     max_overflow=10,
-    pool_pre_ping=True
+    pool_pre_ping=True,
 )
 
 # Sync engine for backwards compatibility (for existing routes)
@@ -33,5 +33,5 @@ sync_engine = create_engine(
     future=True,
     pool_size=20,
     max_overflow=10,
-    pool_pre_ping=True
+    pool_pre_ping=True,
 )

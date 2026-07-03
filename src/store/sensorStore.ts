@@ -1,8 +1,5 @@
-/**
- * AGRISENSE Sensor Logs Global Store
- */
-
-import { create } from "zustand";
+// AGRISENSE Sensor Logs Global Store
+import create from "zustand";
 import { SensorReading } from "../types";
 import { initialMockSensors } from "../mocks/mockSensors";
 
@@ -13,7 +10,7 @@ interface SensorState {
   appendReading: (reading: SensorReading) => void;
 }
 
-export const useSensorStore = create<SensorState>((set) => ({
+export const useSensorStore = create((set) => ({
   readings: initialMockSensors,
   lastUpdated: new Date().toISOString(),
   setReadings: (readings) => set({ readings, lastUpdated: new Date().toISOString() }),

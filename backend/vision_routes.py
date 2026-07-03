@@ -9,7 +9,7 @@ from backend.vision.vision_twin_adapter import (
     adapt_disease_to_twin,
     adapt_nutrient_to_twin,
     adapt_health_to_twin,
-    adapt_yield_to_twin
+    adapt_yield_to_twin,
 )
 from backend.ollama_service import chat_with_agrigpt
 
@@ -29,19 +29,35 @@ class VisionRequest(BaseModel):
 @router.post("/disease")
 async def vision_disease(payload: VisionRequest):
     """Diagnoses crop diseases from leaf images, runs RAG advice, and syncs to twin."""
-    res = await process_and_analyze_image(payload.imageBase64, mode="disease", file_name=payload.fileName)
+    res = await process_and_analyze_image(
+        payload.imageBase64, mode="disease", file_name=payload.fileName
+    )
     if not res["success"]:
-        raise HTTPException(status_code=500, detail=res.get("error", "Disease analysis failed"))
+        raise HTTPException(
+            status_code=500, detail=res.get("error", "Disease analysis failed")
+        )
 
     # Post-process correction: if VLM confuses Pepper with Tomato due to visual spot similarities
     if payload.fileName and "results" in res and isinstance(res["results"], dict):
         fn_lower = payload.fileName.lower()
         pred_disease = res["results"].get("disease", "").lower()
-        if ("pepper" in fn_lower or "bell" in fn_lower or "jr_b" in fn_lower) and ("tomato" in pred_disease or "mold" in pred_disease or "blight" in pred_disease):
+        if ("pepper" in fn_lower or "bell" in fn_lower or "jr_b" in fn_lower) and (
+            "tomato" in pred_disease
+            or "mold" in pred_disease
+            or "blight" in pred_disease
+        ):
             res["results"]["disease"] = "Pepper Bell Bacterial Spot"
             res["results"]["severity"] = "high"
-            res["results"]["symptoms"] = ["Small water-soaked leaf spots", "Dark circular leaf lesions", "Premature foliage defoliation"]
-            res["results"]["recommendations"] = ["Apply copper-based protectant sprays", "Remove and burn infected leaf debris", "Avoid overhead irrigation during early bloom"]
+            res["results"]["symptoms"] = [
+                "Small water-soaked leaf spots",
+                "Dark circular leaf lesions",
+                "Premature foliage defoliation",
+            ]
+            res["results"]["recommendations"] = [
+                "Apply copper-based protectant sprays",
+                "Remove and burn infected leaf debris",
+                "Avoid overhead irrigation during early bloom",
+            ]
 
     # Run RAG
     res["results"] = vision_rag.augment_analysis(res["results"], query_key="disease")
@@ -52,7 +68,7 @@ async def vision_disease(payload: VisionRequest):
         adapt_disease_to_twin(
             disease_name=res["results"].get("disease", "Unknown disease"),
             confidence=res["confidence"],
-            severity=res["results"].get("severity", "medium")
+            severity=res["results"].get("severity", "medium"),
         )
     except Exception as e:
         logger.error(f"Twin sync failed for disease: {e}")
@@ -69,6 +85,7 @@ async def vision_disease(payload: VisionRequest):
     # Web scrape & Gen AI cost estimation integration
     try:
         from backend.vision.remedy_cost_estimator import scrape_and_estimate_costs
+
         disease_name = res["results"].get("disease", "")
         costs = await scrape_and_estimate_costs(disease_name)
         res["remedy_costs"] = costs
@@ -84,7 +101,9 @@ async def vision_weed(payload: VisionRequest):
     """Identifies invasive weed species and triggers management recommendations."""
     res = await process_and_analyze_image(payload.imageBase64, mode="weed")
     if not res["success"]:
-        raise HTTPException(status_code=500, detail=res.get("error", "Weed analysis failed"))
+        raise HTTPException(
+            status_code=500, detail=res.get("error", "Weed analysis failed")
+        )
 
     # Run RAG with weed-specific knowledge
     res["results"] = vision_rag.augment_analysis(res["results"], query_key="weed")
@@ -98,7 +117,9 @@ async def vision_nutrient(payload: VisionRequest):
     """Diagnoses soil NPK or micronutrient deficiencies from leaf visual markers."""
     res = await process_and_analyze_image(payload.imageBase64, mode="nutrient")
     if not res["success"]:
-        raise HTTPException(status_code=500, detail=res.get("error", "Nutrient analysis failed"))
+        raise HTTPException(
+            status_code=500, detail=res.get("error", "Nutrient analysis failed")
+        )
 
     # Run RAG with nutrient-specific knowledge
     res["results"] = vision_rag.augment_analysis(res["results"], query_key="nutrient")
@@ -121,7 +142,9 @@ async def vision_pest(payload: VisionRequest):
     """Detects insects, pests, and bugs eating leaf tissue."""
     res = await process_and_analyze_image(payload.imageBase64, mode="pest")
     if not res["success"]:
-        raise HTTPException(status_code=500, detail=res.get("error", "Pest analysis failed"))
+        raise HTTPException(
+            status_code=500, detail=res.get("error", "Pest analysis failed")
+        )
 
     # Run RAG with pest-specific knowledge
     res["results"] = vision_rag.augment_analysis(res["results"], query_key="pest")
@@ -135,7 +158,9 @@ async def vision_crop(payload: VisionRequest):
     """Identifies crop type and estimates growth stage."""
     res = await process_and_analyze_image(payload.imageBase64, mode="crop")
     if not res["success"]:
-        raise HTTPException(status_code=500, detail=res.get("error", "Crop identification failed"))
+        raise HTTPException(
+            status_code=500, detail=res.get("error", "Crop identification failed")
+        )
 
     # Run RAG with crop-specific knowledge
     res["results"] = vision_rag.augment_analysis(res["results"], query_key="crop")
@@ -149,7 +174,9 @@ async def vision_health(payload: VisionRequest):
     """Inspects chlorophyll vigor, NDVI proxy, and plant stress index."""
     res = await process_and_analyze_image(payload.imageBase64, mode="health")
     if not res["success"]:
-        raise HTTPException(status_code=500, detail=res.get("error", "Health analysis failed"))
+        raise HTTPException(
+            status_code=500, detail=res.get("error", "Health analysis failed")
+        )
 
     # Run RAG with health-specific knowledge
     res["results"] = vision_rag.augment_analysis(res["results"], query_key="health")
@@ -159,7 +186,7 @@ async def vision_health(payload: VisionRequest):
     try:
         adapt_health_to_twin(
             health_score=res["confidence"],
-            stress_level=res["results"].get("severity", "low")
+            stress_level=res["results"].get("severity", "low"),
         )
     except Exception as e:
         logger.error(f"Twin sync failed for health: {e}")
@@ -172,7 +199,9 @@ async def vision_yield(payload: VisionRequest):
     """Estimates crop yield potential from aerial or canopy pictures."""
     res = await process_and_analyze_image(payload.imageBase64, mode="yield")
     if not res["success"]:
-        raise HTTPException(status_code=500, detail=res.get("error", "Yield estimation failed"))
+        raise HTTPException(
+            status_code=500, detail=res.get("error", "Yield estimation failed")
+        )
 
     # Run RAG with yield-specific knowledge
     res["results"] = vision_rag.augment_analysis(res["results"], query_key="yield")

@@ -6,17 +6,19 @@ Dynamically integrates with MLflow local runs and falls back to a persistent JSO
 import os
 import json
 import time
-from datetime import datetime
-from typing import Dict, Any
+from datetime import datetime, timezone
+from typing import Any
 
 RUNS_DB_PATH = "ml/models/mlflow_runs.json"
 os.makedirs(os.path.dirname(RUNS_DB_PATH), exist_ok=True)
 
 try:
     import mlflow
+
     MLFLOW_AVAILABLE = True
 except ImportError:
     MLFLOW_AVAILABLE = False
+
 
 class MLflowTracker:
     def __init__(self, experiment_name: str = "AgriSense_Modernization"):
@@ -58,15 +60,15 @@ class MLflowTracker:
         """Starts a training run and returns the run ID."""
         run_id = f"run_{int(time.time())}"
         self.active_run_id = run_id
-        
+
         self.local_runs["runs"][run_id] = {
             "run_name": run_name,
             "status": "running",
-            "start_time": datetime.utcnow().isoformat() + "Z",
+            "start_time": datetime.now(timezone.utc).isoformat() + "Z",
             "end_time": None,
             "params": {},
             "metrics": {},
-            "tags": {"experiment": self.experiment_name}
+            "tags": {"experiment": self.experiment_name},
         }
         self._save_local_runs()
 
@@ -103,7 +105,7 @@ class MLflowTracker:
         if self.active_run_id and self.active_run_id in self.local_runs["runs"]:
             run = self.local_runs["runs"][self.active_run_id]
             run["status"] = status
-            run["end_time"] = datetime.utcnow().isoformat() + "Z"
+            run["end_time"] = datetime.now(timezone.utc).isoformat() + "Z"
             self._save_local_runs()
             self.active_run_id = None
 
@@ -116,28 +118,28 @@ class MLflowTracker:
     def register_model(self, model_name: str, run_id: str, accuracy: float, path: str):
         """Registers a trained model in the MLOps registry."""
         version = f"v{len(self.local_runs['registry'].get(model_name, {}).get('versions', [])) + 1}.0.0"
-        
+
         if model_name not in self.local_runs["registry"]:
             self.local_runs["registry"][model_name] = {
                 "active_version": version,
-                "versions": []
+                "versions": [],
             }
-            
+
         entry = {
             "version": version,
             "run_id": run_id,
             "accuracy": accuracy,
             "path": path,
             "status": "staging",
-            "registered_at": datetime.utcnow().isoformat() + "Z"
+            "registered_at": datetime.now(timezone.utc).isoformat() + "Z",
         }
-        
+
         self.local_runs["registry"][model_name]["versions"].append(entry)
         self.local_runs["registry"][model_name]["active_version"] = version
         # Set status of the version to active, others retired
         for v in self.local_runs["registry"][model_name]["versions"]:
             v["status"] = "active" if v["version"] == version else "retired"
-            
+
         self._save_local_runs()
         print(f"Registered model {model_name} version {version}.")
 
@@ -177,7 +179,14 @@ class MLflowTracker:
                 # Find previously active (which was retired)
                 # Sort versions by registered_at
                 sorted_versions = sorted(versions, key=lambda x: x["registered_at"])
-                idx = next((i for i, v in enumerate(sorted_versions) if v["version"] == current_active), -1)
+                idx = next(
+                    (
+                        i
+                        for i, v in enumerate(sorted_versions)
+                        if v["version"] == current_active
+                    ),
+                    -1,
+                )
                 if idx > 0:
                     rollback_ver = sorted_versions[idx - 1]["version"]
                     self.promote_model(model_name, rollback_ver)

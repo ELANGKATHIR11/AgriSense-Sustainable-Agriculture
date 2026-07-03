@@ -1,16 +1,18 @@
 import os
-import sys
 import json
 import hashlib
 import argparse
-import xml.etree.ElementTree as ET
 from typing import List, Dict, Any, Tuple
 from PIL import Image
 import psycopg
 from backend.database.connection import (
-    POSTGRES_HOST, POSTGRES_PORT, POSTGRES_DB,
-    POSTGRES_USER, POSTGRES_PASSWORD
+    POSTGRES_HOST,
+    POSTGRES_PORT,
+    POSTGRES_DB,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
 )
+
 
 class DatasetManager:
     def __init__(self, root_dir: str = "."):
@@ -56,7 +58,7 @@ class DatasetManager:
         """Calculate SHA256 of image to prevent duplicate uploads."""
         hasher = hashlib.sha256()
         try:
-            with open(filepath, 'rb') as f:
+            with open(filepath, "rb") as f:
                 buf = f.read(65536)
                 while len(buf) > 0:
                     hasher.update(buf)
@@ -70,7 +72,7 @@ class DatasetManager:
         try:
             with Image.open(filepath) as img:
                 img.verify()
-            
+
             # Reopen to check channels/convert
             with Image.open(filepath) as img:
                 if img.mode in ("RGBA", "P"):
@@ -86,7 +88,9 @@ class DatasetManager:
         """Convert Pascal VOC bounding box annotations to normalized YOLO labels."""
         yolo_lines = []
         try:
-            tree = ET.parse(xml_path)
+            import defusedxml.ElementTree as DET
+
+            tree = DET.parse(xml_path)
             root = tree.getroot()
             size = root.find("size")
             if size is None:
@@ -112,7 +116,9 @@ class DatasetManager:
                 w = (xmax - xmin) / width
                 h = (ymax - ymin) / height
 
-                yolo_lines.append(f"{class_id} {x_center:.6f} {y_center:.6f} {w:.6f} {h:.6f}")
+                yolo_lines.append(
+                    f"{class_id} {x_center:.6f} {y_center:.6f} {w:.6f} {h:.6f}"
+                )
         except Exception:
             pass
         return yolo_lines
@@ -127,7 +133,7 @@ class DatasetManager:
             "duplicates": 0,
             "corrupted": 0,
             "classes": set(),
-            "quality_score": 100.0
+            "quality_score": 100.0,
         }
 
         if not os.path.exists(dataset_path):
@@ -138,7 +144,7 @@ class DatasetManager:
             for file in files:
                 ext = os.path.splitext(file)[1].lower()
                 filepath = os.path.join(root, file)
-                
+
                 if ext in [".jpg", ".jpeg", ".png"]:
                     results["images"] += 1
                     # Check corruption
@@ -146,7 +152,7 @@ class DatasetManager:
                     if not is_valid:
                         results["corrupted"] += 1
                         continue
-                    
+
                     # Duplicate check
                     f_hash = self.calculate_file_hash(filepath)
                     if f_hash:
@@ -154,16 +160,19 @@ class DatasetManager:
                             results["duplicates"] += 1
                             with psycopg.connect(self.dsn) as conn:
                                 with conn.cursor() as cur:
-                                    cur.execute("""
+                                    cur.execute(
+                                        """
                                         INSERT INTO duplicates (file_hash, filepath, duplicate_filepath)
                                         VALUES (%s, %s, %s)
                                         ON CONFLICT (file_hash) DO UPDATE SET
                                             filepath = EXCLUDED.filepath,
                                             duplicate_filepath = EXCLUDED.duplicate_filepath
-                                    """, (f_hash, hashes[f_hash], filepath))
+                                    """,
+                                        (f_hash, hashes[f_hash], filepath),
+                                    )
                         else:
                             hashes[f_hash] = filepath
-                
+
                 elif ext in [".txt", ".xml", ".json"]:
                     results["labels"] += 1
 
@@ -176,7 +185,8 @@ class DatasetManager:
         # Register in database
         with psycopg.connect(self.dsn) as conn:
             with conn.cursor() as cur:
-                cur.execute("""
+                cur.execute(
+                    """
                     INSERT INTO datasets (name, path, type, quality_score, image_count, annotation_count, status)
                     VALUES (%s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (name) DO UPDATE SET
@@ -186,11 +196,27 @@ class DatasetManager:
                         image_count = EXCLUDED.image_count,
                         annotation_count = EXCLUDED.annotation_count,
                         status = EXCLUDED.status
-                """, (results["name"], results["path"], "YOLO/COCO", results["quality_score"], results["images"], results["labels"], "Active"))
+                """,
+                    (
+                        results["name"],
+                        results["path"],
+                        "YOLO/COCO",
+                        results["quality_score"],
+                        results["images"],
+                        results["labels"],
+                        "Active",
+                    ),
+                )
 
         return results
 
-    def generate_training_yaml(self, train_path: str, val_path: str, classes: List[str], output_path: str = "train.yaml"):
+    def generate_training_yaml(
+        self,
+        train_path: str,
+        val_path: str,
+        classes: List[str],
+        output_path: str = "train.yaml",
+    ):
         """Generate PyTorch/YOLOv11 compatible training yaml files."""
         yaml_content = f"""# AgriSense Dataset Training Descriptor
 path: {os.path.abspath(self.root_dir)}
@@ -206,10 +232,18 @@ names:
             f.write(yaml_content)
         print(f"Generated training manifest at: {output_path}")
 
+
 def main():
-    parser = argparse.ArgumentParser(description="AgriSense Dataset Manager Pipeline CLI")
+    parser = argparse.ArgumentParser(
+        description="AgriSense Dataset Manager Pipeline CLI"
+    )
     parser.add_argument("--scan", type=str, help="Dataset directory to scan and audit")
-    parser.add_argument("--out-yaml", type=str, default="train.yaml", help="Path to write the train.yaml config")
+    parser.add_argument(
+        "--out-yaml",
+        type=str,
+        default="train.yaml",
+        help="Path to write the train.yaml config",
+    )
     args = parser.parse_args()
 
     manager = DatasetManager()
@@ -217,6 +251,7 @@ def main():
         print(f"Auditing directory: {args.scan}...")
         report = manager.audit_dataset(args.scan)
         print(json.dumps(report, indent=2, default=str))
+
 
 if __name__ == "__main__":
     main()

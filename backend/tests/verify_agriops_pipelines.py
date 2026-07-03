@@ -12,16 +12,17 @@ Performs verification checks for:
 
 import sys
 import os
-import json
 
 # Add project root to sys.path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 from backend.database.session import SessionLocalSync
 from backend.agriops.dataops.service import dataops_service
 from backend.agriops.mlops.service import mlops_service
 from backend.agriops.aiops.service import aiops_service
-from backend.database.models import PredictionLog
+
 
 def run_cde_cdq_checks(db):
     print("Executing Continuous Data Engineering (CDE) & Data Quality (CDQ) checks...")
@@ -32,22 +33,28 @@ def run_cde_cdq_checks(db):
         "ph": 6.2,
         "nitrogen": 45,
         "phosphorus": 38,
-        "potassium": 42
+        "potassium": 42,
     }
     import asyncio
+
     res = asyncio.run(dataops_service.validate_and_ingest_metrics(db, sensor_data))
     print(f"Data Ops ingestion results: {res}")
     assert "quality_score" in res
     assert res["quality_score"] > 0.0
     print("[CDE/CDQ] Checks passed successfully!")
 
+
 def run_ce_checks(db):
     print("Executing Continuous Evaluation (CE) checks...")
     import asyncio
-    res = asyncio.run(mlops_service.evaluate_champion_challenger(db, "crop_recommendation"))
+
+    res = asyncio.run(
+        mlops_service.evaluate_champion_challenger(db, "crop_recommendation")
+    )
     print(f"CE Eval Result: {res}")
     assert "champion" in res
     print("[CE] Evaluation checks passed successfully!")
+
 
 def run_cm_checks(db):
     print("Executing Continuous Monitoring (CM) checks...")
@@ -57,12 +64,15 @@ def run_cm_checks(db):
     assert "ram_used_mb" in metrics
     print("[CM] Monitoring checks passed successfully!")
 
+
 def run_cra_checks(db):
     print("Executing Continuous Risk Assessment (CRA) checks...")
     import asyncio
+
     alerts = asyncio.run(aiops_service.run_diagnostics(db))
     print(f"Current System Alerts count: {len(alerts)}")
     print("[CRA] Risk assessment checks completed!")
+
 
 if __name__ == "__main__":
     print("=== AgriOps Continuous Pipelines Verification Starting ===")
@@ -80,6 +90,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Pipeline verification failed with error: {e}")
         import traceback
+
         traceback.print_exc()
         sys.exit(1)
     finally:

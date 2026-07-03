@@ -6,8 +6,8 @@ Handles prompt versioning registries, document ingestions, chunkings, token cach
 """
 
 import logging
-from typing import Dict, Any, List
-from datetime import datetime
+from typing import Dict, Any
+from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 from backend.database.models import Document, AIAgent
 from backend.agriops.common.event_bus import event_bus
@@ -15,33 +15,35 @@ from backend.agriops.telemetry.tracer import trace_span
 
 logger = logging.getLogger("AgriOps.LLMOps")
 
+
 class LLMOpsService:
     @trace_span("LLMOps.RegisterDocumentChunk")
-    async def index_document_chunk(self, db: Session, name: str, content: str, vector_id: str = None) -> Dict[str, Any]:
+    async def index_document_chunk(
+        self, db: Session, name: str, content: str, vector_id: str = None
+    ) -> Dict[str, Any]:
         """
         Creates and persists a parsed context document in the AgriOps database for RAG.
         """
         doc = Document(
             name=name,
             content=content,
-            vector_id=vector_id or f"vec-{int(datetime.utcnow().timestamp())}",
-            created_at=datetime.utcnow()
+            vector_id=vector_id or f"vec-{int(datetime.now(timezone.utc).timestamp())}",
+            created_at=datetime.now(timezone.utc),
         )
         db.add(doc)
         db.commit()
         db.refresh(doc)
 
-        await event_bus.publish("EmbeddingGenerated", {
-            "document_id": doc.id,
-            "name": doc.name,
-            "vector_id": doc.vector_id
-        })
+        await event_bus.publish(
+            "EmbeddingGenerated",
+            {"document_id": doc.id, "name": doc.name, "vector_id": doc.vector_id},
+        )
 
         return {
             "status": "success",
             "id": doc.id,
             "name": doc.name,
-            "vector_id": doc.vector_id
+            "vector_id": doc.vector_id,
         }
 
     @trace_span("LLMOps.EvaluateRAGGuardrails")
@@ -52,7 +54,7 @@ class LLMOpsService:
         # A simple keyword check fallback for offline-capable guardrails
         blocked_keywords = ["malicious", "exploit", "hack", "bypass"]
         safety_status = "safe"
-        
+
         for word in blocked_keywords:
             if word in prompt.lower() or word in response.lower():
                 safety_status = "flagged"
@@ -71,9 +73,9 @@ class LLMOpsService:
             "token_analytics": {
                 "prompt_tokens": int(prompt_tokens),
                 "response_tokens": int(response_tokens),
-                "total_tokens": int(prompt_tokens + response_tokens)
+                "total_tokens": int(prompt_tokens + response_tokens),
             },
-            "eval_timestamp": datetime.utcnow().isoformat() + "Z"
+            "eval_timestamp": datetime.now(timezone.utc).isoformat() + "Z",
         }
 
     @trace_span("LLMOps.GetLLMOverview")
@@ -83,22 +85,31 @@ class LLMOpsService:
         """
         docs_count = db.query(Document).count()
         agents = db.query(AIAgent).filter(AIAgent.status == "active").all()
-        
+
         agents_list = []
         for agent in agents:
-            agents_list.append({
-                "id": agent.id,
-                "name": agent.name,
-                "role": agent.role,
-                "prompt_length": len(agent.system_prompt) if agent.system_prompt else 0
-            })
+            agents_list.append(
+                {
+                    "id": agent.id,
+                    "name": agent.name,
+                    "role": agent.role,
+                    "prompt_length": len(agent.system_prompt)
+                    if agent.system_prompt
+                    else 0,
+                }
+            )
 
         return {
             "total_documents": docs_count,
             "active_llm_agents": len(agents),
             "agents": agents_list,
             "guardrail_status": "operational",
-            "offline_models": ["Ollama/Qwen-7B-AgriGPT", "Florence-2-Vision", "TabPFN-CropRecommend"]
+            "offline_models": [
+                "Ollama/Qwen-7B-AgriGPT",
+                "Florence-2-Vision",
+                "TabPFN-CropRecommend",
+            ],
         }
+
 
 llmops_service = LLMOpsService()

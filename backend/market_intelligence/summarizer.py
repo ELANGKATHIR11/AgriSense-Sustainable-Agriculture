@@ -4,35 +4,80 @@ from backend.llm.agri_assistant import chat_query_ollama
 
 logger = logging.getLogger("MarketSummarizer")
 
+
 def classify_gov_category(title: str, text: str) -> str:
     """
     Step 16: Categorize updates into specific bins.
     """
     combined = (title + " " + text).lower()
-    
+
     if any(k in combined for k in ["msp", "minimum support price", "support price"]):
         return "MSP"
-    if any(k in combined for k in ["subsidy", "subsidies", "fertilizer subsidy", "grant"]):
+    if any(
+        k in combined for k in ["subsidy", "subsidies", "fertilizer subsidy", "grant"]
+    ):
         return "Subsidies"
-    if any(k in combined for k in ["weather advisory", "rain", "monsoon", "meteorological", "imd", "advisory", "cyclone"]):
+    if any(
+        k in combined
+        for k in [
+            "weather advisory",
+            "rain",
+            "monsoon",
+            "meteorological",
+            "imd",
+            "advisory",
+            "cyclone",
+        ]
+    ):
         return "Weather Advisories"
-    if any(k in combined for k in ["export", "import", "trade", "tariff", "export duty"]):
+    if any(
+        k in combined for k in ["export", "import", "trade", "tariff", "export duty"]
+    ):
         return "Exports/Imports"
-    if any(k in combined for k in ["loan", "credit", "kcc", "interest subvention", "finance", "debt"]):
+    if any(
+        k in combined
+        for k in ["loan", "credit", "kcc", "interest subvention", "finance", "debt"]
+    ):
         return "Loans"
-    if any(k in combined for k in ["insurance", "pmfby", "claim", "crop damage", "payout"]):
+    if any(
+        k in combined for k in ["insurance", "pmfby", "claim", "crop damage", "payout"]
+    ):
         return "Insurance"
-    if any(k in combined for k in ["policy", "cabinet approve", "bill", "act", "regulation"]):
+    if any(
+        k in combined
+        for k in ["policy", "cabinet approve", "bill", "act", "regulation"]
+    ):
         return "Policy"
-        
+
     return "Schemes"
+
 
 def get_word_set(text: str) -> set[str]:
     """Clean text and return set of significant words."""
     words = re.findall(r"\w+", text.lower())
     # Remove small common words
-    stopwords = {"the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "with", "by", "of", "is", "are", "was", "were"}
+    stopwords = {
+        "the",
+        "a",
+        "an",
+        "and",
+        "or",
+        "but",
+        "in",
+        "on",
+        "at",
+        "to",
+        "for",
+        "with",
+        "by",
+        "of",
+        "is",
+        "are",
+        "was",
+        "were",
+    }
     return {w for w in words if len(w) > 3 and w not in stopwords}
+
 
 def is_similar_article(title1: str, title2: str, threshold: float = 0.4) -> bool:
     """
@@ -46,6 +91,7 @@ def is_similar_article(title1: str, title2: str, threshold: float = 0.4) -> bool
     union = words1.union(words2)
     return len(intersection) / len(union) >= threshold
 
+
 async def summarize_update(title: str, raw_text: str, category: str) -> str:
     """
     Summarize agricultural update or news into farmer-friendly language using AgriGPT.
@@ -57,7 +103,7 @@ async def summarize_update(title: str, raw_text: str, category: str) -> str:
         f"Content: {raw_text}\n\n"
         f"Provide only the direct summary without conversational preambles."
     )
-    
+
     try:
         summary = await chat_query_ollama(prompt)
         summary = summary.strip().strip('"').strip("'")
@@ -67,6 +113,7 @@ async def summarize_update(title: str, raw_text: str, category: str) -> str:
     except Exception as e:
         logger.warning(f"Failed to use AgriGPT for summary, using fallback: {e}")
         return fallback_summarize(title, raw_text)
+
 
 def fallback_summarize(title: str, text: str) -> str:
     """
@@ -80,4 +127,3 @@ def fallback_summarize(title: str, text: str) -> str:
     else:
         summary = text[:180] + "..." if len(text) > 180 else text
     return f"{title}: {summary}"
-

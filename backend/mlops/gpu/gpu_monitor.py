@@ -5,17 +5,19 @@ import logging
 logger = logging.getLogger("GPUMonitor")
 REPORT_PATH = os.path.join("validation_reports", "gpu_report.html")
 
+
 def get_gpu_status() -> dict:
     try:
         import pynvml
+
         pynvml.nvmlInit()
         handle = pynvml.nvmlDeviceGetHandleByIndex(0)
         info = pynvml.nvmlDeviceGetMemoryInfo(handle)
         temp = pynvml.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
         util = pynvml.nvmlDeviceGetUtilizationRates(handle)
-        
-        vram_used = info.used / (1024 ** 2) # MB
-        vram_total = info.total / (1024 ** 2) # MB
+
+        vram_used = info.used / (1024**2)  # MB
+        vram_total = info.total / (1024**2)  # MB
         gpu_util = util.gpu
     except Exception:
         # Fallback values for emulation
@@ -29,7 +31,7 @@ def get_gpu_status() -> dict:
         "vram_total_mb": float(vram_total),
         "gpu_utilization_pct": int(gpu_util),
         "gpu_temperature_c": int(temp),
-        "vram_limit_warning": bool(vram_used > 6144.0) # 6GB limit check
+        "vram_limit_warning": bool(vram_used > 6144.0),  # 6GB limit check
     }
 
     # Generate HTML report
@@ -64,6 +66,7 @@ def get_gpu_status() -> dict:
         f.write(html_content)
 
     return stats
+
 
 if __name__ == "__main__":
     get_gpu_status()

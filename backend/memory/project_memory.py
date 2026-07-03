@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from backend.rag.mrag_orchestrator import mrag_orchestrator
+
 
 class ProjectMemory:
     def __init__(self, db_path=None):
@@ -9,17 +10,15 @@ class ProjectMemory:
         pass
 
     def log_task(self, agent_name: str, task: str, result: dict):
-        doc_id = f"mem-{agent_name}-{int(datetime.utcnow().timestamp())}"
-        text_content = f"Agent: {agent_name}. Task: {task}. Result: {json.dumps(result)}"
+        doc_id = f"mem-{agent_name}-{int(datetime.now(timezone.utc).timestamp())}"
+        text_content = (
+            f"Agent: {agent_name}. Task: {task}. Result: {json.dumps(result)}"
+        )
         mrag_orchestrator.index_document(
             collection_name="agent_memory",
             doc_id=doc_id,
             text=text_content,
-            metadata={
-                "agent_name": agent_name,
-                "task": task,
-                "result": result
-            }
+            metadata={"agent_name": agent_name, "task": task, "result": result},
         )
 
     def get_history(self, limit=10):
@@ -32,14 +31,17 @@ class ProjectMemory:
             formatted = []
             for r in rows[:limit]:
                 meta = json.loads(r.get("metadata", "{}"))
-                formatted.append({
-                    "agent": meta.get("agent_name"),
-                    "task": meta.get("task"),
-                    "result": meta.get("result"),
-                    "time": r.get("timestamp")
-                })
+                formatted.append(
+                    {
+                        "agent": meta.get("agent_name"),
+                        "task": meta.get("task"),
+                        "result": meta.get("result"),
+                        "time": r.get("timestamp"),
+                    }
+                )
             return formatted
         except Exception:
             return []
+
 
 memory_system = ProjectMemory()

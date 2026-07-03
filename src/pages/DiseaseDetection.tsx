@@ -74,7 +74,7 @@ export default function DiseaseDetection() {
   const labels: Record<string, Record<string, string>> = {
     en: {
       title: "Disease Vision Diagnostic Workspace",
-      subtitle: "Enterprise multimodal workspace powered by SmolVLM and regional advisory indices.",
+      subtitle: "Enterprise multimodal workspace powered by TGL-YOLO, SmolVLM, and LanceDB VRAG.",
       uploadTitle: "Diagnostic Image Feed",
       dragText: "Drag & Drop, Paste, or click to Upload",
       cameraBtn: "Camera Capture",
@@ -93,7 +93,7 @@ export default function DiseaseDetection() {
     },
     ta: {
       title: "பயிர் நோய் கண்டறிதல் பணிநிலையம்",
-      subtitle: "SmolVLM மற்றும் பிராந்திய ஆலோசனை குறியீடுகளால் இயக்கப்படும் அதிநவீன ஏஐ தளம்.",
+      subtitle: "TGL-YOLO, SmolVLM மற்றும் LanceDB VRAG ஆகியவற்றால் இயக்கப்படும் அதிநவீன ஏஐ தளம்.",
       uploadTitle: "கண்டறியும் பட ஊட்டம்",
       dragText: "இழுத்து விடவும், ஒட்டவும் அல்லது பதிவேற்ற கிளிக் செய்யவும்",
       cameraBtn: "கேமரா பிடிப்பு",
@@ -112,7 +112,7 @@ export default function DiseaseDetection() {
     },
     te: {
       title: "పంట తెగుళ్ల నిర్ధారణ కార్యస్థలం",
-      subtitle: "SmolVLM మరియు ప్రాంతీయ సలహా సూచీల ద్వారా ఆధారితమైన మల్టీమోడల్ ప్లాట్‌ఫారమ్.",
+      subtitle: "TGL-YOLO, SmolVLM మరియు LanceDB VRAG ద్వారా ఆధారితమైన మల్టీమోడల్ ప్లాట్‌ఫారమ్.",
       uploadTitle: "రోగనిర్ధారణ చిత్ర ఫీడ్",
       dragText: "లాగి వదలండి, అతికించండి లేదా అప్‌లోడ్ చేయడానికి క్లిక్ చేయండి",
       cameraBtn: "కెమెరా క్యాప్చర్",
@@ -127,7 +127,47 @@ export default function DiseaseDetection() {
       marketTitle: "మార్కెట్ మరియు దిగుబడి ప్రభావ అంచనా",
       reportBtn: "PDF నివేదికను డౌన్‌లోడ్ చేయండి",
       timelineTitle: "చారిత్రక కాలక్రమం పోలిక స్లైడర్",
-      comparisonText: "చారిత్రక పురోగతిని పోల్చడానికి స్లైడర్‌ను లాగండి (రోజు 1 వర్సెస్ రోజు 10)"
+      comparisonText: "చారిత్రక పురోగతిని పోల్చడానికి స్లైడర్ లాగండి (రోజు 1 వర్సెస్ రోజు 10)"
+    },
+    ml: {
+      title: "വിള രോഗനിർണ്ണയ വർക്ക്‌സ്‌പെയ്‌സ്",
+      subtitle: "TGL-YOLO, SmolVLM, LanceDB VRAG എന്നിവ ഉപയോഗിച്ചുള്ള മൾട്ടിമോഡൽ പ്ലാറ്റ്‌ഫോം.",
+      uploadTitle: "ഡയഗ്നോസ്റ്റിക് ഇമേജ് ഫീഡ്",
+      dragText: "വലിച്ചിടുക, ഒട്ടിക്കുക അല്ലെങ്കിൽ അപ്‌ലോഡ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
+      cameraBtn: "ക്യാമറ ക്യാപ്ചർ",
+      presetsTitle: "ഡെമോ പ്രീസെറ്റ് തിരഞ്ഞെടുക്കുക",
+      evidenceTitle: "ദൃശ്യ തെളിവുകൾ വേർതിരിച്ചെടുക്കൽ",
+      diagnosticsTitle: "AI രോഗനിർണ്ണയവും തീവ്രതയും",
+      severityTitle: "തീവ്രത മീറ്റർ",
+      confidenceTitle: "വിശ്വാസ്യത അളവുകൾ",
+      retrievalTitle: "വിഷ്വൽ റാഗ് നോളജ് ബേസ് മാച്ചിംഗ്",
+      advisoryTitle: "ചികിത്സയും വീണ്ടെടുക്കൽ മാർഗ്ഗനിർദ്ദേശങ്ങളും",
+      weatherTitle: "കാലാവസ്ഥാ രോഗസാധ്യത",
+      marketTitle: "വിപണി, വിളവ് ആഘാത വിലയിരുത്തൽ",
+      reportBtn: "PDF റിപ്പോർട്ട് ഡൗൺലോഡ് ചെയ്യുക",
+      timelineTitle: "ചരിത്രപരമായ ടൈംലൈൻ താരതമ്യ സ്ലൈഡർ",
+      comparisonText: "ചരിത്രപരമായ പുരോഗതി താരതമ്യം ചെയ്യാൻ സ്ലൈഡർ വലിക്കുക (ദിവസം 1 വേഴ്സസ് ദിവസം 10)"
+    },
+    hi: {
+      title: "फसल रोग निदान कार्यक्षेत्र",
+      subtitle: "TGL-YOLO, SmolVLM और LanceDB VRAG द्वारा संचालित उन्नत मल्टीमॉडल प्लेटफॉर्म।",
+      uploadTitle: "नैदानिक छवि फ़ीड",
+      dragText: "ड्रैग एंड ड्रॉप, पेस्ट करें, या अपलोड करने के लिए क्लिक करें",
+      cameraBtn: "कैमरा कैप्चर",
+      presetsTitle: "डेमो प्रीसेट चुनें",
+      evidenceTitle: "दृश्य साक्ष्य निष्कर्षण",
+      diagnosticsTitle: "एआई निदान और गंभीरता",
+      severityTitle: "अनुमानित गंभीरता मीटर",
+      confidenceTitle: "मल्टीमॉडल आत्मविश्वास मीट्रिक",
+      retrievalTitle: "विजुअल रग नॉलेज बेस मिलान",
+      advisoryTitle: "उपचार और बहाली दिशानिर्देश",
+      weatherTitle: "मौसम जनित रोग अनुकूलता",
+      marketTitle: "बाजार और उपज प्रभाव मूल्यांकन",
+      reportBtn: "PDF रिपोर्ट डाउनलोड करें",
+      timelineTitle: "ऐतिहासिक समयरेखा तुलना स्लाइडर",
+      comparisonText: "ऐतिहासिक प्रगति की तुलना करने के लिए स्लाइडर खींचें (दिन 1 बनाम दिन 10)"
+    }
+  };�ోగతిని పోల్చడానికి స్లైడర్‌ను లాగండి (రోజు 1 వర్సెస్ రోజు 10)"
     },
     ml: {
       title: "വിള രോഗനിർണ്ണയ വർക്ക്‌സ്‌പെയ്‌സ്",
@@ -515,7 +555,7 @@ WEATHER IMPACT:
             <span className="agri-badge text-emerald-400 bg-emerald-950/80 border-emerald-800">
               <ScanLine className="w-3 h-3 animate-pulse" /> {t("nav.disease")}
             </span>
-            <span className="agri-badge bg-amber-950/80 text-amber-400 border-amber-800">⚡ SmolVLM + RAG</span>
+            <span className="agri-badge bg-amber-950/80 text-amber-400 border-amber-800">⚡ TGL-YOLO + SmolVLM + VRAG</span>
           </div>
           <h1 className="text-2xl font-black tracking-tight">{getT("title")}</h1>
           <p className="text-emerald-200/80 text-xs max-w-2xl">{getT("subtitle")}</p>

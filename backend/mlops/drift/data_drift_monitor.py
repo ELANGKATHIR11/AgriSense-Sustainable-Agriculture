@@ -1,30 +1,35 @@
 # -*- coding: utf-8 -*-
 import os
 import numpy as np
-import pandas as pd
 from scipy.stats import ks_2samp
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 
 router = APIRouter(prefix="/mlops/drift", tags=["Drift Monitoring"])
 
 DRIFT_REPORT_PATH = os.path.join("validation_reports", "drift_report.html")
 
+
 def calculate_feature_drift(ref_data: np.ndarray, curr_data: np.ndarray) -> dict:
     # KS-test
     stat, p_val = ks_2samp(ref_data, curr_data)
     # If p-value is < 0.05, we reject the null hypothesis (meaning distributions are different -> drift)
     drifted = bool(p_val < 0.05)
-    
+
     # Calculate population stability index (PSI) proxy
-    psi = float(np.sum(np.abs(np.mean(ref_data) - np.mean(curr_data)) / (np.std(ref_data) + 1e-5)))
-    
+    psi = float(
+        np.sum(
+            np.abs(np.mean(ref_data) - np.mean(curr_data)) / (np.std(ref_data) + 1e-5)
+        )
+    )
+
     return {
         "ks_stat": float(stat),
         "p_value": float(p_val),
         "psi": psi,
-        "drift_detected": drifted
+        "drift_detected": drifted,
     }
+
 
 @router.post("/check")
 async def run_drift_check():
@@ -32,9 +37,9 @@ async def run_drift_check():
     np.random.seed(42)
     ref_moisture = np.random.normal(40, 5, 200)
     curr_moisture = np.random.normal(38.5, 6, 200)
-    
+
     drift_res = calculate_feature_drift(ref_moisture, curr_moisture)
-    
+
     # Generate report
     html_content = f"""
     <html>
@@ -60,8 +65,9 @@ async def run_drift_check():
     os.makedirs(os.path.dirname(DRIFT_REPORT_PATH), exist_ok=True)
     with open(DRIFT_REPORT_PATH, "w", encoding="utf-8") as f:
         f.write(html_content)
-        
+
     return drift_res
+
 
 @router.get("/report", response_class=HTMLResponse)
 async def get_drift_report():

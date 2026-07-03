@@ -1,8 +1,5 @@
-/**
- * AGRISENSE AgriGPT Conversation History Store
- */
-
-import { create } from "zustand";
+// AGRISENSE AgriGPT Conversation History Store
+import create from "zustand";
 import { ChatMessage } from "../types";
 import { initialMockChatHistory } from "../mocks/mockChat";
 
@@ -14,7 +11,7 @@ interface ChatState {
   clearHistory: () => void;
 }
 
-export const useChatStore = create<ChatState>((set) => ({
+export const useChatStore = create((set) => ({
   messages: initialMockChatHistory,
   loading: false,
   addMessage: (msg) => set((state) => ({

@@ -438,3 +438,101 @@ def predict_fertilizer(temperature: float, humidity: float, moisture: float,
         "advisory": ADVISORIES.get(recommended_name, f"Apply recommended {recommended_name} according to standard soil dosage instructions.")
     }
 
+
+# ── DIGITAL TWIN RESIDUAL CORRECTED PREDICTIONS ──────────────────────────────
+_twin_water_model = None
+_twin_disease_model = None
+_twin_growth_model = None
+_twin_yield_model = None
+
+def _load_twin_models():
+    global _twin_water_model, _twin_disease_model, _twin_growth_model, _twin_yield_model
+    if _twin_water_model is None:
+        _twin_water_model = joblib.load(os.path.join(MODEL_DIR, "twin_water_stress_index_catboost.joblib"))
+        _twin_disease_model = joblib.load(os.path.join(MODEL_DIR, "twin_disease_risk_index_catboost.joblib"))
+        _twin_growth_model = joblib.load(os.path.join(MODEL_DIR, "twin_growth_simulation_index_catboost.joblib"))
+        _twin_yield_model = joblib.load(os.path.join(MODEL_DIR, "twin_yield_forecast_catboost.joblib"))
+    return _twin_water_model, _twin_disease_model, _twin_growth_model, _twin_yield_model
+
+def _physics_water_stress(row):
+    moisture = row.get('Soil_Moisture_Surface', 35.0)
+    temp = row.get('Air_Temperature', 25.0)
+    base_stress = np.clip((45.0 - moisture) / 45.0, 0.0, 1.0)
+    heat_factor = 1.0 + np.maximum(0.0, temp - 32.0) * 0.05
+    return np.clip(base_stress * heat_factor, 0.0, 1.0)
+
+def _physics_disease_risk(row):
+    humidity = row.get('Humidity', 60.0)
+    temp = row.get('Air_Temperature', 25.0)
+    rainfall_24 = row.get('Rainfall_24h', 5.0)
+    risk = (humidity / 100.0) * (1.0 - np.abs(temp - 23.0) / 10.0) * (1.0 + rainfall_24 / 10.0)
+    return np.clip(risk, 0.0, 1.0)
+
+def _physics_growth_index(row):
+    temp = row.get('Air_Temperature', 25.0)
+    moisture = row.get('Soil_Moisture_Surface', 35.0)
+    age = row.get('Plant_Age', 30.0)
+    gdd = np.maximum(0.0, temp - 10.0)
+    index = (gdd / 15.0) * (moisture / 35.0) * (1.0 + age / 120.0)
+    return np.clip(index, 0.0, 1.0)
+
+def predict_digital_twin_state(nitrogen, phosphorus, potassium, air_temp, humidity, pH, moisture, rainfall=0.0):
+    """
+    Predicts physics-guided hybrid digital twin state index variables.
+    Computes baseline agronomic equations first, and then adds CatBoost predicted residuals.
+    """
+    w_mod, d_mod, g_mod, y_mod = _load_twin_models()
+    
+    # Map raw features to expected model schema inputs
+    row_dict = {
+        'Nitrogen': nitrogen,
+        'Phosphorus': phosphorus,
+        'Potassium': potassium,
+        'Air_Temperature': air_temp,
+        'Humidity': humidity,
+        'Soil_pH': pH,
+        'Soil_Moisture_Surface': moisture,
+        'Rainfall': rainfall
+    }
+    
+    # 1. Compute Physics baselines
+    water_stress_phys = _physics_water_stress(row_dict)
+    disease_risk_phys = _physics_disease_risk(row_dict)
+    growth_sim_phys = _physics_growth_index(row_dict)
+    
+    # Helper to clean feature vectors & predict residual
+    def predict_residual(bundle):
+        f_cols = bundle['feature_cols']
+        feats = np.array([[row_dict.get(c, 0.0) for c in f_cols]])
+        if bundle['scaler'] is not None:
+            feats = bundle['scaler'].transform(feats)
+        return float(bundle['model'].predict(feats)[0])
+        
+    water_stress_res = predict_residual(w_mod)
+    disease_risk_res = predict_residual(d_mod)
+    growth_sim_res = predict_residual(g_mod)
+    
+    # 2. Predict Yield Forecast directly
+    feats_yf = np.array([[row_dict.get(c, 0.0) for c in y_mod['feature_cols']]])
+    if y_mod['scaler'] is not None:
+        feats_yf = y_mod['scaler'].transform(feats_yf)
+    yield_forecast = float(y_mod['model'].predict(feats_yf)[0])
+    
+    # 3. Sum baselines and residuals
+    water_stress = float(np.clip(water_stress_phys + water_stress_res, 0.0, 1.0))
+    disease_risk = float(np.clip(disease_risk_phys + disease_risk_res, 0.0, 1.0))
+    growth_sim = float(np.clip(growth_sim_phys + growth_sim_res, 0.0, 1.0))
+    
+    return {
+        "waterStressIndex": round(water_stress, 4),
+        "diseaseRiskIndex": round(disease_risk, 4),
+        "growthSimulationIndex": round(growth_sim, 4),
+        "yieldForecast": round(yield_forecast, 4),
+        "physicsBaselines": {
+            "waterStressBaseline": round(water_stress_phys, 4),
+            "diseaseRiskBaseline": round(disease_risk_phys, 4),
+            "growthSimulationBaseline": round(growth_sim_phys, 4)
+        }
+    }
+
+

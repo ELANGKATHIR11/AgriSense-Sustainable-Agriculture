@@ -1,38 +1,58 @@
 {
   "crop_recommendation": {
-    "model": "CatBoostClassifier",
-    "accuracy": 0.8717,
-    "f1_score": 0.8577,
-    "train_time_s": 7.9,
+    "accuracy": 0.997325,
+    "f1_score": 0.9973117087538746,
     "status": "active"
   },
   "fertilizer_recommendation": {
-    "model": "CatBoostClassifier",
-    "accuracy": 0.9714,
-    "f1_score": 0.9719,
-    "train_time_s": 0.6,
+    "accuracy": 0.984875,
+    "f1_score": 0.8974699448725508,
     "status": "active"
   },
-  "irrigation": {
-    "model": "PatchTST Sequence Transformer",
-    "r2_score": -0.0011,
-    "mae_liters": 11.57,
-    "train_time_s": 5.3,
-    "status": "below_target"
+  "disease_prediction": {
+    "accuracy": 0.99815,
+    "f1_score": 0.9902022430909613,
+    "status": "staging"
+  },
+  "pest_prediction": {
+    "accuracy": 1.0,
+    "f1_score": 1.0,
+    "status": "active"
+  },
+  "weed_prediction": {
+    "accuracy": 0.8305,
+    "f1_score": 0.458766358497438,
+    "status": "staging"
   },
   "yield_prediction": {
-    "model": "PatchTST Sequence Transformer",
-    "r2_score": 0.1801,
-    "mae_tons": 3.6697,
-    "train_time_s": 10.3,
-    "status": "below_target"
+    "r2_score": 0.6967379501894324,
+    "mae": 0.6081280085056007,
+    "status": "staging"
   },
-  "disease_risk": {
-    "model": "RandomForest + LightGBM (ROC-AUC optimised)",
-    "accuracy": 0.9983,
-    "roc_auc": 1.0,
-    "train_time_s": 3.0,
+  "irrigation": {
+    "r2_score": -0.0018273500154970534,
+    "mae": 175.60797213741847,
+    "status": "staging"
+  },
+  "twin_water_stress_index": {
+    "residual_r2": 0.6248061064101442,
+    "mae": 0.09981757293719505,
     "status": "active"
   },
-  "last_trained": "2026-06-09T17:16:26.656849Z"
+  "twin_disease_risk_index": {
+    "residual_r2": 0.8166448864907256,
+    "mae": 0.15302669821582002,
+    "status": "active"
+  },
+  "twin_growth_simulation_index": {
+    "residual_r2": 0.24689443957558477,
+    "mae": 0.12377093696569491,
+    "status": "active"
+  },
+  "twin_yield_forecast": {
+    "r2_score": 0.9759357241219108,
+    "mae": 0.16590503399350054,
+    "status": "active"
+  },
+  "last_trained": "2026-07-01T15:05:59.885011Z"
 }
