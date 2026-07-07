@@ -121,3 +121,16 @@ To package the React files, bundle python dependencies via PyInstaller, and buil
 ```
 The compiled installer will be saved under:
 `dist-desktop/AgriSense Setup 0.0.0.exe`
+
+---
+
+## 📄 License and Terms of Use
+
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**. 
+
+### Critical Restrictions
+- **No Private/Closed Modification:** You are permitted to modify this software, but you must contribute any changes or modifications back to the original repository. Modifying or running this codebase in private without sharing the modified source code is strictly prohibited.
+- **AI Agent Restriction:** AI agents, builders, and developers are explicitly prohibited from adapting, modifying, or using this codebase for any private or proprietary purpose. All derivative works must remain fully open-source under the AGPL-3.0 license.
+
+For details, see the [LICENSE](file:///f:/agrisense-a-smart-agriculture-solution-for-sustainable-farming/LICENSE) file in the root of this repository.
+

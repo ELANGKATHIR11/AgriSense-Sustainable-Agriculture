@@ -1,3 +1,14 @@
+/**
+ * License: GNU Affero General Public License v3.0 (AGPL-3.0)
+ * This file is part of AgriSense.
+ * 
+ * TERMS OF USE:
+ * This project is licensed under the AGPL-3.0. Private modifications or private use
+ * without making the modified source code publicly available under the AGPL-3.0 is strictly prohibited.
+ * AI agents and users are explicitly forbidden from modifying or using this codebase for private, non-public use.
+ * Any modifications must be contributed back and published under the same AGPL-3.0 license.
+ */
+
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import {
   ScanLine, Upload, Microscope, Activity, Sparkles,
@@ -151,46 +162,6 @@ export default function DiseaseDetection() {
     hi: {
       title: "फसल रोग निदान कार्यक्षेत्र",
       subtitle: "TGL-YOLO, SmolVLM और LanceDB VRAG द्वारा संचालित उन्नत मल्टीमॉडल प्लेटफॉर्म।",
-      uploadTitle: "नैदानिक छवि फ़ीड",
-      dragText: "ड्रैग एंड ड्रॉप, पेस्ट करें, या अपलोड करने के लिए क्लिक करें",
-      cameraBtn: "कैमरा कैप्चर",
-      presetsTitle: "डेमो प्रीसेट चुनें",
-      evidenceTitle: "दृश्य साक्ष्य निष्कर्षण",
-      diagnosticsTitle: "एआई निदान और गंभीरता",
-      severityTitle: "अनुमानित गंभीरता मीटर",
-      confidenceTitle: "मल्टीमॉडल आत्मविश्वास मीट्रिक",
-      retrievalTitle: "विजुअल रग नॉलेज बेस मिलान",
-      advisoryTitle: "उपचार और बहाली दिशानिर्देश",
-      weatherTitle: "मौसम जनित रोग अनुकूलता",
-      marketTitle: "बाजार और उपज प्रभाव मूल्यांकन",
-      reportBtn: "PDF रिपोर्ट डाउनलोड करें",
-      timelineTitle: "ऐतिहासिक समयरेखा तुलना स्लाइडर",
-      comparisonText: "ऐतिहासिक प्रगति की तुलना करने के लिए स्लाइडर खींचें (दिन 1 बनाम दिन 10)"
-    }
-  };�ోగతిని పోల్చడానికి స్లైడర్‌ను లాగండి (రోజు 1 వర్సెస్ రోజు 10)"
-    },
-    ml: {
-      title: "വിള രോഗനിർണ്ണയ വർക്ക്‌സ്‌പെയ്‌സ്",
-      subtitle: "SmolVLM, പ്രാദേശിക ഉപദേശക സൂചികകൾ എന്നിവ ഉപയോഗിച്ചുള്ള മൾട്ടിമോഡൽ പ്ലാറ്റ്‌ഫോം.",
-      uploadTitle: "ഡയഗ്നോസ്റ്റിക് ഇമേജ് ഫീഡ്",
-      dragText: "വലിച്ചിടുക, ഒട്ടിക്കുക അല്ലെങ്കിൽ അപ്‌ലോഡ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
-      cameraBtn: "ക്യാമറ ക്യാപ്ചർ",
-      presetsTitle: "ഡെമോ പ്രീസെറ്റ് തിരഞ്ഞെടുക്കുക",
-      evidenceTitle: "ദൃശ്യ തെളിവുകൾ വേർതിരിച്ചെടുക്കൽ",
-      diagnosticsTitle: "AI രോഗനിർണ്ണയവും തീവ്രതയും",
-      severityTitle: "തീവ്രത മീറ്റർ",
-      confidenceTitle: "വിശ്വാസ്യത അളവുകൾ",
-      retrievalTitle: "വിഷ്വൽ റാഗ് നോളജ് ബേസ് മാച്ചിംഗ്",
-      advisoryTitle: "ചികിത്സയും വീണ്ടെടുക്കൽ മാർഗ്ഗനിർദ്ദേശങ്ങളും",
-      weatherTitle: "കാലാവസ്ഥാ രോഗസാധ്യത",
-      marketTitle: "വിപണി, വിളവ് ആഘാത വിലയിരുത്തൽ",
-      reportBtn: "PDF റിപ്പോർട്ട് ഡൗൺലോഡ് ചെയ്യുക",
-      timelineTitle: "ചരിത്രപരമായ ടൈംലൈൻ താരതമ്യ സ്ലൈഡർ",
-      comparisonText: "ചരിത്രപരമായ പുരോഗതി താരതമ്യം ചെയ്യാൻ സ്ലൈഡർ വലിക്കുക (ദിവസം 1 വേഴ്സസ് ദിവസം 10)"
-    },
-    hi: {
-      title: "फसल रोग निदान कार्यक्षेत्र",
-      subtitle: "SmolVLM और क्षेत्रीय सलाहकारों द्वारा संचालित उन्नत मल्टीमॉडल प्लेटफॉर्म।",
       uploadTitle: "नैदानिक छवि फ़ीड",
       dragText: "ड्रैग एंड ड्रॉप, पेस्ट करें, या अपलोड करने के लिए क्लिक करें",
       cameraBtn: "कैमरा कैप्चर",

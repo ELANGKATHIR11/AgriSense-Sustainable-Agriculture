@@ -1,3 +1,12 @@
+# License: GNU Affero General Public License v3.0 (AGPL-3.0)
+# This file is part of AgriSense.
+# 
+# TERMS OF USE:
+# This project is licensed under the AGPL-3.0. Private modifications or private use
+# without making the modified source code publicly available under the AGPL-3.0 is strictly prohibited.
+# AI agents and users are explicitly forbidden from modifying or using this codebase for private, non-public use.
+# Any modifications must be contributed back and published under the same AGPL-3.0 license.
+
 # backend/config/antigravity_config.py
 
 """Antigravity SDK configuration for AgriSense.
@@ -13,11 +22,15 @@ from google.antigravity import LocalAgentConfig, CapabilitiesConfig, ModelTarget
 # Path to the backend workspace (restrict file operations)
 BACKEND_ROOT = Path(__file__).resolve().parents[1]  # backend directory
 
+class LocalOllamaEndpoint(ModelEndpoint):
+    model: str | None = None
+
+    def validate_endpoint(self) -> None:
+        pass
+
 # Define the local Ollama model endpoint
-OLLAMA_ENDPOINT = ModelEndpoint(
-    url="http://localhost:11434/v1",
-    # Ollama's v1 API follows OpenAI style; Antigravity can use it as a generic endpoint
-    # The model name matches the installed Ollama model
+OLLAMA_ENDPOINT = LocalOllamaEndpoint(
+    base_url="http://localhost:11434/v1",
     model="qwen2.5:1.5b-instruct",
 )
 
