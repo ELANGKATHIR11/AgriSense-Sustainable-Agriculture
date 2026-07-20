@@ -312,3 +312,24 @@ async def get_metrics():
             "online_agents": len(orchestrator.agents),
         }
     }
+
+
+@router.post("/swarm/crewai")
+async def execute_crewai_swarm(req: TaskRequest):
+    """
+    Trigger a collaborative CrewAI workflow with Agronomist, Marketplace, and Cost Agents.
+    """
+    try:
+        from backend.agents.crewai_swarm import run_agri_crew
+        report = await run_agri_crew(req.task)
+        return {
+            "status": "success",
+            "task": req.task,
+            "report": report
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+

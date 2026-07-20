@@ -17,3 +17,7 @@ python-dotenv
 alembic
 asyncpg
 geoalchemy2
+langchain
+langchain-community
+langchain-ollama
+crewai

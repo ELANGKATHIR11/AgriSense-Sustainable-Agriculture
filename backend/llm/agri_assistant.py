@@ -95,16 +95,29 @@ async def query_assistant(payload: ChatRequest):
     except Exception:
         pass  # RAG unavailable, continue without context
 
-    # 2. Compose structured prompt
-    full_prompt = f"User Query: {query}\n\n"
-    if pred_context:
-        full_prompt += f"Specialized Model/Sensor Context:\n{pred_context}\n\n"
-    if context_str:
-        full_prompt += f"Retrieved Knowledge base context:\n{context_str}\n\n"
+    # 2. Try LangChain advisor first, fall back to chat_query_ollama on error/failure
+    try:
+        from backend.llm.langchain_advisor import query_langchain_advisor
+        history_list = []
+        if payload.messages:
+            history_list = [{"role": m.role, "content": m.content} for m in payload.messages]
+        reply = await query_langchain_advisor(
+            query=query,
+            context=context_str,
+            sensor_context=str(pred_context) if pred_context else "",
+            history=history_list
+        )
+    except Exception as lc_err:
+        logger.warning(f"LangChain advisor failed or not loaded, falling back: {lc_err}")
+        full_prompt = f"User Query: {query}\n\n"
+        if pred_context:
+            full_prompt += f"Specialized Model/Sensor Context:\n{pred_context}\n\n"
+        if context_str:
+            full_prompt += f"Retrieved Knowledge base context:\n{context_str}\n\n"
 
-    full_prompt += "Explain the context to the user based on the system rules."
+        full_prompt += "Explain the context to the user based on the system rules."
+        reply = await chat_query_ollama(full_prompt)
 
-    reply = await chat_query_ollama(full_prompt)
     return {
         "reply": reply,
         "text": reply,
