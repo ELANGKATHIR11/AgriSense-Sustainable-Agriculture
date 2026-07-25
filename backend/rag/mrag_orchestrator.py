@@ -84,10 +84,15 @@ os.makedirs(QDRANT_DB_DIR, exist_ok=True)
 
 class MRAGOrchestrator:
     def __init__(self):
-        self.db = QdrantClient(path=QDRANT_DB_DIR)
+        try:
+            self.db = QdrantClient(path=QDRANT_DB_DIR)
+        except Exception as e:
+            logger.warning(f"File storage lock for Qdrant directory active, falling back to in-memory Qdrant instance: {e}")
+            self.db = QdrantClient(":memory:")
         self.dimension = 1024  # Dimension for BGE-M3 text embeddings
         self._init_collections()
         self._migrate_legacy_data()
+
 
     def get_table_names(self) -> List[str]:
         try:
@@ -151,9 +156,7 @@ class MRAGOrchestrator:
                             payload={
                                 "id": f"leg-{idx}",
                                 "text": doc["text"],
-                                "metadata": json.dumps(
-                                    {k: v for k, v in doc.items() if k not in ("text")}
-                                ),
+                                "metadata": {k: v for k, v in doc.items() if k not in ("text")},
                                 "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
                             }
                         )
@@ -193,7 +196,7 @@ class MRAGOrchestrator:
                     qfilter = qmodels.Filter(
                         must=[
                             qmodels.FieldCondition(
-                                key=filter_key,
+                                key=f"metadata.{filter_key}",
                                 match=qmodels.MatchValue(value=filter_val)
                             )
                         ]
@@ -201,12 +204,12 @@ class MRAGOrchestrator:
                 except Exception:
                     pass
 
-            results = self.db.search(
+            results = self.db.query_points(
                 collection_name=collection_name,
-                query_vector=query_vector,
+                query=query_vector,
                 limit=k,
                 query_filter=qfilter
-            )
+            ).points
 
             formatted = []
             for item in results:
@@ -255,7 +258,7 @@ class MRAGOrchestrator:
                         payload={
                             "id": doc_id,
                             "text": text,
-                            "metadata": json.dumps(metadata),
+                            "metadata": metadata,
                             "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
                         }
                     )

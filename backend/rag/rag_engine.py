@@ -77,13 +77,16 @@ class RAGEngine:
             },
         ]
 
-        tbl = mrag_orchestrator.db.open_table("diseases")
-        if len(tbl) == 0:
-            print("Seeding LanceDB diseases collection...")
-            for d in diseases:
-                self.add_disease_record_sync(
-                    d["disease_name"], d["symptoms"], d["recommendations"]
-                )
+        try:
+            info = mrag_orchestrator.db.get_collection("diseases")
+            if info.points_count == 0:
+                print("Seeding Qdrant diseases collection...")
+                for d in diseases:
+                    self.add_disease_record_sync(
+                        d["disease_name"], d["symptoms"], d["recommendations"]
+                    )
+        except Exception as e:
+            print(f"Error seeding diseases: {e}")
 
     def add_disease_record_sync(self, name: str, symptoms: str, recommendations: str):
         text_for_embedding = (

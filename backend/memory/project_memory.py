@@ -32,24 +32,32 @@ class ProjectMemory:
 
     def get_history(self, limit=10):
         try:
-            tbl = mrag_orchestrator.db.open_table("agent_memory")
-            # Retrieve all records
-            rows = tbl.to_arrow().to_pylist()
-            # Sort by timestamp descending
-            rows.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+            res, _ = mrag_orchestrator.db.scroll(
+                collection_name="agent_memory",
+                limit=limit,
+                with_payload=True,
+                with_vectors=False
+            )
             formatted = []
-            for r in rows[:limit]:
-                meta = json.loads(r.get("metadata", "{}"))
+            for item in res:
+                payload = item.payload or {}
+                meta = payload.get("metadata", {})
+                if isinstance(meta, str):
+                    try:
+                        meta = json.loads(meta)
+                    except Exception:
+                        pass
                 formatted.append(
                     {
                         "agent": meta.get("agent_name"),
                         "task": meta.get("task"),
                         "result": meta.get("result"),
-                        "time": r.get("timestamp"),
+                        "time": payload.get("timestamp"),
                     }
                 )
             return formatted
-        except Exception:
+        except Exception as e:
+            print(f"Error getting history from Qdrant: {e}")
             return []
 
 

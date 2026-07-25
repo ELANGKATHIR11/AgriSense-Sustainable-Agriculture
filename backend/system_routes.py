@@ -9,12 +9,14 @@
 
 # -*- coding: utf-8 -*-
 import psutil
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from backend.security.auth import require_role
+from backend.agriops.telemetry.tracer import telemetry
 
 router = APIRouter(prefix="/system", tags=["System Observability"])
 
 
-@router.get("/health")
+@router.get("/health", dependencies=[Depends(require_role(["admin", "agronomist", "farmer"]))])
 async def get_system_health():
     # VRAM stats fallback
     vram_used = 4280.0
@@ -41,7 +43,7 @@ async def get_system_health():
     }
 
 
-@router.get("/logs")
+@router.get("/logs", dependencies=[Depends(require_role(["admin", "agronomist"]))])
 async def get_system_logs():
     return {
         "logs": [
@@ -53,6 +55,13 @@ async def get_system_logs():
     }
 
 
+@router.get("/telemetry", dependencies=[Depends(require_role(["admin", "agronomist"]))])
+async def get_system_telemetry():
+    return {
+        "traces": telemetry.get_traces()
+    }
+
+
 @router.get("/license/validate")
 async def validate_license(key: str = "FREE-TRIAL"):
     return {
@@ -61,3 +70,4 @@ async def validate_license(key: str = "FREE-TRIAL"):
         "key": key,
         "activated_at": "2026-06-24T00:00:00Z",
     }
+

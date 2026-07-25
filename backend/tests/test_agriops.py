@@ -103,7 +103,7 @@ def test_mlops_champion_challenger(db):
     print("Running test_mlops_champion_challenger...")
     # Clean up pre-existing test rows to avoid state contamination
     db.query(ModelRegistry).filter(
-        ModelRegistry.id.in_(["mr-test-01", "mr-test-02"])
+        (ModelRegistry.id.in_(["mr-test-01", "mr-test-02"])) | (ModelRegistry.type == "crop_recommendation")
     ).delete()
     db.commit()
 

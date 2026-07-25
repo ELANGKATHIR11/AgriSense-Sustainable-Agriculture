@@ -63,8 +63,12 @@ async def run_platform_diagnostics(db: Session = Depends(get_db)):
     """
     Manually triggers AIOps platform diagnostics and processes self-healing loops if degraded.
     """
+    from backend.security.n8n_notifier import trigger_n8n_webhook
     alerts = await aiops_service.run_diagnostics(db)
+    if alerts:
+        await trigger_n8n_webhook("PLATFORM_DIAGNOSTIC_ALERTS", {"alert_count": len(alerts), "alerts": alerts})
     return {"status": "completed", "alerts_triggered": len(alerts), "alerts": alerts}
+
 
 
 @router.get("/events")
@@ -73,6 +77,16 @@ async def get_events_history():
     Fetches the operational event queue history.
     """
     return {"events": event_bus.get_history(100)}
+
+
+@router.get("/telemetry/traces")
+async def get_telemetry_traces():
+    """
+    Exposes recorded OpenTelemetry and span traces for Observability dashboard monitoring.
+    """
+    from backend.agriops.telemetry.tracer import telemetry
+    return {"traces": telemetry.get_traces()}
+
 
 
 @router.post("/mlops/promote")

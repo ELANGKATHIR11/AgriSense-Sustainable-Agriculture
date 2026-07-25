@@ -45,10 +45,22 @@ def load_embedding_model():
 def get_embedding(text: str) -> np.ndarray:
     model = load_embedding_model()
     if model == "emulator":
-        # Return structured seed vector derived from text hash to maintain deterministic searches
-        np.random.seed(abs(hash(text)) % (2**31))
-        vec = np.random.normal(0, 1, 1024)  # BGE-M3 has 1024 dim output
-        return vec / np.linalg.norm(vec)
+        import hashlib
+        # Initialize zero vector
+        vec = np.zeros(1024)
+        # Extract alphanumeric words
+        import re
+        words = re.findall(r"\w+", text.lower())
+        for w in words:
+            # Deterministic hash to an index 0-1023
+            idx = int(hashlib.md5(w.encode("utf-8")).hexdigest(), 16) % 1024
+            vec[idx] += 1.0
+        # Normalize
+        norm = np.linalg.norm(vec)
+        if norm == 0:
+            vec[0] = 1.0
+            norm = 1.0
+        return vec / norm
 
     get_device()
     emb = model.encode(text, convert_to_numpy=True)

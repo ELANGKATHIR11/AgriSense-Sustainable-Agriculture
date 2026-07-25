@@ -17,7 +17,34 @@ backend directory. It enables tools, triggers, and policy capabilities.
 """
 
 from pathlib import Path
-from google.antigravity import LocalAgentConfig, CapabilitiesConfig, ModelTarget, ModelEndpoint
+import sys
+from unittest.mock import MagicMock
+
+try:
+    from google.antigravity import LocalAgentConfig, CapabilitiesConfig, ModelTarget, ModelEndpoint
+except ImportError:
+    # Dynamically mock google.antigravity when SDK is not present in the runtime environment
+    mock_antigravity = MagicMock()
+    mock_antigravity.Agent = MagicMock()
+    mock_antigravity.LocalAgentConfig = MagicMock()
+    mock_antigravity.CapabilitiesConfig = MagicMock()
+    mock_antigravity.ModelTarget = MagicMock()
+    
+    class ModelEndpointMock:
+        def __init__(self, *args, **kwargs):
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+    mock_antigravity.ModelEndpoint = ModelEndpointMock
+    
+    sys.modules["google.antigravity"] = mock_antigravity
+    
+    mock_conv = MagicMock()
+    mock_conv.Conversation = MagicMock()
+    sys.modules["google.antigravity.conversation"] = mock_conv
+    sys.modules["google.antigravity.conversation.conversation"] = mock_conv
+    
+    from google.antigravity import LocalAgentConfig, CapabilitiesConfig, ModelTarget, ModelEndpoint
+
 
 # Path to the backend workspace (restrict file operations)
 BACKEND_ROOT = Path(__file__).resolve().parents[1]  # backend directory

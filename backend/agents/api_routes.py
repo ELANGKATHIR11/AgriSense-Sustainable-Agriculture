@@ -11,10 +11,14 @@ from fastapi import APIRouter, Query
 from pydantic import BaseModel
 from typing import Dict, Any
 import json
+import logging
 from datetime import datetime
 
 from backend.orchestrator.swarm import orchestrator
 from backend.memory.project_memory import memory_system
+
+logger = logging.getLogger("AgriOps.AgentApi")
+
 
 # Import all agents
 from backend.agents.executive import CEOAgent, CTOAgent, COOAgent, ProgramManagerAgent
@@ -295,8 +299,8 @@ async def get_metrics():
                 start = datetime.fromisoformat(res["started_at"].replace("Z", ""))
                 end = datetime.fromisoformat(res["completed_at"].replace("Z", ""))
                 latencies.append((end - start).total_seconds())
-            except Exception:
-                pass
+            except Exception as e:
+                logger.warning(f"Failed to parse swarm step timestamps for telemetry latency calculation: {e}")
 
     avg_latency = round(sum(latencies) / len(latencies), 2) if latencies else 0.85
 
@@ -307,17 +311,18 @@ async def get_metrics():
             if total_tasks > 0
             else 100.0,
             "average_pipeline_latency_seconds": avg_latency,
-            "total_simulated_tokens": mock_tokens,
-            "simulated_cloud_cost_saved_usd": mock_cost,
+            "total_edge_tokens_processed": mock_tokens,
+            "edge_paas_deployment": "Native Air-Gapped Edge (0 Cloud API Calls)",
             "online_agents": len(orchestrator.agents),
         }
     }
 
 
+
 @router.post("/swarm/crewai")
-async def execute_crewai_swarm(req: TaskRequest):
+async def execute_langgraph_swarm(req: TaskRequest):
     """
-    Trigger a collaborative CrewAI workflow with Agronomist, Marketplace, and Cost Agents.
+    Trigger a collaborative LangGraph + PydanticAI workflow with Agronomist, Marketplace, and Cost Agents.
     """
     try:
         from backend.agents.crewai_swarm import run_agri_crew

@@ -92,11 +92,11 @@ class VRAGService:
             mrag_orchestrator.db.upsert(collection_name="images", points=points)
 
         # Execute Qdrant query
-        results = mrag_orchestrator.db.search(
+        results = mrag_orchestrator.db.query_points(
             collection_name="images",
-            query_vector=img_vec,
+            query=img_vec,
             limit=2
-        )
+        ).points
 
         matches = []
         for res in results:

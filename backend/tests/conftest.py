@@ -12,6 +12,21 @@ import sys
 import types
 from unittest.mock import MagicMock
 
+# Mock google.antigravity
+mock_antigravity = MagicMock()
+mock_antigravity.Agent = MagicMock()
+mock_antigravity.LocalAgentConfig = MagicMock()
+mock_antigravity.CapabilitiesConfig = MagicMock()
+mock_antigravity.ModelTarget = MagicMock()
+mock_antigravity.ModelEndpoint = MagicMock()
+sys.modules["google.antigravity"] = mock_antigravity
+
+mock_conv = MagicMock()
+mock_conv.Conversation = MagicMock()
+sys.modules["google.antigravity.conversation"] = mock_conv
+sys.modules["google.antigravity.conversation.conversation"] = mock_conv
+
+
 # ── Add project root to sys.path ────────────────────────────────────────────
 PROJECT_ROOT = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -58,6 +73,11 @@ mock_torch.nn = mock_nn
 mock_torch.cuda = MagicMock()
 mock_torch.cuda.is_available.return_value = True
 mock_torch.__version__ = "2.11.0+cu128"
+
+class MockTensor:
+    pass
+
+mock_torch.Tensor = MockTensor
 sys.modules["torch"] = mock_torch
 
 # ── Mock onnxruntime (GPU version) ───────────────────────────────────────────

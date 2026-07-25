@@ -14,15 +14,19 @@ AgriOps MRAG API Router
 Exposes endpoints for multimodal, text, vision, and agent memory operations.
 """
 
-from fastapi import APIRouter, Body
 from typing import Optional
 from pydantic import BaseModel
-
+from backend.security.shield import security_shield
+from fastapi import APIRouter, Body, HTTPException, Depends
+from sqlalchemy.orm import Session
+from backend.database import get_db
 from backend.rag.mrag_orchestrator import mrag_orchestrator
 from backend.vision.vrag_service import vrag_service
 from backend.agriops.telemetry.tracer import trace_span
+from backend.security.n8n_notifier import trigger_n8n_webhook
 
 router = APIRouter(prefix="/mrag", tags=["AgriOps MRAG"])
+
 
 
 class RetrieveRequest(BaseModel):
@@ -45,13 +49,26 @@ class MemoryStoreRequest(BaseModel):
 
 @router.post("/retrieve")
 @trace_span("MRAG.RetrieveText")
-async def retrieve_text_context(payload: RetrieveRequest):
+async def retrieve_text_context(payload: RetrieveRequest, db: Session = Depends(get_db)):
     """
     Performs standard semantic vector search on LanceDB collections.
     """
+    # Security checks: Rate limiting, prompt injection and PII redaction
+    if security_shield.is_rate_limited("default_user", limit=100):
+        security_shield.log_security_event(db, "RATE_LIMIT_EXCEEDED", "default_user", "Rate limit hit on /retrieve endpoint.")
+        await trigger_n8n_webhook("RATE_LIMIT_EXCEEDED", {"user": "default_user", "endpoint": "/retrieve"})
+        raise HTTPException(status_code=429, detail="Too many requests. Please try again later.")
+        
+    if security_shield.detect_injection(payload.query):
+        security_shield.log_security_event(db, "PROMPT_INJECTION_DETECTED", "default_user", f"Attempted injection: {payload.query}")
+        await trigger_n8n_webhook("PROMPT_INJECTION_DETECTED", {"user": "default_user", "query": payload.query})
+        raise HTTPException(status_code=400, detail="Potential prompt injection detected.")
+        
+    safe_query = security_shield.redact_pii(payload.query)
+    
     results = mrag_orchestrator.search_collection(
         collection_name=payload.collection,
-        query=payload.query,
+        query=safe_query,
         k=payload.k,
         metadata_filter=payload.filter,
     )
@@ -61,12 +78,23 @@ async def retrieve_text_context(payload: RetrieveRequest):
 @router.post("/query")
 @trace_span("MRAG.QueryFusion")
 async def query_mrag(
-    query: str = Body(...), sensor_context: Optional[dict] = Body(default=None)
+    query: str = Body(...), sensor_context: Optional[dict] = Body(default=None), db: Session = Depends(get_db)
 ):
     """
     Executes hybrid multimodal retrieval fusion combining vector search and sensor readings.
     """
-    context = mrag_orchestrator.get_orchestrated_mrag_context(query, sensor_context)
+    if security_shield.is_rate_limited("default_user", limit=100):
+        security_shield.log_security_event(db, "RATE_LIMIT_EXCEEDED", "default_user", "Rate limit hit on /query endpoint.")
+        await trigger_n8n_webhook("RATE_LIMIT_EXCEEDED", {"user": "default_user", "endpoint": "/query"})
+        raise HTTPException(status_code=429, detail="Too many requests. Please try again later.")
+        
+    if security_shield.detect_injection(query):
+        security_shield.log_security_event(db, "PROMPT_INJECTION_DETECTED", "default_user", f"Attempted injection: {query}")
+        await trigger_n8n_webhook("PROMPT_INJECTION_DETECTED", {"user": "default_user", "query": query})
+        raise HTTPException(status_code=400, detail="Potential prompt injection detected.")
+        
+    safe_query = security_shield.redact_pii(query)
+    context = mrag_orchestrator.get_orchestrated_mrag_context(safe_query, sensor_context)
     return context
 
 

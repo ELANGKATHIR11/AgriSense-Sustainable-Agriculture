@@ -19,3 +19,5 @@ AGRIOS/
 *.pt
 runs/
 
+ml/models/qdrant_data*/
+test_qdrant*/

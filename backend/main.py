@@ -88,6 +88,31 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from backend.security.shield import security_shield
+from fastapi import Request, Response, HTTPException
+
+@app.middleware("http")
+async def security_shield_middleware(request: Request, call_next):
+    client_ip = request.client.host if request.client else "unknown"
+    if security_shield.is_rate_limited(client_ip, limit=120, window=60):
+        raise HTTPException(status_code=429, detail="Too Many Requests: SecurityShield rate limit exceeded.")
+    
+    # Injection detection on JSON payload or query params if applicable
+    if request.method in ["POST", "PUT", "PATCH"]:
+        try:
+            body_bytes = await request.body()
+            body_str = body_bytes.decode("utf-8", errors="ignore")
+            if security_shield.detect_injection(body_str):
+                raise HTTPException(status_code=400, detail="SecurityShield: Prompt injection attempt detected.")
+        except HTTPException:
+            raise
+        except Exception:
+            pass
+
+    response = await call_next(request)
+    return response
+
+
 from backend.mlops.drift import data_drift_monitor
 from backend import auth_routes
 from backend import farm_routes
