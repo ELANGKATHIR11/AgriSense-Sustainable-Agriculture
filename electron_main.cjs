@@ -74,25 +74,30 @@ function checkPort(port, callback) {
 
 
 /**
- * Ensure Ollama is running. If the Ollama port (11434) is free, attempt to start it.
+ * Ensure Ollama is running and pull/warm up qwen2.5:1.5b-instruct model silently.
  */
 function checkAndStartOllama() {
   checkPort(11434, (inUse) => {
+    const ollamaPath = 'C:\\Users\\elang\\AppData\\Local\\Programs\\Ollama\\ollama.exe';
+    const fs = require('fs');
+    const bootCmd = fs.existsSync(ollamaPath) ? `"${ollamaPath}"` : 'ollama';
+
     if (!inUse) {
-      console.log('Ollama is offline. Attempting to start service silently...');
-      const ollamaPath = 'C:\\Users\\elang\\AppData\\Local\\Programs\\Ollama\\ollama.exe';
-      const fs = require('fs');
-      if (fs.existsSync(ollamaPath)) {
-        exec(`start /B "" "${ollamaPath}" serve`, (err) => {
-          if (err) console.error('Failed to automatically boot Ollama:', err);
-        });
-      } else {
-        exec('start /B ollama serve', (err) => {
-          if (err) console.error('Failed to automatically boot Ollama:', err);
-        });
-      }
+      console.log('Ollama is offline. Starting Ollama service silently...');
+      exec(`start /B "" ${bootCmd} serve`, (err) => {
+        if (err) console.error('Failed to automatically boot Ollama:', err);
+        // Pull required model after starting server
+        setTimeout(() => {
+          exec(`${bootCmd} pull qwen2.5:1.5b-instruct`, (pullErr) => {
+            if (!pullErr) console.log('✓ Model qwen2.5:1.5b-instruct ready.');
+          });
+        }, 3000);
+      });
     } else {
       console.log('Ollama service detected on port 11434.');
+      exec(`${bootCmd} pull qwen2.5:1.5b-instruct`, (pullErr) => {
+        if (!pullErr) console.log('✓ Model qwen2.5:1.5b-instruct ready.');
+      });
     }
   });
 }
@@ -160,10 +165,6 @@ function _attachBackendLogs() {
 
 /**
  * Launch the Python backend.
- * In packaged mode we run the bundled executable.
- * In development we spawn uvicorn directly — but only if port 8000 is free.
- * This avoids the old "cmd /c start" pattern that opened a detached window
- * and immediately exited with code 0.
  */
 function startBackend() {
   const isPackaged = app.isPackaged;
@@ -181,7 +182,7 @@ function startBackend() {
     return;
   }
 
-  // Development mode — check first if backend is already running (e.g. started manually)
+  // Development mode — check first if backend is already running on port 8000
   checkPort(PORT, (alreadyRunning) => {
     if (alreadyRunning) {
       console.log(`Backend already running on port ${PORT}. Skipping spawn.`);
@@ -206,58 +207,37 @@ function startBackend() {
 }
 
 /**
- * Create the main application window.
+ * Create the main application window and load the single-server app at http://127.0.0.1:8000.
  */
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
-    title: 'AgriSense Edge AI Dashboard',
+    title: 'AgriSense Air-Gapped Native Edge PaaS',
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
     },
   });
 
-  if (!app.isPackaged) {
-    // DEV MODE: load Vite dev server on port 3000
-    mainWindow.webContents.openDevTools();
-
-    const VITE_PORT = 3000;
-    const tryLoad = (attemptsLeft) => {
-      http.get(`http://127.0.0.1:${VITE_PORT}`, (res) => {
-        if (res.statusCode < 500) {
-          mainWindow.loadURL(`http://127.0.0.1:${VITE_PORT}`);
-        } else if (attemptsLeft > 0) {
-          setTimeout(() => tryLoad(attemptsLeft - 1), 800);
-        }
-      }).on('error', () => {
-        if (attemptsLeft > 0) {
-          setTimeout(() => tryLoad(attemptsLeft - 1), 800);
-        } else {
-          mainWindow.loadURL(`http://127.0.0.1:${VITE_PORT}`);
-        }
-      });
-    };
-    tryLoad(30); // up to ~24 s of retries
-  } else {
-    // PRODUCTION MODE: poll FastAPI health endpoint then load
-    const pollInterval = setInterval(() => {
-      http.get(`http://127.0.0.1:${PORT}/api/health`, (res) => {
-        if (res.statusCode === 200) {
-          clearInterval(pollInterval);
-          mainWindow.loadURL(`http://127.0.0.1:${PORT}`);
-        }
-      }).on('error', () => {
-        // Backend still booting – retry shortly
-      });
-    }, 1000);
-  }
+  // Poll server port 8000 until backend & SPA are ready
+  const pollInterval = setInterval(() => {
+    http.get(`http://127.0.0.1:${PORT}`, (res) => {
+      if (res.statusCode < 500) {
+        clearInterval(pollInterval);
+        mainWindow.loadURL(`http://127.0.0.1:${PORT}`);
+      }
+    }).on('error', () => {
+      // Backend daemon initializing... retry
+    });
+  }, 600);
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 }
+
 
 // Application lifecycle
 app.on('ready', () => {
