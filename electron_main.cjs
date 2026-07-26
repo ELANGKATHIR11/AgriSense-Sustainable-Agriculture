@@ -221,17 +221,21 @@ function createWindow() {
     },
   });
 
-  // Poll server port 8000 until backend & SPA are ready
-  const pollInterval = setInterval(() => {
-    http.get(`http://127.0.0.1:${PORT}`, (res) => {
-      if (res.statusCode < 500) {
-        clearInterval(pollInterval);
-        mainWindow.loadURL(`http://127.0.0.1:${PORT}`);
-      }
-    }).on('error', () => {
-      // Backend daemon initializing... retry
-    });
-  }, 600);
+  checkPort(3000, (devServerActive) => {
+    const targetPort = devServerActive ? 3000 : PORT;
+    console.log(`Connecting Electron UI shell to http://127.0.0.1:${targetPort}...`);
+
+    const pollInterval = setInterval(() => {
+      http.get(`http://127.0.0.1:${targetPort}`, (res) => {
+        if (res.statusCode < 500) {
+          clearInterval(pollInterval);
+          mainWindow.loadURL(`http://127.0.0.1:${targetPort}`);
+        }
+      }).on('error', () => {
+        // Backend daemon / dev server initializing... retry
+      });
+    }, 600);
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
