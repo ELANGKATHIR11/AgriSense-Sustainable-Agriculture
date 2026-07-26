@@ -30,11 +30,6 @@ from sqlalchemy.orm import Session
 # Add project root to sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Import Antigravity configuration
-from backend.config.antigravity_config import AG_CONFIG
-from google.antigravity import Agent
-from google.antigravity.conversation.conversation import Conversation
-
 from backend.database import get_db
 from backend.models import SensorReading, ModelRegistry, PredictionLog
 from backend.market_intelligence.models import (
@@ -61,21 +56,6 @@ app = FastAPI(
     version="4.0.0",
     description="Modernized consolidated API server utilizing TabPFN, FT-Transformer, Florence-2, YOLOv11 and local Ollama Qwen models.",
 )
-
-# Antigravity agent middleware - creates a new Agent per request
-@app.middleware("http")
-async def antigravity_agent_middleware(request, call_next):
-    try:
-        # Each request gets its own conversation state
-        conversation = Conversation()
-        agent = Agent(config=AG_CONFIG, conversation=conversation)
-        # Store agent in request.state for downstream handlers
-        request.state.agent = agent
-    except Exception:
-        # Gracefully degrade if Antigravity SDK has a compatibility issue
-        request.state.agent = None
-    response = await call_next(request)
-    return response
 
 # Cross-cutting middleware
 # NOTE: allow_credentials cannot be True with wildcard origins (CORS spec violation).
@@ -106,8 +86,8 @@ async def security_shield_middleware(request: Request, call_next):
                 raise HTTPException(status_code=400, detail="SecurityShield: Prompt injection attempt detected.")
         except HTTPException:
             raise
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug("Request body parsing bypassed: %s", e)
 
     response = await call_next(request)
     return response
@@ -607,7 +587,7 @@ async def get_mlops_data(db: Session = Depends(get_db)):
             import json
 
             inputs = json.loads(log.inputs_json)
-        except Exception:
+        except (json.JSONDecodeError, TypeError, AttributeError):
             inputs = {}
         formatted_logs.append(
             {
@@ -683,7 +663,7 @@ async def retrain_model_api(payload: dict = Body(...), db: Session = Depends(get
             + model.version.lstrip("v").split(".")[1]
         )
         model.version = f"v{round(ver_num + 0.1, 1)}.0"
-    except Exception:
+    except (ValueError, IndexError, AttributeError):
         model.version = "v4.1.0"
 
     db.commit()

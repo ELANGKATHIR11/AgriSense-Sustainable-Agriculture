@@ -1,0 +1,28 @@
+{
+  "model_name": "disease_risk_ensemble",
+  "accuracy": 0.6711111111111111,
+  "f1_weighted": 0.6699368586595813,
+  "roc_auc": 0.8454990740740741,
+  "confusion_matrix": [
+    [
+      458,
+      129,
+      13
+    ],
+    [
+      166,
+      311,
+      123
+    ],
+    [
+      23,
+      138,
+      439
+    ]
+  ],
+  "classes": [
+    "Low",
+    "Medium",
+    "High"
+  ]
+}

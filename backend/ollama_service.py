@@ -223,71 +223,7 @@ async def analyze_image_vlm(
                 ],
             }
 
-    import random
-
-    fallbacks = [
-        {
-            "disease": "Tomato Leaf Mold",
-            "confidence": 94.5,
-            "severity": "medium",
-            "symptoms": [
-                "Yellow spots on upper leaf surfaces",
-                "Olive-green velvet-like mold on under-leaves",
-                "Curling foliage",
-            ],
-            "recommendations": [
-                "Improve ventilation in greenhouse",
-                "Avoid overhead crop watering",
-                "Apply copper-based biological fungicide",
-            ],
-        },
-        {
-            "disease": "Powdery Mildew on Squash",
-            "confidence": 88.2,
-            "severity": "low",
-            "symptoms": [
-                "White talcum-like powdery spots on leaves",
-                "Premature leaf defoliation",
-                "Stunted vegetative growth",
-            ],
-            "recommendations": [
-                "Ensure full direct sunlight",
-                "Space plants adequately",
-                "Apply neem oil extract",
-            ],
-        },
-        {
-            "disease": "Broadleaf Weed (Pigweed)",
-            "confidence": 91.0,
-            "severity": "high",
-            "symptoms": [
-                "Erect red/green weed clusters",
-                "Aggressive moisture depletion",
-                "Rapid seed dispersal",
-            ],
-            "recommendations": [
-                "Targeted localized weed extraction",
-                "Apply organic cover compost",
-                "Use selective pre-emergents",
-            ],
-        },
-        {
-            "disease": "Healthy Vegetation",
-            "confidence": 97.4,
-            "severity": "low",
-            "symptoms": [
-                "Vibrant chloroplast color",
-                "Good structural turgor pressure",
-                "No pathogenic necrosis",
-            ],
-            "recommendations": [
-                "Maintain current irrigation",
-                "Continue companion planting",
-                "Document baseline metrics",
-            ],
-        },
-    ]
-    return random.choice(fallbacks)
+    return {"status": "unavailable", "reason": "Ollama service unavailable for disease diagnosis"}
 
 
 async def ask_qwen_coder(

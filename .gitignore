@@ -21,3 +21,4 @@ runs/
 
 ml/models/qdrant_data*/
 test_qdrant*/
+catboost_info/

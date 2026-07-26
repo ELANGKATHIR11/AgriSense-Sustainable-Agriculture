@@ -77,10 +77,10 @@ def mine_disease_thresholds():
 
 
 def load_disease_data():
-    """Load and prepare a perfectly class-balanced disease risk training dataset."""
+    """Load disease risk training dataset without target leakage."""
     frames = []
 
-    # 1. Real Dataset: enhanced_disease_dataset.csv
+    # 1. Real Dataset: enhanced_disease_dataset.csv (if present)
     path1 = os.path.join(DATA_DIR, "enhanced_disease_dataset.csv")
     if os.path.exists(path1):
         df1 = pd.read_csv(path1)
@@ -93,54 +93,40 @@ def load_disease_data():
             labels=[0, 1, 2]
         ).astype(int)
 
-        # Select only the features we have at inference time
+        # Select base features
         real_df = df1[['temperature_c', 'humidity_pct', 'leaf_wetness_hours', 'risk_label']].copy()
         
-        # Add correlated synthetic soil moisture and rainfall to avoid null features at inference
+        # Add unconditioned soil moisture and rainfall (independent of label)
         np.random.seed(42)
-        real_df['soil_moisture_pct'] = np.where(
-            real_df['risk_label'] == 2, np.random.uniform(60, 95, len(real_df)),
-            np.where(real_df['risk_label'] == 1, np.random.uniform(35, 65, len(real_df)), np.random.uniform(10, 40, len(real_df)))
-        )
-        real_df['rainfall_mm'] = np.where(
-            real_df['risk_label'] == 2, np.random.uniform(20, 80, len(real_df)),
-            np.where(real_df['risk_label'] == 1, np.random.uniform(5, 25, len(real_df)), np.random.uniform(0, 8, len(real_df)))
-        )
+        real_df['soil_moisture_pct'] = np.random.uniform(15, 90, len(real_df))
+        real_df['rainfall_mm'] = np.random.uniform(0, 60, len(real_df))
+        frames.append(real_df)
 
-        # Balance classes in the real dataset using oversampling to handle severe class imbalance
-        max_size = real_df['risk_label'].value_counts().max()
-        balanced_real_frames = []
-        for label, group in real_df.groupby('risk_label'):
-            balanced_real_frames.append(group.sample(max_size, replace=True, random_state=42))
-        real_balanced = pd.concat(balanced_real_frames, ignore_index=True)
-        frames.append(real_balanced)
-        print(f"  [Real Balanced] Size after resampling: {real_balanced.shape} | Distribution: {real_balanced['risk_label'].value_counts().to_dict()}")
-
-    # 2. Mine Disease Thresholds and generate a perfectly balanced physics-augmented dataset
+    # 2. Mine Disease Thresholds and generate realistic overlapping physics dataset
     thresholds = mine_disease_thresholds()
     np.random.seed(42)
-    n_per_class = 4000
+    n_per_class = 3000
     syn_frames = []
 
     for label in [0, 1, 2]:
         if label == 0:  # Low Risk
-            t = np.random.uniform(5, 14, n_per_class)
-            h = np.random.uniform(10, 48, n_per_class)
-            lw = np.random.uniform(0, 3.5, n_per_class)
-            sm = np.random.uniform(10, 30, n_per_class)
-            rf = np.random.uniform(0, 4, n_per_class)
+            t = np.random.uniform(12, 28, n_per_class) + np.random.normal(0, 3.5, n_per_class)
+            h = np.random.uniform(30, 80, n_per_class) + np.random.normal(0, 8.0, n_per_class)
+            lw = np.random.uniform(1, 10, n_per_class) + np.random.normal(0, 2.5, n_per_class)
+            sm = np.random.uniform(20, 70, n_per_class) + np.random.normal(0, 10.0, n_per_class)
+            rf = np.random.uniform(0, 30, n_per_class) + np.random.normal(0, 8.0, n_per_class)
         elif label == 1:  # Medium Risk
-            t = np.random.uniform(14, 21, n_per_class)
-            h = np.random.uniform(48, 72, n_per_class)
-            lw = np.random.uniform(3.5, 9.5, n_per_class)
-            sm = np.random.uniform(30, 60, n_per_class)
-            rf = np.random.uniform(4, 22, n_per_class)
-        else:  # High Risk (Matching high temp/humidity thresholds from web mining)
-            t = np.random.uniform(21, 36, n_per_class)
-            h = np.random.uniform(72, 100, n_per_class)
-            lw = np.random.uniform(9.5, 24, n_per_class)
-            sm = np.random.uniform(60, 95, n_per_class)
-            rf = np.random.uniform(22, 85, n_per_class)
+            t = np.random.uniform(15, 30, n_per_class) + np.random.normal(0, 3.5, n_per_class)
+            h = np.random.uniform(40, 85, n_per_class) + np.random.normal(0, 8.0, n_per_class)
+            lw = np.random.uniform(3, 14, n_per_class) + np.random.normal(0, 2.5, n_per_class)
+            sm = np.random.uniform(30, 75, n_per_class) + np.random.normal(0, 10.0, n_per_class)
+            rf = np.random.uniform(5, 45, n_per_class) + np.random.normal(0, 8.0, n_per_class)
+        else:  # High Risk
+            t = np.random.uniform(18, 33, n_per_class) + np.random.normal(0, 3.5, n_per_class)
+            h = np.random.uniform(50, 95, n_per_class) + np.random.normal(0, 8.0, n_per_class)
+            lw = np.random.uniform(5, 18, n_per_class) + np.random.normal(0, 2.5, n_per_class)
+            sm = np.random.uniform(40, 85, n_per_class) + np.random.normal(0, 10.0, n_per_class)
+            rf = np.random.uniform(10, 60, n_per_class) + np.random.normal(0, 8.0, n_per_class)
 
         syn_frames.append(pd.DataFrame({
             'temperature_c': t,
@@ -153,62 +139,70 @@ def load_disease_data():
 
     syn_df = pd.concat(syn_frames, ignore_index=True)
     frames.append(syn_df)
-    print(f"  [Synthetic Mined] Generated {len(syn_df)} balanced disease samples")
 
-    # Combine all frames
     combined = pd.concat(frames, ignore_index=True)
-    print(f"  [Combined Dataset] Total dataset: {combined.shape} | Final distribution: {combined['risk_label'].value_counts().to_dict()}")
+    print(f"  [Combined Dataset] Total dataset: {combined.shape} | Distribution: {combined['risk_label'].value_counts().to_dict()}")
     return combined
 
 
 def train_disease_risk_model():
-    print("  Initializing class-balanced disease training...")
+    print("  Initializing leakage-free disease risk training...")
     df = load_disease_data()
 
     feature_cols = ['temperature_c', 'humidity_pct', 'leaf_wetness_hours', 'soil_moisture_pct', 'rainfall_mm']
     X = df[feature_cols].astype(float)
     y = df['risk_label'].astype(int)
 
+    # Split dataset BEFORE oversampling to ensure clean held-out evaluation fold
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
+    # Perform oversampling on the TRAIN fold only
+    train_df = pd.concat([X_train, y_train], axis=1)
+    max_size = train_df['risk_label'].value_counts().max()
+    balanced_train_frames = []
+    for label, group in train_df.groupby('risk_label'):
+        balanced_train_frames.append(group.sample(max_size, replace=True, random_state=42))
+    train_balanced = pd.concat(balanced_train_frames, ignore_index=True)
+
+    X_train_b = train_balanced[feature_cols].astype(float)
+    y_train_b = train_balanced['risk_label'].astype(int)
+
     scaler = StandardScaler()
-    X_train_s = scaler.fit_transform(X_train)
+    X_train_s = scaler.fit_transform(X_train_b)
     X_test_s  = scaler.transform(X_test)
 
     # ── Random Forest Classifier ──────────────────────────────────────────────
     print("  Training Random Forest...")
     rf = RandomForestClassifier(
-        n_estimators=150,
-        max_depth=14,
-        min_samples_leaf=2,
-        class_weight='balanced',
+        n_estimators=100,
+        max_depth=8,
+        min_samples_leaf=5,
         random_state=42,
         n_jobs=-1
     )
-    rf.fit(X_train_s, y_train)
+    rf.fit(X_train_s, y_train_b)
 
     # ── LightGBM Classifier ───────────────────────────────────────────────────
     print("  Training LightGBM Classifier...")
     lgbm = lgb.LGBMClassifier(
-        n_estimators=250,
-        max_depth=10,
-        learning_rate=0.06,
-        num_leaves=63,
-        class_weight='balanced',
+        n_estimators=120,
+        max_depth=6,
+        learning_rate=0.05,
+        num_leaves=31,
         random_state=42,
         n_jobs=-1,
         verbose=-1
     )
-    lgbm.fit(X_train_s, y_train)
+    lgbm.fit(X_train_s, y_train_b)
 
     # ── Voting Ensemble ───────────────────────────────────────────────────────
     ensemble = VotingClassifier(
         estimators=[('rf', rf), ('lgb', lgbm)],
         voting='soft'
     )
-    ensemble.fit(X_train_s, y_train)
+    ensemble.fit(X_train_s, y_train_b)
 
     y_pred    = ensemble.predict(X_test_s)
     y_proba   = ensemble.predict_proba(X_test_s)
@@ -216,10 +210,28 @@ def train_disease_risk_model():
     f1        = f1_score(y_test, y_pred, average='weighted')
     roc_auc   = roc_auc_score(y_test, y_proba, multi_class='ovr', average='macro')
 
-    print(f"  Accuracy: {acc*100:.2f}% | Weighted F1: {f1:.4f} | ROC-AUC: {roc_auc:.4f}")
-    print(classification_report(y_test, y_pred, target_names=['Low', 'Medium', 'High'], zero_division=0))
+    print(f"  [Held-Out Metrics] Accuracy: {acc*100:.2f}% | Weighted F1: {f1:.4f} | ROC-AUC: {roc_auc:.4f}")
+    report = classification_report(y_test, y_pred, target_names=['Low', 'Medium', 'High'], zero_division=0)
+    print(report)
 
-    # Save the bundle to models folder
+    # Save metrics report & confusion matrix
+    reports_dir = os.path.join(MODELS_DIR, "reports")
+    os.makedirs(reports_dir, exist_ok=True)
+    from sklearn.metrics import confusion_matrix
+    cm = confusion_matrix(y_test, y_pred).tolist()
+    
+    metrics_payload = {
+        "model_name": "disease_risk_ensemble",
+        "accuracy": float(acc),
+        "f1_weighted": float(f1),
+        "roc_auc": float(roc_auc),
+        "confusion_matrix": cm,
+        "classes": ["Low", "Medium", "High"]
+    }
+    with open(os.path.join(reports_dir, "disease_risk_report.json"), "w", encoding="utf-8") as f:
+        json.dump(metrics_payload, f, indent=2)
+
+    # Save the model bundle
     joblib.dump({
         'model': ensemble,
         'scaler': scaler,
@@ -234,3 +246,4 @@ def train_disease_risk_model():
 if __name__ == "__main__":
     acc, auc = train_disease_risk_model()
     print(f"\nFinal: Accuracy={acc*100:.2f}% | ROC-AUC={auc:.4f}")
+

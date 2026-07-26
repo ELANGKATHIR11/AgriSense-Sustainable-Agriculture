@@ -53,8 +53,10 @@ def evaluate_crop():
     val_df['humid_class'] = (val_df['humidity'] > 70).astype(int)
     val_df['rain_class']  = pd.cut(val_df['rainfall'], bins=[0,50,100,200,300,3000], labels=[0,1,2,3,4]).astype(int)
     
-    X_val = val_df[feature_cols].astype(float)
-    y_val = le.transform(val_df['label'])
+    val_mask = val_df['label'].isin(set(le.classes_))
+    val_df_clean = val_df[val_mask]
+    X_val = val_df_clean[feature_cols].astype(float)
+    y_val = le.transform(val_df_clean['label'])
     
     preds = model.predict(X_val)
     if preds.ndim > 1:
@@ -87,12 +89,17 @@ def evaluate_fertilizer():
     le = joblib.load(encoder_path)
     val_df = pd.read_csv(val_path)
     
-    # Feature engineering matching training logic
     feature_cols = ['temperature', 'humidity', 'moisture', 'soil_type', 'crop_type', 'nitrogen', 'potassium', 'phosphorus']
-    X_val = val_df[feature_cols]
-    y_val = le.transform(val_df['fertilizer_name'])
+    val_mask = val_df['fertilizer_name'].isin(set(le.classes_))
+    val_df_clean = val_df[val_mask].copy()
+    val_df_clean['soil_type'] = val_df_clean['soil_type'].astype(str)
+    val_df_clean['crop_type'] = val_df_clean['crop_type'].astype(str)
+    X_val = val_df_clean[feature_cols]
+    y_val = le.transform(val_df_clean['fertilizer_name'])
     
-    preds = model.predict(X_val)
+    from catboost import Pool
+    val_pool = Pool(X_val, cat_features=['soil_type', 'crop_type'])
+    preds = model.predict(val_pool)
     if preds.ndim > 1:
         preds = preds.squeeze()
         
@@ -202,11 +209,13 @@ def evaluate_irrigation():
         
     r2 = r2_score(y_val, preds)
     mae = mean_absolute_error(y_val, preds)
+    status = "failed" if r2 <= 0 else "success"
     
     return {
-        "status": "success",
+        "status": status,
         "r2_score": float(r2),
         "mae": float(mae),
+        "reason": "Model underperforming (R2 <= 0)" if status == "failed" else "passed",
         "samples_evaluated": len(X_val)
     }
 
@@ -217,7 +226,7 @@ def evaluate_yield():
     encoders_path = os.path.join(MODELS_DIR, "yield_encoders.joblib")
     scaler_path = os.path.join(MODELS_DIR, "yield_scaler.joblib")
     
-    if not (os.path.exists(model_path) and os.path.exists(val_path)):
+    if not (os.path.exists(model_path) and os.path.exists(val_path) and os.path.exists(scaler_path) and os.path.exists(encoders_path)):
         return {"status": "missing_files"}
         
     from ml.patchtst_models import PatchTST

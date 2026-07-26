@@ -17,7 +17,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from alembic import context
 from backend.database.connection import sync_engine, DATABASE_URL_SYNC
 from backend.database.base import Base
-import backend.database.models  # Ensures all models are loaded
+import backend.database.models  # Ensures all core models are loaded
+import backend.market_intelligence.models  # Ensures market intelligence models are loaded
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -30,6 +31,11 @@ if config.config_file_name is not None:
 # Model metadata
 target_metadata = Base.metadata
 
+def include_object(object, name, type_, reflected, compare_to):
+    if type_ == "table" and name in ("spatial_ref_sys", "geography_columns", "geometry_columns"):
+        return False
+    return True
+
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""
     context.configure(
@@ -37,6 +43,7 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        include_object=include_object,
     )
 
     with context.begin_transaction():
@@ -49,7 +56,8 @@ def run_migrations_online() -> None:
     with connectable.connect() as connection:
         context.configure(
             connection=connection,
-            target_metadata=target_metadata
+            target_metadata=target_metadata,
+            include_object=include_object,
         )
 
         with context.begin_transaction():

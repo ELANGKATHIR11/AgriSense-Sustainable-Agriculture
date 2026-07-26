@@ -69,7 +69,7 @@ def train_fertilizer_model():
     print(f"  Train: {len(X_train)} | Val: {len(X_val)}")
 
     print("  Training CatBoost Fertilizer Classifier...")
-    task_type = "GPU" if torch.cuda.is_available() else "CPU"
+    task_type = "CPU"
     
     model = CatBoostClassifier(
         iterations=200,

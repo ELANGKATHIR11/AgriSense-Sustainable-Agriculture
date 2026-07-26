@@ -17,7 +17,7 @@ DATA_DIR = os.path.join(PROJECT_ROOT, "AgriSense-Dataset")
 CLEANED_DIR = os.path.join(DATA_DIR, "cleaned")
 os.makedirs(CLEANED_DIR, exist_ok=True)
 
-REPORTS_DIR = os.path.join(PROJECT_ROOT, "C:\\Users\\elang\\.gemini\\antigravity\\brain\\d9de0cfa-b3f5-43f5-8fc8-4010a8962c21")
+REPORTS_DIR = os.path.join(PROJECT_ROOT, "ml", "models", "reports")
 os.makedirs(REPORTS_DIR, exist_ok=True)
 
 def clean_crop_recommendation():

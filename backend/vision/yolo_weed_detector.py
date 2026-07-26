@@ -91,35 +91,4 @@ async def detect_weeds(payload: dict):
         except Exception as err:
             logger.error(f"YOLO run error: {err}")
 
-    # Fallback/Emulation mode
-    import random
-
-    weeds_count = random.randint(2, 6)
-    boxes = []
-    # Generate some bounding boxes matching image shape limits
-    width, height = image.size
-    for i in range(weeds_count):
-        x1 = random.randint(10, int(width * 0.7))
-        y1 = random.randint(10, int(height * 0.7))
-        boxes.append(
-            {
-                "x1": x1,
-                "y1": y1,
-                "x2": min(width, x1 + random.randint(40, 150)),
-                "y2": min(height, y1 + random.randint(40, 150)),
-                "confidence": round(random.uniform(0.75, 0.95), 2),
-                "class": "weed",
-            }
-        )
-
-    density = float(round(weeds_count * 11.5, 1))
-    infestation = (
-        "low" if weeds_count < 3 else "moderate" if weeds_count < 5 else "high"
-    )
-
-    return {
-        "weeds_detected": weeds_count,
-        "bounding_boxes": boxes,
-        "density_score": density,
-        "infestation_level": infestation,
-    }
+    raise HTTPException(status_code=530, detail="YOLO weed detector weights are unavailable.")

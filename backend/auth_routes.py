@@ -13,13 +13,12 @@ from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 from backend.database import get_db
 from backend.models import User
+from backend.security.pwd_helper import hash_password, verify_password
+from backend.config.settings import SECRET_KEY, ALGORITHM
 import jwt
 from datetime import datetime, timedelta, timezone
 
 router = APIRouter(prefix="/auth", tags=["User Authentication"])
-
-SECRET_KEY = "AGRISENSE_DESKTOP_SECRET"
-ALGORITHM = "HS256"
 
 
 class AuthRegisterInput(BaseModel):
@@ -47,7 +46,7 @@ async def register_user(payload: AuthRegisterInput, db: Session = Depends(get_db
 
     user = User(
         email=payload.email,
-        hashed_password=f"hash_{payload.password}",
+        hashed_password=hash_password(payload.password),
         role=payload.role,
         preferred_language=payload.preferred_language,
     )
@@ -60,7 +59,7 @@ async def register_user(payload: AuthRegisterInput, db: Session = Depends(get_db
 @router.post("/login")
 async def login_user(payload: AuthLoginInput, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == payload.email).first()
-    if not user or user.hashed_password != f"hash_{payload.password}":
+    if not user or not verify_password(payload.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = jwt.encode(

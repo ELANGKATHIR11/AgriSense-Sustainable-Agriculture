@@ -88,6 +88,19 @@ graph TD
 
 ---
 
+## 📊 Model Performance (Live Held-Out Evaluation)
+
+Metrics computed from `ml/models/live_evaluation_report.json` on held-out validation sets:
+
+| Model Task | Metric | Performance | Status |
+| :--- | :--- | :--- | :--- |
+| **Crop Recommendation** | Accuracy / Weighted F1 | **95.58%** | Active |
+| **Fertilizer Recommendation** | Accuracy / Weighted F1 | **97.14%** | Active |
+| **Disease Risk Assessment** | Accuracy / Weighted F1 | **67.11%** | Active |
+| **Irrigation Optimization** | $R^2$ Score / MAE | **Failed ($R^2 \le 0$)** | Degraded |
+| **Yield Prediction** | $R^2$ Score | **Unavailable** | Missing Weights |
+
+
 ## 🔑 Default Login Credentials
 
 | Role | Email | Password |

@@ -28,13 +28,7 @@ logger = logging.getLogger("AgriOps.VRAG")
 
 class VRAGService:
     def get_image_embedding(self, image_base64_or_path: str) -> np.ndarray:
-        """
-        Generates a 512-dimension visual embedding.
-        Uses deterministic simulation based on content length/hash if heavyweight vision model is offline.
-        """
-        np.random.seed(abs(hash(image_base64_or_path[:200])) % (2**31))
-        vec = np.random.normal(0, 1, 512)
-        return vec / np.linalg.norm(vec)
+        raise NotImplementedError("Visual RAG image embedding model is unavailable.")
 
     async def search_similar_images(
         self, image_data: str, mode: str = "disease"

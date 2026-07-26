@@ -102,10 +102,13 @@ async def query_mrag(
 @trace_span("MRAG.VisionSearch")
 async def vision_rag_search(payload: ImageRAGRequest):
     """
-    Upgraded VRAG endpoint executing vision vector matching against LanceDB image collections.
+    Upgraded VRAG endpoint executing vision vector matching against image collections.
     """
-    res = await vrag_service.search_similar_images(payload.imageBase64, payload.mode)
-    return res
+    try:
+        res = await vrag_service.search_similar_images(payload.imageBase64, payload.mode)
+        return res
+    except NotImplementedError as e:
+        return {"status": "unavailable", "reason": str(e), "matches": []}
 
 
 @router.post("/memory/store")

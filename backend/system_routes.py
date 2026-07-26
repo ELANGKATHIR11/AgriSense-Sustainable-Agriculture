@@ -29,8 +29,8 @@ async def get_system_health():
         info = pynvml.nvmlDeviceGetMemoryInfo(handle)
         vram_used = info.used / (1024**2)
         vram_total = info.total / (1024**2)
-    except Exception:
-        pass
+    except Exception as e:
+        logger.debug("NVML VRAM query unavailable: %s", e)
 
     return {
         "cpu_usage_pct": psutil.cpu_percent(),

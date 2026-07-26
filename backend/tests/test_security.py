@@ -22,3 +22,32 @@ def test_is_rate_limited():
     # Call within limits
     for _ in range(5):
         assert not security_shield.is_rate_limited(ip, limit=10, window=60)
+
+def test_unauthenticated_mutating_endpoints_rejected():
+    from fastapi.testclient import TestClient
+    from backend.main import app
+    client = TestClient(app)
+    
+    # Mutating endpoints must return 401 Unauthorized without auth headers
+    endpoints = ["/api/agents/task", "/api/swarm/execute", "/api/memory/store", "/api/swarm/crewai"]
+    for ep in endpoints:
+        res = client.post(ep, json={"task": "test"})
+        assert res.status_code == 401, f"Expected 401 for unauthenticated POST to {ep}, got {res.status_code}"
+
+def test_rate_limiter_concurrency():
+    import concurrent.futures
+    user = "concurrent_test_user"
+    limit = 20
+    window = 10
+    
+    def call_limiter():
+        return security_shield.is_rate_limited(user, limit=limit, window=window)
+        
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        futures = [executor.submit(call_limiter) for _ in range(30)]
+        results = [f.result() for f in futures]
+        
+    limited_count = sum(1 for r in results if r is True)
+    assert limited_count == 10, f"Expected exactly 10 requests to be rate limited, got {limited_count}"
+
+

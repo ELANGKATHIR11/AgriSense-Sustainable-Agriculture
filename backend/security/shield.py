@@ -10,6 +10,8 @@
 import re
 import time
 import logging
+import threading
+from collections import deque
 from typing import Dict, Any, List
 import redis
 
@@ -24,7 +26,9 @@ try:
 except Exception:
     REDIS_AVAILABLE = False
     logger.warning("Redis not available. SecurityShield falling back to in-memory cache.")
-    _memory_cache = {}
+
+_memory_cache = {}
+_memory_lock = threading.Lock()
 
 class SecurityShield:
     def __init__(self):
@@ -68,7 +72,7 @@ class SecurityShield:
 
     def is_rate_limited(self, ip_or_user: str, limit: int = 60, window: int = 60) -> bool:
         """
-        Sliding window rate limiter using Redis or in-memory fallback.
+        Sliding window rate limiter using Redis or thread-safe in-memory deque fallback.
         """
         now = time.time()
         key = f"rate_limit:{ip_or_user}"
@@ -86,14 +90,14 @@ class SecurityShield:
             except Exception as e:
                 logger.error(f"Redis rate limiter failed: {e}")
                 
-        # In-memory fallback
-        global _memory_cache
-        timestamps = _memory_cache.get(key, [])
-        # Filter timestamps outside the window
-        timestamps = [t for t in timestamps if t > now - window]
-        timestamps.append(now)
-        _memory_cache[key] = timestamps
-        return len(timestamps) > limit
+        # Atomic thread-safe in-memory sliding window
+        with _memory_lock:
+            q = _memory_cache.setdefault(key, deque())
+            cutoff = now - window
+            while q and q[0] <= cutoff:
+                q.popleft()
+            q.append(now)
+            return len(q) > limit
 
     def log_security_event(self, db, action: str, user_email: str, details: str):
         """

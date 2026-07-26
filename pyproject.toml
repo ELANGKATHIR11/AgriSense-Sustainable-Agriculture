@@ -16,11 +16,10 @@ readme = "README.md"
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "3.12"
 fastapi = "^0.115.0"
 uvicorn = {extras = ["standard"], version = "^0.30.6"}
 psycopg2-binary = "^2.9.9"
-lancedb = "^0.8.0"
 torch = {version = "^2.4.0", extras = ["cpu"]}
 # For CUDA, user must have appropriate torch/cuda wheels; placeholder
 onnxruntime-gpu = "^1.19.2"

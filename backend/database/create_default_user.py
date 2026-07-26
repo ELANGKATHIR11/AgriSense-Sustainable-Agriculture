@@ -17,6 +17,7 @@ sys.path.append(
 
 from backend.database.session import SessionLocalSync
 from backend.database.models import User
+from backend.security.pwd_helper import hash_password
 
 def seed_default_users():
     db = SessionLocalSync()
@@ -26,28 +27,28 @@ def seed_default_users():
         if not admin:
             admin = User(
                 email="admin@agrisense.io",
-                hashed_password="hash_admin123",
+                hashed_password=hash_password("admin123"),
                 role="admin",
                 preferred_language="en"
             )
             db.add(admin)
             print("[INFO] Created default admin user: admin@agrisense.io / admin123")
-        else:
-            print("[INFO] Admin user already exists")
+        elif admin.hashed_password and admin.hashed_password.startswith("hash_"):
+            admin.hashed_password = hash_password("admin123")
 
         # Check if default farmer exists
         farmer = db.query(User).filter(User.email == "farmer@agrisense.io").first()
         if not farmer:
             farmer = User(
                 email="farmer@agrisense.io",
-                hashed_password="hash_farmer123",
+                hashed_password=hash_password("farmer123"),
                 role="farmer",
                 preferred_language="en"
             )
             db.add(farmer)
             print("[INFO] Created default farmer user: farmer@agrisense.io / farmer123")
-        else:
-            print("[INFO] Farmer user already exists")
+        elif farmer.hashed_password and farmer.hashed_password.startswith("hash_"):
+            farmer.hashed_password = hash_password("farmer123")
 
         db.commit()
     except Exception as e:

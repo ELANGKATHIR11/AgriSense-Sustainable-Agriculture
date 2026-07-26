@@ -13,9 +13,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 from backend.database import get_db
 from backend.models import User
-
-SECRET_KEY = "AGRISENSE_DESKTOP_SECRET"
-ALGORITHM = "HS256"
+from backend.config.settings import SECRET_KEY, ALGORITHM
 
 security_bearer = HTTPBearer(auto_error=False)
 

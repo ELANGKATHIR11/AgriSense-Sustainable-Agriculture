@@ -49,6 +49,7 @@ class DigitalTwinPipeline:
                 df = df[df["source_file"] == "fertilizer_dataset.csv"].dropna(
                     how="all", axis=1
                 )
+                df.columns = df.columns.str.strip()
 
                 col_map = {
                     "nitrogen": "Nitrogen",
@@ -63,8 +64,11 @@ class DigitalTwinPipeline:
                     if c_orig not in df.columns and c_low in df.columns:
                         df[c_orig] = df[c_low]
 
+                if "pH" not in df.columns:
+                    df["pH"] = 6.5
+
                 if "Moisture" not in df.columns:
-                    df["Moisture"] = np.random.uniform(20, 60, len(df))
+                    raise ValueError("Missing required 'Moisture' column in telemetry dataset")
 
                 features = df[
                     [
@@ -81,22 +85,9 @@ class DigitalTwinPipeline:
                 self.is_trained = True
                 print("EIF anomaly model trained successfully on telemetry history.")
             else:
-                raise FileNotFoundError()
+                raise FileNotFoundError(f"Telemetry dataset not found at {CLEANED_DATA_PATH}")
         except Exception as e:
-            print(
-                f"Telemetry dataset load failed ({e}). Bootstrapping EIF with synthetic normal agricultural records..."
-            )
-            N = np.random.uniform(20, 140, 200)
-            P = np.random.uniform(10, 90, 200)
-            K = np.random.uniform(10, 90, 200)
-            T = np.random.uniform(15, 40, 200)
-            H = np.random.uniform(30, 90, 200)
-            pH = np.random.uniform(5.5, 7.5, 200)
-            M = np.random.uniform(20, 80, 200)
-
-            features = np.column_stack([N, P, K, T, H, pH, M])
-            self.eif.fit(features)
-            self.is_trained = True
+            raise RuntimeError(f"Telemetry dataset load failed for EIF training: {e}")
 
     def execute_pipeline(self, telemetry: dict) -> dict:
         """

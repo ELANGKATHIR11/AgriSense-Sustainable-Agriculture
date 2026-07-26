@@ -55,8 +55,8 @@ def load_florence():
         _florence_processor = processor
         logger.info(f"Florence-2 loaded successfully on {device}")
     except Exception as e:
-        logger.warning(f"Failed to load Florence-2 natively: {e}. Emulating outputs.")
-        _florence_model = "emulator"
+        logger.error(f"Failed to load Florence-2 natively: {e}")
+        _florence_model = None
         _florence_processor = None
 
     return _florence_model, _florence_processor
@@ -64,8 +64,8 @@ def load_florence():
 
 def run_florence_inference(image: Image.Image, task_prompt: str) -> str:
     model, processor = load_florence()
-    if model == "emulator" or processor is None:
-        return "Florence-2 Emulator: Green healthy vegetation detected with minor lesion spots."
+    if model is None or processor is None:
+        raise HTTPException(status_code=530, detail="Florence-2 model weights are unavailable.")
 
     device = get_device()
     inputs = processor(text=task_prompt, images=image, return_tensors="pt").to(device)
