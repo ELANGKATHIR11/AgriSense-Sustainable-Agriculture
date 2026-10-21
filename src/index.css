@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  --agri-forest: #173D2B;
+  --agri-leaf: #4A8C55;
+  --agri-sage: #DCE8D5;
+  --agri-bg: #F5F7F0;
+  --agri-card: #FFFFFF;
+  --agri-text: #26352B;
+  --agri-muted: #6B786E;
+  --agri-water: #438EBA;
+  --agri-amber: #DCA849;
+  --agri-red: #C64E43;
+  --agri-border: #DDE5D7;
+}
+
+.dark {
+  --agri-forest: #1E4D36;
+  --agri-leaf: #5CA668;
+  --agri-sage: #1B2E23;
+  --agri-bg: #0F1913;
+  --agri-card: #16241C;
+  --agri-text: #EBF2EC;
+  --agri-muted: #98A89B;
+  --agri-water: #55A3D1;
+  --agri-amber: #E5B55C;
+  --agri-red: #DC6257;
+  --agri-border: #25392D;
+}
+
+@layer base {
+  body {
+    background-color: var(--agri-bg);
+    color: var(--agri-text);
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Tamil', 'Noto Sans Telugu', 'Noto Sans Kannada', 'Noto Sans Malayalam', 'Noto Sans Devanagari', 'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Ensure Indic scripts never get clipped vertically or forced uppercase */
+  h1, h2, h3, h4, h5, h6, button, label, th, td, span, p {
+    text-transform: none;
+  }
+}
+
+.font-mono-tabular {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

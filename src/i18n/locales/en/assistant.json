@@ -1,0 +1,38 @@
+{
+  "title": "AI Farming Assistant & Platform Settings",
+  "subtitle": "Multilingual agronomic advisory grounded in live farm sensor telemetry and system preferences.",
+  "tabs": {
+    "assistant": "AI Farming Assistant",
+    "settings": "System & Language Settings"
+  },
+  "chat": {
+    "welcomeTitle": "AgriSense Multilingual Agronomist",
+    "welcomeDesc": "Ask questions about soil moisture, drip fertigation schedules, crop diseases, or NPK ratios in your preferred language.",
+    "inputPlaceholder": "Ask about crop health, irrigation timing, or fertilizer dosage...",
+    "sendBtn": "Send Question",
+    "sending": "Consulting telemetry & agronomy knowledge base...",
+    "suggestedTitle": "Suggested Agronomic Questions",
+    "q1": "Which field block needs irrigation right now based on live soil moisture?",
+    "q2": "How should I split Neem-Coated Urea and MOP for Cauvery Delta paddy?",
+    "q3": "What organic and chemical treatments control Early Blight in polyhouse tomatoes?",
+    "q4": "How can I reduce water usage using Alternate Wetting and Drying (AWD)?",
+    "sourcesLabel": "Grounded Sources",
+    "fallbackNotice": "Response provided using deterministic agronomic rules and live sensor telemetry."
+  },
+  "settings": {
+    "languageSection": "Interface & Assistant Language",
+    "languageDesc": "Select your preferred language. Switching applies immediately across all 6 pages and persists across visits.",
+    "themeSection": "Visual Appearance & Contrast",
+    "themeDesc": "Switch between Daylight Field Mode (High-Contrast Light) and Night Operations Mode (Dark).",
+    "lightMode": "Daylight Field Mode (Light)",
+    "darkMode": "Night Operations Mode (Dark)",
+    "unitsSection": "Measurement System",
+    "unitsValue": "Metric System (°C, %, L/min, kg/ha, mm) — Standard Indian Agronomic Convention",
+    "systemHealthSection": "Backend, IoT Broker & AI Service Status",
+    "backendStatus": "FastAPI / Express Telemetry Core",
+    "mqttStatus": "MQTT TLS Broker & LoRa Bridge",
+    "edgeStatus": "Raspberry Pi Edge Gateway",
+    "aiStatus": "Multilingual AI Engine",
+    "securityNotice": "Security & Privacy Compliance: API keys, MQTT credentials, and administrative tokens are managed exclusively on the server and never exposed to the browser."
+  }
+}

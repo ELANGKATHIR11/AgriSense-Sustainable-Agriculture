@@ -1,0 +1,45 @@
+{
+  "title": "ऐतिहासिक विश्लेषण और फार्म डिजिटल ट्विन",
+  "subtitle": "वास्तविक सेंसर डेटा की तुलना WaterTwin, SoilTwin और CropTwin बायोफिजिकल सिमुलेशन से करें।",
+  "filters": {
+    "zoneLabel": "निगरानी ज़ोन",
+    "rangeLabel": "समय सीमा",
+    "days7": "पिछले 7 दिन",
+    "days14": "पिछले 14 दिन",
+    "days30": "पिछले 30 दिन",
+    "metricLabel": "मुख्य चार्ट मापदंड",
+    "metricMoisture": "वास्तविक बनाम अनुमानित मिट्टी की नमी (%)",
+    "metricTemp": "मिट्टी का तापमान और वाष्पोत्सर्जन",
+    "metricNdvi": "फसल NDVI और सिंचाई गहराई (mm)"
+  },
+  "twins": {
+    "waterTwinTitle": "WaterTwin — जड़ क्षेत्र जल विज्ञान",
+    "soilTwinTitle": "SoilTwin — मृदा जैव-रासायनिक स्थिति",
+    "cropTwinTitle": "CropTwin — फसल वृद्धि और उपज अनुमान",
+    "depletion": "जड़ क्षेत्र जल कमी",
+    "fieldCapacity": "फ़ील्ड क्षमता / मुरझाने का बिंदु",
+    "dailyEt": "दैनिक वाष्पोत्सर्जन (ET₀)",
+    "nextIrrigation": "अगली सिंचाई का अनुमानित समय",
+    "cec": "धनायन विनिमय क्षमता (CEC)",
+    "organicCarbon": "मृदा कार्बनिक कार्बन",
+    "microbialIndex": "सूक्ष्मजीव सक्रियता सूचकांक",
+    "mineralization": "नाइट्रोजन खनिजीकरण दर",
+    "stage": "वर्तमान वृद्धि अवस्था",
+    "stage_panicle_initiation": "बाली निकलने की अवस्था (64 दिन)",
+    "stage_fruit_setting": "फूल और फल बनने की अवस्था (58 दिन)",
+    "stage_vegetative_tillering": "कल्ले फूटने की अवस्था (42 दिन)",
+    "gdd": "ग्रोइंग डिग्री डेज़ (GDD)",
+    "lai": "पत्ती क्षेत्र सूचकांक (LAI)",
+    "projectedYield": "अनुमानित फसल उपज",
+    "confidence": "मॉडल विश्वास",
+    "simulatedBadge": "सिम्युलेटेड पूर्वानुमान",
+    "calibratedBadge": "सेंसर द्वारा सत्यापित"
+  },
+  "chart": {
+    "observedMoisture": "वास्तविक मिट्टी की नमी (%)",
+    "predictedMoisture": "डिजिटल ट्विन पूर्वानुमान (%)",
+    "irrigationBars": "दी गई सिंचाई (mm)",
+    "soilTemp": "मिट्टी का तापमान (°C)",
+    "ndvi": "फसल हरियाली सूचकांक (NDVI)"
+  }
+}

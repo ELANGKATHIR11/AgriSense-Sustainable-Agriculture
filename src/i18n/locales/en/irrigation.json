@@ -1,0 +1,61 @@
+{
+  "title": "Precision Irrigation & Agronomic Recommendations",
+  "subtitle": "Actuate zone solenoid valves with backend confirmation and run NPK-calibrated crop and fertilizer models.",
+  "tabs": {
+    "irrigation": "Irrigation Control & Schedule",
+    "crop": "Crop Recommendation Model",
+    "fertilizer": "Fertilizer Dosage Calculator"
+  },
+  "zones": {
+    "title": "Field Zone Valve Actuation",
+    "currentMoisture": "Current Moisture",
+    "targetMoisture": "Target Threshold",
+    "flowRate": "Active Flow Rate",
+    "recommendedDuration": "Recommended Cycle",
+    "waterSaved": "Water Saved Today",
+    "autoSchedule": "Auto-ET₀ Schedule",
+    "startIrrigation": "Start Irrigation",
+    "stopIrrigation": "Stop Valve",
+    "confirmTitle": "Confirm Irrigation Valve Operation",
+    "confirmStartDesc": "You are about to open the solenoid valve for {{zone}} ({{crop}}) for {{duration}} minutes at 42.5 L/min. Proceed?",
+    "confirmStopDesc": "You are about to close the solenoid valve for {{zone}} immediately. Proceed?",
+    "backendConfirmed": "Gateway confirmed valve state update for {{zone}}."
+  },
+  "cropForm": {
+    "title": "Soil & Climate Crop Suitability Predictor",
+    "desc": "Enter soil macronutrients and local weather parameters to rank high-yield crop varieties.",
+    "loadLiveSensor": "Load Live Block A Telemetry",
+    "nitrogen": "Available Nitrogen — N (mg/kg)",
+    "phosphorus": "Available Phosphorus — P (mg/kg)",
+    "potassium": "Available Potassium — K (mg/kg)",
+    "temperature": "Mean Temperature (°C)",
+    "humidity": "Relative Humidity (%)",
+    "ph": "Soil pH (3.5 – 9.5)",
+    "rainfall": "Seasonal Rainfall (mm)",
+    "submit": "Generate Crop Recommendations",
+    "resultsTitle": "Ranked Crop Suitability Results",
+    "confidence": "Suitability Match",
+    "waterReq": "Seasonal Water Need",
+    "duration": "Growth Cycle",
+    "yield": "Expected Yield",
+    "dripSavings": "Drip Water Saving"
+  },
+  "fertilizerForm": {
+    "title": "Target Crop Nutrient Deficit & Dosage Calculator",
+    "desc": "Calculate split applications of Neem-Coated Urea, DAP, and MOP based on live soil NPK levels.",
+    "selectCrop": "Target Crop Species",
+    "crops": {
+      "paddy": "Paddy Rice (IR-64 / Ponni)",
+      "tomato": "Hybrid Tomato (Arka Rakshak)",
+      "millet": "Finger Millet (Ragi CO-15)",
+      "turmeric": "Turmeric (Erode BSR-2)",
+      "cotton": "Irrigated Cotton (MCU-5)"
+    },
+    "soilMoisture": "Current Soil Moisture (%)",
+    "submit": "Calculate Fertilizer Schedule",
+    "deficitsTitle": "Calculated Elemental Nutrient Deficit",
+    "scheduleTitle": "Recommended Fertilizer Formulation & Split Schedule",
+    "dosage": "Recommended Dosage",
+    "organicTitle": "Organic & Soil Conditioning Amendment"
+  }
+}

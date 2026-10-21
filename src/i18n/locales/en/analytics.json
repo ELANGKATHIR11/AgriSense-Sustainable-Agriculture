@@ -1,0 +1,45 @@
+{
+  "title": "Historical Analytics & Farm Digital Twin",
+  "subtitle": "Compare observed sensor telemetry against biophysical WaterTwin, SoilTwin, and CropTwin simulations.",
+  "filters": {
+    "zoneLabel": "Monitored Zone",
+    "rangeLabel": "Time Horizon",
+    "days7": "Last 7 Days",
+    "days14": "Last 14 Days",
+    "days30": "Last 30 Days",
+    "metricLabel": "Primary Chart Metric",
+    "metricMoisture": "Observed vs Predicted Soil Moisture (%)",
+    "metricTemp": "Soil Temperature & Evapotranspiration",
+    "metricNdvi": "Crop Canopy NDVI & Irrigation Depth (mm)"
+  },
+  "twins": {
+    "waterTwinTitle": "WaterTwin — Root-Zone Hydrology",
+    "soilTwinTitle": "SoilTwin — Biogeochemical State",
+    "cropTwinTitle": "CropTwin — Phenology & Yield Projection",
+    "depletion": "Root-Zone Depletion",
+    "fieldCapacity": "Field Capacity / Wilting Point",
+    "dailyEt": "Daily Evapotranspiration (ET₀)",
+    "nextIrrigation": "Estimated Time to Irrigation",
+    "cec": "Cation Exchange Capacity",
+    "organicCarbon": "Soil Organic Carbon",
+    "microbialIndex": "Microbial Activity Index",
+    "mineralization": "N Mineralization Rate",
+    "stage": "Current Phenology Stage",
+    "stage_panicle_initiation": "Panicle Initiation (64 DAS)",
+    "stage_fruit_setting": "Flowering & Fruit Setting (58 DAS)",
+    "stage_vegetative_tillering": "Active Vegetative Tillering (42 DAS)",
+    "gdd": "Growing Degree Days (GDD)",
+    "lai": "Leaf Area Index (LAI)",
+    "projectedYield": "Projected Harvest Yield",
+    "confidence": "Model Confidence",
+    "simulatedBadge": "Simulated Biophysical Forecast",
+    "calibratedBadge": "Observed Sensor Calibrated"
+  },
+  "chart": {
+    "observedMoisture": "Observed Soil Moisture (%)",
+    "predictedMoisture": "Digital Twin Forecast (%)",
+    "irrigationBars": "Irrigation Applied (mm)",
+    "soilTemp": "Soil Temperature (°C)",
+    "ndvi": "Canopy NDVI Index"
+  }
+}

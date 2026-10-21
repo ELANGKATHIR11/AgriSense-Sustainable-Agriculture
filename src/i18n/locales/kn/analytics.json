@@ -1,0 +1,45 @@
+{
+  "title": "ಐತಿಹಾಸಿಕ ವಿಶ್ಲೇಷಣೆ & ಫಾರ್ಮ್ ಡಿಜಿಟಲ್ ಟ್ವಿನ್",
+  "subtitle": "ನೈಜ ಸೆನ್ಸಾರ್ ಮಾಹಿತಿಯನ್ನು WaterTwin, SoilTwin ಮತ್ತು CropTwin ಸಿಮ್ಯುಲೇಶನ್‌ಗಳೊಂದಿಗೆ ಹೋಲಿಕೆ ಮಾಡಿ.",
+  "filters": {
+    "zoneLabel": "ಮೇಲ್ವಿಚಾರಣಾ ವಲಯ",
+    "rangeLabel": "ಸಮಯದ ವ್ಯಾಪ್ತಿ",
+    "days7": "ಕಳೆದ 7 ದಿನಗಳು",
+    "days14": "ಕಳೆದ 14 ದಿನಗಳು",
+    "days30": "ಕಳೆದ 30 ದಿನಗಳು",
+    "metricLabel": "ಮುಖ್ಯ ಚಾರ್ಟ್ ಮಾಪನ",
+    "metricMoisture": "ನೈಜ vs ಮುನ್ಸೂಚಿತ ಮಣ್ಣಿನ ತೇವಾಂಶ (%)",
+    "metricTemp": "ಮಣ್ಣಿನ ಉಷ್ಣಾಂಶ & ಆವಿಯಾಗುವಿಕೆ",
+    "metricNdvi": "ಬೆಳೆ NDVI & ನೀರಾವರಿ ಪ್ರಮಾಣ (mm)"
+  },
+  "twins": {
+    "waterTwinTitle": "WaterTwin — ಬೇರಿನ ವಲಯದ ಜಲ ಸ್ಥಿತಿ",
+    "soilTwinTitle": "SoilTwin — ಮಣ್ಣಿನ ರಾಸಾಯನಿಕ ಸ್ಥಿತಿ",
+    "cropTwinTitle": "CropTwin — ಬೆಳೆ ಬೆಳವಣಿಗೆ & ಇಳುವರಿ ಮುನ್ಸೂಚನೆ",
+    "depletion": "ಬೇರಿನ ವಲಯದ ನೀರಿನ ಕೊರತೆ",
+    "fieldCapacity": "ಫೀಲ್ಡ್ ಕೆಪಾಸಿಟಿ / ಬಾಡುವ ಬಿಂದು",
+    "dailyEt": "ದೈನಂದಿನ ಆವಿಯಾಗುವಿಕೆ (ET₀)",
+    "nextIrrigation": "ಮುಂದಿನ ನೀರಾವರಿಗೆ ಸಮಯ",
+    "cec": "ಕ್ಯಾಟಯಾನ್ ವಿನಿಮಯ ಸಾಮರ್ಥ್ಯ (CEC)",
+    "organicCarbon": "ಸಾವಯವ ಇಂಗಾಲ",
+    "microbialIndex": "ಸೂಕ್ಷ್ಮಜೀವಿ ಚಟುವಟಿಕೆ ಸೂಚ್ಯಂಕ",
+    "mineralization": "ಸಾರಜನಕ ಖನಿಜೀಕರಣ ದರ",
+    "stage": "ಪ್ರಸ್ತುತ ಬೆಳವಣಿಗೆಯ ಹಂತ",
+    "stage_panicle_initiation": "ತೆನೆ ಮೂಡುವ ಹಂತ (64 ದಿನಗಳು)",
+    "stage_fruit_setting": "ಹೂವು & ಕಾಯಿ ಕಟ್ಟುವ ಹಂತ (58 ದಿನಗಳು)",
+    "stage_vegetative_tillering": "ಚಿಗುರು ಒಡೆಯುವ ಹಂತ (42 ದಿನಗಳು)",
+    "gdd": "ಗ್ರೋಯಿಂಗ್ ಡಿಗ್ರಿ ಡೇಸ್ (GDD)",
+    "lai": "ಎಲೆ ವಿಸ್ತೀರ್ಣ ಸೂಚ್ಯಂಕ (LAI)",
+    "projectedYield": "ಅಂದಾಜು ಇಳುವರಿ",
+    "confidence": "ಮಾದರಿ ವಿಶ್ವಾಸಾರ್ಹತೆ",
+    "simulatedBadge": "ಅನುಕರಿಸಿದ ಮುನ್ಸೂಚನೆ",
+    "calibratedBadge": "ಸೆನ್ಸಾರ್ ಆಧಾರಿತ"
+  },
+  "chart": {
+    "observedMoisture": "ನೈಜ ಮಣ್ಣಿನ ತೇವಾಂಶ (%)",
+    "predictedMoisture": "ಡಿಜಿಟಲ್ ಟ್ವಿನ್ ಮುನ್ಸೂಚನೆ (%)",
+    "irrigationBars": "ನೀಡಿದ ನೀರಾವರಿ (mm)",
+    "soilTemp": "ಮಣ್ಣಿನ ಉಷ್ಣಾಂಶ (°C)",
+    "ndvi": "ಬೆಳೆ ಹಸಿರು ಸೂಚ್ಯಂಕ (NDVI)"
+  }
+}

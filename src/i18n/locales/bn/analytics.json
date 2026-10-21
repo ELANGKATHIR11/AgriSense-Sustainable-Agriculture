@@ -1,0 +1,45 @@
+{
+  "title": "ঐতিহাসিক বিশ্লেষণ ও ফার্ম ডিজিটাল টুইন",
+  "subtitle": "বাস্তব সেন্সর টেলিমেট্রির সাথে WaterTwin, SoilTwin এবং CropTwin বায়োফিজিক্যাল সিমুলেশনের তুলনা করুন।",
+  "filters": {
+    "zoneLabel": "পর্যবেক্ষণ জোন",
+    "rangeLabel": "সময়সীমা",
+    "days7": "গত ৭ দিন",
+    "days14": "গত ১৪ দিন",
+    "days30": "গত ৩০ দিন",
+    "metricLabel": "প্রধান চার্ট মাপকাঠি",
+    "metricMoisture": "বাস্তব বনাম পূর্বাভাসিত মাটির আর্দ্রতা (%)",
+    "metricTemp": "মাটির তাপমাত্রা ও বাষ্পীভবন",
+    "metricNdvi": "ফসলের NDVI ও সেচের গভীরতা (mm)"
+  },
+  "twins": {
+    "waterTwinTitle": "WaterTwin — মূল অঞ্চলের জলবিদ্যা",
+    "soilTwinTitle": "SoilTwin — মাটির জৈব-রাসায়নিক অবস্থা",
+    "cropTwinTitle": "CropTwin — ফসলের বৃদ্ধি ও ফলন পূর্বাভাস",
+    "depletion": "মূল অঞ্চলের জলের ঘাটতি",
+    "fieldCapacity": "ফিল্ড ক্যাপাসিটি / নেতিয়ে পড়ার বিন্দু",
+    "dailyEt": "দৈনিক বাষ্পীভবন (ET₀)",
+    "nextIrrigation": "পরবর্তী সেচের আনুমানিক সময়",
+    "cec": "ক্যাটায়ন বিনিময় ক্ষমতা (CEC)",
+    "organicCarbon": "মাটির জৈব কার্বন",
+    "microbialIndex": "অণুজীব সক্রিয়তা সূচক",
+    "mineralization": "নাইট্রোজেন খনিজকরণ হার",
+    "stage": "বর্তমান বৃদ্ধির পর্যায়",
+    "stage_panicle_initiation": "শীষ আসার পর্যায় (৬৪ দিন)",
+    "stage_fruit_setting": "ফুল ও ফল ধরার পর্যায় (৫৮ দিন)",
+    "stage_vegetative_tillering": "কুশি গজানোর পর্যায় (৪২ দিন)",
+    "gdd": "গ্রোয়িং ডিগ্রি ডেজ (GDD)",
+    "lai": "পাতার ক্ষেত্রফল সূচক (LAI)",
+    "projectedYield": "প্রত্যাশিত ফসলের ফলন",
+    "confidence": "মডেল আস্থা",
+    "simulatedBadge": "সিমুলেটেড পূর্বাভাস",
+    "calibratedBadge": "সেন্সর দ্বারা যাচাইকৃত"
+  },
+  "chart": {
+    "observedMoisture": "বাস্তব মাটির আর্দ্রতা (%)",
+    "predictedMoisture": "ডিজিটাল টুইন পূর্বাভাস (%)",
+    "irrigationBars": "প্রদত্ত সেচ (mm)",
+    "soilTemp": "মাটির তাপমাত্রা (°C)",
+    "ndvi": "ফসলের সবুজ সূচক (NDVI)"
+  }
+}

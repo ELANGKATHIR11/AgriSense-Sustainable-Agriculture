@@ -1,0 +1,86 @@
+{
+  "brand": {
+    "name": "AgriSense",
+    "subtitle": "3D নির্ভুল কৃষি ও IoT প্ল্যাটফর্ম"
+  },
+  "nav": {
+    "dashboard": "ড্যাশবোর্ড",
+    "iot": "খামার ও IoT পর্যবেক্ষণ",
+    "irrigation": "সেচ ও সুপারিশ",
+    "disease": "উদ্ভিদ রোগ নির্ণয়",
+    "analytics": "বিশ্লেষণ ও ডিজিটাল টুইন",
+    "assistant": "AI কৃষি সহকারী",
+    "operations": "সেটিংস ও অপারেশনস সেন্টার",
+    "collapse": "সাইডবার সংকুচিত করুন",
+    "expand": "সাইডবার প্রসারিত করুন",
+    "mobileMenu": "নেভিগেশন মেনু খুলুন"
+  },
+  "hud3d": {
+    "hideControls": "▾ নিয়ন্ত্রণ লুকান (H)",
+    "showControls": "▴ নিয়ন্ত্রণ দেখান (H)",
+    "cameraOverview": "সম্পূর্ণ দৃশ্য",
+    "cameraZoneA": "ব্লক A (ধান)",
+    "cameraZoneB": "ব্লক B (পলিহাউস)",
+    "cameraZoneC": "ব্লক C (রাগি)",
+    "cameraZoneD": "ব্লক D (হলুদ)",
+    "cameraReservoir": "জলাধার ও গেটওয়ে",
+    "layerMoisture": "আর্দ্রতা হিটম্যাপ",
+    "layerIrrigation": "সেচ প্রবাহ",
+    "layerCanopy": "3D ফসল ক্যানোপি",
+    "layerSensors": "সেন্সর টাওয়ার",
+    "mode3D": "3D WebGL ভূখণ্ড",
+    "mode2D": "2D মানচিত্র দৃশ্য",
+    "timeScrubber": "4D টাইম স্ক্রাবার",
+    "clickHint": "ঘোরাতে ড্র্যাগ করুন · জুম করুন · বিস্তারিত দেখতে যেকোনো প্লটে ক্লিক করুন"
+  },
+  "topbar": {
+    "language": "ভাষা",
+    "backendConnected": "MQTT ও এজ অনলাইন",
+    "backendDegraded": "সংযোগ ধীর",
+    "notifications": "সতর্কতা",
+    "noAlerts": "কোনো জরুরি সতর্কতা নেই",
+    "refreshData": "ডেটা সিঙ্ক করুন",
+    "syncing": "সিঙ্ক হচ্ছে...",
+    "operatorProfile": "কাবেরী ডেল্টা গবেষণা খামার"
+  },
+  "status": {
+    "online": "অনলাইন",
+    "stale": "পুরানো ডেটা",
+    "offline": "অফলাইন",
+    "simulated": "সিমুলেটেড ভিত্তি",
+    "live": "লাইভ টেলিমেট্রি",
+    "healthy": "সুস্থ",
+    "attention_needed": "মনোযোগ প্রয়োজন",
+    "active": "সক্রিয় সেচ",
+    "idle": "স্ট্যান্ডবাই",
+    "calibrated": "ক্যালিব্রেটেড"
+  },
+  "actions": {
+    "confirm": "নিশ্চিত করুন",
+    "cancel": "বাতিল করুন",
+    "save": "পরিবর্তন সংরক্ষণ",
+    "reset": "রিসেট করুন",
+    "close": "বন্ধ করুন",
+    "retry": "পুনরায় চেষ্টা করুন",
+    "viewDetails": "পরীক্ষা করুন",
+    "exportCsv": "CSV এক্সপোর্ট"
+  },
+  "units": {
+    "celsius": "°C",
+    "percent": "%",
+    "liters": "লি",
+    "lpm": "লি/মিনিট",
+    "minutes": "মিনিট",
+    "hours": "ঘণ্টা",
+    "days": "দিন",
+    "kgHa": "কেজি/হেক্টর",
+    "tonHa": "টন/হেক্টর",
+    "mm": "মিমি",
+    "mgKg": "মিগ্রা/কেজি"
+  },
+  "states": {
+    "loading": "খামার সেন্সর টেলিমেট্রি এবং কৃষি মডেল লোড হচ্ছে...",
+    "errorTitle": "ফার্ম গেটওয়েতে সংযোগ করা যায়নি",
+    "empty": "বর্তমান ফিল্টারের সাথে মেলে এমন কোনো তথ্য নেই।"
+  }
+}

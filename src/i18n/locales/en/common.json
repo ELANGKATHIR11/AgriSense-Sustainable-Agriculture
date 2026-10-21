@@ -1,0 +1,86 @@
+{
+  "brand": {
+    "name": "AgriSense",
+    "subtitle": "3D Spatial Agriculture & Operations"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "iot": "Farm & IoT Monitoring",
+    "irrigation": "Irrigation & Recommendations",
+    "disease": "Plant Disease Detection",
+    "analytics": "Analytics & Digital Twin",
+    "assistant": "AI Farming Assistant",
+    "operations": "Settings & Operations",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "mobileMenu": "Toggle navigation menu"
+  },
+  "hud3d": {
+    "hideControls": "▾ Hide Controls (H)",
+    "showControls": "▴ Show Controls (H)",
+    "cameraOverview": "Overview",
+    "cameraZoneA": "Block A Paddy",
+    "cameraZoneB": "Block B Polyhouse",
+    "cameraZoneC": "Block C Millet",
+    "cameraZoneD": "Block D Turmeric",
+    "cameraReservoir": "Reservoir & Gateway",
+    "layerMoisture": "Moisture Heatmap",
+    "layerIrrigation": "Irrigation Flow",
+    "layerCanopy": "3D Crop Canopy",
+    "layerSensors": "Sensor Towers",
+    "mode3D": "3D WebGL Terrain",
+    "mode2D": "2D Topological Map",
+    "timeScrubber": "4D Temporal Scrubber",
+    "clickHint": "Orbit: Drag · Zoom: Scroll · Click any plot or tower to inspect"
+  },
+  "topbar": {
+    "language": "Language",
+    "backendConnected": "MQTT & Edge Online",
+    "backendDegraded": "Edge Degraded",
+    "notifications": "Alerts",
+    "noAlerts": "No active critical alerts",
+    "refreshData": "Sync Telemetry",
+    "syncing": "Syncing...",
+    "operatorProfile": "Cauvery Delta Research Farm"
+  },
+  "status": {
+    "online": "Online",
+    "stale": "Stale Reading",
+    "offline": "Offline",
+    "simulated": "Simulated Baseline",
+    "live": "Live Telemetry",
+    "healthy": "Healthy",
+    "attention_needed": "Attention Needed",
+    "active": "Active Irrigation",
+    "idle": "Standby",
+    "calibrated": "Calibrated"
+  },
+  "actions": {
+    "confirm": "Confirm Action",
+    "cancel": "Cancel",
+    "save": "Save Changes",
+    "reset": "Reset",
+    "close": "Close",
+    "retry": "Retry Connection",
+    "viewDetails": "Inspect",
+    "exportCsv": "Export CSV"
+  },
+  "units": {
+    "celsius": "°C",
+    "percent": "%",
+    "liters": "L",
+    "lpm": "L/min",
+    "minutes": "min",
+    "hours": "hrs",
+    "days": "days",
+    "kgHa": "kg/ha",
+    "tonHa": "t/ha",
+    "mm": "mm",
+    "mgKg": "mg/kg"
+  },
+  "states": {
+    "loading": "Loading farm telemetry and agronomic models...",
+    "errorTitle": "Unable to reach farm gateway",
+    "empty": "No records match the current filter criteria."
+  }
+}

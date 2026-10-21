@@ -1,0 +1,45 @@
+{
+  "title": "చారిత్రక విశ్లేషణలు & ఫార్మ్ డిజిటల్ ట్విన్",
+  "subtitle": "వాస్తవ సెన్సార్ రీడింగ్‌లను WaterTwin, SoilTwin మరియు CropTwin అనుకరణలతో పోల్చండి.",
+  "filters": {
+    "zoneLabel": "పర్యవేక్షణ జోన్",
+    "rangeLabel": "కాల పరిమితి",
+    "days7": "గత 7 రోజులు",
+    "days14": "గత 14 రోజులు",
+    "days30": "గత 30 రోజులు",
+    "metricLabel": "ప్రధాన చార్ట్ కొలమానం",
+    "metricMoisture": "వాస్తవ vs అంచనా నేల తేమ (%)",
+    "metricTemp": "నేల ఉష్ణోగ్రత & బాష్పీభవనం",
+    "metricNdvi": "పంట NDVI & సాగునీటి లోతు (mm)"
+  },
+  "twins": {
+    "waterTwinTitle": "WaterTwin — వేరు మండల నీటి స్థితి",
+    "soilTwinTitle": "SoilTwin — నేల రసాయన స్థితి",
+    "cropTwinTitle": "CropTwin — పంట పెరుగుదల & దిగుబడి అంచనా",
+    "depletion": "వేరు మండల నీటి తగ్గుదల",
+    "fieldCapacity": "ఫీల్డ్ కెపాసిటీ / వాడిపోయే స్థితి",
+    "dailyEt": "రోజువారీ బాష్పీభవనం (ET₀)",
+    "nextIrrigation": "తదుపరి సాగునీటికి సమయం",
+    "cec": "కాటయాన్ మార్పిడి సామర్థ్యం (CEC)",
+    "organicCarbon": "సేంద్రీయ కార్బన్",
+    "microbialIndex": "సూక్ష్మజీవుల క్రియాశీలత సూచిక",
+    "mineralization": "నత్రజని ఖనిజీకరణ రేటు",
+    "stage": "ప్రస్తుత పెరుగుదల దశ",
+    "stage_panicle_initiation": "చిరుপొట్ట దశ (64 రోజులు)",
+    "stage_fruit_setting": "పూత & కాయ పట్టే దశ (58 రోజులు)",
+    "stage_vegetative_tillering": "పిలకలు తొడిగే దశ (42 రోజులు)",
+    "gdd": "గ్రోయింగ్ డిగ్రీ డేస్ (GDD)",
+    "lai": "లీఫ్ ఏరియా ఇండెక్స్ (LAI)",
+    "projectedYield": "అంచనా వేసిన దిగుబడి",
+    "confidence": "మోడల్ విశ్వాసం",
+    "simulatedBadge": "అనుకరణ అంచనా",
+    "calibratedBadge": "సెన్సార్ ఆధారిత"
+  },
+  "chart": {
+    "observedMoisture": "వాస్తవ నేల తేమ (%)",
+    "predictedMoisture": "డిజిటల్ ట్విన్ అంచనా (%)",
+    "irrigationBars": "అందించిన సాగునీరు (mm)",
+    "soilTemp": "నేల ఉష్ణోగ్రత (°C)",
+    "ndvi": "పంట పచ్చదనం సూచిక (NDVI)"
+  }
+}

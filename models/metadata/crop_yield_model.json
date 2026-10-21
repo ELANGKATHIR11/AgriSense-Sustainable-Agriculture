@@ -1,0 +1,25 @@
+{
+  "model_id": "agrisense-yield-hgbr",
+  "version": "v1.0.0",
+  "name": "AgriSense Crop Yield Predictor",
+  "type": "REGRESSION",
+  "framework": "scikit-learn / HistGradientBoostingRegressor",
+  "status": "PRODUCTION",
+  "dataset_provenance": "dataset1/crop_yield.csv (250,000 samples)",
+  "features": [
+    "Region",
+    "Soil_Type",
+    "Crop",
+    "Weather_Condition",
+    "Rainfall_mm",
+    "Temperature_Celsius",
+    "Fertilizer_Used",
+    "Irrigation_Used",
+    "Days_to_Harvest"
+  ],
+  "r2_score": 0.9123,
+  "rmse": 0.5018,
+  "mae": 0.3993,
+  "artifact_path": "models/artifacts/crop_yield_model.joblib",
+  "trained_at": "2026-10-21T14:55:17.760832+00:00"
+}

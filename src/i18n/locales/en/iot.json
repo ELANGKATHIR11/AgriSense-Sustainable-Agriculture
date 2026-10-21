@@ -1,0 +1,49 @@
+{
+  "title": "Farm & IoT Sensor Network",
+  "subtitle": "Live MQTT & LoRaWAN node inventory, soil nutrient telemetry, water reservoir status, and device threshold configuration.",
+  "filters": {
+    "all": "All Nodes",
+    "online": "Online Only",
+    "stale": "Stale / Attention",
+    "searchPlaceholder": "Filter by node ID, zone, or crop..."
+  },
+  "staleBanner": "Note: Stale sensor readings (>15 min old) are explicitly flagged and excluded from automated valve actuation.",
+  "deviceCard": {
+    "deviceId": "Device ID",
+    "zone": "Field Zone",
+    "crop": "Active Crop",
+    "protocol": "Protocol",
+    "firmware": "Firmware",
+    "lastSeen": "Last Seen",
+    "justNow": "Just now (<1m)",
+    "minutesAgo": "{{count}} min ago",
+    "battery": "Battery",
+    "signal": "Signal RSSI",
+    "soilMoisture": "Soil Moisture",
+    "soilTemp": "Soil Temp",
+    "airTemp": "Air Temp",
+    "airHumidity": "Air Humidity",
+    "soilPh": "Soil pH",
+    "npk": "N-P-K (mg/kg)",
+    "ec": "Salinity (EC)",
+    "configure": "Configure Node",
+    "staleWarning": "Stale telemetry — last packet received {{minutes}} minutes ago. Values shown are last known state."
+  },
+  "waterTank": {
+    "title": "Main Irrigation Reservoir & Pump Telemetry",
+    "level": "Reservoir Level",
+    "volume": "Available Volume",
+    "pumpState": "Main Pump Status",
+    "pressure": "Line Pressure",
+    "waterPh": "Water pH",
+    "waterTds": "Dissolved Solids (TDS)"
+  },
+  "configModal": {
+    "title": "Configure IoT Telemetry Node",
+    "samplingInterval": "MQTT Reporting Interval (seconds)",
+    "moistureThreshold": "Low-Moisture Alert Threshold (%)",
+    "intervalHelp": "Valid range: 10 to 3600 seconds",
+    "thresholdHelp": "Valid range: 15% to 85% volumetric moisture",
+    "savedSuccess": "Device configuration committed to edge gateway."
+  }
+}

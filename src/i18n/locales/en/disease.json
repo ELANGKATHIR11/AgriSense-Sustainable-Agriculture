@@ -1,0 +1,38 @@
+{
+  "title": "AI Plant Disease Diagnostic Lab",
+  "subtitle": "Upload a crop leaf image or test a verified field sample for pathogen classification, severity grading, and IPM treatment guidance.",
+  "disclaimer": "Model Prediction Notice: Diagnostic outputs are AI-assisted agronomic predictions. Confirm severe outbreaks with a certified plant pathologist before broad chemical application.",
+  "upload": {
+    "dropzoneTitle": "Drag and drop a plant leaf photograph here, or click to browse",
+    "dropzoneFormats": "Supports JPEG, PNG, and WebP up to 8 MB · Close-up macro leaf focus recommended",
+    "selectFile": "Choose Leaf Image",
+    "sampleTitle": "Or load a verified field reference specimen:",
+    "sample1": "Tomato — Early Blight Specimen",
+    "sample2": "Paddy Rice — Bacterial Leaf Blight",
+    "sample3": "Paddy Rice — Healthy Leaf Control",
+    "cropHintLabel": "Optional Crop Species Hint",
+    "analyzeBtn": "Run Disease Diagnosis",
+    "analyzing": "Analyzing leaf venation and lesion morphology...",
+    "clearBtn": "Clear Image",
+    "invalidFile": "Please upload a valid JPEG, PNG, or WebP image file under 8 MB."
+  },
+  "results": {
+    "title": "Diagnostic Classification Report",
+    "emptyPrompt": "Select or upload a leaf photograph and click Run Disease Diagnosis to inspect results.",
+    "predictionBadge": "Model Prediction",
+    "cropIdentified": "Identified Crop",
+    "diagnosis": "Classification",
+    "scientificName": "Pathogen / Taxon",
+    "confidence": "Model Confidence",
+    "severity": "Severity Grade",
+    "severity_none": "None (Healthy)",
+    "severity_low": "Low Infection",
+    "severity_moderate": "Moderate Outbreak",
+    "severity_high": "High / Critical",
+    "symptomsTitle": "Observed Morphological Symptoms",
+    "organicTitle": "Biological & Organic IPM Controls",
+    "chemicalTitle": "Targeted Chemical Intervention",
+    "preventionTitle": "Cultural & Irrigation Prevention",
+    "historyTitle": "Recent Diagnostic Log"
+  }
+}

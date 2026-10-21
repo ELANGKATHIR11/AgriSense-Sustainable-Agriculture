@@ -1,0 +1,1069 @@
+{
+  "model_id": "agrisense-vision-mobilenet",
+  "version": "v1.0.0",
+  "name": "AgriSense Vision Plant Leaf Pathology Classifier",
+  "type": "IMAGE_CLASSIFICATION",
+  "framework": "PyTorch 2.14 / MobileNetV3-Small (CUDA RTX 5060)",
+  "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "classes_count": 38,
+  "validation_accuracy": 0.907,
+  "classes": [
+    "Apple___Apple_scab",
+    "Apple___Black_rot",
+    "Apple___Cedar_apple_rust",
+    "Apple___healthy",
+    "Blueberry___healthy",
+    "Cherry_(including_sour)___Powdery_mildew",
+    "Cherry_(including_sour)___healthy",
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+    "Corn_(maize)___Common_rust_",
+    "Corn_(maize)___Northern_Leaf_Blight",
+    "Corn_(maize)___healthy",
+    "Grape___Black_rot",
+    "Grape___Esca_(Black_Measles)",
+    "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)",
+    "Grape___healthy",
+    "Orange___Haunglongbing_(Citrus_greening)",
+    "Peach___Bacterial_spot",
+    "Peach___healthy",
+    "Pepper,_bell___Bacterial_spot",
+    "Pepper,_bell___healthy",
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy",
+    "Raspberry___healthy",
+    "Soybean___healthy",
+    "Squash___Powdery_mildew",
+    "Strawberry___Leaf_scorch",
+    "Strawberry___healthy",
+    "Tomato___Bacterial_spot",
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Septoria_leaf_spot",
+    "Tomato___Spider_mites Two-spotted_spider_mite",
+    "Tomato___Target_Spot",
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+    "Tomato___Tomato_mosaic_virus",
+    "Tomato___healthy"
+  ],
+  "details": {
+    "Apple___Apple_scab": {
+      "index": 0,
+      "cropIdentified": "Apple",
+      "diseaseName": "Apple Apple Scab",
+      "scientificName": "Apple Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible apple scab lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Apple___Black_rot": {
+      "index": 1,
+      "cropIdentified": "Apple",
+      "diseaseName": "Apple Black Rot",
+      "scientificName": "Apple Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible black rot lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Apple___Cedar_apple_rust": {
+      "index": 2,
+      "cropIdentified": "Apple",
+      "diseaseName": "Apple Cedar Apple Rust",
+      "scientificName": "Apple Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible cedar apple rust lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Apple___healthy": {
+      "index": 3,
+      "cropIdentified": "Apple",
+      "diseaseName": "Apple Healthy",
+      "scientificName": "Apple Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Blueberry___healthy": {
+      "index": 4,
+      "cropIdentified": "Blueberry",
+      "diseaseName": "Blueberry Healthy",
+      "scientificName": "Blueberry Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Cherry_(including_sour)___Powdery_mildew": {
+      "index": 5,
+      "cropIdentified": "Cherry (Including Sour)",
+      "diseaseName": "Cherry (Including Sour) Powdery Mildew",
+      "scientificName": "Cherry (Including Sour) Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible powdery mildew lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Cherry_(including_sour)___healthy": {
+      "index": 6,
+      "cropIdentified": "Cherry (Including Sour)",
+      "diseaseName": "Cherry (Including Sour) Healthy",
+      "scientificName": "Cherry (Including Sour) Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": {
+      "index": 7,
+      "cropIdentified": "Corn (Maize)",
+      "diseaseName": "Corn (Maize) Cercospora Leaf Spot Gray Leaf Spot",
+      "scientificName": "Corn (Maize) Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible cercospora leaf spot gray leaf spot lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Corn_(maize)___Common_rust_": {
+      "index": 8,
+      "cropIdentified": "Corn (Maize)",
+      "diseaseName": "Corn (Maize) Common Rust ",
+      "scientificName": "Corn (Maize) Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible common rust  lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Corn_(maize)___Northern_Leaf_Blight": {
+      "index": 9,
+      "cropIdentified": "Corn (Maize)",
+      "diseaseName": "Corn (Maize) Northern Leaf Blight",
+      "scientificName": "Corn (Maize) Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible northern leaf blight lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Corn_(maize)___healthy": {
+      "index": 10,
+      "cropIdentified": "Corn (Maize)",
+      "diseaseName": "Corn (Maize) Healthy",
+      "scientificName": "Corn (Maize) Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Grape___Black_rot": {
+      "index": 11,
+      "cropIdentified": "Grape",
+      "diseaseName": "Grape Black Rot",
+      "scientificName": "Grape Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible black rot lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Grape___Esca_(Black_Measles)": {
+      "index": 12,
+      "cropIdentified": "Grape",
+      "diseaseName": "Grape Esca (Black Measles)",
+      "scientificName": "Grape Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible esca (black measles) lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)": {
+      "index": 13,
+      "cropIdentified": "Grape",
+      "diseaseName": "Grape Leaf Blight (Isariopsis Leaf Spot)",
+      "scientificName": "Grape Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible leaf blight (isariopsis leaf spot) lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Grape___healthy": {
+      "index": 14,
+      "cropIdentified": "Grape",
+      "diseaseName": "Grape Healthy",
+      "scientificName": "Grape Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Orange___Haunglongbing_(Citrus_greening)": {
+      "index": 15,
+      "cropIdentified": "Orange",
+      "diseaseName": "Orange Haunglongbing (Citrus Greening)",
+      "scientificName": "Orange Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible haunglongbing (citrus greening) lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Peach___Bacterial_spot": {
+      "index": 16,
+      "cropIdentified": "Peach",
+      "diseaseName": "Peach Bacterial Spot",
+      "scientificName": "Peach Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible bacterial spot lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Peach___healthy": {
+      "index": 17,
+      "cropIdentified": "Peach",
+      "diseaseName": "Peach Healthy",
+      "scientificName": "Peach Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Pepper,_bell___Bacterial_spot": {
+      "index": 18,
+      "cropIdentified": "Pepper, Bell",
+      "diseaseName": "Pepper, Bell Bacterial Spot",
+      "scientificName": "Pepper, Bell Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible bacterial spot lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Pepper,_bell___healthy": {
+      "index": 19,
+      "cropIdentified": "Pepper, Bell",
+      "diseaseName": "Pepper, Bell Healthy",
+      "scientificName": "Pepper, Bell Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Potato___Early_blight": {
+      "index": 20,
+      "cropIdentified": "Potato",
+      "diseaseName": "Potato Early Blight",
+      "scientificName": "Potato Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible early blight lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Potato___Late_blight": {
+      "index": 21,
+      "cropIdentified": "Potato",
+      "diseaseName": "Potato Late Blight",
+      "scientificName": "Potato Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible late blight lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Potato___healthy": {
+      "index": 22,
+      "cropIdentified": "Potato",
+      "diseaseName": "Potato Healthy",
+      "scientificName": "Potato Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Raspberry___healthy": {
+      "index": 23,
+      "cropIdentified": "Raspberry",
+      "diseaseName": "Raspberry Healthy",
+      "scientificName": "Raspberry Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Soybean___healthy": {
+      "index": 24,
+      "cropIdentified": "Soybean",
+      "diseaseName": "Soybean Healthy",
+      "scientificName": "Soybean Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Squash___Powdery_mildew": {
+      "index": 25,
+      "cropIdentified": "Squash",
+      "diseaseName": "Squash Powdery Mildew",
+      "scientificName": "Squash Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible powdery mildew lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Strawberry___Leaf_scorch": {
+      "index": 26,
+      "cropIdentified": "Strawberry",
+      "diseaseName": "Strawberry Leaf Scorch",
+      "scientificName": "Strawberry Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible leaf scorch lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Strawberry___healthy": {
+      "index": 27,
+      "cropIdentified": "Strawberry",
+      "diseaseName": "Strawberry Healthy",
+      "scientificName": "Strawberry Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    },
+    "Tomato___Bacterial_spot": {
+      "index": 28,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Bacterial Spot",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible bacterial spot lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Tomato___Early_blight": {
+      "index": 29,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Early Blight",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible early blight lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Tomato___Late_blight": {
+      "index": 30,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Late Blight",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible late blight lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Tomato___Leaf_Mold": {
+      "index": 31,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Leaf Mold",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible leaf mold lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Tomato___Septoria_leaf_spot": {
+      "index": 32,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Septoria Leaf Spot",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible septoria leaf spot lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Tomato___Spider_mites Two-spotted_spider_mite": {
+      "index": 33,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Spider Mites Two-Spotted Spider Mite",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible spider mites two-spotted spider mite lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Tomato___Target_Spot": {
+      "index": 34,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Target Spot",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": false,
+      "severity": "moderate",
+      "symptomsObserved": [
+        "Visible target spot lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
+      "index": 35,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Tomato Yellow Leaf Curl Virus",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible tomato yellow leaf curl virus lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Tomato___Tomato_mosaic_virus": {
+      "index": 36,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Tomato Mosaic Virus",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": false,
+      "severity": "high",
+      "symptomsObserved": [
+        "Visible tomato mosaic virus lesions on foliage",
+        "Foliar chlorosis and leaf curl",
+        "Premature defoliation risk"
+      ],
+      "organicTreatment": [
+        "Spray Trichoderma viride bio-fungicide @ 5g/liter",
+        "Apply 1% Bordeaux mixture or copper soap",
+        "Remove and bury infected leaves"
+      ],
+      "chemicalTreatment": [
+        "Apply Mancozeb 75% WP @ 2g/liter or Azoxystrobin 23% SC @ 1ml/liter",
+        "Spray Systemic Carbendazim 50% WP @ 1g/liter"
+      ],
+      "preventionSteps": [
+        "Avoid overhead sprinkler irrigation",
+        "Disinfect pruning tools with 10% sodium hypochlorite",
+        "Use certified disease-resistant hybrid seed varieties"
+      ]
+    },
+    "Tomato___healthy": {
+      "index": 37,
+      "cropIdentified": "Tomato",
+      "diseaseName": "Tomato Healthy",
+      "scientificName": "Tomato Pathology Profile",
+      "isHealthy": true,
+      "severity": "none",
+      "symptomsObserved": [
+        "Vibrant green foliage",
+        "No chlorosis or necrotic lesions",
+        "Normal leaf architecture"
+      ],
+      "organicTreatment": [
+        "Continue balanced compost application",
+        "Regular moisture monitoring",
+        "Maintain preventative neem oil foliar spray (0.5%)"
+      ],
+      "chemicalTreatment": [
+        "No chemical fungicides needed"
+      ],
+      "preventionSteps": [
+        "Crop rotation every 2 seasons",
+        "Maintain adequate spacing for airflow",
+        "Drip irrigation at soil level"
+      ]
+    }
+  },
+  "artifact_path": "models/artifacts/plant_disease_model.pth",
+  "trained_at": "2026-10-21T15:01:41Z",
+  "total_training_sec": 308.94
+}

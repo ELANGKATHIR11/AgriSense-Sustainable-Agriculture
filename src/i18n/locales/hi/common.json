@@ -1,0 +1,86 @@
+{
+  "brand": {
+    "name": "AgriSense",
+    "subtitle": "3D सटीक कृषि और IoT प्लेटफ़ॉर्म"
+  },
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "iot": "खेत और IoT निगरानी",
+    "irrigation": "सिंचाई और अनुशंसाएँ",
+    "disease": "पौध रोग पहचान",
+    "analytics": "विश्लेषण और डिजिटल ट्विन",
+    "assistant": "AI कृषि सहायक",
+    "operations": "सेटिंग्स और संचालन केंद्र",
+    "collapse": "साइडबार संक्षिप्त करें",
+    "expand": "साइडबार विस्तृत करें",
+    "mobileMenu": "नेविगेशन मेनू खोलें"
+  },
+  "hud3d": {
+    "hideControls": "▾ नियंत्रण छिपाएँ (H)",
+    "showControls": "▴ नियंत्रण दिखाएँ (H)",
+    "cameraOverview": "संपूर्ण दृश्य",
+    "cameraZoneA": "ब्लॉक A (धान)",
+    "cameraZoneB": "ब्लॉक B (पॉलीहाउस)",
+    "cameraZoneC": "ब्लॉक C (रागी)",
+    "cameraZoneD": "ब्लॉक D (हल्दी)",
+    "cameraReservoir": "जलाशय व गेटवे",
+    "layerMoisture": "नमी हीटमैप",
+    "layerIrrigation": "सिंचाई प्रवाह",
+    "layerCanopy": "3D फसल कैनोपी",
+    "layerSensors": "सेंसर टावर",
+    "mode3D": "3D WebGL भूभाग",
+    "mode2D": "2D मानचित्र दृश्य",
+    "timeScrubber": "4D समय स्क्रबर",
+    "clickHint": "घुमाने के लिए खींचें · ज़ूम करें · निरीक्षण के लिए किसी भी प्लॉट पर क्लिक करें"
+  },
+  "topbar": {
+    "language": "भाषा",
+    "backendConnected": "MQTT व एज ऑनलाइन",
+    "backendDegraded": "कनेक्शन धीमा",
+    "notifications": "सतर्कता",
+    "noAlerts": "कोई गंभीर चेतावनी नहीं",
+    "refreshData": "डेटा सिंक करें",
+    "syncing": "सिंक हो रहा है...",
+    "operatorProfile": "कावेरी डेल्टा अनुसंधान फार्म"
+  },
+  "status": {
+    "online": "ऑनलाइन",
+    "stale": "पुराना डेटा",
+    "offline": "ऑफ़लाइन",
+    "simulated": "सिम्युलेटेड आधार",
+    "live": "लाइव टेलीमेट्री",
+    "healthy": "स्वस्थ",
+    "attention_needed": "ध्यान आवश्यक",
+    "active": "सक्रिय सिंचाई",
+    "idle": "स्टैंडबाय",
+    "calibrated": "अंशांकित (Calibrated)"
+  },
+  "actions": {
+    "confirm": "पुष्टि करें",
+    "cancel": "रद्द करें",
+    "save": "परिवर्तन सहेजें",
+    "reset": "रीसेट करें",
+    "close": "बंद करें",
+    "retry": "पुनः प्रयास करें",
+    "viewDetails": "जांचें",
+    "exportCsv": "CSV निर्यात"
+  },
+  "units": {
+    "celsius": "°C",
+    "percent": "%",
+    "liters": "ली",
+    "lpm": "ली/मिनट",
+    "minutes": "मिनट",
+    "hours": "घंटे",
+    "days": "दिन",
+    "kgHa": "किग्रा/हे",
+    "tonHa": "टन/हे",
+    "mm": "मिमी",
+    "mgKg": "मिग्रा/किग्रा"
+  },
+  "states": {
+    "loading": "खेत सेंसर टेलीमेट्री और कृषि मॉडल लोड हो रहे हैं...",
+    "errorTitle": "फार्म गेटवे से संपर्क नहीं हो सका",
+    "empty": "वर्तमान फ़िल्टर से मेल खाने वाला कोई रिकॉर्ड नहीं मिला।"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Settings & Operations Center",
+  "subtitle": "Unified operational command console for software preferences, edge IoT hardware, MLOps registry, DataOps pipelines, LLMOps guardrails, CI/CD verification, and end-to-end system dependency tracing.",
+  "domains": {
+    "overview": "A. Health Overview",
+    "software": "B. App & Policy Settings",
+    "hardware": "C. Hardware & IoT Ops",
+    "mlops": "D. MLOps Registry",
+    "dataops": "E. DataOps & Quality",
+    "llmops": "F. LLMOps & RAG",
+    "cicd": "G. CI/CD & Release",
+    "security": "H. Security & Audit",
+    "architecture": "I. Dependency Map"
+  },
+  "overview": {
+    "uptime": "Runtime Uptime",
+    "memoryRss": "Process Memory (RSS / Heap)",
+    "apiRequests": "Total API Requests",
+    "avgLatency": "Mean API Latency",
+    "servicesTitle": "Live Service Health Probes",
+    "serviceName": "Service Component",
+    "status": "Status",
+    "latency": "Latency",
+    "version": "Version",
+    "dependency": "Upstream Dependency"
+  },
+  "software": {
+    "title": "Application, Localization & Safety Interlock Policy",
+    "desc": "Configure global operational thresholds, language, visual theme, and automated actuation guardrails.",
+    "moistureAlertLabel": "Critical Soil Moisture Alert Threshold (%)",
+    "staleTimeoutLabel": "Stale Node Quarantine SLA (Minutes)",
+    "maxIrrigationLabel": "Max Continuous Solenoid Run-Time (Minutes)",
+    "safetyInterlockLabel": "Require Operator Confirmation Before Solenoid Actuation",
+    "quarantineStaleLabel": "Automatically Quarantine Stale Nodes from Automation",
+    "shadows3dLabel": "Enable Soft PCF Shadows in 3D WebGL Viewports",
+    "logLevelLabel": "Server Telemetry Log Verbosity",
+    "savedBanner": "Operational policy saved and recorded in audit trail."
+  },
+  "hardware": {
+    "title": "Edge Gateway & ESP32 Field Node Operations",
+    "desc": "Execute audited hardware diagnostics, LoRaWAN wake pings, and capacitance probe zero-calibration.",
+    "wakePingBtn": "Send LoRa Wake Ping",
+    "zeroCalibrateBtn": "Zero-Calibrate Probe",
+    "selfTestBtn": "Run Manifold Self-Test",
+    "commandConfirmed": "Hardware command acknowledged by edge concentrator."
+  },
+  "mlops": {
+    "title": "MLOps Model Registry & Drift Governance",
+    "desc": "Inspect production and staging agronomic models, validation metrics, PSI feature drift, and execute version rollbacks.",
+    "promoteBtn": "Promote to Production",
+    "rollbackBtn": "Rollback to Previous",
+    "stage_production": "PRODUCTION",
+    "stage_staging": "STAGING",
+    "drift_nominal": "Nominal Drift",
+    "drift_watch": "Drift Watch"
+  },
+  "dataops": {
+    "title": "DataOps Telemetry Quality & Dataset Lineage",
+    "desc": "Real-time sensor stream freshness SLA, schema validation rules, and curated agronomic reference corpora.",
+    "runValidationBtn": "Run Schema & Bounds Sweep",
+    "freshnessSla": "Stream Freshness SLA",
+    "schemaCompliance": "Schema Compliance",
+    "datasetsTitle": "Registered Datasets & Feature Streams",
+    "rulesTitle": "Automated Ingestion Validation Rules"
+  },
+  "llmops": {
+    "title": "LLMOps, Prompt Governance & RAG Vector Index",
+    "desc": "Monitor server-side Local multimodal (RTX 5060) & advisory inference telemetry, token budgets, and ICAR/TNAU knowledge chunks.",
+    "totalInferences": "Total AI Inferences",
+    "visionVsChat": "Vision / Advisory Split",
+    "avgLatency": "Mean Inference Latency",
+    "tokenVolume": "Estimated Token Volume (In / Out)",
+    "ragCorpusTitle": "Indexed Agronomic RAG Corpus"
+  },
+  "cicd": {
+    "title": "CI/CD Pipeline & Build Verification Suite",
+    "desc": "Continuous verification status for TypeScript compilation, Vite bundle integrity, 7-language key parity, and API contracts."
+  },
+  "security": {
+    "title": "Security, RBAC Matrix & Immutable Audit Trail",
+    "desc": "Role-based access boundaries, server-side secret isolation, and chronological audit log of all hardware and model actions.",
+    "rbacTitle": "Role-Based Access Control (RBAC) Matrix",
+    "auditTitle": "Hardware, MLOps & Policy Audit Trail",
+    "logsTitle": "Structured Service Logs"
+  },
+  "architecture": {
+    "title": "Interactive End-to-End Architecture & Dependency Graph",
+    "desc": "Click any node in the AgriSense pipeline to inspect upstream/downstream dependencies, live health, and telemetry flow.",
+    "selectedNodeTitle": "Selected Pipeline Node Inspector",
+    "downstreamLabel": "Downstream Consumers"
+  }
+}
+

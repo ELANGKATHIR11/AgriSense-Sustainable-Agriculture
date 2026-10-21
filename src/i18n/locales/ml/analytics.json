@@ -1,0 +1,45 @@
+{
+  "title": "ചരിത്രപരമായ അനലിറ്റിക്സും ഡിജിറ്റൽ ട്വിനും",
+  "subtitle": "യഥാർത്ഥ സെൻസർ വിവരങ്ങളെ WaterTwin, SoilTwin, CropTwin സിമുലേഷനുകളുമായി താരതമ്യം ചെയ്യുക.",
+  "filters": {
+    "zoneLabel": "നിരീക്ഷണ സോൺ",
+    "rangeLabel": "സമയ പരിധി",
+    "days7": "കഴിഞ്ഞ 7 ദിവസങ്ങൾ",
+    "days14": "കഴിഞ്ഞ 14 ദിവസങ്ങൾ",
+    "days30": "കഴിഞ്ഞ 30 ദിവസങ്ങൾ",
+    "metricLabel": "പ്രധാന ചാർട്ട് അളവ്",
+    "metricMoisture": "യഥാർത്ഥ vs പ്രവചിച്ച മണ്ണിലെ ഈർപ്പം (%)",
+    "metricTemp": "മണ്ണ് താപനിലയും ബാഷ്പീകരണവും",
+    "metricNdvi": "വിള NDVI & ജലസേചന അളവ് (mm)"
+  },
+  "twins": {
+    "waterTwinTitle": "WaterTwin — വേരുപടല ജല സന്തുലിതാവസ്ഥ",
+    "soilTwinTitle": "SoilTwin — മണ്ണ് രാസാവസ്ഥ",
+    "cropTwinTitle": "CropTwin — വിള വളർച്ചയും വിളവ് പ്രവചനവും",
+    "depletion": "വേരുപടല ജല കുറവ്",
+    "fieldCapacity": "ഫീൽഡ് കപ്പാസിറ്റി / വാട്ടം പരിധി",
+    "dailyEt": "ദൈനംദിന ബാഷ്പീകരണം (ET₀)",
+    "nextIrrigation": "അടുത്ത ജലസേചനത്തിനുള്ള സമയം",
+    "cec": "കാറ്റയോൺ വിനിമയ ശേഷി (CEC)",
+    "organicCarbon": "ജൈവ കാർബൺ",
+    "microbialIndex": "സൂക്ഷ്മജീവി പ്രവർത്തന സൂചിക",
+    "mineralization": "നൈട്രജൻ ധാതുവൽക്കരണ നിരക്ക്",
+    "stage": "നിലവിലെ വളർച്ചാ ഘട്ടം",
+    "stage_panicle_initiation": "കതിർ വരുന്ന ഘട്ടം (64 ദിവസം)",
+    "stage_fruit_setting": "പൂവിടലും കായ് പിടിക്കലും (58 ദിവസം)",
+    "stage_vegetative_tillering": "ചിതമ്പൽ പൊട്ടുന്ന ഘട്ടം (42 ദിവസം)",
+    "gdd": "വളർച്ചാ താപ ദിവസങ്ങൾ (GDD)",
+    "lai": "ഇല വിസ്തീർണ്ണ സൂചിക (LAI)",
+    "projectedYield": "പ്രതീക്ഷിക്കുന്ന വിളവ്",
+    "confidence": "മോഡൽ വിശ്വാസ്യത",
+    "simulatedBadge": "സിമുലേറ്റഡ് പ്രവചനം",
+    "calibratedBadge": "സെൻസർ കാലിബ്രേറ്റഡ്"
+  },
+  "chart": {
+    "observedMoisture": "യഥാർത്ഥ മണ്ണിലെ ഈർപ്പം (%)",
+    "predictedMoisture": "ഡിജിറ്റൽ ട്വിൻ പ്രവചനം (%)",
+    "irrigationBars": "നൽകിയ ജലസേചനം (mm)",
+    "soilTemp": "മണ്ണ് താപനില (°C)",
+    "ndvi": "വിള പച്ചപ്പ് സൂചിക (NDVI)"
+  }
+}
