@@ -17,59 +17,57 @@
 
 ```mermaid
 flowchart TB
-    subgraph IoT_Layer ["📡 Edge IoT & Sensor Network"]
-        direction LR
-        S1["🌱 Soil Moisture & Temp<br/>(Capacitive / RS485)"]
-        S2["☀️ Solar Rad & Lux<br/>(BH1750 / Pyranometer)"]
-        S3["🧪 Soil NPK & pH<br/>(Electrochemical / EC Probe)"]
-        S4["💧 Drip Flow & Tank Level<br/>(Ultrasonic / Solenoid Valve)"]
+    subgraph IoT_Layer["Edge IoT and Sensor Network"]
+        S1["Soil Moisture and Temp Sensors"]
+        S2["Solar Radiation and Lux Sensors"]
+        S3["Soil NPK and pH Probes"]
+        S4["Drip Flow and Tank Level Sensors"]
     end
 
-    subgraph Hardware_Gateway ["🔌 Hardware Gateway & Node.js Proxy (:3000)"]
-        GW["Express Proxy & Reverse Proxy Engine<br/>• Static Vite Assets Distribution<br/>• Hardware Telemetry Ring Buffer (100 samples)<br/>• Sub-millisecond Forwarding"]
+    subgraph Hardware_Gateway["Hardware Gateway and Node.js Proxy :3000"]
+        GW["Express Proxy and Static Vite Server"]
     end
 
-    subgraph Core_Backend ["⚡ FastAPI Intelligence Engine (:8004)"]
-        API["FastAPI REST & WebSocket Controllers<br/>/api/sensors · /api/irrigation · /api/analytics · /api/disease"]
-        
-        subgraph Engine_Services ["Service & Scheduling Layer"]
-            TS["Live Telemetry Engine<br/>(4s Background Async DB Tick)"]
-            IM["Automated Irrigation Controller<br/>(Threshold / Manual / Timed)"]
-            OPS["Operations & MLOps Health Monitor<br/>(psutil Hardware Telemetry)"]
-        end
-
-        subgraph ML_Inference ["🧠 Edge ML / DL Models (NVIDIA CUDA / CPU)"]
-            M1["🌿 Plant Disease Vision CNN<br/>PyTorch 38-Class ResNet / MobileNet"]
-            M2["🌾 Crop Yield Regressor<br/>HistGradientBoostingRegressor (joblib)"]
-            M3["🧪 Crop NPK Recommender<br/>RandomForest Classifier (200 Crops)"]
-            M4["💧 Digital Twin Simulator<br/>FAO-56 Penman-Monteith & GDD Phenology"]
-            M5["🤖 Agricultural Advisory LLM<br/>Ollama Qwen 2.5 0.5B + Local RAG (50k chunks)"]
-        end
+    subgraph Core_Backend["FastAPI Intelligence Engine :8004"]
+        API["FastAPI REST and WebSocket Router"]
+        TS["Live Telemetry Background Worker"]
+        IM["Automated Irrigation Controller"]
+        OPS["Operations and Hardware Telemetry"]
+        M1["Plant Disease Vision CNN - PyTorch"]
+        M2["Crop Yield Regressor - Scikit-Learn"]
+        M3["Crop NPK Recommender - Random Forest"]
+        M4["Digital Twin Biophysical Simulator"]
+        M5["Ollama Qwen 2.5 LLM with Local RAG"]
     end
 
-    subgraph Data_Layer ["💾 Persistence & Storage Layer"]
-        PG[("🐘 PostgreSQL Database (:5432)<br/>• irrigation_zones<br/>• devices<br/>• sensor_readings<br/>• platform_settings")]
-        LFS[("📦 Git LFS Model Artifacts<br/>• crop_yield_model.joblib<br/>• crop_recommendation_rf.joblib<br/>• plant_disease_model.pth")]
+    subgraph Data_Layer["Persistence and Storage Layer"]
+        PG[("PostgreSQL Database :5432")]
+        LFS[("Git LFS Model Weights")]
     end
 
-    subgraph Presentation_Layer ["💻 Reactive Frontend (React 19 + TypeScript + Tailwind 4)"]
-        UI1["📊 Real-time Sensor Dashboard"]
-        UI2["🌐 4D Digital Twin & 3D Farm Canvas (Three.js)"]
-        UI3["🚰 Precision Irrigation Matrix & Valve Automation"]
-        UI4["🔬 Leaf Disease Diagnostics Studio"]
-        UI5["💬 Multilingual AI Farm Advisory Chatbot"]
-        UI6["⚙️ Hardware, DataOps & MLOps Command Center"]
+    subgraph Presentation_Layer["Reactive Frontend - React 19 and Tailwind 4"]
+        UI1["Sensor Telemetry Dashboard"]
+        UI2["4D Digital Twin and Three.js 3D Canvas"]
+        UI3["Precision Irrigation Matrix"]
+        UI4["Leaf Disease Diagnostics Studio"]
+        UI5["Multilingual AI Farm Assistant"]
+        UI6["Operations and MLOps Center"]
     end
 
-    %% Relationships
-    IoT_Layer -->|MQTT / Modbus / HTTP| GW
-    GW <-->|Reverse Proxy API Calls| API
-    API --> Engine_Services
-    Engine_Services --> ML_Inference
-    API --> ML_Inference
-    API <-->|SQLAlchemy ORM (psycopg2)| PG
-    ML_Inference -.->|Artifact Weights| LFS
-    GW <-->|HTTP / JSON REST| Presentation_Layer
+    IoT_Layer -->|MQTT or HTTP Telemetry| GW
+    GW <-->|API Proxy| API
+    API --> TS
+    API --> IM
+    API --> OPS
+    API --> M1
+    API --> M2
+    API --> M3
+    API --> M4
+    API --> M5
+    API <-->|SQLAlchemy ORM| PG
+    M1 -.->|Model Weights| LFS
+    M2 -.->|Model Weights| LFS
+    GW <-->|HTTP and JSON REST| Presentation_Layer
 ```
 
 ---
